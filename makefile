@@ -1,7 +1,7 @@
 #!/bin/bash
 ./logo
 echo "	Compiling smart.c..................................[OK]"
-gcc source/smart.c -O3 -msse2 -o smart
+gcc source/smart.c -O3 -msse2 -o smart -lm
 echo "	Compiling show.c...................................[OK]"
 gcc source/show.c -O3 -msse2 -o show
 echo "	Compiling selectAlgo.c.............................[OK]"
