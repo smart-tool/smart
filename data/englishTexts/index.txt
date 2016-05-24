@@ -1,0 +1,11 @@
+ENGLISH NATURAL LANGUAGE CORPUS
+From The Large Canterbury Corpus, http://corpus.canterbury.ac.nz/
+TOTAL SIZE: 6,1 MB
+
+The King James version of the bible
+#bible.txt#
+3,9 MB
+
+The CIA world fact book
+#world192.txt#  
+2,4 MB

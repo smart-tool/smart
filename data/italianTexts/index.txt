@@ -1,0 +1,45 @@
+ITALIAN NATURAL LANGUAGE CORPUS
+From Liber/Liber, http://www.liberliber.it/
+TOTAL SIZE: 5 MB
+
+La Gerusalemme Liberata
+Torquato Tasso (1584)
+http://www.liberliber.it/biblioteca/t/tasso/gerusalemme_conquistata/gerusale.zip
+#gerusale.txt#
+690,1 kB
+
+Il fu Mattia Pascal
+Luigi Pirandello (1904)
+http://www.liberliber.it/biblioteca/p/pirandello/il_fu_mattia_pascal/il_fu_ma.zip
+#il_fu_ma.txt#  
+447,3 kB
+
+La divina commedia
+Dante Aligheri (1307)
+http://www.liberliber.it/biblioteca/a/alighieri/la_divina_commedia/la_divin.zip
+#la_divin.txt#
+551,9 kB
+
+I promessi sposi
+Alessandro Manzoni (1827)
+http://www.liberliber.it/biblioteca/m/manzoni/i_promessi_sposi/i_promes.zip
+#i_promes.txt#
+1,3 MB
+
+Orlando furioso
+Ludovico Ariosto (1532)
+http://www.liberliber.it/biblioteca/a/ariosto/orlando_furioso/orlando_.zip
+#orlando_.txt#
+1,5 MB
+
+Ultime lettere di Jacopo Ortis
+Ugo Foscolo (1817)
+http://www.liberliber.it/biblioteca/f/foscolo/ultime_lettere_di_jacopo_ortis/ultime_l.zip
+#ultime_l.txt#
+281,2 kB
+
+Il canzoniere
+Francesco Petrarca (1373)
+http://www.liberliber.it/biblioteca/p/petrarca/canzoniere/canzon_t.zip
+#canzon_t.txt#
+296,3 kB

@@ -1,0 +1,7 @@
+GENOME CORPUS
+From The Large Canterbury Corpus, http://corpus.canterbury.ac.nz/
+TOTAL SIZE: 4,4 MB
+
+Complete genome of the E. Coli bacterium
+#ecoli.txt#
+4,4 MB

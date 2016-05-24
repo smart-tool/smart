@@ -1,0 +1,19 @@
+PROTEIN CORPUS
+From http://data-compression.info/Corpora/ProteinCorpus/
+TOTAL SIZE: 6,8 MB
+
+Homo sapiens
+#hs.txt#
+3,1 MB
+
+Methanococcus jannaschii
+#mj.txt#
+403,38 KB
+
+Saccharomyces cerevisiae
+#sc.txt#
+2,8 MB
+
+Haemophilus influenzae
+#hi.txt#
+497,6 KB
