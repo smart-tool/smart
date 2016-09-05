@@ -9,3 +9,7 @@ The documentation about smart is available [here](http://www.dmi.unict.it/~faro/
 
 ## How to compile it from source
 To compile the source just download (or clone) this repository and run the file makefile from terminal (with **./makefile**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into source/bin/).
+
+## Troubleshooting
+
+Problem with **shared memory (shmget)**? see the [documentation](http://www.dmi.unict.it/~faro/smart/howto.php?id=03)
