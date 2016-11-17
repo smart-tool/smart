@@ -16,8 +16,8 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * This is an implementation of the EPSM algorithm
- * in S. Faro and O. M. Kulekci. 
+ * This is an implementation of the EPSM algorithm in S. Faro and O. M. Kulekci. 
+ * It includes corrections to the original implementations gently provided by Jorma Tarhio and Jan Holub 
  */
 
 #include "include/define.h"
@@ -45,7 +45,7 @@ typedef struct list
     struct list *next;
     int pos;
 } LIST;
- 
+
 int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {//we exactly know patlen=1
 
@@ -56,15 +56,12 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     unsigned int j,k;
     int cnt=0;
 
-   BEGIN_PREPROCESSING
-    for(j=0; j<16; j++)
+    for (j=0; j<16; j++)
     {
         template0.uc[j]=pattern[0];
     }
     t0 = template0.v;
-   END_PREPROCESSING
-    
-   BEGIN_SEARCHING
+
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
@@ -72,9 +69,8 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         text++;
     }
     //now we are at the beginning of the last 16-byte block, perform naive check
-    for(j=16*(textlen/16);j<textlen;j++)
+    for (j=16*(textlen/16);j<textlen;j++)
         cnt += (x[j]==pattern[0]);
-   END_SEARCHING
     return cnt;
 }
 
@@ -89,55 +85,48 @@ int search2(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     int cnt=0;
     unsigned char firstch = pattern[0], lastch = pattern[1];
 
-   BEGIN_PREPROCESSING
-    for(j=0; j<16; j++)
+    for (j=0; j<16; j++)
     {
         template0.uc[j]=firstch;        //template0.uc[i+1]=lastch;
         template1.uc[j]=lastch;        //template1.uc[i+1]=firstch;
     }
     t0 = template0.v;
     t1 = template1.v;
-   END_PREPROCESSING
 
-   BEGIN_SEARCHING
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
         b     = _mm_cmpeq_epi8(t1,*text);
         k     = _mm_movemask_epi8(b);
         cnt  += _mm_popcnt_u32( ((j<<1)|(carry>>15)) & k );
-	carry = j & 0x00008000;
+carry = j & 0x00008000;
         text++;
     }
     //now we are at the beginning of the last 16-byte block, perform naive check
-    for(j=16*(textlen/16);j<textlen;j++)
+    for (j=16*(textlen/16);j<textlen;j++)
         cnt += ((x[j-1]==firstch) && (x[j]==lastch));
-    END_SEARCHING
     return cnt;
 }
 
 int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {//we exactly know patlen=3
 
-   BEGIN_PREPROCESSING
     __m128i* text = (__m128i*)x;
     __m128i* end  = (__m128i*)(x+16*(textlen/16));
     __m128i t0,t1,t2,a,b,c;
     VectorUnion template0,template1,template2;
     unsigned int j,k,l,carry0=0,carry1=0;
     int cnt=0;
-    for(j=0; j<16; j++)
+    for (j=0; j<16; j++)
     {
-        template0.uc[j]=pattern[0];        
-        template1.uc[j]=pattern[1];        
-        template2.uc[j]=pattern[2];        
+        template0.uc[j]=pattern[0];
+        template1.uc[j]=pattern[1];
+        template2.uc[j]=pattern[2];
     }
     t0 = template0.v;
     t1 = template1.v;
     t2 = template2.v;
-   END_PREPROCESSING
 
-   BEGIN_SEARCHING
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
@@ -149,14 +138,13 @@ int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         l     = _mm_movemask_epi8(c);
 
         cnt  += _mm_popcnt_u32( ((j<<2)|(carry0>>14)) & ((k<<1)|(carry1>>15)) & l );
-	carry0 = j & 0x0000C000;
+carry0 = j & 0x0000C000;
         carry1 = k & 0x00008000;
         text++;
     }
     //now we are at the beginning of the last 16-byte block, perform naive check
-    for(j=16*(textlen/16);j<textlen;j++)
+    for (j=16*(textlen/16);j<textlen;j++)
         cnt += ((x[j-2]==pattern[0]) && (x[j-1]==pattern[1]) && (x[j]==pattern[2]));
-    END_SEARCHING
     return cnt;
 }
 
@@ -165,12 +153,11 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     __m128i* text = (__m128i*)x;
     __m128i* end  = (__m128i*)(x+16*(textlen/16));
     if ((textlen%16)<7) end--;
- 
-   BEGIN_PREPROCESSING
+
     int i,count=0;
     VectorUnion P,Z;
     __m128i a,b,p,z;
- 
+
     Z.ui[0] = Z.ui[1] = Z.ui[2] = Z.ui[3] = 0;
     z= Z.v;
     P.uc[0] = pattern[0];
@@ -178,11 +165,9 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     P.uc[2] = pattern[2];
     P.uc[3] = pattern[3];
     p = P.v;
- 
-    text++;// leave the naive check of the first block to the end
-    END_PREPROCESSING
 
-   BEGIN_SEARCHING
+    text++;// leave the naive check of the first block to the end
+
     while(text<end)
     {
         //check if P[(m-4) ... (m-1)] matches with T[i*16 ... i*16+3], T[i*16+1 ... i*16+4], .... , T[i*16+7 ... i*16+10]
@@ -190,10 +175,10 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         b      = _mm_cmpeq_epi16(a,z);
         i      = _mm_movemask_epi8(b);
         count += _mm_popcnt_u32(i);
- 
+
         a      = _mm_blend_epi16(*text,*(text+1),0x0f);
         b      = _mm_shuffle_epi32(a, _MM_SHUFFLE(1,0,3,2));
- 
+
         //check if P[(m-4) ... (m-1)] matches with T[i*16+8 ... i*16+11], T[i*16+9 ... i*16+12], .... , T[i*16+15 ... i*16+18]
         a      = _mm_mpsadbw_epu8(b, p, 0x00);
         b      = _mm_cmpeq_epi16(a,z);
@@ -202,20 +187,19 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         text++;
     }
     count = count / 2;
- 
+
     // the ending position of the pattern from the first appropriate position T[patlen-1] to the third position of the next 16-byte block is performed naive
-    for(i=3; (i<19) && (i<textlen); i++) // j presents possible end points of the pattern
+    for (i=3; (i<19) && (i<textlen); i++) // j presents possible end points of the pattern
         if (0==memcmp(pattern,&x[i-3],patlen)) count++;
- 
+
     // note that at the last iteration of the while loop, we have checked if P ends at positions 0,1,and 2 of the last 16-byte block
     // however, what if the last position of the text is beyond 2?
     // for the possibilities that T ends at positions 3,4,5,6,7,8,9,10,11,12,13,14,and 15, we perform naive checks
- 
-    for(i = ((unsigned char*) text)+3-x ; i < textlen ; i++)
+
+    for (i = ((unsigned char*) text)+3-x ; i < textlen ; i++)
     {
         if ( 0 == memcmp(pattern,&x[i-3],4) ) count++;
     }
-    END_SEARCHING
 
     return count;
 }
@@ -225,45 +209,44 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     LIST* flist[2048]; //11 bit hash is gives the best result according to our tests, no shorter no longer
     LIST *t, *t1;
 
-   BEGIN_PREPROCESSING
     unsigned int i,filter,shift = (patlen/8)-1;
     unsigned long long crc, seed= 123456789, mask;
     unsigned long long* ptr64;
     unsigned long long* lastchunk;
     unsigned char* charPtr;
-    int count=0,p=0;
+    int count=0,p=0,tmppatlen=(patlen/8)*8;
     mask = 2047;
 
     memset(flist,0,sizeof(LIST*)*2048);
 
-    for(i=1; i<patlen-7; i++)
+    for (i=1; i<tmppatlen-7; i++)
     {
         ptr64 = (unsigned long long*)(&pattern[i]);
         crc = _mm_crc32_u64(seed,*ptr64);
         filter = (unsigned int)(crc & mask);
- 
+
         if (flist[filter]==0)
         {
             flist[filter] = (LIST*)malloc(sizeof(LIST));
             if (flist[filter]){
-	            flist[filter]->next = 0;
+            flist[filter]->next = 0;
         	    flist[filter]->pos  = i;
-	    }
+    }
         }
         else
         {
             t = flist[filter];
             while(t->next!=0) t = t->next;
             t->next = (LIST*)malloc(sizeof(LIST));
-	    if (t->next){
+    if (t->next){
             	t = t->next;
             	t->next=0;
             	t->pos = i;
-	    }
+    }
         }
     }
 
-    lastchunk = (unsigned long long*)&x[((textlen-patlen)/8)*8+1] ;
+    lastchunk = (unsigned long long*)&x[((textlen-tmppatlen)/8)*8+1] ;
     ptr64     = (unsigned long long*)&x[(shift-1)*8];
 
     crc = _mm_crc32_u64(seed,*ptr64);
@@ -274,15 +257,15 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
             while(t)
             {
 
-		if (t->pos <= 8*(shift-1)){
+if (t->pos <= 8*(shift-1)){
                 if (memcmp(pattern,charPtr - t->pos,patlen) == 0)
                     count++;
-		}
+}
                 t=t->next;
             }
     }
     ptr64 += shift;
- 
+
     crc = _mm_crc32_u64(seed,*ptr64);
     filter = (unsigned int)(crc & mask);
     if (flist[filter]){
@@ -291,22 +274,20 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
             while(t)
             {
 
-		if (t->pos <= 8*(2*shift-1)){
+if (t->pos <= 8*(2*shift-1)){
                 if (memcmp(pattern,charPtr - t->pos,patlen) == 0)
                     count++;
-		}
+}
                 t=t->next;
             }
     }
     ptr64 += shift;
-   END_PREPROCESSING
 
-   BEGIN_SEARCHING
     while(ptr64 < lastchunk)
     {
         crc = _mm_crc32_u64(seed,*ptr64);
         filter = (unsigned int)(crc & mask);
- 
+
         if (flist[filter])
         {
             charPtr = (unsigned char*)ptr64;
@@ -320,17 +301,17 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         }
         ptr64 += shift;
     }
- 
+
     ptr64 -= shift;
     charPtr = (unsigned char*)ptr64;
-    charPtr += patlen-1; //the first position unchecked where P may end
- 
+    charPtr += tmppatlen-1; //the first position unchecked where P may end
+
     while(charPtr < &x[textlen-1])
     {
-        if (0== memcmp(pattern,charPtr-patlen+1,patlen)) count++;
+        if (0== memcmp(pattern,charPtr-tmppatlen+1,patlen)) count++;
         charPtr++;
     }
-	END_SEARCHING
+
     return count;
 }
 
@@ -343,7 +324,6 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     if (patlen==4)        return search4(pattern, patlen, x, textlen);
     if (patlen>=16)       return search16(pattern, patlen, x, textlen);
 
-   BEGIN_PREPROCESSING
     unsigned char* y0;
     int i,j,k,count=0;
     VectorUnion P,zero;
@@ -359,10 +339,8 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     i = (patlen-1) / 16; // i points the first 16-byte block that P may end in
     i++;
     text += i;
-    for(k=0; k<(i*16+8)-patlen+1; k++) 	if (0 == memcmp(pattern,x+k,patlen)) count++;
-   END_PREPROCESSING
+    for (k=0; k<(i*16+8)-patlen+1; k++)  if (0 == memcmp(pattern,x+k,patlen)) count++;
 
-   BEGIN_SEARCHING
     //the loop checks if pattern ends at the second half of text[i] or at the first half of text[i+1]
     while(text < end)
     {
@@ -407,13 +385,11 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         text++;
     }
 
-    for(k = ((unsigned char*)text)+8-x ; k < textlen ; k++)
+    for (k = ((unsigned char*)text)+8-x ; k < textlen ; k++)
     {
         if ( 0 == memcmp(pattern,&x[k-patlen+1],patlen) ) count++;
     }
-   END_SEARCHING
 
     return count;
 }
-
 
