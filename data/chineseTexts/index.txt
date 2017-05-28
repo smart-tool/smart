@@ -1,0 +1,22 @@
+CHINESE NATURAL LANGUAGE CORPUS
+TOTAL SIZE: 5,7 MB
+
+Yue Wei Cao Tang Bi Ji, by Xiao Lan Ji
+#23817-0.txt#
+1,2 MB
+
+Zhong Guo Shi Da Jin Shu Zhi Guo Shai Tian Xiang, by Jing Xin Wu
+#24156-0.txt#
+786 KB
+
+Journey to the West, by Cheng'en Wu
+#23962-0.txt#  
+2,3 MB
+
+Huan Xi Yuan Jia, by Xi Hu Yu Yin Ren
+#25286-0.txt#
+745 KB
+
+Chinese Novels History, by Shuren Zhou
+#25559-0.txt#
+688 KB
