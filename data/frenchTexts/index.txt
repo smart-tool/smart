@@ -1,0 +1,30 @@
+FRENCH NATURAL LANGUAGE CORPUS
+TOTAL SIZE: 5,6 MB
+
+Notre-Dame de Paris by Victor Hugo
+#pg2610.txt#
+1,1 MB
+
+L'homme qui rit by Victor Hugo
+#pg5423.txt#
+1,2 MB
+
+Les misérables Tome I by Victor Hugo
+#pg17489.txt#
+713 KB
+
+Les misérables Tome II by Victor Hugo
+#pg17493.txt#
+631 KB
+
+Les misérables Tome III by Victor Hugo
+#pg17494.txt#
+557 KB
+
+Les misérables Tome IV by Victor Hugo
+#pg17518.txt#
+791 KB
+
+Les misérables Tome V by Victor Hugo
+#pg17519.txt#
+676 KB
