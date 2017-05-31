@@ -32,6 +32,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  
    p_len=m;
    if (m > 16) m = 16;
+    if((n/m)<2) return -1;
 
    /* Preprocessing */
    BEGIN_PREPROCESSING

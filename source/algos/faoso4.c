@@ -117,9 +117,10 @@ void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m, int q
       z = s%v-mq;
       c -= (s/v + z*q);
       i = j+c;
-      k = 0;
-      if(i>=0 && i<=n-m) while(k<p_len && x[k]==y[i+k]) k++;
-      if(k==p_len) (*count)++;
+       if(!memcmp(x,y+i,p_len)) {
+           (*count)++;
+           //printf("%d\n",i);
+       }
       D &= ~(1<<s);
    }
 }

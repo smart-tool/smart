@@ -109,9 +109,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
             if ( D >= M ) {
                if (j > first) i = j-1;
                else {
-                  k = m;
-                  while(k<p_len && x[k]==y[first+k]) k++;
-                  if(k==p_len) OUTPUT(first);
+                   if(first <= n-p_len && !memcmp(x,y+first,p_len)) OUTPUT(first);
                }
             }
             j = j-1;

@@ -45,7 +45,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    BEGIN_SEARCHING
    count = 0;
    int mq = m-Q+1;
-   for (j = m - 1; j < n; j += mq)
+   for (j = mq - 1; j < n; j += mq)
       for (ptr = z[HS(y,j)]; ptr != NULL; ptr = ptr->next) 
 			if((j-ptr->element) <= n-m) {
 				k = 0;

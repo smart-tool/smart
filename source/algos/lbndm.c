@@ -46,7 +46,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n)
    int k;
    int i, j, l;
    int m1, m2, rmd;
-
+   if(m<2) return -1;
+    
    BEGIN_PREPROCESSING
    /* Preprocessing */
    M = 1 << (WORD-1);

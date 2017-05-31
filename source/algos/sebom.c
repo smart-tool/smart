@@ -29,7 +29,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    int iMinus1, mMinus1, count;
    unsigned char c;
    count = 0;
-
+    if(m<2) return -1;
+    
    // Allocate space for oracle
    BEGIN_PREPROCESSING
    for(i=0; i<=m+1; i++) trans[i] = (int *)malloc (sizeof(int)*(SIGMA));

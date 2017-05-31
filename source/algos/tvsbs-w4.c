@@ -36,10 +36,14 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
 
  int search(unsigned char *x, int m, unsigned char *y, int n){
    int count,i,s1,s2,s3,s4,j =0;
+     int l1,l2,l3,l4;
    int BrBcR[SIGMA][SIGMA], BrBcL[SIGMA][SIGMA];
    unsigned char firstch, lastch;
    unsigned char xr[XSIZE];
    unsigned char c;
+     if(n<m+2) return -1;
+     if(m<2) return -1;
+     
    BEGIN_PREPROCESSING
    for(i=0; i<m; i++) xr[i] = x[m-1-i];
    xr[m]='\0';
@@ -55,21 +59,31 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
    for(i=0; i<m; i++) y[n+i]=y[n+m+i]=x[i];
    int q = n/2;
    s1 = 0; s2 = q-1; s3 = q; s4 = n-m;
+   if(s2>n-m) s2=n-m;
+     l1 = s1;
+     l3 = s3;
+     l2 = s2;
+     l4 = s4;
+
    while(s1<=s2 || s3<=s4){
 		if(firstch==y[s1] || firstch==y[s2] || firstch==y[s3] || firstch==y[s4])  {
 			if(lastch==y[s1+mm1] || lastch==y[s2+mm1] || lastch==y[s3+mm1] || lastch==y[s4+mm1])  {
-				i=0;
-				while(i<m && x[i]==y[s1+i]) i++;
-				if(i==m && s1<=s2) count++;
-				i=0;
-				while(i<m && x[i]==y[s2+i]) i++;
-				if(i==m && s1<s2) count++;
-				i=0;
-				while(i<m && x[i]==y[s3+i]) i++;
-				if(i==m && s3<=s4) count++;
-				i=0;
-				while(i<m && x[i]==y[s4+i]) i++;
-				if(i==m && s3<s4) count++;
+				if(s1<l2 && !memcmp(x,y+s1,m)) {
+                    l1=s1;
+                    count++;
+                }
+                if(s2>l1 && !memcmp(x,y+s2,m)) {
+                    l2=s2;
+                    count++;
+                }
+                if(s3<l4 && !memcmp(x,y+s3,m)) {
+                    l3=s3;
+                    count++;
+                }
+                if(s4>l3 && !memcmp(x,y+s4,m)) {
+                    l4=s4;
+                    count++;
+                }
 			}
 		}
     	s1 += BrBcR[y[s1+m]][y[s1+mp1]];
@@ -78,5 +92,6 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
     	s4 -= BrBcL[y[s4-1]][y[s4-2]];
     }
    END_SEARCHING
+     y[n]='\0';
     return count;
  }

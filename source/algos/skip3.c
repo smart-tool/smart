@@ -45,13 +45,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    BEGIN_SEARCHING
    count = 0;
    int mq = m-Q+1;
-   for (j = m - 1; j < n; j += mq)
+   for (j = mq-1; j < n; j += mq)
       for (ptr = z[HS(y,j)]; ptr != NULL; ptr = ptr->next) 
 			if((j-ptr->element) <= n-m) {
 				k = 0;
 				h = j-ptr->element;
-				while(k<m && x[k]==y[h+k]) k++;
-				if(k>=m) count++;
+				if(!memcmp(x,y+h,m)) count++;
     	     }
    END_SEARCHING
    return count;

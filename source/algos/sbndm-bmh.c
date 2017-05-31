@@ -31,7 +31,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    int mM2 = m-2;
    int count = 0, restore[XSIZE+1], shift;
    if(m>32) return search_large(x,m,y,n);   
-
+   if(m<2) return -1;
+    
    /* preprocessing */
    BEGIN_PREPROCESSING
    for (i=0; i<SIGMA; i++)  B[i] = 0;

@@ -36,10 +36,14 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
 
  int search(unsigned char *x, int m, unsigned char *y, int n){
    int count,i,s1,s2,s3,s4,s5,s6,s7,s8,j =0;
+     int l1,l2,l3,l4,l5,l6,l7,l8;
    int BrBcR[SIGMA][SIGMA], BrBcL[SIGMA][SIGMA];
    unsigned char firstCh, lastCh;
    unsigned char xr[XSIZE];
    unsigned char c;
+     if(n<m+2) return -1;
+     if(m<2) return -1;
+
    BEGIN_PREPROCESSING
    for(i=0; i<m; i++) xr[i] = x[m-1-i];
    xr[m]='\0';
@@ -53,34 +57,53 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
    for(i=0; i<m; i++) y[n+i]=y[n+m+i]=x[i];
    int q = n/4;
    s1 = 0; s2 = q-1; s3 = q; s4 = 2*q-1; s5=2*q; s6=3*q-1; s7=3*q; s8=n-m;
+     if(s2>n-m) s2=n-m;
+     if(s4>n-m) s4=n-m;
+     if(s6>n-m) s6=n-m;
+     l1 = s1;
+     l3 = s3;
+     l2 = s2;
+     l4 = s4;
+     l5 = s5;
+     l6 = s6;
+     l7 = s7;
+     l8 = s8;
    while(s1<=s2 || s3<=s4 || s5<=s6 || s7<=s8) {
 		i=0; c = x[0];
 		while(c==y[s1+i] | c==y[s2+i] | c==y[s3+i] | c==y[s4+i] | c==y[s5+i] | c==y[s6+i] | c==y[s7+i] | c==y[s8+i]) c=x[++i];
 		if(i>=m) {
-			i=0;
-			while(i<m && x[i]==y[s1+i]) i++;
-			if(i==m && s1<=s2) count++;
-			i=0;
-			while(i<m && x[i]==y[s2+i]) i++;
-			if(i==m && s1<s2) count++;
-			i=0;
-			while(i<m && x[i]==y[s3+i]) i++;
-			if(i==m && s3<=s4) count++;
-			i=0;
-			while(i<m && x[i]==y[s4+i]) i++;
-			if(i==m && s3<s4) count++;
-			i=0;
-			while(i<m && x[i]==y[s5+i]) i++;
-			if(i==m && s5<=s6) count++;
-			i=0;
-			while(i<m && x[i]==y[s6+i]) i++;
-			if(i==m && s5<s6) count++;
-			i=0;
-			while(i<m && x[i]==y[s7+i]) i++;
-			if(i==m && s7<=s8) count++;
-			i=0;
-			while(i<m && x[i]==y[s8+i]) i++;
-			if(i==m && s7<s8) count++;
+            if(s1<l2 && !memcmp(x,y+s1,m)) {
+                l1=s1;
+                count++;
+            }
+            if(s2>l1 && !memcmp(x,y+s2,m)) {
+                l2=s2;
+                count++;
+            }
+            if(s3<l4 && !memcmp(x,y+s3,m)) {
+                l3=s3;
+                count++;
+            }
+            if(s4>l3 && !memcmp(x,y+s4,m)) {
+                l4=s4;
+                count++;
+            }
+            if(s5<l6 && !memcmp(x,y+s5,m)) {
+                l5=s5;
+                count++;
+            }
+            if(s6>l5 && !memcmp(x,y+s6,m)) {
+                l6=s6;
+                count++;
+            }
+            if(s7<l8 && !memcmp(x,y+s7,m)) {
+                l7=s7;
+                count++;
+            }
+            if(s8>l7 && !memcmp(x,y+s8,m)) {
+                l8=s8;
+                count++;
+            }
 		}
     	s1 += BrBcR[y[s1+m]][y[s1+mPlus1]];
     	s2 -= BrBcL[y[s2-1]][y[s2-2]];

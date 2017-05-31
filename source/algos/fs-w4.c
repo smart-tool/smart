@@ -65,9 +65,11 @@ void Pre_GS(unsigned char *x, int m, int bm_gs[]) {
 int search(unsigned char *P, int m, unsigned char *T, int n)
 {
 	int i, j,s1,s2,s3,s4,k1,k2,k3,k4,i1,i2,i3;
+    int l1,l2,l3,l4;
 	int h, count, hbcr[SIGMA], hbcl[SIGMA], gsR[XSIZE], gsL[XSIZE];
    unsigned char c, Pr[XSIZE];
-
+    if(n<6) return -1;
+    
 	/* proprocessing */
    BEGIN_PREPROCESSING
    for(i=0;i<SIGMA;i++) hbcr[i]=m;
@@ -93,29 +95,45 @@ int search(unsigned char *P, int m, unsigned char *T, int n)
    k2=hbcl[T[s2]];
    k3=hbcr[T[s3]];
    k4=hbcl[T[s4]];
+    l1 = s1-mm1;
+    l3 = s3-mm1;
+    l2 = s2;
+    l4 = s4;
    while(s1<=s2+mm1 || s3<=s4+mm1) {
       if(!k1) { 
          j = mm1; k1=s1-mm1;
          while(j>=0 && P[j]==T[k1+j]) j--;
-         if(j<0 && s1<=s2+mm1) count++;
+          if(j<0 && k1<l2) {
+              l1=k1;
+              count++;
+          }
          s1+=gsR[j+1];
       }
       if(!k2) { 
          i = 0; 
          while(i<m && P[i]==T[s2+i]) i++;
-         if(i==m && s1<s2+mm1) count++;
+          if(i==m && s2>l1) {
+              l2 = s2;
+              count++;
+          }
          s2-=gsL[m-i];
       }
       if(!k3) { 
          j = mm1; k3=s3-mm1;
          while(j>=0 && P[j]==T[k3+j]) j--;
-         if(j<0 && s3<=s4+mm1) count++;
+          if(j<0 && k3<l4) {
+              l3 = k3;
+              count++;
+          }
          s3+=gsR[j+1];
       }
       if(!k4) { 
          i = 0; 
          while(i<m && P[i]==T[s4+i]) i++;
-         if(i==m && s3<s4+mm1) count++;
+          if(i==m && s4>l3) {
+              l4 = s4;
+              count++;
+          }
          s4-=gsL[m-i];
       }
       while( (k1=hbcr[T[s1]]) && (k2=hbcl[T[s2]])  && (k3=hbcr[T[s3]]) && (k4=hbcl[T[s4]]) ) {
@@ -126,5 +144,6 @@ int search(unsigned char *P, int m, unsigned char *T, int n)
       }
    }
    END_SEARCHING
+   T[n] = '\0';
    return count;
 }

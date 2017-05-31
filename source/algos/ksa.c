@@ -37,7 +37,8 @@ int search( unsigned char *x, int m, unsigned char *y, int n)
    WORD_TYPE L[SIGMA] = {0};
    unsigned count = 0;
    unsigned char c;
-
+    if(m<2) return -1;
+    
    /* Preprocessing */
    BEGIN_PREPROCESSING
    end = 1;

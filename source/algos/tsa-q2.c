@@ -18,7 +18,8 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
 	uint64_t mask=0;
 	uint64_t B[512],B1[512];
 
-  if(m>64) abort();
+  if(m>64) return -1;
+  if(m<2) return -1;
 
   BEGIN_PREPROCESSING
   memset(B,0,256*4);
@@ -31,7 +32,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
 
   BEGIN_SEARCHING
   T[n+1]=255; //sentinel
- for (i=m-Q+1; i<=n-1; i+=m) 
+ for (i=m-Q; i<=n-1; i+=m)
 	{	
 		D=B[HS(T,i)]; 
 		j=1;

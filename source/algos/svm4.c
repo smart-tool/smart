@@ -43,6 +43,7 @@ static const unsigned char lowest_bit_in_byte[] = {
    5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
    4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0 };
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    int count = 0;
@@ -116,7 +117,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
    /* Searching */
    BEGIN_SEARCHING
-   if( !memcmp(x,y,m) ) OUTPUT(0);
+   if( !memcmp(x,y,p_len) ) OUTPUT(0);
    s = m;
    while(s < n){
       sv |= cv[y[s]];

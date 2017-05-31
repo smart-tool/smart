@@ -35,7 +35,8 @@ void preBmBc(unsigned char *x, int m, int bmBc[]) {
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    int j, bmBc[SIGMA], count;
    unsigned char c, firstCh, *secondCh, middleCh, lastCh;
-
+    if(m<2) return -1;
+    
    /* Preprocessing */
    BEGIN_PREPROCESSING
    preBmBc(x, m, bmBc);

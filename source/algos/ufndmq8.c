@@ -118,7 +118,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
             if (F >= mm) {
                for (j=0; j<p_len; j++)
                   if (y[k+j]!=x[j]) goto mismatch;
-               if (k+m > n)  {
+               if (k+p_len > n)  {
    				END_SEARCHING
                	return(count);
                }

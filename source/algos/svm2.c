@@ -25,6 +25,8 @@
 #include "include/define.h"
 #include "include/main.h"
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    int count = 0;
    int s;
@@ -100,7 +102,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
    
    /* Searching */
    BEGIN_SEARCHING
-   if( !memcmp(x,y,m) ) OUTPUT(0);
+   if( !memcmp(x,y,p_len) ) OUTPUT(0);
    s = m;
    while(s < n){
       sv |= cv[y[s]];

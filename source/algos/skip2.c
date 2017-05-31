@@ -28,8 +28,9 @@
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    int i, j, count, h, k;
    List ptr, z[DSIGMA];
-
-   BEGIN_PREPROCESSING	
+   if(m<Q) return -1;
+   
+   BEGIN_PREPROCESSING
    memset(z, 0, DSIGMA*sizeof(List));
    for (i = 0; i < m-Q+1; ++i) {
       ptr = (List)malloc(sizeof(struct _cell));
@@ -44,7 +45,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    BEGIN_SEARCHING
    count = 0;
    int mq = m-Q+1;
-   for (j = m - 1; j < n; j += mq)
+   for (j = mq - 1; j < n; j += mq)
       for (ptr = z[HS(y,j)]; ptr != NULL; ptr = ptr->next) 
 			if((j-ptr->element) <= n-m) {
 				k = 0;

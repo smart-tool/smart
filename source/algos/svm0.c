@@ -26,6 +26,8 @@
 #include "include/main.h"
 #define w ((int)sizeof(unsigned int)*8)
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 unsigned int asm_bsf(unsigned int x) {
     asm ("bsfl %0, %0" : "=r" (x) : "0" (x));
     return x;
@@ -97,7 +99,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
    /* searching */
    BEGIN_SEARCHING
-   if( !memcmp(x,y,m) ) OUTPUT(0);
+   if( !memcmp(x,y,p_len) ) OUTPUT(0);
    s = m;
    while(s < n){
       sv |= cv[y[s]];

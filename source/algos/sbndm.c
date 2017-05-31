@@ -32,7 +32,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    int mM2 = m-2;
    int count = 0, restore[XSIZE+1], shift;
 
-   if(m>32) return search_large(x,m,y,n);   
+   if(m>32) return search_large(x,m,y,n);
+    if(m<2) return -1;
 
    /* Preprocessing */
    BEGIN_PREPROCESSING
@@ -121,7 +122,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
    BEGIN_SEARCHING
    /* Searching */
-   if(!memcmp(x,y,m)) OUTPUT(0);
+   if(!memcmp(x,y,p_len)) OUTPUT(0);
    i = m;
    while (1) {
       while ((D = B[y[i]]) == 0) i += m;
@@ -137,8 +138,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
          	return count;
          }
          k=m;
-         while(k<m && x[k]==y[first+k]) k++;
-         if(k==m) OUTPUT(first);
+         while(k<p_len && x[k]==y[first+k]) k++;
+         if(k==p_len) OUTPUT(first);
          i += shift;
       } 
       else {

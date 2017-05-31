@@ -32,7 +32,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    int iMinus1, mMinus1, count;
    unsigned char c;
    count = 0;
-
+   if(m<2) return -1;
+    
    BEGIN_PREPROCESSING
    for(i=0; i<=m+1; i++) trans[i] = (int *)malloc (sizeof(int)*(SIGMA));
    for(i=0; i<=m+1; i++) for(j=0; j<SIGMA; j++) trans[i][j]=UNDEFINED;

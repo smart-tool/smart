@@ -26,6 +26,8 @@
 #include "include/main.h"
 #define GRAM2(i) ( (B[y[i-1]]<<1) | B[y[i]] )
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    unsigned int D, F, mm, mask, B[SIGMA], S;
    int i, j, k, mq, q;
@@ -55,7 +57,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
          i += m;
          D = (D<<m) | GRAM2(i);
       }
-      if (F=~(D|mask)) {
+      if ((F=~(D|mask))) {
          for (k=i-mq+1; F; F<<=1, k++)
          if (F >= mm) {
             for (j=0; j<m; j++)
@@ -113,12 +115,12 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n)
          i += m;
          D = (D<<m) | GRAM2(i);
       }
-      if (F=~(D|mask)) {
+      if ((F=~(D|mask))) {
          for (k=i-mq+1; F; F<<=1, k++)
          if (F >= mm) {
             for (j=0; j<p_len; j++)
                if (y[k+j]!=x[j]) goto mismatch;
-            if (k+m > n)  {
+            if (k+p_len > n)  {
             	return(count);
    				END_SEARCHING
             }

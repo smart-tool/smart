@@ -33,7 +33,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 	unsigned int B[DSIGMA];
 	int i, j, k, count;
     unsigned int s,d;
-
+    if(m<Q) return -1;
+    
     BEGIN_PREPROCESSING
     unsigned int occ[DSIGMA] = {0};
     int st = 0, len = 0;

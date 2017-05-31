@@ -46,8 +46,10 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
    unsigned int B[SIGMA],W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
-   int i, j,s1,s2,s3,s4,s5,s6,s7,s8, pos, mm1, mp1, count;	
+   int i, j,s1,s2,s3,s4,s5,s6,s7,s8, pos, mm1, mp1, count;
+    int l1,l2,l3,l4,l5,l6,l7,l8;
 
+    if(m<11) return -1;
    /* Preprocessing */
    BEGIN_PREPROCESSING
 	int plen = m;
@@ -74,6 +76,22 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 	int q = n/4;
 	if(!memcmp(x,y,plen)) count++;
    s1 = m; s2=q-m; s3=q; s4=2*q-m; s5=2*q; s6=3*q-m; s7=3*q; s8=n-plen;
+    if(s2<=s1-mm1) s2=s1-mm1+1;
+    s3=s2+m;
+    if(s4<=s3-mm1) s4=s3-mm1+1;
+    s5=s4+m;
+    if(s6<=s5-mm1) s6=s5-mm1+1;
+    s7=s6+m;
+
+    l1 = s1-mm1;
+    l3 = s3-mm1;
+    l5 = s5-mm1;
+    l7 = s7-mm1;
+    l2 = s2;
+    l4 = s4;
+    l6 = s6;
+    l8 = s8;
+   
    while (s1 <= s2+mm1 || s3<=s4+mm1 || s5 <= s6+mm1 || s7<=s8+mm1) {
       while (( d = (((B[y[s1+1]]<<1)&B[y[s1]]) | ((W[y[s2-1]]<<1)&W[y[s2]]) 
 						  | ((B[y[s3+1]]<<1)&B[y[s3]]) | ((W[y[s4-1]]<<1)&W[y[s4]]) 
@@ -89,7 +107,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 		  s8 -= hbcl[y[s8-m]];
       }
 		pos = s1;
-		while (d=(d+d) & (B[y[s1-1]]|W[y[s2+1]]|B[y[s3-1]]|W[y[s4+1]]|B[y[s5-1]]|W[y[s6+1]]|B[y[s7-1]]|W[y[s8+1]])) { --s1; ++s2; --s3; ++s4; --s5; ++s6;--s7; ++s8;}
+		while ((d=(d+d)) & (B[y[s1-1]]|W[y[s2+1]]|B[y[s3-1]]|W[y[s4+1]]|B[y[s5-1]]|W[y[s6+1]]|B[y[s7-1]]|W[y[s8+1]])) { --s1; ++s2; --s3; ++s4; --s5; ++s6;--s7; ++s8;}
       s1 += mm1;
       s2 -= mm1;
       s3 += mm1;
@@ -101,28 +119,52 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       if (s1==pos) {
 			i=0; j=s1-mm1;
 			while(i<plen && x[i]==y[j+i]) i++;
-			if(i==plen && s1<=s2+mm1) count++;
+          if(i==plen && j<l2) {
+              l1=j;
+              count++;
+          }
 			i=0;
 			while(i<plen && x[i]==y[s2+i]) i++;
-			if(i==plen && s1<s2+mm1) count++;
+          if(i==plen && s2>l1) {
+              l2=s2;
+              count++;
+          }
 			i=0; j=s3-mm1;
 			while(i<plen && x[i]==y[j+i]) i++;
-			if(i==plen && s3<=s4+mm1) count++;
+          if(i==plen && j<l4) {
+              l3=j;
+              count++;
+          }
 			i=0;
 			while(i<plen && x[i]==y[s4+i]) i++;
-			if(i==plen && s3<s4+mm1) count++;
+          if(i==plen && s4>l3) {
+              l4=s4;
+              count++;
+          }
 			i=0; j=s5-mm1;
 			while(i<plen && x[i]==y[j+i]) i++;
-			if(i==plen && s5<=s6+mm1) count++;
+          if(i==plen && j<l6) {
+              l5=j;
+              count++;
+          }
 			i=0;
 			while(i<plen && x[i]==y[s6+i]) i++;
-			if(i==plen && s5<s6+mm1) count++;
+          if(i==plen && s6>l5) {
+              l6=s6;
+              count++;
+          }
 			i=0; j=s7-mm1;
 			while(i<plen && x[i]==y[j+i]) i++;
-			if(i==plen && s7<=s8+mm1) count++;
+          if(i==plen && j<l8) {
+              l7=j;
+              count++;
+          }
 			i=0;
 			while(i<plen && x[i]==y[s8+i]) i++;
-			if(i==plen && s7<s8+mm1) count++;
+          if(i==plen && s8>l7) {
+              l8=s8;
+              count++;
+          }
          ++s1;
          --s2;
          ++s3;

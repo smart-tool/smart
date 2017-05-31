@@ -51,7 +51,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 	
    BEGIN_SEARCHING
    /* Searching */
-	for (i=mq1-1; i<nq1; i+=mq1) {
+    if(!memcmp(x,y,m)) OUTPUT(0);
+	for (i=mq1; i<nq1; i+=mq1) {
 		D = B[y[i]];
 		if ( D ) {
 			j = i; 
