@@ -88,6 +88,23 @@ void free_shm() {
     shmctl(preshmid, IPC_RMID,0);
 }
 
+int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char*T, int n,
+			char *algoname, key_t pkey, key_t tkey, key_t rkey, key_t ekey, key_t prekey,
+			int alpha, char *parameter, int ncase) {
+	(*rip)++;
+	//printf("\b\b\b\b\b\b[%.3d%%]",(*rip)*100/18); fflush(stdout);
+	(*count) = 0;
+	int occur1 = search(P,m,T,n);
+	int occur2 = execute(algoname,pkey,m,tkey,n,rkey,ekey,prekey,count,alpha);
+	if(occur2>=0 && occur1 != occur2) {
+		if(!VERBOSE) printf("\n\tERROR: test failed on case n.%d (\"%s\" in \"%s\")\n\
+							found %d occ instead of %d\n\n", ncase,P,T,occur2,occur1);
+		free_shm();
+		return 0;
+	}
+	return 1;
+}
+
 int main(int argc, char *argv[]) {
 	int i, j;
 	
@@ -112,7 +129,7 @@ int main(int argc, char *argv[]) {
     int try = 0;
     do  {
 		tkey = rand()%1000;
-		tshmid = shmget(tkey, YSIZE+1, IPC_CREAT | 0666); 
+		tshmid = shmget(tkey, YSIZE*2, IPC_CREAT | 0666); 
  	} while(++try<ATTEMPT && tshmid<0);
     if (tshmid < 0) {
         perror("shmget"); 
@@ -208,7 +225,7 @@ int main(int argc, char *argv[]) {
 	//begin testing
 	int rip = 0;
 	int alpha, k, h, m, occur1, occur2, test=1;
-	for(alpha = 2; alpha<=128; alpha*=2) {
+	/*for(alpha = 2; alpha<=128; alpha*=2) {
 		for(i=0; i<YSIZE; i++) T[i] = rand()%alpha;
 		// compute the frequency of characters
 		//for(j=0; j<SIGMA; j++) FREQ[j]=0;
@@ -230,7 +247,140 @@ int main(int argc, char *argv[]) {
 				}
 			}
 		}
-	}
+	}*/
+	
+	// 1) search for "a" in "aaaaaaaaaa"
+	strcpy((char*)P,"a");
+	strcpy((char*)T,"aaaaaaaaaa");
+	if(!attempt(&rip,count,P,1,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,1))
+		exit(1);
+
+	// 2) search for "aa" in "aaaaaaaaaa"
+	strcpy((char*)P,"aa");
+	strcpy((char*)T,"aaaaaaaaaa");
+	if(!attempt(&rip,count,P,2,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,2))
+		exit(1);
+
+	// 3) search for "aaaaaaaaaa" in "aaaaaaaaaa"
+	strcpy((char*)P,"aaaaaaaaaa");
+	strcpy((char*)T,"aaaaaaaaaa");
+	if(!attempt(&rip,count,P,10,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,3))
+		exit(1);
+
+	// 4) search for "b" in "aaaaaaaaaa"
+	strcpy((char*)P,"b");
+	strcpy((char*)T,"aaaaaaaaaa");
+	if(!attempt(&rip,count,P,1,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,4))
+		exit(1);
+
+	// 5) search for "abab" in "ababababab"
+	strcpy((char*)P,"ab");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,2,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,5))
+		exit(1);
+
+	// 6) search for "a" in "ababababab"
+	strcpy((char*)P,"a");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,1,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,6))
+		exit(1);
+
+	// 7) search for "aba" in "ababababab"
+	strcpy((char*)P,"aba");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,3,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,7))
+		exit(1);
+
+	// 8) search for "abc" in "ababababab"
+	strcpy((char*)P,"abc");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,3,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,8))
+		exit(1);
+
+	// 9) search for "ba" in "ababababab"
+	strcpy((char*)P,"ba");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,2,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,8))
+		exit(1);
+
+	// 10) search for "babbbbb" in "ababababab"
+	strcpy((char*)P,"babbbbb");
+	strcpy((char*)T,"ababababab");
+	if(!attempt(&rip,count,P,7,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,10))
+		exit(1);
+
+	// 11) search for "bcdefg" in "bcdefghilm"
+	strcpy((char*)P,"bcdefg");
+	strcpy((char*)T,"bcdefghilm");
+	if(!attempt(&rip,count,P,6,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,11))
+		exit(1);
+
+	// 12) search for rand in rand
+	for(h=0; h<10; h++) T[h] = rand()%128;
+	for(h=0; h<4; h++) P[h] = T[h];
+	T[YSIZE] = P[4] = '\0';
+	if(!attempt(&rip,count,P,4,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,12))
+		exit(1);
+
+	// 13) search for rand in rand
+	for(h=0; h<10; h++) T[h] = rand()%128;
+	for(h=0; h<4; h++) P[h] = T[h];
+	T[10] = P[4] = '\0';
+	if(!attempt(&rip,count,P,4,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,13))
+		exit(1);
+
+	// 14) search for rand in rand
+	for(h=0; h<64; h++) T[h] = rand()%128;
+	for(h=0; h<40; h++) P[h] = T[h];
+	T[64] = P[40] = '\0';
+	if(!attempt(&rip,count,P,40,T,64,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,14))
+		exit(1);
+
+	// 15) search for rand in rand
+	for(h=0; h<64; h++) T[h] = rand()%128;
+	for(h=0; h<40; h++) P[h] = T[h];
+	T[64] = P[40] = '\0';
+	if(!attempt(&rip,count,P,40,T,64,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,15))
+		exit(1);
+
+	// 16) search for rand in rand
+	for(h=0; h<64; h++) T[h] = 'a';
+	for(h=0; h<40; h++) P[h] = 'a';
+	T[64] = P[40] = '\0';
+	if(!attempt(&rip,count,P,40,T,64,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,16))
+		exit(1);
+
+	// 17) search for rand in rand
+	for(h=0; h<64; h+=2) T[h] = 'a';
+	for(h=1; h<64; h+=2) T[h] = 'b';
+	for(h=0; h<40; h+=2) P[h] = 'a';
+	for(h=1; h<40; h+=2) P[h] = 'b';
+	T[64] = P[40] = '\0';
+	if(!attempt(&rip,count,P,40,T,64,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,17))
+		exit(1);
+
+	// 18) search for rand in rand
+	for(h=0; h<64; h+=2) T[h] = 'a';
+	for(h=1; h<64; h+=2) T[h] = 'b';
+	for(h=0; h<40; h+=2) P[h] = 'a';
+	for(h=1; h<40; h+=2) P[h] = 'b';
+	P[39] = 'c';
+	T[64] = P[40] = '\0';
+	if(!attempt(&rip,count,P,40,T,64,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,18))
+		exit(1);
+
+    // 19) search for "babbbbb" in "abababbbbb"
+    strcpy((char*)P,"babbbbb");
+    strcpy((char*)T,"abababbbbb");
+    if(!attempt(&rip,count,P,7,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,19))
+        exit(1);
+
+    // 20) search for "bababb" in "abababbbbb"
+    strcpy((char*)P,"bababb");
+    strcpy((char*)T,"abababbbbb");
+    if(!attempt(&rip,count,P,6,T,10,algoname,pkey,tkey,rkey,ekey,prekey,alpha,parameter,20))
+        exit(1);
+    	
 	if(!VERBOSE) printf("\n\tWell done! Test passed successfully\n\n");
 		
 

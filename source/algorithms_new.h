@@ -44,7 +44,6 @@
 #0 #epsm
 #0 #faoso2
 #0 #faoso4
-#0 #faoso6
 #0 #fbom
 #0 #fdm
 #0 #ffs
@@ -56,7 +55,6 @@
 #0 #fs-w6
 #0 #fs-w8
 #0 #fs
-#0 #fsbndm-w1
 #0 #fsbndm-w2
 #0 #fsbndm-w4
 #0 #fsbndm-w6

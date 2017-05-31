@@ -54,7 +54,23 @@ int main(int argc, const char *argv[]) {
 	}
 	closedir(d);
 	
-	//compile c files
+    //counting c files
+    d = opendir("./source/algos");
+    int n_algo = 0;
+    if(d) {
+        while ((dir = readdir(d)) != NULL) {
+            strcpy(filename, dir->d_name);
+            int len = strlen(filename);
+            if(filename[len-1]=='c' && filename[len-2]=='.') {
+                n_algo ++;
+            }
+        }
+    }
+    closedir(d);
+    
+    int current = 0;
+    int compiling_error = 0, testing_error= 0;
+    //compile c files
 	d = opendir("./source/algos");
 	if(d) {
 	  	while ((dir = readdir(d)) != NULL) {
@@ -62,11 +78,15 @@ int main(int argc, const char *argv[]) {
 			int len = strlen(filename);
 			if(filename[len-1]=='c' && filename[len-2]=='.') {
 				filename[len-2] = '\0';
+                current++;
 				//compile
 				sprintf(command,"%s%s.c%s%s",gcc,filename,options,filename);
-				printf("\tCompiling file %s.c....",filename);
-				for(i=0; i<10-strlen(filename); i++) printf(".");
+                printf("\tCompiling and testing %s.c",filename);
+				for(i=0; i<15-strlen(filename); i++) printf(".");
+                printf("(%.3d/%.3d) [000%%]",current,n_algo);
 				fflush(stdout);
+
+                printf("\b\b\b\b\b\b[%.3d%%]",current*100/n_algo); fflush(stdout);
 
 				stream = freopen ("warning","w",stderr);  //redirect of stderr
 				if( system(command)==1 ) printf("[ERROR]\n");
@@ -75,16 +95,16 @@ int main(int argc, const char *argv[]) {
 					sprintf(binary,"%s%s",destination,filename);
 					FILE *fp = fopen(binary,"r");
 					if(fp) {
-						printf("[OK]");
 						fclose(fp);
 						fflush(stdout);
 						if(doTest) {
 							//testing correctness of the algorithm
 							sprintf(command,"./test %s -nv",filename);
-							printf(" testing............");
+							//printf("\b\b\b\b\b[000%]");
 							fflush(stdout);
 							if(system(command)) {
-								printf("\b\b\b\b\b\b\b\b[FAILED]");
+                                testing_error++;
+								printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b....[TEST FAILED]");
 								printf("\n");
 							}
 							else {
@@ -93,7 +113,10 @@ int main(int argc, const char *argv[]) {
 							}
 						}
 					}
-					else printf("[FAILED]\n");
+                    else {
+                        printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b..[COMPLING ERROR]\n");
+                        compiling_error++;
+                    }
 					fflush(stdout);
 				}
 				fclose(stream);
@@ -101,5 +124,10 @@ int main(int argc, const char *argv[]) {
 		}
 	}
 	closedir(d);
+    for(i=0; i<33; i++) printf("\b");
+    printf("\tAll algorithms have been compiled and tested.......\n");
+    printf("\tCompiling errors .................................[%.3d]\n", compiling_error);
+    printf("\tTesting errors ...................................[%.3d]\n\n", testing_error);
+
 }
 

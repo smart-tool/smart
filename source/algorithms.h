@@ -10,7 +10,7 @@
 #0 #bf 
 #0 #bfs 
 #0 #blim 
-#1 #bm 
+#0 #bm 
 #0 #bmh-sbndm 
 #0 #bndm 
 #0 #bndml 
@@ -44,7 +44,6 @@
 #0 #epsm 
 #0 #faoso2 
 #0 #faoso4 
-#0 #faoso6 
 #0 #fbom 
 #0 #fdm 
 #0 #ffs 
@@ -57,7 +56,6 @@
 #0 #fs-w6 
 #0 #fs-w8 
 #0 #fsbndm 
-#0 #fsbndm-w1 
 #0 #fsbndm-w2 
 #0 #fsbndm-w4 
 #0 #fsbndm-w6 
@@ -82,7 +80,7 @@
 #0 #hash3 
 #0 #hash5 
 #0 #hash8 
-#1 #hor 
+#0 #hor 
 #0 #ildm1 
 #0 #ildm2 
 #0 #ioh 
@@ -124,7 +122,7 @@
 #0 #sbndm-w2 
 #0 #sbndm-w4 
 #0 #sbndm-w6 
-#0 #sbndm2 
+#1 #sbndm2 
 #0 #sbndmq2 
 #0 #sbndmq4 
 #0 #sbndmq6 
