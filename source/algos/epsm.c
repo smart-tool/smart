@@ -56,12 +56,15 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     unsigned int j,k;
     int cnt=0;
 
+    BEGIN_PREPROCESSING
     for (j=0; j<16; j++)
     {
         template0.uc[j]=pattern[0];
     }
     t0 = template0.v;
+    END_PREPROCESSING
 
+    END_SEARCHING
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
@@ -71,6 +74,7 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     //now we are at the beginning of the last 16-byte block, perform naive check
     for (j=16*(textlen/16);j<textlen;j++)
         cnt += (x[j]==pattern[0]);
+    END_SEARCHING
     return cnt;
 }
 
@@ -85,6 +89,7 @@ int search2(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     int cnt=0;
     unsigned char firstch = pattern[0], lastch = pattern[1];
 
+    BEGIN_PREPROCESSING
     for (j=0; j<16; j++)
     {
         template0.uc[j]=firstch;        //template0.uc[i+1]=lastch;
@@ -92,7 +97,9 @@ int search2(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     }
     t0 = template0.v;
     t1 = template1.v;
-
+    END_PREPROCESSING
+    
+    BEGIN_SEARCHING
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
@@ -105,6 +112,8 @@ carry = j & 0x00008000;
     //now we are at the beginning of the last 16-byte block, perform naive check
     for (j=16*(textlen/16);j<textlen;j++)
         cnt += ((x[j-1]==firstch) && (x[j]==lastch));
+    END_SEARCHING
+    
     return cnt;
 }
 
@@ -117,6 +126,8 @@ int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     VectorUnion template0,template1,template2;
     unsigned int j,k,l,carry0=0,carry1=0;
     int cnt=0;
+    
+    BEGIN_PREPROCESSING
     for (j=0; j<16; j++)
     {
         template0.uc[j]=pattern[0];
@@ -126,7 +137,9 @@ int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     t0 = template0.v;
     t1 = template1.v;
     t2 = template2.v;
-
+    END_PREPROCESSING
+    
+    BEGIN_SEARCHING
     while(text<end){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
@@ -145,6 +158,8 @@ carry0 = j & 0x0000C000;
     //now we are at the beginning of the last 16-byte block, perform naive check
     for (j=16*(textlen/16);j<textlen;j++)
         cnt += ((x[j-2]==pattern[0]) && (x[j-1]==pattern[1]) && (x[j]==pattern[2]));
+    END_SEARCHING
+    
     return cnt;
 }
 
@@ -158,6 +173,7 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     VectorUnion P,Z;
     __m128i a,b,p,z;
 
+    BEGIN_PREPROCESSING
     Z.ui[0] = Z.ui[1] = Z.ui[2] = Z.ui[3] = 0;
     z= Z.v;
     P.uc[0] = pattern[0];
@@ -165,9 +181,11 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     P.uc[2] = pattern[2];
     P.uc[3] = pattern[3];
     p = P.v;
-
+    END_PREPROCESSING
+    
     text++;// leave the naive check of the first block to the end
 
+    BEGIN_SEARCHING
     while(text<end)
     {
         //check if P[(m-4) ... (m-1)] matches with T[i*16 ... i*16+3], T[i*16+1 ... i*16+4], .... , T[i*16+7 ... i*16+10]
@@ -200,7 +218,8 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     {
         if ( 0 == memcmp(pattern,&x[i-3],4) ) count++;
     }
-
+    END_SEARCHING
+    
     return count;
 }
 
@@ -216,7 +235,8 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     unsigned char* charPtr;
     int count=0,p=0,tmppatlen=(patlen/8)*8;
     mask = 2047;
-
+    
+    BEGIN_PREPROCESSING
     memset(flist,0,sizeof(LIST*)*2048);
 
     for (i=1; i<tmppatlen-7; i++)
@@ -245,7 +265,9 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     }
         }
     }
-
+    END_PREPROCESSING
+    
+    BEGIN_SEARCHING
     lastchunk = (unsigned long long*)&x[((textlen-tmppatlen)/8)*8+1] ;
     ptr64     = (unsigned long long*)&x[(shift-1)*8];
 
@@ -311,7 +333,8 @@ if (t->pos <= 8*(2*shift-1)){
         if (0== memcmp(pattern,charPtr-tmppatlen+1,patlen)) count++;
         charPtr++;
     }
-
+    END_SEARCHING
+    
     return count;
 }
 
@@ -333,6 +356,7 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     __m128i* end  = (__m128i*)(x+16*(textlen/16));
      end--;
 
+    BEGIN_PREPROCESSING
     zero.ui[0]=    zero.ui[1]=    zero.ui[2]=    zero.ui[3]=0;  z = zero.v;
     P.uc[0] = pattern[patlen-5];  P.uc[1] = pattern[patlen-4];  P.uc[2] = pattern[patlen-3];  P.uc[3] = pattern[patlen-2];  p = P.v;
 
@@ -340,7 +364,9 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     i++;
     text += i;
     for (k=0; k<(i*16+8)-patlen+1; k++)  if (0 == memcmp(pattern,x+k,patlen)) count++;
-
+    END_PREPROCESSING
+    
+    BEGIN_SEARCHING
     //the loop checks if pattern ends at the second half of text[i] or at the first half of text[i+1]
     while(text < end)
     {
@@ -389,7 +415,7 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     {
         if ( 0 == memcmp(pattern,&x[k-patlen+1],patlen) ) count++;
     }
-
+    END_SEARCHING
     return count;
 }
 
