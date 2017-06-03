@@ -50,7 +50,7 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {//we exactly know patlen=1
 
     __m128i* text = (__m128i*)x;
-    __m128i* end  = (__m128i*)(x+16*(textlen/16));
+    __m128i* tend  = (__m128i*)(x+16*(textlen/16));
     __m128i t0,a;
     VectorUnion template0;
     unsigned int j,k;
@@ -65,7 +65,7 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     END_PREPROCESSING
 
     END_SEARCHING
-    while(text<end){
+    while(text<tend){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
         cnt  += _mm_popcnt_u32( j );
@@ -80,17 +80,17 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 
 int search2(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {//we exactly know patlen=2
-
+    
     __m128i* text = (__m128i*)x;
-    __m128i* end  = (__m128i*)(x+16*(textlen/16));
+    __m128i* tend  = (__m128i*)(x+16*(textlen/16));
     __m128i t0,t1,a,b;
     VectorUnion template0,template1;
     unsigned int j,k,carry=0;
     int cnt=0;
     unsigned char firstch = pattern[0], lastch = pattern[1];
-
+    
     BEGIN_PREPROCESSING
-    for (j=0; j<16; j++)
+    for(j=0; j<16; j++)
     {
         template0.uc[j]=firstch;        //template0.uc[i+1]=lastch;
         template1.uc[j]=lastch;        //template1.uc[i+1]=firstch;
@@ -100,20 +100,19 @@ int search2(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     END_PREPROCESSING
     
     BEGIN_SEARCHING
-    while(text<end){
+    while(text<tend){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
         b     = _mm_cmpeq_epi8(t1,*text);
         k     = _mm_movemask_epi8(b);
         cnt  += _mm_popcnt_u32( ((j<<1)|(carry>>15)) & k );
-carry = j & 0x00008000;
+        carry = j & 0x00008000;
         text++;
     }
     //now we are at the beginning of the last 16-byte block, perform naive check
-    for (j=16*(textlen/16);j<textlen;j++)
+    for(j=16*(textlen/16);j<textlen;j++)
         cnt += ((x[j-1]==firstch) && (x[j]==lastch));
     END_SEARCHING
-    
     return cnt;
 }
 
@@ -121,7 +120,7 @@ int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {//we exactly know patlen=3
 
     __m128i* text = (__m128i*)x;
-    __m128i* end  = (__m128i*)(x+16*(textlen/16));
+    __m128i* tend  = (__m128i*)(x+16*(textlen/16));
     __m128i t0,t1,t2,a,b,c;
     VectorUnion template0,template1,template2;
     unsigned int j,k,l,carry0=0,carry1=0;
@@ -140,7 +139,7 @@ int search3(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     END_PREPROCESSING
     
     BEGIN_SEARCHING
-    while(text<end){
+    while(text<tend){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
 
@@ -166,8 +165,8 @@ carry0 = j & 0x0000C000;
 int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
 {
     __m128i* text = (__m128i*)x;
-    __m128i* end  = (__m128i*)(x+16*(textlen/16));
-    if ((textlen%16)<7) end--;
+    __m128i* tend  = (__m128i*)(x+16*(textlen/16));
+    if ((textlen%16)<7) tend--;
 
     int i,count=0;
     VectorUnion P,Z;
@@ -186,7 +185,7 @@ int search4(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     text++;// leave the naive check of the first block to the end
 
     BEGIN_SEARCHING
-    while(text<end)
+    while(text<tend)
     {
         //check if P[(m-4) ... (m-1)] matches with T[i*16 ... i*16+3], T[i*16+1 ... i*16+4], .... , T[i*16+7 ... i*16+10]
         a      = _mm_mpsadbw_epu8(*text, p, 0x00);
@@ -353,8 +352,8 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     __m128i res,a,b,z,p;
 
     __m128i* text = (__m128i*)x;
-    __m128i* end  = (__m128i*)(x+16*(textlen/16));
-     end--;
+    __m128i* tend  = (__m128i*)(x+16*(textlen/16));
+     tend--;
 
     BEGIN_PREPROCESSING
     zero.ui[0]=    zero.ui[1]=    zero.ui[2]=    zero.ui[3]=0;  z = zero.v;
@@ -368,7 +367,7 @@ int search(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     
     BEGIN_SEARCHING
     //the loop checks if pattern ends at the second half of text[i] or at the first half of text[i+1]
-    while(text < end)
+    while(text < tend)
     {
         //check if P[(m-5) ... (m-2)] matches with T[i*16+4 ... i*16+7], T[i*16+5 ... i*16+8], .... , T[i*16+11 ... i*16+14]
         //note thet this corresponds P ends at T[i*16+8],T[i*16+9],...,T[i*16+15]
