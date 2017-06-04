@@ -47,24 +47,21 @@ int FindJumpDistance(unsigned char *p, int m, int i, double freq[], double bound
 }
 
 void PrecomputeJOH(unsigned char *p, int m, int i, int j, int jbc[SIGMA][SIGMA]) {
-	for(int a=0; a<SIGMA; a++) 
-	   for(int b=0; b<SIGMA; b++)
-	      jbc[a][b] = 1;
-
-	/*for(int a=0; a<SIGMA; a++) 
+	for(int a=0; a<SIGMA; a++)
 	   for(int b=0; b<SIGMA; b++)
 	      jbc[a][b] = i + j + 1;
 	      
 	for(int a=0; a<SIGMA; a++) 
 	   for(int k=0; k<j; k++)
-	      jbc[p[k]][a] = i + j - k;*/
+	      jbc[a][p[k]] = i + j - k;
 	      
-    for(int k=0; k<=i-j; k++)
+    for(int k=0; k<i-j; k++)
 	   jbc[p[k]][p[k+j]] = i - k;
 	   
-    for(int k=i-j+1; k<=i-1; k++)
+    for(int k=i-j; k<=i-1; k++)
 	   for(int a=0; a<SIGMA; a++) 
-	      jbc[a][p[k]] = i - k;
+	      jbc[p[k]][a] = i - k;
+
 }
 
 int FindWorstOccurrence(unsigned char *p, int m, double freq[]) {
@@ -88,7 +85,8 @@ int FindWorstOccurrence(unsigned char *p, int m, double freq[]) {
 int search(unsigned char *P, int m, unsigned char *T, int n) {
    int i, j, k, s, count, jbc[SIGMA][SIGMA];
    double freq[SIGMA];
-   
+   if(m<2) return -1;
+    
    BEGIN_PREPROCESSING
    computeFreq(T, freq); 
    i = FindWorstOccurrence(P,m,freq);
@@ -100,10 +98,8 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
    s = 0;
    count = 0;
    while(s<=n-m) {
-      k=0;
-   	  while(k<m && P[k]==T[s+k]) k++;
-         if(k==m) count++;
-         s+=jbc[T[s+i]][T[s+i+j]];
+      if(!memcmp(P,T+s,m)) count++;
+      s+=jbc[T[s+i]][T[s+i+j]];
    }
    END_SEARCHING
    return count;
