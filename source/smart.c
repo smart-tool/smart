@@ -56,7 +56,8 @@ void printManual() {
 	printf("\t              Use option \"all\" to performe experimental results using all text buffers.\n");
 	printf("\t              Use the style A-B-C to performe experimental results using multiple text buffers.\n");
 	printf("\t              Separate the list of text buffers using the symbol \"-\"\n");
-	printf("\t-short        computes experimental results using short length patterns\n");
+	printf("\t-short        computes experimental results using short length patterns (from 2 to 32)\n");
+    printf("\t-vshort       computes experimental results using very short length patterns (from 1 to 16)\n");
 	printf("\t-occ          prints the average number of occurrences\n");
 	printf("\t-pre          computes separately preprocessing times and searching times\n");
 	printf("\t-tb L         set to L the upper bound for any wort case running time (in ms). The default value is 300 ms\n");
@@ -518,7 +519,7 @@ int main(int argc, const char *argv[])
 			par++;
 			PATT_SIZE = PATT_SHORT_SIZE;
 		}
-		if (par<argc && !strcmp("-veryshort", argv[par])) {
+		if (par<argc && !strcmp("-vshort", argv[par])) {
 			par++;
 			PATT_SIZE = PATT_VERY_SHORT;
 		}
@@ -536,7 +537,7 @@ int main(int argc, const char *argv[])
 			            && strcmp("-std", argv[par])!=0 
 						&& strcmp("-php", argv[par])!=0 
 						&& strcmp("-pset", argv[par])!=0
-						&& strcmp("-veryshort", argv[par])!=0
+						&& strcmp("-vshort", argv[par])!=0
 						&& strcmp("-short", argv[par])!=0) {printf("Error in input parameters. Use -h for help.\n\n"); return 0;}
 	
 	}
