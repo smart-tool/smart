@@ -64,7 +64,7 @@ int search1(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
     t0 = template0.v;
     END_PREPROCESSING
 
-    END_SEARCHING
+    BEGIN_SEARCHING
     while(text<tend){
         a     = _mm_cmpeq_epi8(t0,*text);
         j     = _mm_movemask_epi8(a);
