@@ -407,6 +407,7 @@ int main(int argc, const char *argv[])
 {
 	//mandatory parameters
    	char *filename = (char*) malloc (sizeof(char) * (100));
+	strcpy(filename, "");
 	//non mandatory parameters
 	PATT_SIZE = PATT_LARGE_SIZE;	//the set of pattern legths
 	int alpha = 256;				//size of the alphabet
