@@ -27,17 +27,18 @@
  * It is called by makefile script, when compiling SMART
  */
 
-int main(int argc, const char *argv[]) {
+int main(int argc, char **argv) {
 	char filename[100], command[100], binary[100];
 	int i,j;
 	char gcc[100] = "gcc source/algos/";
 	char options[100] = " -O3 -msse4 -lm -o source/bin/"; 
 	char destination[100] = "source/bin/";
 
-	int doTest = 1;
-	//if(argc>0)
-	//	if(!strcmp(argv[1],"nt"))
-	//		doTest = 0;
+	int doTest = 0;
+    if(argc>1) {
+		if(!strcmp(argv[1],"dotest"))
+			doTest = 1;
+    }
 	
 	DIR *d;
 	FILE *stream;
@@ -81,7 +82,8 @@ int main(int argc, const char *argv[]) {
                 current++;
 				//compile
 				sprintf(command,"%s%s.c%s%s",gcc,filename,options,filename);
-                printf("\tCompiling and testing %s.c",filename);
+                if(doTest) printf("\tCompiling and testing %s.c",filename);
+                else       printf("\tCompiling %s.c ...........",filename);
 				for(i=0; i<15-strlen(filename); i++) printf(".");
                 printf("(%.3d/%.3d) [000%%]",current,n_algo);
 				fflush(stdout);
@@ -97,6 +99,7 @@ int main(int argc, const char *argv[]) {
 					if(fp) {
 						fclose(fp);
 						fflush(stdout);
+                        int failed = 0;
 						if(doTest) {
 							//testing correctness of the algorithm
 							sprintf(command,"./test %s -nv",filename);
@@ -104,17 +107,18 @@ int main(int argc, const char *argv[]) {
 							fflush(stdout);
 							if(system(command)) {
                                 testing_error++;
+                                failed = 1;
 								printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b....[TEST FAILED]");
 								printf("\n");
 							}
-							else {
-								printf("\b\b\b\b\b\b..[OK]");
-								for(int j=0; j<63; j++) printf("\b");
-							}
 						}
+                        if(!failed) {
+                            printf("\b\b\b\b\b\b..[OK]");
+                            for(int j=0; j<63; j++) printf("\b");
+                        }
 					}
                     else {
-                        printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b..[COMPLING ERROR]\n");
+                        printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b.[COMPILING ERROR]\n");
                         compiling_error++;
                     }
 					fflush(stdout);
@@ -127,7 +131,7 @@ int main(int argc, const char *argv[]) {
     for(i=0; i<33; i++) printf("\b");
     printf("\tAll algorithms have been compiled and tested.......\n");
     printf("\tCompiling errors .................................[%.3d]\n", compiling_error);
-    printf("\tTesting errors ...................................[%.3d]\n\n", testing_error);
+    if(doTest) printf("\tTesting errors ...................................[%.3d]\n\n", testing_error);
 
 }
 
