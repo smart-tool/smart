@@ -62,84 +62,85 @@ _KMPSkip, 		//KMP skip search
 _ASkip, 		//Alpha-Skip-Search
 _BR, 			//Berry-ravindran
 _AKC,          //AKC algorithm
-_FS,           //Fast-Search                                      
-_FFS,          //Forward-Fast-Search                              
-_BFS,          //Backward-Fast-Search, Fast-Boyer-Moore           
-_TS,           //Tailed-Substring                                 
-_SSABS,        //Sheik-Sumit-Anindya-Balakrishnan-Sekar           
-_TVSBS,        //Thathoo-Virmani-Sai-Balakrishnan-Sekar           
-_PBMH,         //Boyer-Moore-Horspool using Probabilities         
-_FJS,          //Franek-Jennings-Smyth                            
-_BLOCK,        //2-Block Boyer-Moore                              
-_HASH3,        //Wu-Manber for Single Pattern Matching (q=3)            
+_FS,           //Fast-Search
+_FFS,          //Forward-Fast-Search
+_BFS,          //Backward-Fast-Search, Fast-Boyer-Moore
+_TS,           //Tailed-Substring
+_SSABS,        //Sheik-Sumit-Anindya-Balakrishnan-Sekar
+_TVSBS,        //Thathoo-Virmani-Sai-Balakrishnan-Sekar
+_PBMH,         //Boyer-Moore-Horspool using Probabilities
+_FJS,          //Franek-Jennings-Smyth
+_BLOCK,        //2-Block Boyer-Moore
+_HASH3,        //Wu-Manber for Single Pattern Matching (q=3)
 _HASH5,        //Wu-Manber for Single Pattern Matching (q=5)
-_HASH8,        //Wu-Manber for Single Pattern Matching (q=8)            
-_TSW,          //Two-Sliding-Window                               
+_HASH8,        //Wu-Manber for Single Pattern Matching (q=8)
+_TSW,          //Two-Sliding-Window
 _BMH2,         //Boyer-Moore-Horspool with q-grams  (BMH2)
-_BMH4,         //Boyer-Moore-Horspool with q-grams  (BMH4)              
-_GRASPm,       //Genomic Rapid Algorithm for String Pattern-match 
-_SSEF,         //SSEF (K=7)  
+_BMH4,         //Boyer-Moore-Horspool with q-grams  (BMH4)
+_GRASPm,       //Genomic Rapid Algorithm for String Pattern-match
+_SSEF,         //SSEF (K=7)
 //Algorithms based on automata
 _AUT, 			//Automaton Matcher
 _RF, 			//Revrese-Factor
 _TRF, 			//Turbo Reverse factor
-_Simon, 		//Simon 
+_Simon, 		//Simon
 _FDM, 			//Forward-DAWG-Match
 _BOM, 			//BOM
 _BOM2, 			//BOM2
-_DFDM,         //Double Forward DAWG Matching                     
-_WW,           //Wide Window                                      
-_LDM,		   //Linear DAWG Matching                
+_DFDM,         //Double Forward DAWG Matching
+_WW,           //Wide Window
+_LDM,		   //Linear DAWG Matching
 _ILDM1,        //ILDM1
 _ILDM2,        //ILDM2
-_EBOM,         //Extended Backward Oracle Matching                
-_FBOM,         //Forward Backward Oracle Matching                 
-_SEBOM,        //Simplified Extended Backward Oracle Matching                
-_SFBOM,        //Simplified Forward Backward Oracle Matching 
-_SBDM,         //Succint Backward DAWG Matching                   
+_EBOM,         //Extended Backward Oracle Matching
+_FBOM,         //Forward Backward Oracle Matching
+_SEBOM,        //Simplified Extended Backward Oracle Matching
+_SFBOM,        //Simplified Forward Backward Oracle Matching
+_SBDM,         //Succint Backward DAWG Matching
 //Algorithms based on bit-parallelism
 _SO, 			//Shift-Or
 _SA, 			//Shift-And
-_BNDM,         //BNDM for Long patterns                           
-_BNDML,        //BNDM for Long patterns                           
-_SBNDM,        //Simplified BNDM                                  
-_TNDM,         //Two-Way Nondeterministic DAWG Matching           
+_BNDM,         //BNDM for Long patterns
+_BNDML,        //BNDM for Long patterns
+_SBNDM,        //Simplified BNDM
+_TNDM,         //Two-Way Nondeterministic DAWG Matching
 _TNDMa,        //Two-Way Nondeterministic DAWG Matching (version 2)
-_LBNDM,        //Long patterns BNDM                               
-_SVM0,         //Shift Vector Matching (version 0)                                                       
-_SVM1,         //Shift Vector Matching (version 1)                           
-_SVM2,         //Shift Vector Matching (version 2)                                                       
-_SVM3,         //Shift Vector Matching (version 3)                                                       
-_SVM4,         //Shift Vector Matching (version 4)                                                       
-_SBNDM2,       //Simplified BNDM with loop-unrolling              
-_SBNDMBMH,     //SBNDM with Horspool Shift                         
-_BMHSBNDM,     //Horspool with SBNDM test                          
-_FNDM,         //Forward Nondeterministic DAWG Matching           
-_BWW,          //Bit parallel Wide Window                         
-_FAOSOq2,      //Fast Average Optimal Shift-Or (u=2)                   
-_FAOSOq4,      //Fast Average Optimal Shift-Or (u=2)                   
-_FAOSOq6,      //Fast Average Optimal Shift-Or (u=2)                   
-_AOSO2,        //Average Optimal Shift-Or (q=2)                        
-_AOSO4,        //Average Optimal Shift-Or (q=4)                        
-_AOSO6,        //Average Optimal Shift-Or (q=6)                        
-_BLIM,         //Bit-Parallel Length Invariant Matcher            
-_FSBNDM,       //Forward SBNDM                                    
-_BNDMq2,       //BNDM with q-grams                                
-_BNDMq4,       //BNDM with q-grams                                
-_BNDMq6,       //BNDM with q-grams                                
-_SBNDMq2,      //Simplified BNDM with q-grams                     
-_SBNDMq4,      //Simplified BNDM with q-grams                     
-_SBNDMq6,      //Simplified BNDM with q-grams                     
-_SBNDMq8,      //Simplified BNDM with q-grams                     
-_UFNDMq2,      //Shift-Or with q-grams                            
-_UFNDMq4,      //Shift-Or with q-grams                            
-_UFNDMq6,      //Shift-Or with q-grams                            
-_UFNDMq8,      //Shift-Or with q-grams                            
-_SABP,		   //Small Alphabet Bit Parallel                                            
+_LBNDM,        //Long patterns BNDM
+_SVM0,         //Shift Vector Matching (version 0)
+_SVM1,         //Shift Vector Matching (version 1)
+_SVM2,         //Shift Vector Matching (version 2)
+_SVM3,         //Shift Vector Matching (version 3)
+_SVM4,         //Shift Vector Matching (version 4)
+_SBNDM2,       //Simplified BNDM with loop-unrolling
+_SBNDMBMH,     //SBNDM with Horspool Shift
+_BMHSBNDM,     //Horspool with SBNDM test
+_FNDM,         //Forward Nondeterministic DAWG Matching
+_BWW,          //Bit parallel Wide Window
+_FAOSOq2,      //Fast Average Optimal Shift-Or (u=2)
+_FAOSOq4,      //Fast Average Optimal Shift-Or (u=2)
+_FAOSOq6,      //Fast Average Optimal Shift-Or (u=2)
+_AOSO2,        //Average Optimal Shift-Or (q=2)
+_AOSO4,        //Average Optimal Shift-Or (q=4)
+_AOSO6,        //Average Optimal Shift-Or (q=6)
+_BLIM,         //Bit-Parallel Length Invariant Matcher
+_FSBNDM,       //Forward SBNDM
+_BNDMq2,       //BNDM with q-grams
+_BNDMq4,       //BNDM with q-grams
+_BNDMq6,       //BNDM with q-grams
+_SBNDMq2,      //Simplified BNDM with q-grams
+_SBNDMq4,      //Simplified BNDM with q-grams
+_SBNDMq6,      //Simplified BNDM with q-grams
+_SBNDMq8,      //Simplified BNDM with q-grams
+_UFNDMq2,      //Shift-Or with q-grams
+_UFNDMq4,      //Shift-Or with q-grams
+_UFNDMq6,      //Shift-Or with q-grams
+_UFNDMq8,      //Shift-Or with q-grams
+_SABP,		   //Small Alphabet Bit Parallel
 _DBWW,		   //DOUBLE BWW
 _DBWW2,		   //DOUBLE BWW
-_KSA,		   //Factorized SHIFT-AND                                            
+_KSA,		   //Factorized SHIFT-AND
 _KBNDM,		   //Factorized BNDM
+_SSECP, 	//SSE Crochemore-Perrin
 
 } ALGO_POS;
 

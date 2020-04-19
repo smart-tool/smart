@@ -248,20 +248,20 @@ int search16(unsigned char* pattern, int patlen, unsigned char* x, int textlen)
         {
             flist[filter] = (LIST*)malloc(sizeof(LIST));
             if (flist[filter]){
-            flist[filter]->next = 0;
-        	    flist[filter]->pos  = i;
-    }
+              flist[filter]->next = 0;
+              flist[filter]->pos  = i;
+            }
         }
         else
         {
             t = flist[filter];
             while(t->next!=0) t = t->next;
             t->next = (LIST*)malloc(sizeof(LIST));
-    if (t->next){
+            if (t->next){
             	t = t->next;
             	t->next=0;
             	t->pos = i;
-    }
+            }
         }
     }
     END_PREPROCESSING
@@ -295,11 +295,11 @@ if (t->pos <= 8*(shift-1)){
             while(t)
             {
 
-if (t->pos <= 8*(2*shift-1)){
+              if (t->pos <= 8*(2*shift-1)){
                 if (memcmp(pattern,charPtr - t->pos,patlen) == 0)
                     count++;
-}
-                t=t->next;
+              }
+              t=t->next;
             }
     }
     ptr64 += shift;
