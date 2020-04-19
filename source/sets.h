@@ -146,5 +146,6 @@ enum algo_pos {
   _DBWW2,    // DOUBLE BWW
   _KSA,      // Factorized SHIFT-AND
   _KBNDM,    // Factorized BNDM
+  _SSECP,    //SSE Crochemore-Perrin
 
 } ALGO_POS;
