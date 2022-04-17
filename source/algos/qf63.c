@@ -73,7 +73,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n)
 				ch = (ch<<S) + y[i+2];
 				ch = (ch<<S) + y[i+1];
 				ch = (ch<<S) + y[i];
-				D = B[ch & mask];
+				D &= B[ch & mask];
 		      if(D == 0) continue;
 		      else goto more;
 			} 
