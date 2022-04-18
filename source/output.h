@@ -457,7 +457,7 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
 		OPTIMAL[il] = 0.0;
 	    for(algo=0; algo<NumAlgo; algo++)
 			if(EXECUTE[algo]) {
-				if(OPTIMAL[il]==0.0 || OPTIMAL[il]>TIME[algo][il])  OPTIMAL[il]=TIME[algo][il];
+				if(OPTIMAL[il]==0.0 || (OPTIMAL[il]>TIME[algo][il] && TIME[algo][il] > 0.0))  OPTIMAL[il]=TIME[algo][il];
 			}
 	}
 
