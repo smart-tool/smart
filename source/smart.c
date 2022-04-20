@@ -27,7 +27,7 @@
 #define MAXTIME		999.00
 
 /* DEFINITION OF VARIABLES */
-unsigned int MINLEN = 0, MAXLEN = 4200; //min length and max length of pattern size
+unsigned int MINLEN = 1, MAXLEN = 4200; //min length and max length of pattern size
 
 
 #include <stdlib.h>
