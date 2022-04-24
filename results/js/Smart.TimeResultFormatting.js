@@ -1,13 +1,13 @@
 
 function getBestTimes(table) {
-  var numColumns = table.rows[0].cells.length;
-  var best_times = Array(numColumns).fill(999999.99);
-  for (row = 1; row < table.rows.length; row++) {
-    var cells = table.rows[row].cells;
-    for (column = 1; column < cells.length; column++) {
-      var bestSoFar = best_times[column];
-      var divElement = findChildWithClassNames(cells[column], ['search_time', 'search_time_best']);
-      var currentValue = parseFloat(divElement.innerText);
+  const numColumns = table.rows[0].cells.length;
+  const best_times = Array(numColumns).fill(999999.99);
+  for (let row = 1; row < table.rows.length; row++) {
+    const cells = table.rows[row].cells;
+    for (let column = 1; column < cells.length; column++) {
+      const bestSoFar = best_times[column];
+      const divElement = findChildWithClassNames(cells[column], ['search_time', 'search_time_best']);
+      const currentValue = parseFloat(divElement.innerText);
       if (currentValue < bestSoFar && currentValue > 0.0) {
          best_times[column] = currentValue;
       }
