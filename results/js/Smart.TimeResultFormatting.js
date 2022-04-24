@@ -70,7 +70,7 @@ function setBestColors(document) {
 
 function showDivs(document, divClass, show) {
   var preProcessingTimes = document.getElementsByClassName(divClass);
-  var displayValue = (show? 'block' : 'none');
+  const displayValue = show ? 'block' : 'none';
   for (var counter = 0; counter < preProcessingTimes.length; counter++) {
     preProcessingTimes[counter].style.display = displayValue;
   }
