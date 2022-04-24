@@ -503,6 +503,8 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
 		fprintf(fp,"<td class=\"length\">%d</td>",PATT_SIZE[il]);
 	}
 	fprintf(fp,"<tr>");
+    const char* preVisible = pre ? "block" : "none";
+    const char* difVisible = dif ? "block" : "none";
     for(algo=0; algo<NumAlgo; algo++)
 		if(EXECUTE[algo]) {
    			fprintf(fp,"<tr>\n");
@@ -511,13 +513,13 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
    				int best = 0;
    				if(TIME[algo][il]==OPTIMAL[il]) best=1;
    				fprintf(fp,"<td><center>");
-                fprintf(fp,"<div class=\"pre_time\" style=\"display:%s\">%.2f</div>",(pre? "block" : "none"), PRE_TIME[algo][il]);
+                fprintf(fp,"<div class=\"pre_time\" style=\"display:%s\">%.2f</div>",preVisible, PRE_TIME[algo][il]);
    				if(TIME[algo][il]==0)  fprintf(fp,"<div class=\"search_time\">-</div>");
    	 	  		else {
    	 	  			if(!best) fprintf(fp,"<div class=\"search_time\">%.2f</div>",TIME[algo][il]);
    	 	  			else fprintf(fp,"<div class=\"search_time_best\"><b>%.2f</b></div>",TIME[algo][il]);
    	 	  		}
-                fprintf(fp,"<div class=\"dif\" style=\"display:%s\">%.2f - %.2f</div>",(dif? "block" : "none"), BEST[algo][il],WORST[algo][il]);
+                fprintf(fp,"<div class=\"dif\" style=\"display:%s\">%.2f - %.2f</div>",difVisible, BEST[algo][il],WORST[algo][il]);
    				fprintf(fp,"</center></td>");
    			}
    			fprintf(fp,"</tr>\n");

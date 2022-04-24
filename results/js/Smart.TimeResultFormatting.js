@@ -33,21 +33,20 @@ function heatMapBlue(table, cutOffPercent) {
 }
 
 function heatMap(table, hue, saturation, cutOffPercent, cutOffLuminance, worstTimeLuminance, bestTimeLuminance) {
-  var luminanceRange = Math.abs(worstTimeLuminance - bestTimeLuminance);
-  var best_times = getBestTimes(table);
-  for (row = 1; row < table.rows.length; row++) {
-    var cells = table.rows[row].cells;
-    for (column = 1; column < cells.length; column++) {
-      var cell = cells[column];
-      var divElement = findChildWithClassNames(cell, ['search_time', 'search_time_best']);
-      var currentTime = parseFloat(divElement.innerText);
-      var percentOfBest = best_times[column] * 100 / currentTime;
-      if (percentOfBest < cutOffPercent) {
-        var luminance = cutOffLuminance;
-      } else {
-        var heatValuePercent = (percentOfBest - cutOffPercent) * (100 / (100 - cutOffPercent));
-        var luminanceHeat = luminanceRange * heatValuePercent / 100;
-        var luminance = (worstTimeLuminance > bestTimeLuminance? worstTimeLuminance - luminanceHeat : worstTimeLuminance + luminanceHeat);
+  const luminanceRange = Math.abs(worstTimeLuminance - bestTimeLuminance);
+  const best_times = getBestTimes(table);
+  for (let row = 1; row < table.rows.length; row++) {
+    const cells = table.rows[row].cells;
+    for (let column = 1; column < cells.length; column++) {
+      const cell = cells[column];
+      const divElement = findChildWithClassNames(cell, ['search_time', 'search_time_best']);
+      const currentTime = parseFloat(divElement.innerText);
+      const percentOfBest = best_times[column] * 100 / currentTime;
+      let luminance = cutOffLuminance;
+      if (percentOfBest >= cutOffPercent) {
+        const heatValuePercent = (percentOfBest - cutOffPercent) * (100 / (100 - cutOffPercent));
+        const luminanceHeat = luminanceRange * heatValuePercent / 100;
+        luminance = (worstTimeLuminance > bestTimeLuminance? worstTimeLuminance - luminanceHeat : worstTimeLuminance + luminanceHeat);
       }
       divElement.style.backgroundColor = 'hsl(' + hue + ',' + saturation + '%,' + luminance + '%)';
       divElement.style.color = (luminance < 60? '#FFFFFF' : '#000000');
@@ -69,24 +68,24 @@ function setBestColors(document) {
 }
 
 function showDivs(document, divClass, show) {
-  var preProcessingTimes = document.getElementsByClassName(divClass);
+  const preProcessingTimes = document.getElementsByClassName(divClass);
   const displayValue = show ? 'block' : 'none';
-  for (var counter = 0; counter < preProcessingTimes.length; counter++) {
+  for (const counter in preProcessingTimes) {
     preProcessingTimes[counter].style.display = displayValue;
   }
 }
 
 function findChildWithClassNames(parent, namesOfClass) {
-    var parentChildren = parent.children;
-    for (var counter = 0; counter < parentChildren.length; counter++) {
-        var child = parentChildren[counter];
-        var childIndex = namesOfClass.indexOf(child.className);
+    const parentChildren = parent.children;
+    for (let counter = 0; counter < parentChildren.length; counter++) {
+        const child = parentChildren[counter];
+        const childIndex = namesOfClass.indexOf(child.className);
         if (childIndex > -1) {
             return child;
         }
-        child = findChildWithClassNames(child, namesOfClass);
-        if (child != null) {
-            return child;
+        const subchild = findChildWithClassNames(child, namesOfClass);
+        if (subchild != null) {
+            return subchild;
         }
     }
     return null;
