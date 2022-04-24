@@ -55,13 +55,13 @@ function heatMap(table, hue, saturation, cutOffPercent, cutOffLuminance, worstTi
 }
 
 function setBestColors(document) {
-  var bestTimes = document.getElementsByClassName('search_time_best');
-  for(var counter = 0; counter < bestTimes.length; counter++) {
+  const bestTimes = document.getElementsByClassName('search_time_best');
+  for(let counter = 0; counter < bestTimes.length; counter++) {
     bestTimes[counter].style.backgroundColor = "#888888";
     bestTimes[counter].style.color = '#FFFFFF';
   }
-  var otherTimes = document.getElementsByClassName('search_time');
-  for(var counter = 0; counter < otherTimes.length; counter++) {
+  const otherTimes = document.getElementsByClassName('search_time');
+  for(let counter = 0; counter < otherTimes.length; counter++) {
     otherTimes[counter].style.backgroundColor = "#FFFFFF";
     otherTimes[counter].style.color = "#000000";
   }
