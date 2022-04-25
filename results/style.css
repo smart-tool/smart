@@ -84,6 +84,16 @@ h3 {
 	float:center;
 }
 
+.controlHorizontalFloat {
+   float: left;
+   width: auto;
+   margin-left: 3em;
+}
+
+.clearHorizontalFloat {
+    clear: both;
+}
+
 tr {
 	border-top: #444444 1px solid;
 }

@@ -480,6 +480,7 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
 	fprintf(fp,"<script src=\"../js/RGraph.bar.js\"></script>");
 	fprintf(fp,"<script src=\"../RGraph.common.dynamic.js\"></script>");
 	fprintf(fp,"<script src=\"../RGraph.common.tooltips.js\"></script>");
+    fprintf(fp,"<script src=\"../js/Smart.TimeResultFormatting.js\"></script>");
 	fprintf(fp,"<link href='https://fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>");
 	fprintf(fp,"<link href='https://fonts.googleapis.com/css?family=Yantramanav:400,100,700' rel='stylesheet' type='text/css'>");
 	fprintf(fp,"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\">");
@@ -496,12 +497,14 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
 	fprintf(fp,"<h2>Text %s (alphabet : %d - size : %d bytes)</h2>",filename,alpha,n);
 	fprintf(fp,"</div>");
 	
-	fprintf(fp,"<table class=\"exp_table\">\n");
+	fprintf(fp,"<table id=\"resultTable\" class=\"exp_table\">\n");
 	fprintf(fp,"<tr><td class=\"length\"></td>");
 	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
 		fprintf(fp,"<td class=\"length\">%d</td>",PATT_SIZE[il]);
 	}
 	fprintf(fp,"<tr>");
+    const char* preVisible = pre ? "block" : "none";
+    const char* difVisible = dif ? "block" : "none";
     for(algo=0; algo<NumAlgo; algo++)
 		if(EXECUTE[algo]) {
    			fprintf(fp,"<tr>\n");
@@ -510,13 +513,13 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
    				int best = 0;
    				if(TIME[algo][il]==OPTIMAL[il]) best=1;
    				fprintf(fp,"<td><center>");
-   				if(pre)  fprintf(fp,"<div class=\"pre_time\">%.2f</div>",PRE_TIME[algo][il]);
+                fprintf(fp,"<div class=\"pre_time\" style=\"display:%s\">%.2f</div>",preVisible, PRE_TIME[algo][il]);
    				if(TIME[algo][il]==0)  fprintf(fp,"<div class=\"search_time\">-</div>");
    	 	  		else {
    	 	  			if(!best) fprintf(fp,"<div class=\"search_time\">%.2f</div>",TIME[algo][il]);
    	 	  			else fprintf(fp,"<div class=\"search_time_best\"><b>%.2f</b></div>",TIME[algo][il]);
    	 	  		}
-   				if(dif)  fprintf(fp,"<div class=\"dif\">%.2f - %.2f</div>",BEST[algo][il],WORST[algo][il]);
+                fprintf(fp,"<div class=\"dif\" style=\"display:%s\">%.2f - %.2f</div>",difVisible, BEST[algo][il],WORST[algo][il]);
    				fprintf(fp,"</center></td>");
    			}
    			fprintf(fp,"</tr>\n");
@@ -525,9 +528,28 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
 	fprintf(fp,"<div class=\"caption\"><b>Table 1.</b> Running times of experimental tests n.%s. Each time value is the mean of %d runs. ",expcode,volte);
 	if(pre) fprintf(fp,"The table reports also the mean of the preprocessing time (above each time value). ");
 	if(dif) fprintf(fp,"In addition the worst and best running times are reported (below each time value). ");
-	fprintf(fp,"Running times are in milliseconds.");
-	fprintf(fp,"</div>\n");
-	
+	fprintf(fp,"Running times are in milliseconds.\n");
+    fprintf(fp,"<br><div class=\"controlHorizontalFloat\">\n"
+               "<input type=\"radio\" id=\"best\" name=\"resultformat\" value=\"best\" checked onclick=\"setBestColors(document)\">\n"
+               "<label for=\"best\">Best mean times</label></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n"
+               "<input type=\"radio\" id=\"heatMap5\" name=\"resultformat\" value=\"hm5\" onclick=\"heatMapGray(document.getElementById('resultTable'), 95)\">\n"
+               "<label for=\"heatMap5\">Heatmap top 5%%</label></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n"
+               "<input type=\"radio\" id=\"heatMap10\" name=\"resultformat\" value=\"hm10\" onclick=\"heatMapGray(document.getElementById('resultTable'), 90)\">\n"
+               "<label for=\"heatMap25\">Heatmap top 10%%</label></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n"
+               "<input type=\"radio\" id=\"heatMap25\" name=\"resultformat\" value=\"hm25\" onclick=\"heatMapGray(document.getElementById('resultTable'), 75)\">\n"
+               "<label for=\"heatMap25\">Heatmap top 25%%</label></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n"
+               "<input type=\"radio\" id=\"heatMap50\" name=\"resultformat\" value=\"hm50\" onclick=\"heatMapGray(document.getElementById('resultTable'), 50)\">\n"
+               "<label for=\"heatMap50\">Heatmap top 50%%</label></div><div class=\"clearHorizontalFloat\"></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n");
+    fprintf(fp,"<input type=\"checkbox\" id=\"pretime\" name=\"pretime\" value=\"pretime\" %s onclick=\"showDivs(document, 'pre_time', this.checked)\">\n", (pre? "checked" : ""));
+    fprintf(fp,"<label for=\"pretime\">Show pre-processing times</label></div>\n"
+               "<div class=\"controlHorizontalFloat\">\n");
+    fprintf(fp,"<input type=\"checkbox\" id=\"bestworst\" name=\"bestworst\" value=\"bestworst\" %s onclick=\"showDivs(document, 'dif', this.checked)\">\n", (dif? "checked" : ""));
+    fprintf(fp,"<label for=\"bestworst\">Show best and worst running times</label></div><br></div><p>\n");
 	fprintf(fp,"<div class=\"chart_container\"><div class=\"chart_title\">Average Running Times</div>\n");
 	fprintf(fp,"<canvas class=\"exp_chart\" id=\"cvs\" width=\"780\" height=\"400\">[No canvas support]</canvas>");
     fprintf(fp,"<div style=\"padding-top:40px\">");
