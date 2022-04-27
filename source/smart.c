@@ -317,6 +317,7 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 			else printf("\b\b\b\b[%d%%]", perc);
 			fflush(stdout);
 
+            (*e_time) = (*pre_time) = 0.0;
         	occur = execute(algo,pkey,m,tkey,n,rkey,ekey,prekey,count,alpha);
 
 			if(!pre) (*e_time) += (*pre_time); 
