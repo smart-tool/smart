@@ -120,6 +120,14 @@ td{
     vertical-align:middle;
 }
 
+.statNames {
+	background-color: #666666;
+	font-size: 11px;
+	text-align:center;
+	color: #eeeeee;
+	vertical-align:middle;
+}
+
 .didascalia {
 	width: 70px;
 	float: left;
@@ -195,6 +203,55 @@ td{
 	vertical-align:middle;
     border-radius: 4px;
     color: #888888;
+}
+
+.search_stats {
+	padding: 2px;
+	width: 40px;
+	height: 15px;
+	font-size: 11px;
+	text-align:center;
+	border-radius: 8px;
+	margin-top:3px;
+	margin-bottom:3px;
+	color: #000000;
+	vertical-align:middle;
+}
+
+.search_stats_best {
+	padding: 2px;
+	background-color: Honeydew;
+	width: 40px;
+	height: 10px;
+	font-size: 10px;
+	text-align:center;
+	border-radius: 4px;
+	color: #333333;
+	vertical-align:middle;
+}
+
+.search_stats_worst {
+	padding: 2px;
+	background-color: LavenderBlush;
+	width: 60px;
+	height: 10px;
+	font-size: 10px;
+	text-align:center;
+	vertical-align:middle;
+	border-radius: 4px;
+	color: #333333;
+}
+
+.search_stats_none {
+	padding: 2px;
+	background-color: #ffffff;
+	width: 60px;
+	height: 10px;
+	font-size: 10px;
+	text-align:center;
+	vertical-align:middle;
+	border-radius: 4px;
+	color: #000000;
 }
 
 .main_container {

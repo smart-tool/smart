@@ -43,7 +43,7 @@ unsigned int MINLEN = 1, MAXLEN = 4200; // min length and max length of pattern 
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-
+#include "searchinfo.h"
 
 void printManual() {
 	int i=system("./logo");
@@ -64,6 +64,7 @@ void printManual() {
 	printf("\t-dif          prints the number the best and the worst running time (they refer to searching time if the -pre option is selected)\n");
 	printf("\t-std          prints the standard deviations of the running times (it refers to searching time if the -pre option is selected)\n");
 	printf("\t-txt          output results in txt tabular format\n");
+    printf("\t-stats        gather algorithm statistics (on algorithms that provide them)\n");
 	printf("\t-tex          output results in latex tabular format\n");
 	printf("\t-simple P T   executes a single run searching T (max 1000 chars) for occurrences of P (max 100 chars)\n");
 	printf("\t-h            gives this help list\n");
@@ -145,6 +146,30 @@ int execute(int algo, key_t pkey, int m, key_t tkey, int n, key_t rkey, key_t ek
 	else return -1;
 }
 
+int supportsStats(int algo) {
+    char command[100];
+    sprintf(command, "./source/bin/%s -stats",str2lower(ALGO_NAME[algo]));
+    int res = system(command);
+    if(!res) return 0;
+    else return -1;
+}
+
+int getStats(int algo, key_t pkey, int m, key_t tkey, int n, key_t sikey) {
+    char command[100];
+    sprintf(command, "./source/bin/%s shared %d %d %d %d -stats %d",str2lower(ALGO_NAME[algo]),pkey,m,tkey,n,sikey);
+    int res = system(command);
+    if(!res) return 0;
+    else return -1;
+}
+
+int getStatNames(int algo, key_t snkey) {
+    char command[100];
+    sprintf(command, "./source/bin/%s shared -statnames %d",str2lower(ALGO_NAME[algo]), snkey);
+    int res = system(command);
+    if(!res) return 0;
+    else return -1;
+}
+
 void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n, int numpatt, unsigned char* simplePattern) {
 	int i,j,k;
 	for(i=0; i<numpatt; i++)  {
@@ -159,7 +184,7 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n, i
 
 /* Free up shared memory allocated by sm execution */
 void free_shm(unsigned char *T, unsigned char * P, int* count, double *e_time, double *pre_time, 
-		int tshmid, int pshmid, int rshmid, int eshmid, int preshmid) {
+		int tshmid, int pshmid, int rshmid, int eshmid, int preshmid, int sishmid, int snshmid) {
     shmdt(T);
     shmdt(P);
     shmdt(count);
@@ -170,17 +195,28 @@ void free_shm(unsigned char *T, unsigned char * P, int* count, double *e_time, d
    	shmctl(rshmid, IPC_RMID,0);
     shmctl(eshmid, IPC_RMID,0);
     shmctl(preshmid, IPC_RMID,0);
+    shmctl(sishmid, IPC_RMID, 0);
+    shmctl(snshmid, IPC_RMID, 0);
 }
 
 
 /********************************************************/
 
 int run_setting(char *filename, key_t tkey, unsigned char* T, int n, 
-				int alpha, int *FREQ, int VOLTE, int occ, int pre, int dif, char *code, int tshmid, int txt, int tex, int php,
+				int alpha, int *FREQ, int VOLTE, int occ, int pre, int dif, int stats, char *code, int tshmid, int txt, int tex, int php,
 				unsigned char* simplePattern, int std, int limit, char *time_format) {
    //performs experiments on a text
    int    m, i, j, k, il, algo, occur, total_occur, try;
    double TIME[NumAlgo][NumPatt], PRE_TIME[NumAlgo][NumPatt], BEST[NumAlgo][NumPatt], WORST[NumAlgo][NumPatt], STD[NumAlgo][NumPatt], STDTIME[5000];
+   struct searchInfo TOTAL_INFO[NumAlgo][NumPatt], BEST_INFO[NumAlgo][NumPatt], WORST_INFO[NumAlgo][NumPatt];
+   struct algoValueNames ALGO_VALUE_NAMES[NumAlgo];
+   char SUPPORTS_STATS[NumAlgo];
+   for(int i=0;i<NumAlgo;i++) {
+       SUPPORTS_STATS[i]=0;               // no algos support stats by default - we have to ask.
+       ALGO_VALUE_NAMES[i]=NO_ALGO_NAMES; // algo names are supplied by algorithms that support stats.
+   }
+   for(int i=0;i<NumAlgo;i++) for(int j=0;j<NumPatt;j++) clearSearchInfo(&TOTAL_INFO[i][j]); // initialize search stat results.
+
    unsigned char **setP = (unsigned char **) malloc (sizeof(unsigned char*)*VOLTE);
    for(i=0; i<VOLTE; i++) setP[i] = (unsigned char*) malloc (sizeof(unsigned char)*(XSIZE+1));
    unsigned char   c, *P;
@@ -194,12 +230,12 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
       stream = freopen (logfile,"w",stderr);  //redirect of stderr
    }
 
-	int eshmid, preshmid, pshmid, rshmid;
+	int eshmid, preshmid, pshmid, rshmid, sishmid, snshmid;
 	double *e_time, *pre_time;
 	int *count;
 
 
-	//allocate space for running time in shered memory
+	//allocate space for running time in shered memory - tkey set already.
 	srand( time(NULL) );
 	key_t ekey = rand()%1000;
 	try = 0;
@@ -209,17 +245,17 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 	} while((++try<10 && eshmid<0) || ekey==tkey);
 	if (eshmid < 0) {
 		perror("shmget"); 
-		free_shm(T, P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+		free_shm(T, P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 		exit(1);
 	}
 	if ((e_time = shmat(eshmid, NULL, 0)) == (double *) -1) {
 		perror("shmat"); 
-		free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+		free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 		exit(1);
 	}
 
 
-   //allocate space for preprocessing running time in shered memory
+   //allocate space for preprocessing running time in shered memory - tkey and ekey set already.
    key_t prekey = rand()%1000;
    try = 0;
    do {
@@ -228,18 +264,18 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
    } while((++try<10 && preshmid<0) || prekey==tkey || prekey==ekey);
    if (preshmid < 0) {
        perror("shmget"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
    }
    if ((pre_time = shmat(preshmid, NULL, 0)) == (double *) -1) {
        perror("shmat"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
    }
    for(i=0; i<SIGMA; i++) FREQ[i] = 0;
 
 
-	//allocate space for pattern in shered memory
+	//allocate space for pattern in shered memory - tkey, ekey and prekey set already.
    key_t pkey = rand()%1000;
    try = 0;
    do {
@@ -248,32 +284,69 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
    } while((++try<10 && pshmid<0) || pkey==tkey || pkey==ekey || pkey==prekey);
    if (pshmid < 0) {
        perror("shmget"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
    }
    if ((P = shmat(pshmid, NULL, 0)) == (unsigned char *) -1) {
        perror("shmat"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
    }
    for(i=0; i<SIGMA; i++) FREQ[i] = 0;
 
-   //allocate space for the result number of occurrences in shared memory
+   //allocate space for the result number of occurrences in shared memory - tkey, ekey, prekey and pkey set already.
    key_t rkey = rand()%1000;
    try = 0;
    do  {
 		rkey = rand()%1000; 
 		rshmid = shmget(rkey, 4, IPC_CREAT | 0666); 
-   } while((++try<10 && rshmid<0) || rkey==tkey || rkey==pkey || pkey==ekey);
+   } while((++try<10 && rshmid<0) || rkey==tkey || rkey==ekey || rkey==prekey || rkey==pkey);
    if (rshmid < 0) {
        perror("shmget"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
    }
    if ((count = shmat(rshmid, NULL, 0)) == (int *) -1) {
        perror("shmat"); 
-   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid);
+   	   free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
 	   exit(1);
+   }
+
+   // Allocate shared memory for algorithm statistics, if required - tkey, ekey, prekey, pkey and rkey set already.
+   struct searchInfo *searchInfo;
+   struct algoValueNames *statNames;
+   key_t sikey, snkey;
+   if (stats) {
+       do  {
+           sikey = rand()%1000;
+           sishmid = shmget(sikey, sizeof(struct searchInfo), IPC_CREAT | 0666);
+       } while((++try<10 && sishmid<0) || sikey==tkey || sikey==ekey || sikey==prekey || sikey==pkey || sikey==rkey);
+       if (sishmid < 0) {
+           perror("shmget");
+           free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
+           exit(1);
+       }
+       if ((searchInfo = shmat(sishmid, NULL, 0)) == (struct searchInfo *) -1) {
+           perror("shmat");
+           free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
+           exit(1);
+       }
+
+       // tkey, ekey, prekey, pkey, rkey and sikey set already
+       do  {
+           snkey = rand()%1000;
+           snshmid = shmget(snkey, sizeof(struct algoValueNames), IPC_CREAT | 0666);
+       } while((++try<10 && snshmid<0) || snkey==tkey || snkey==ekey || snkey==prekey || snkey==pkey || snkey==rkey || snkey==sikey);
+       if (snshmid < 0) {
+           perror("shmget");
+           free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
+           exit(1);
+       }
+       if ((statNames = shmat(snshmid, NULL, 0)) == (struct algoValueNames *) -1) {
+           perror("shmat");
+           free_shm(T,P,count,e_time,pre_time,tshmid,pshmid,rshmid,eshmid,preshmid, sishmid, snshmid);
+           exit(1);
+       }
    }
 
    //initializes the vector which will contain running times
@@ -308,7 +381,17 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 		printf("%s",data);fflush(stdout);
 		for(i=0; i<35-strlen(data); i++) printf(".");
 		total_occur = 0;
-				  
+
+        int obtainStats = 0;
+        if (stats) {
+            SUPPORTS_STATS[algo] = supportsStats(algo) == 0? 1 : 0;
+            obtainStats = SUPPORTS_STATS[algo] == 1;
+            if (obtainStats) {
+                clearSearchInfo(&TOTAL_INFO[algo][il]);
+            }
+        }
+
+        int gotStats = 0;
 		for(k=1; k<=VOLTE; k++) {
 	   		for(j=0; j<m; j++) P[j]=setP[k-1][j]; P[j]='\0'; //creates the pattern
 			int perc = (int)((100*k)/VOLTE);
@@ -320,17 +403,33 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
             (*e_time) = (*pre_time) = 0.0;
         	occur = execute(algo,pkey,m,tkey,n,rkey,ekey,prekey,count,alpha);
 
-			if(!pre) (*e_time) += (*pre_time); 
+            if (obtainStats) {
+                clearSearchInfo(searchInfo);
+                int statReturn = getStats(algo,pkey,m,tkey,n,sikey); // stats placed in shared memory *sharedInfo
+                if (statReturn == 0 && searchInfo->patternLength > 0) { // algorithm supports stats and has set results.
+                    addSearchInfoTo(searchInfo, &(TOTAL_INFO[algo][il]));
+                    gotStats = 1;
+                }
+            }
+
+			if(!pre) (*e_time) += (*pre_time);
 			STDTIME[k] = (*e_time);
 			TIME[algo][il] += (*e_time);
 			PRE_TIME[algo][il] += (*pre_time);
-			if (BEST[algo][il]>(*e_time)) BEST[algo][il] = (*e_time);
-			if (WORST[algo][il]<(*e_time)) WORST[algo][il] = (*e_time);
+			if (BEST[algo][il]>(*e_time)) {
+                BEST[algo][il] = (*e_time);
+                if (obtainStats) BEST_INFO[algo][il] = (*searchInfo);
+            }
+			if (WORST[algo][il]<(*e_time)) {
+                WORST[algo][il] = (*e_time);
+                if (obtainStats) WORST_INFO[algo][il] = (*searchInfo);
+            }
 			total_occur += occur;
 			if(occur<=0 && (!SIMPLE))  {
 				//timer_stop(_timer);
 				TIME[algo][il]=0;
 				PRE_TIME[algo][il]=0;
+                clearSearchInfo(&(TOTAL_INFO[algo][il]));
 				total_occur = occur;
 				break;
 	      	}
@@ -338,18 +437,32 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 				//timer_stop(_timer);
 				TIME[algo][il]=0;
 				PRE_TIME[algo][il]=0;
-				total_occur = -2;
+                clearSearchInfo(&(TOTAL_INFO[algo][il]));
+                total_occur = -2;
 				break;
 	      	}
-			
       	}
-		
+
+        if (gotStats) {
+            (*statNames) = NO_ALGO_NAMES;
+            int nameReturn = getStatNames(algo, snkey);
+        }
+
 		TIME[algo][il] /= (double)VOLTE;
 		PRE_TIME[algo][il] /= (double)VOLTE;
 		for(k=1; k<=VOLTE; k++) STD[algo][il] += pow(STDTIME[k]-TIME[algo][il],2.0);
 		STD[algo][il] /= (double)VOLTE;
 		STD[algo][il] = sqrt(STD[algo][il]);
-		  
+
+        if (gotStats) {
+            struct searchInfo averageSearchInfo;
+            buildAverageSearchInfo(&(TOTAL_INFO[algo][il]), VOLTE, &averageSearchInfo);
+            TOTAL_INFO[algo][il] = averageSearchInfo;
+            ALGO_VALUE_NAMES[algo] = (*statNames);
+        } else {
+            TOTAL_INFO[algo][il] = NO_ALGO_RESULTS;
+        }
+
 		if(total_occur>0 || (total_occur>=0 && SIMPLE)) {
 			int nchar = 15;
 			if(dif) nchar += 20;
@@ -370,7 +483,21 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 				printf("%s",data);
 				for(i=0; i<15-strlen(data); i++) printf(" ");
 			}
-			if(occ) printf("\tocc \%d",total_occur/VOLTE);
+			if(occ) printf("\tocc %d",total_occur/VOLTE);
+            if(gotStats) {
+                struct searchInfo averageSearchInfo = TOTAL_INFO[algo][il];
+                printf("\tmem=%ld", averageSearchInfo.searchIndexBytes);
+                printf(", entries=%ld", averageSearchInfo.searchIndexEntries);
+                printf(", bytesRead=%ld", averageSearchInfo.textBytesRead);
+                printf(", numShifts=%ld", averageSearchInfo.numShifts);
+                printf(", validations=%ld", averageSearchInfo.validationCount);
+                for (int i=0; i<MAX_ALGO_VALUES;i++) {
+                    const char * valueName = statNames->shortName[i];
+                    if(valueName[0] != '\0') {
+                        printf(", %s=%ld", valueName, averageSearchInfo.algoValues[i]);
+                    }
+                }
+            }
 			printf("\n");
 		}
 		else if(total_occur==0) printf("\b\b\b\b\b\b\b\b.[ERROR] \n");
@@ -385,12 +512,13 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 	   fclose(stream);
 	   printf("\tOUTPUT RUNNING TIMES %s\n", code);
 	   if(txt) outputTXT(TIME, alpha, filename, code, time_format);
+       if(stats) outputStats(TOTAL_INFO, BEST_INFO, WORST_INFO, TIME, BEST, WORST, SUPPORTS_STATS, ALGO_VALUE_NAMES, filename, code);
 	   outputXML(TIME, alpha, filename, code);
-	   outputHTML2(PRE_TIME, TIME, BEST, WORST, STD, pre, dif, alpha, n, VOLTE, filename, code, time_format);
+	   outputHTML2(PRE_TIME, TIME, BEST, WORST, STD, SUPPORTS_STATS, TOTAL_INFO, BEST_INFO, WORST_INFO, ALGO_VALUE_NAMES, pre, dif, alpha, n, VOLTE, stats, filename, code, time_format);
 	   if(tex) outputLatex(TIME, alpha, filename, code, time_format);
 	   if(php) outputPHP(TIME, BEST, WORST, STD, alpha, filename, code, dif, std);
    }
-   //free shared memory
+   //free shared memory //TODO: what about other ones?
    shmctl(pshmid, IPC_RMID,0);
    shmctl(rshmid, IPC_RMID,0);
    
@@ -422,6 +550,7 @@ int main(int argc, const char *argv[])
 	int tex = 0;					//set to 1 for printing results in latex format
 	int php = 0;					//set to 1 for printing results in php format
 	int std = 0;					//set to 1 for printing the standard deviation value
+    int stats = 0;                  //set to 1 for getting search algorithm stats.
 	int limit = 300;				//set to 300 running time bound
    	unsigned char *simplePattern = (unsigned char*) malloc (sizeof(unsigned char) * (100)); //used for the simple run of SMART
    	unsigned char *simpleText = (unsigned char*) malloc (sizeof(unsigned char) * (1000));    //used for the simple run of SMART
@@ -517,6 +646,10 @@ int main(int argc, const char *argv[])
 			par++;
 			php = 1;
 		}
+        if (par<argc && !strcmp("-stats", argv[par])) {
+            par++;
+            stats = 1;
+        }
 		if (par<argc && !strcmp("-short", argv[par])) {
 			par++;
 			PATT_SIZE = PATT_SHORT_SIZE;
@@ -537,8 +670,9 @@ int main(int argc, const char *argv[])
 						&& strcmp("-simple", argv[par])!=0 
 						&& strcmp("-tex", argv[par])!=0 
 			            && strcmp("-std", argv[par])!=0 
-						&& strcmp("-php", argv[par])!=0 
-						&& strcmp("-pset", argv[par])!=0
+						&& strcmp("-php", argv[par])!=0
+                        && strcmp("-stats", argv[par])!=0
+                        && strcmp("-pset", argv[par])!=0
 						&& strcmp("-vshort", argv[par])!=0
 						&& strcmp("-short", argv[par])!=0) {printf("Error in input parameters. Use -h for help.\n\n"); return 0;}
 	
@@ -593,7 +727,7 @@ int main(int argc, const char *argv[])
 		printf("\tExperimental tests started on %s\n",time_format);
 		
    		printf("\tStarting experimental tests with code %s\n",expcode);
-   		run_setting("", tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, expcode, tshmid, txt, tex, php, simplePattern, std, limit, time_format);
+   		run_setting("", tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, stats, expcode, tshmid, txt, tex, php, simplePattern, std, limit, time_format);
 		//no output is given for the simple case;
 	}
 	else if( strcmp(filename, "all") ) {  
@@ -631,7 +765,7 @@ int main(int argc, const char *argv[])
 			strftime(time_format, 26, "%Y:%m:%d %H:%M:%S", tm_info);
 			printf("\tExperimental tests started on %s\n",time_format);
 
-			run_setting(list_of_filenames[k], tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, expcode, tshmid, txt, tex, php, (unsigned char*)"", std, limit, time_format);
+			run_setting(list_of_filenames[k], tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, stats, expcode, tshmid, txt, tex, php, (unsigned char*)"", std, limit, time_format);
 			outputINDEX(list_of_filenames, num_buffers, expcode);
 		}
 	}
@@ -665,7 +799,7 @@ int main(int argc, const char *argv[])
 			strftime(time_format, 26, "%Y:%m:%d %H:%M:%S", tm_info);
 			printf("\tExperimental tests started on %s\n",time_format);
 
-    		run_setting(SETTING_BUFFER[sett], tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, expcode, tshmid, txt, tex, php, (unsigned char*)"", std, limit, time_format);
+    		run_setting(SETTING_BUFFER[sett], tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, stats, expcode, tshmid, txt, tex, php, (unsigned char*)"", std, limit, time_format);
 		}
 		outputINDEX(list_of_filenames,num_buffers,expcode);
 	}
