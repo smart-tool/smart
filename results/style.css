@@ -207,7 +207,7 @@ td{
 
 .search_stats {
 	padding: 2px;
-	width: 40px;
+	width: 60px;
 	height: 15px;
 	font-size: 11px;
 	text-align:center;
@@ -221,7 +221,7 @@ td{
 .search_stats_best {
 	padding: 2px;
 	background-color: Honeydew;
-	width: 40px;
+	width: 60px;
 	height: 10px;
 	font-size: 10px;
 	text-align:center;
@@ -246,7 +246,7 @@ td{
 	padding: 2px;
 	background-color: #ffffff;
 	width: 60px;
-	height: 10px;
+	height: 15px;
 	font-size: 10px;
 	text-align:center;
 	vertical-align:middle;

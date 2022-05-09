@@ -173,7 +173,7 @@ void outputStatRow(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatNameLen, 
     char statValue[32];
     for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
         struct searchInfo *info = &(INFO[algo][il]);
-        if (info->patternLength > 0) {
+        if (info->hasStats) {
             long value = statType == ALGO_VALUES ? info->algoValues[algoStatIndex] : getStatValue(statType, info);
             sprintf(statValue, "%ld", value);
             fprintf(fp, "\t%*s", STAT_VALUE_COLUMN_SIZE, statValue);
@@ -184,13 +184,23 @@ void outputStatRow(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatNameLen, 
     fprintf(fp, "\n");
 }
 
+void outputStatRows(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatNameLen, enum searchInfoStats statType, int algoStatIndex,
+                    struct searchInfo AVG[NumAlgo][NumPatt],
+                    struct searchInfo BEST[NumAlgo][NumPatt],
+                    struct searchInfo WORST[NumAlgo][NumPatt],
+                    struct algoValueNames ALGO_STAT_NAMES[NumAlgo]) {
+    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Best", BEST, ALGO_STAT_NAMES);
+    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Mean", AVG, ALGO_STAT_NAMES);
+    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Worst", WORST, ALGO_STAT_NAMES);
+}
+
 void outputTimeStatRow(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatNameLen, char *resultType, double TIME[NumAlgo][NumPatt]) {
     fprintf(fp, "%-*s", maxAlgoName, str2upper(ALGO_NAME[algo]));
-    fprintf(fp, "%-*s", maxAlgoStatNameLen, "Running time");
-    fprintf(fp, "%-*s", STAT_TYPE_COLUMN_SIZE, resultType);
+    fprintf(fp, "\t%-*s", maxAlgoStatNameLen, "Running time (ms)");
+    fprintf(fp, "\t%-*s", STAT_TYPE_COLUMN_SIZE, resultType);
     char statValue[32];
     for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-        double time = TIME[NumAlgo][NumPatt];
+        double time = TIME[algo][il];
         if (time > 0.0) {
             sprintf(statValue, "%.2f", time);
             fprintf(fp, "\t%*s", STAT_VALUE_COLUMN_SIZE, statValue);
@@ -205,18 +215,9 @@ void outputTimeStatRows(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatName
                         double MEAN_TIME[NumAlgo][NumPatt], double BEST_TIME[NumAlgo][NumPatt], double WORST_TIME[NumAlgo][NumPatt]) {
     outputTimeStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, "Best", BEST_TIME);
     outputTimeStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, "Mean", MEAN_TIME);
-    outputTimeStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, "Best", WORST_TIME);
+    outputTimeStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, "Worst", WORST_TIME);
 }
 
-void outputStatRows(FILE *fp, int algo, int maxAlgoName, int maxAlgoStatNameLen, enum searchInfoStats statType, int algoStatIndex,
-                    struct searchInfo AVG[NumAlgo][NumPatt],
-                    struct searchInfo BEST[NumAlgo][NumPatt],
-                    struct searchInfo WORST[NumAlgo][NumPatt],
-                    struct algoValueNames ALGO_STAT_NAMES[NumAlgo]) {
-    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Best", BEST, ALGO_STAT_NAMES);
-    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Mean", AVG, ALGO_STAT_NAMES);
-    outputStatRow(fp, algo, maxAlgoName, maxAlgoStatNameLen, statType, algoStatIndex, "Worst", WORST, ALGO_STAT_NAMES);
-}
 
 void outputAlgoStats(FILE *fp, int algo, int maxAlgoNameLen, int maxAlgoStatNameLen,
                      struct searchInfo AVG[NumAlgo][NumPatt],
@@ -261,7 +262,7 @@ int outputStats(struct searchInfo AVG[NumAlgo][NumPatt], struct searchInfo BEST[
     strcat(outname, "/");
     strcat(outname, filename);
     strcat(outname, ".stats.txt");
-    printf("\tSaving stats data on %s/%s.stats.txt\n",expcode,filename);
+    printf("\tSaving data on %s/%s.stats.txt\n",expcode,filename);
     if ( !(fp = fopen(outname,"w") ) ) {
         printf("\tError in writing file %s/%s.stats.txt\n",expcode,filename);
         return 0;
@@ -557,17 +558,15 @@ void printPatternStatsRow(struct searchInfo AVG_INFO[NumAlgo][NumPatt],
                     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
                         fprintf(fp, "<td><center>");
                         struct searchInfo *avg = &(AVG_INFO[algo][il]);
-                        if (avg->patternLength > -1) {
-                            struct searchInfo *best = &(BEST_INFO[algo][il]);
-                            struct searchInfo *worst = &(WORST_INFO[algo][il]);
-                            fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\">%ld</div>", tableNo, best->algoValues[valueIndex]);
+                        struct searchInfo *best = &(BEST_INFO[algo][il]);
+                        struct searchInfo *worst = &(WORST_INFO[algo][il]);
+                        fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\">%ld</div>", tableNo, best->algoValues[valueIndex]);
+                        if (avg->hasStats) {
                             fprintf(fp, "<div class=\"search_stats\">%ld</div>", avg->algoValues[valueIndex]);
-                            fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\">%ld</div>", tableNo, worst->algoValues[valueIndex]);
                         } else {
-                            fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\"></div>", tableNo);
                             fprintf(fp, "<div class=\"search_stats_none\">-</div>");
-                            fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\"></div>", tableNo);
                         }
+                        fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\">%ld</div>", tableNo, worst->algoValues[valueIndex]);
                         fprintf(fp, "</center></td>");
                     }
                 fprintf(fp, "</tr>\n");
@@ -579,29 +578,64 @@ void printPatternStatsRow(struct searchInfo AVG_INFO[NumAlgo][NumPatt],
             if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
                 fprintf(fp, "<td><center>");
                 struct searchInfo *avg = &(AVG_INFO[algo][il]);
-                if (avg->patternLength > -1) {
-                    struct searchInfo *best = &(BEST_INFO[algo][il]);
-                    struct searchInfo *worst = &(WORST_INFO[algo][il]);
-                    fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\">%ld</div>", tableNo, getStatValue(statType, best));
+                struct searchInfo *best = &(BEST_INFO[algo][il]);
+                struct searchInfo *worst = &(WORST_INFO[algo][il]);
+                fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\">%ld</div>", tableNo, getStatValue(statType, best));
+                if (avg->hasStats) {
                     fprintf(fp, "<div class=\"search_stats\">%ld</div>", getStatValue(statType, avg));
-                    fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\">%ld</div>", tableNo, getStatValue(statType, worst));
                 }  else {
-                    fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\"></div>", tableNo);
                     fprintf(fp, "<div class=\"search_stats_none\">-</div>");
-                    fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\"></div>", tableNo);
                 }
+                fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\">%ld</div>", tableNo, getStatValue(statType, worst));
                 fprintf(fp, "</center></td>");
             }
         fprintf(fp, "</tr>\n");
     }
 }
 
+void printTimeStatsRow(double MEAN_TIME[NumAlgo][NumPatt],
+                       double BEST_TIME[NumAlgo][NumPatt],
+                       double WORST_TIME[NumAlgo][NumPatt],
+                       int algo, int tableNo, FILE *fp) {
+    fprintf(fp, "<tr><td class=\"statNames\"><b>Running time (ms)</b></td>\n");
+    for (int il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+            fprintf(fp, "<td><center>");
+            double time = BEST_TIME[algo][il];
+            if (time > 0.0) {
+                fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\">%.2f</div>",
+                        tableNo, time);
+            } else {
+                fprintf(fp, "<div class=\"search_stats_best\" name=\"bestTable%d\" style=\"display:none\"></div>",
+                        tableNo);
+            }
+            time = MEAN_TIME[algo][il];
+            if (time > 0.0) {
+                fprintf(fp, "<div class=\"search_stats\">%.2f</div>", time);
+            } else {
+                fprintf(fp, "<div class=\"search_stats_none\">-</div>");
+            }
+            time = WORST_TIME[algo][il];
+            if (time > 0.0) {
+                fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\">%.2f</div>", tableNo, time);
+            } else {
+                fprintf(fp, "<div class=\"search_stats_worst\" name=\"worstTable%d\" style=\"display:none\"></div>", tableNo);
+            }
+            fprintf(fp, "</center></td>");
+        }
+    fprintf(fp, "</tr>\n");
+}
+
 void printSTATS(struct searchInfo AVERAGE_INFO[NumAlgo][NumPatt],
                 struct searchInfo BEST_INFO[NumAlgo][NumPatt],
                 struct searchInfo WORST_INFO[NumAlgo][NumPatt],
                 struct algoValueNames ALGO_STAT_NAMES[NumAlgo],
+                double MEAN_TIME[NumAlgo][NumPatt],
+                double BEST_TIME[NumAlgo][NumPatt],
+                double WORST_TIME[NumAlgo][NumPatt],
                 int algo, int tableNo, int volte, char *expcode, FILE *fp) {
-    //printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, TEXT_LENGTH, fp);
+    printTimeStatsRow(MEAN_TIME, BEST_TIME, WORST_TIME, algo, tableNo, fp);
+    printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, TEXT_LENGTH, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, SEARCH_INDEX_BYTES, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, SEARCH_INDEX_ENTRIES, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, MAIN_LOOP_COUNT, fp);
@@ -822,12 +856,12 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
                 fprintf(fp,"<tr><td class=\"length\"><b>%s</b</td>", ALGO_NAME[algo]);
                 for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
                         fprintf(fp,"<td class=\"length\">%d</td>",PATT_SIZE[il]);
-                    }
+                }
                 fprintf(fp,"</tr>");
-                printSTATS(TOTAL_INFO, BEST_INFO, WORST_INFO, ALGO_VALUE_NAMES, algo, tableNo, volte, expcode, fp);
+                printSTATS(TOTAL_INFO, BEST_INFO, WORST_INFO, ALGO_VALUE_NAMES, TIME, BEST, WORST, algo, tableNo, volte, expcode, fp);
                 fprintf(fp,"</table>\n");
-                fprintf(fp, "<div class=\"caption\"><b>Table %d.</b> Average running statistics of experimental tests n.%s for the <b>%s algorithm</b>. Each value is the mean of %d runs.<br>\n",tableNo, expcode, ALGO_NAME[algo], volte);
-                fprintf(fp, "If the appropriate checkboxes are selected, the stats of the run with the best running time are shown above the mean, and the stats with the worst running time below it. \n");
+                fprintf(fp, "<div class=\"caption\"><b>Table %d.</b> Average running measurements of experimental tests n.%s for the <b>%s algorithm</b>. Each value is the mean of %d runs.<br>\n",tableNo, expcode, ALGO_NAME[algo], volte);
+                fprintf(fp, "If the appropriate checkboxes are selected, the measurements of the run with the best running time are shown above the mean, and the stats with the worst running time below it. \n");
                 fprintf(fp, "<br>\n<div class=\"controlHorizontalFloat\">");
                 fprintf(fp, "<input type=\"checkbox\" id=\"bestTableCheck%d\" name=\"bestTableCheck%d\" onclick=\"showDivsByName(document, 'bestTable%d', this.checked)\">", tableNo, tableNo, tableNo);
                 fprintf(fp, "<label for=\"bestTableCheck%d\">Show stats for fastest run</label></div>\n", tableNo);
@@ -835,7 +869,6 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
                 fprintf(fp, "<input type=\"checkbox\" id=\"worstTableCheck%d\" name=\"worstTableCheck%d\" onclick=\"showDivsByName(document, 'worstTable%d', this.checked)\">", tableNo, tableNo, tableNo);
                 fprintf(fp, "<label for=\"worstTableCheck%d\">Show stats for slowest run</label></div>\n", tableNo);
                 fprintf(fp, "</div><br></div><p>\n");
-
                 tableNo++;
             }
         }

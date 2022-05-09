@@ -13,13 +13,55 @@
 
 /*
  * A struct holding information about the operation of a search algorithm when searching a text.
+ *
+ * Notes on adapting search algorithms to gather searchInfo:
+ * =========================================================
+ *
+ * Pattern validation with memcmp()
+ * ================================
+ * Many algorithms use memcmp() to efficiently test for a pattern match.
+ * We usually want to count the number of bytes read for validation, so calls to memcmp should be replaced
+ * by calls to matchTest(), defined in mainstats.h:
+ *
+ *   if(memcmp(y+k,x,m) == 0) count++;
+ *
+ * should be replaced with:
+ *
+ *   matchTest(&searchInfo, x, m, y, n, k);
+ *
+ * passing in the address of your searchInfo struct, along with the pattern, pattern length, text, text length and pos
+ * to match at.  This will increment the appropriate measurements in the searchInfo, including the match count if a
+ * match is found.  It returns the number of bytes that successfully matched, so if you want to do something else with
+ * a match other than increment the match count, you can write:
+ *
+ *   if (matchTest(&searchInfo, x, m, y, n, k) == m) {
+ *     ... do whatever ...
+ *   }
+ *
+ *
+ * while loop counting
+ * ===================
+ * Many algorithms use a while loop in which text bytes or index lookups are made in the main while condition, e.g.
+ *
+ *    while (F[y[i]] == 0) {
+ *       ...
+ *    }
+ *
+ * To accurately count the text bytes read and index lookups made, they should be pre-incremented in the while condition,
+ * as the *first* conditions to appear.  If you count them *inside* the loop, you will fail to count reads made when the
+ * main while test condition failed.
+ *
+ *    while (++results.textBytesRead && ++results.indexLookupCount && F[y[i]] == 0) {
+ *       ...
+ *    }
+ *
  */
 struct searchInfo {
     /*
-     * The length of the pattern searched.
-     * If this is set to -1, then it indicates no results are available.
+     * Whether the struct contains any searchInfo.
+     * 0 indicates no searchInfo, 1 indicates there is info.
      */
-    int patternLength;
+    char hasStats;
 
     /*
      * The length of the text searched.
@@ -89,8 +131,7 @@ struct searchInfo {
      * The number of bytes read during pattern validation.
      * Note: a lot of algorithms use memcmp() to determine a match quickly, but this doesn't tell us how many
      * bytes have been read.  In these cases, the memcmp() in the stats function should be replaced with a call
-     * to matchLength(), defined in mainstats.h.  This returns how many bytes were scanned when matching a pattern.
-     * Testing that the result equals the pattern length indicates a match.
+     * to matchTest(), defined in mainstats.h.
      */
     long validationBytesRead;
 
@@ -183,7 +224,6 @@ const char* getStatName(enum searchInfoStats stat) {
  */
 const long getStatValue(enum searchInfoStats stat, struct searchInfo* info) {
     switch (stat) {
-        case PATTERN_LENGTH : return info->patternLength;
         case TEXT_LENGTH: return info->textLength;
         case SEARCH_INDEX_BYTES: return info->searchIndexBytes;
         case SEARCH_INDEX_ENTRIES: return info->searchIndexEntries;
@@ -222,9 +262,9 @@ struct algoValueNames {
 
 
 /*
- * A default struct indicating no results are available.  The pattern length is set to -1.
+ * A default struct indicating no results are available.
  */
-struct searchInfo NO_ALGO_RESULTS = {-1};
+struct searchInfo NO_ALGO_RESULTS = {0};
 
 
 /*
@@ -236,8 +276,8 @@ struct algoValueNames NO_ALGO_NAMES = {0};
 /*
  * A convenience method to initialise the stats with a number of entries and the size of each entry.
  */
-void initStats(struct searchInfo* info, int m, int n, int entries, int entrySize) {
-    info->patternLength = m;
+void initStats(struct searchInfo* info, int n, int entries, int entrySize) {
+    info->hasStats = 1;
     info->textLength = n;
     info->searchIndexEntries = entries;
     info->searchIndexBytes = entries * entrySize;
@@ -249,8 +289,8 @@ void initStats(struct searchInfo* info, int m, int n, int entries, int entrySize
  * This is for times when the memory size isn't computable by a single set of entries with a single size
  * (e.g. some algorithms have two tables using different entry sizes for each).
  */
-void initStatsBytes(struct searchInfo* info, int m, int n, int entries, int bytes) {
-    info->patternLength = m;
+void initStatsBytes(struct searchInfo* info, int n, int entries, int bytes) {
+    info->hasStats = 1;
     info->textLength = n;
     info->searchIndexEntries = entries;
     info->searchIndexBytes = bytes;
@@ -275,7 +315,7 @@ int setAlgoValueName(struct algoValueNames *names, int index, const char *shortN
  * A method to initialize a stat struct with default values.
  */
 void clearSearchInfo(struct searchInfo *info) {
-    info->patternLength = -1;
+    info->hasStats = 0;
     info->textLength = 0;
     info->searchIndexBytes=0;
     info->searchIndexEntries=0;
@@ -301,7 +341,7 @@ void clearSearchInfo(struct searchInfo *info) {
  * The average results are placed in the averageResuts struct passed in.
  */
 void buildAverageSearchInfo(struct searchInfo *infoTotals, int samples, struct searchInfo *averageResults) {
-    averageResults->patternLength = infoTotals->patternLength > 0 ? infoTotals->patternLength / samples : -1;
+    averageResults->hasStats = 1;
     averageResults->textLength = infoTotals->textLength / samples;
     averageResults->searchIndexBytes = infoTotals->searchIndexBytes / samples;
     averageResults->searchIndexEntries = infoTotals->searchIndexEntries / samples;
@@ -327,7 +367,7 @@ void buildAverageSearchInfo(struct searchInfo *infoTotals, int samples, struct s
  * Adds the values in one stat struct to another.
  */
 void addSearchInfoTo(struct searchInfo *toAdd, struct searchInfo *addTo) {
-    addTo->patternLength += toAdd->patternLength;
+    addTo->hasStats = 1;
     addTo->textLength += toAdd->textLength;
     addTo->searchIndexBytes += toAdd->searchIndexBytes;
     addTo->searchIndexEntries += toAdd->searchIndexEntries;
@@ -366,7 +406,6 @@ void printAlgoValueNames(const char *format, const struct algoValueNames *valueN
  * Prints all search info to the console.
  */
 void printSearchInfo(const char *format, const struct searchInfo *searchInfo, const struct algoValueNames *valueNames) {
-    printf(format, "Pattern length", searchInfo->patternLength);
     printf(format, "Text length", searchInfo->textLength);
     printf(format, "Index bytes", searchInfo->searchIndexBytes);
     printf(format, "Index entries", searchInfo->searchIndexEntries);

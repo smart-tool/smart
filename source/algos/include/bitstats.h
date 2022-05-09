@@ -1,6 +1,7 @@
 //
 // Created by matt on 05/05/2022.
 //
+
 #include "../../searchinfo.h"
 
 #ifndef SMART_BITSTATS_H

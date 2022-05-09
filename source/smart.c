@@ -406,7 +406,7 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
             if (obtainStats) {
                 clearSearchInfo(searchInfo);
                 int statReturn = getStats(algo,pkey,m,tkey,n,sikey); // stats placed in shared memory *sharedInfo
-                if (statReturn == 0 && searchInfo->patternLength > 0) { // algorithm supports stats and has set results.
+                if (statReturn == 0 && searchInfo->hasStats) { // algorithm supports stats and has set results.
                     addSearchInfoTo(searchInfo, &(TOTAL_INFO[algo][il]));
                     gotStats = 1;
                 }
@@ -439,6 +439,7 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 				PRE_TIME[algo][il]=0;
                 clearSearchInfo(&(TOTAL_INFO[algo][il]));
                 total_occur = -2;
+                gotStats = 0;
 				break;
 	      	}
       	}
@@ -518,10 +519,16 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
 	   if(tex) outputLatex(TIME, alpha, filename, code, time_format);
 	   if(php) outputPHP(TIME, BEST, WORST, STD, alpha, filename, code, dif, std);
    }
-   //free shared memory //TODO: what about other ones?
+   //free shared memory
    shmctl(pshmid, IPC_RMID,0);
    shmctl(rshmid, IPC_RMID,0);
-   
+   shmctl(eshmid, IPC_RMID, 0);
+   shmctl(preshmid, IPC_RMID, 0);
+   if (stats) {
+       shmctl(sishmid, IPC_RMID, 0);
+       shmctl(snshmid, IPC_RMID, 0);
+   }
+
    //free memory allocated for patterns
    for(i=0; i<VOLTE; i++) free(setP[i]);
    free(setP);

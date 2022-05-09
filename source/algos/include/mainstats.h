@@ -43,13 +43,15 @@ TIMER * _timer;
  */
 
 /*
- * The search function which is timed.
+ * The normal search function, which is timed.
+ * Use timing macros BEGIN_PREPROCESSING, END_PREPROCESSING, BEGIN_SEARCHING and END_SEARCHING.
+ * Don't measure any searchInfo stats in this function, or the timings will be negatively affected.
  */
 int search(unsigned char* p, int m, unsigned char* t, int n);
 
 /*
  * An instrumented version of the search function that is not timed, but returns running statistics.
- * Take a copy of the search method and modify it, taking out the timing macros, and
+ * Take a copy of the normal search method and modify it, taking out the timing macros, and
  * recording the runtime statistics of the algorithm instead, returning searchInfo rather than int.
  */
 struct searchInfo searchStats(unsigned char* p, int m, unsigned char* t, int n);
@@ -66,21 +68,26 @@ struct algoValueNames getAlgoValueNames();
 
 
 /*********************************************************************************************************
- * Convenience function for returning how many bytes were read in the text against a pattern at some position.
- * Many algorithms use memcmp() for a fast pattern comparison, but this does not give us the number of bytes
- * scanned if there was no match, which is a stat we collect (validationBytesRead).
- * Replace calls to memcmp() in the searchStats() method with matchLength,
- * and test that the bytes read == m to record an occurrence.
+ * Convenience function for testing a pattern against a position in the text an updating searchInfo
+ * to reflect how many bytes were read and to increment the match count if a match was found.
+ *
+ * This should replace calls to memcmp() when testing for a pattern match in algorithms that use it.
+ *
+ * It returns the number of matching bytes found when matching the pattern.
  */
-int matchLength(unsigned char *p, int m, unsigned char *t, int n, int pos) {
+int matchTest(struct searchInfo *info, unsigned char *p, int m, unsigned char *t, int n, int pos) {
+    info->validationCount++;
     if (pos + m > n) {
         return 0;
     }
     for (int i = 0; i < m; i++) {
+        info->textBytesRead++;
+        info->validationBytesRead++;
         if (p[i] != t[pos + i]) {
-            return i + 1; // at pos zero, even if we don't have a match, we have read one byte.
+            return i;
         }
     }
+    info->matchCount++;
     return m;
 }
 
