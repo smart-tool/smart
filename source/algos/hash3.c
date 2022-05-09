@@ -22,7 +22,9 @@
  */
 
 #include "include/define.h"
-#include "include/main.h"
+#include "include/mainstats.h" // defines the search interface for time and statistics.
+#include "include/shiftstats.h"  // implements the standard set of shift-table algorithm statistic names.
+
 #define RANK3 3
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -82,3 +84,76 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
    }
 }
+
+struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) {
+    int count, j, i, sh, sh1, mMinus1, mMinus2, shift[WSIZE];
+    unsigned char h;
+    if(m<3) return NO_ALGO_RESULTS;
+    count = 0;
+    mMinus1 = m-1;
+    mMinus2 = m-2;
+
+    for (i = 0; i < WSIZE; ++i)
+        shift[i] = mMinus2;
+
+    h = x[0];
+    h = ((h<<1) + x[1]);
+    h = ((h<<1) + x[2]);
+    shift[h] = m-RANK3;
+    for (i=RANK3; i < mMinus1; ++i) {
+        h = x[i-2];
+        h = ((h<<1) + x[i-1]);
+        h = ((h<<1) + x[i]);
+        shift[h] = mMinus1-i;
+    }
+    h = x[i-2];
+    h = ((h<<1) + x[i-1]);
+    h = ((h<<1) + x[i]);
+    sh1 = shift[h];
+    shift[h] = 0;
+    if(sh1==0) sh1=1;
+
+    /* Basic search info */
+    struct searchInfo results = {0};
+    initStats(&results, n, WSIZE, sizeof(int));
+
+    /* Table stats */
+    sumTable(0, &results, shift, WSIZE);
+
+    i = mMinus1;
+    memcpy(y+n, x, m);
+    while (1) {
+        results.mainLoopCount++;
+
+        sh = 1;
+        while (sh != 0) {
+            h = y[i-2];
+            h = ((h<<1) + y[i-1]);
+            h = ((h<<1) + y[i]);
+            results.textBytesRead += 3;
+
+            sh = shift[h];
+            results.indexLookupCount++;
+
+            i+=sh;
+            results.numShifts++;
+        }
+        if (i < n) {
+            results.validationCount++;
+            j=0;
+            while(++results.textBytesRead && ++results.validationBytesRead && j<m && x[j]==y[i-mMinus1+j]) {
+                j++;
+            }
+            if (j>=m) {
+                results.matchCount++;
+            }
+            i+=sh1;
+            results.validationShifts += sh1;
+            results.numShifts++;
+        }
+        else {
+            return results;
+        }
+    }
+}
+
