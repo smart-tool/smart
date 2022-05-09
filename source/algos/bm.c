@@ -22,7 +22,7 @@
  */
 
 #include "include/define.h"
-#include "include/main.h"
+#include "include/mainstats.h"
 
 void preBmBc(unsigned char *x, int m, int bmBc[]) {
    int i;
@@ -91,4 +91,54 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    END_SEARCHING
    return count;
 }
+
+struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) {
+    int i, j, bmGs[XSIZE], bmBc[SIGMA], count;
+
+    /* Preprocessing */
+    preBmGs(x, m, bmGs);
+    preBmBc(x, m, bmBc);
+
+    /* Basic search info */
+    struct searchInfo results = {0};
+    initStats(&results, n, SIGMA + m + 1, sizeof(int));
+
+    sumTable(0, &results, bmGs, m + 1);
+    sumTable(1, &results, bmBc, SIGMA);
+
+    /* Searching */
+    j = 0;
+    count = 0;
+    while (j <= n - m) {
+        results.mainLoopCount++;
+
+        for (i = m - 1; i >= 0 && x[i] == y[i + j]; --i) {
+            results.textBytesRead++;
+        }
+        results.validationCount++;
+
+        if (i < 0) {
+            results.matchCount++;
+            j += bmGs[0];
+            results.indexLookupCount++;
+            results.numShifts++;
+            results.validationShifts += bmGs[0];
+        }
+        else {
+            j += MAX(bmGs[i], bmBc[y[i + j]] - m + 1 + i);
+            results.indexLookupCount += 2;
+            results.textBytesRead++;
+            results.numShifts++;
+        }
+    }
+    return results;
+}
+
+struct algoValueNames getAlgoValueNames() {
+    struct algoValueNames names = {0};
+    setAlgoValueName(&names, 0, "Gs table shifts", "Sum of shifts in Gs table");
+    setAlgoValueName(&names, 1, "Bc table shifts", "Sum of shifts in Gc table");
+    return names;
+}
+
 

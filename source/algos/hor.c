@@ -21,7 +21,8 @@
  */
 
 #include "include/define.h"
-#include "include/main.h"
+#include "include/mainstats.h"
+#include "include/shiftstats.h"  // implements the standard set of shift-table algorithm statistic names.
 
 void Pre_Horspool(unsigned char *P, int m, int hbc[]) {
    int i;
@@ -49,3 +50,36 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
    END_SEARCHING
    return count;
 }
+
+struct searchInfo searchStats(unsigned char *P, int m, unsigned char *T, int n) {
+    int i, s, hbc[SIGMA];
+    Pre_Horspool(P, m, hbc);
+
+    /* Basic search info */
+    struct searchInfo results = {0};
+    initStats(&results, n, SIGMA, sizeof(int));
+
+    /* Table stats */
+    sumTable(0, &results, hbc, SIGMA);
+
+    /* Instrumented Searching */
+    s = 0;
+    while(s<=n-m) {
+        results.mainLoopCount += 1;
+        i=0;
+        while(++results.textBytesRead && ++results.validationBytesRead && i<m && P[i]==T[s+i]) {
+            i++;;
+        }
+        if(i==m) {
+            results.matchCount++;
+        }
+        results.validationCount++;
+        int shift = hbc[T[s+m-1]];
+        s+=shift;
+        results.textBytesRead++;
+        results.indexLookupCount++;
+        results.numShifts++;
+    }
+    return results;
+}
+
