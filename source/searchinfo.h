@@ -74,9 +74,14 @@ struct searchInfo {
     long searchIndexBytes;
 
     /*
-     * THe number of entries available in the search indices.
+     * The number of entries available in the main search index.
      */
     long searchIndexEntries;
+
+    /*
+     * The number of entries available in any secondary search index, or zero if no such entries are used.
+     */
+    long searchIndex2Entries;
 
     /*
      * How many times the main search loop executes.
@@ -113,7 +118,7 @@ struct searchInfo {
      * If the slow path is taken repeatedly in a loop inside the main loop, each iteration of the slow path
      * loop should be counted to better understand how much work is being done (rather than just counting
      * that a slow path was entered once).
-     * Not all algorithms have a slow path, but ones with fast paths do.
+     * Not all algorithms have a slow path, but many do.
      */
     long slowPathCount;
 
@@ -130,8 +135,11 @@ struct searchInfo {
     /*
      * The number of bytes read during pattern validation.
      * Note: a lot of algorithms use memcmp() to determine a match quickly, but this doesn't tell us how many
-     * bytes have been read.  In these cases, the memcmp() in the stats function should be replaced with a call
-     * to matchTest(), defined in mainstats.h.
+     * bytes have been read.
+     * mainstats.h defines a utility function "matchTest()" which performs all match validation at a position
+     * in the text and updates all of searchInfo fields appropriately.  This should always be used in preference
+     * to memcmp(), but it's usually easier to use it even if memcmp isn't being used, just because it updates
+     * all the relevant searchInfo fields itself.
      */
     long validationBytesRead;
 
@@ -175,6 +183,7 @@ enum searchInfoStats {
     TEXT_LENGTH,
     SEARCH_INDEX_BYTES,
     SEARCH_INDEX_ENTRIES,
+    SEARCH_INDEX2_ENTRIES,
     MAIN_LOOP_COUNT,
     TEXT_BYTES_READ,
     INDEX_LOOKUP_COUNT,
@@ -227,6 +236,7 @@ const long getStatValue(enum searchInfoStats stat, struct searchInfo* info) {
         case TEXT_LENGTH: return info->textLength;
         case SEARCH_INDEX_BYTES: return info->searchIndexBytes;
         case SEARCH_INDEX_ENTRIES: return info->searchIndexEntries;
+        case SEARCH_INDEX2_ENTRIES : return info->searchIndex2Entries;
         case MAIN_LOOP_COUNT: return info->mainLoopCount;
         case TEXT_BYTES_READ: return info->textBytesRead;
         case INDEX_LOOKUP_COUNT: return info->indexLookupCount;
@@ -283,6 +293,18 @@ void initStats(struct searchInfo* info, int n, int entries, int entrySize) {
     info->searchIndexBytes = entries * entrySize;
 }
 
+/*
+ * A convenience method to initialise the stats with a number of entries and the size of each entry,
+ * for both a main search index and a secondary search index.
+ */
+void initStats2(struct searchInfo* info, int n, int entries, int entrySize, int entries2, int entry2Size) {
+    info->hasStats = 1;
+    info->textLength = n;
+    info->searchIndexEntries = entries;
+    info->searchIndex2Entries = entries2;
+    info->searchIndexBytes = (entries * entrySize) + (entries2 * entry2Size);
+}
+
 
 /*
  * A convenience method to initialize stats with the number of entries and the total number of bytes.
@@ -319,6 +341,7 @@ void clearSearchInfo(struct searchInfo *info) {
     info->textLength = 0;
     info->searchIndexBytes=0;
     info->searchIndexEntries=0;
+    info->searchIndex2Entries=0;
     info->mainLoopCount=0;
     info->textBytesRead=0;
     info->indexLookupCount=0;
@@ -345,6 +368,7 @@ void buildAverageSearchInfo(struct searchInfo *infoTotals, int samples, struct s
     averageResults->textLength = infoTotals->textLength / samples;
     averageResults->searchIndexBytes = infoTotals->searchIndexBytes / samples;
     averageResults->searchIndexEntries = infoTotals->searchIndexEntries / samples;
+    averageResults->searchIndex2Entries = infoTotals->searchIndex2Entries / samples;
     averageResults->mainLoopCount = infoTotals->mainLoopCount / samples;
     averageResults->textBytesRead = infoTotals->textBytesRead / samples;
     averageResults->indexLookupCount = infoTotals->indexLookupCount / samples;
@@ -371,6 +395,7 @@ void addSearchInfoTo(struct searchInfo *toAdd, struct searchInfo *addTo) {
     addTo->textLength += toAdd->textLength;
     addTo->searchIndexBytes += toAdd->searchIndexBytes;
     addTo->searchIndexEntries += toAdd->searchIndexEntries;
+    addTo->searchIndex2Entries += toAdd->searchIndex2Entries;
     addTo->mainLoopCount += toAdd->mainLoopCount;
     addTo->textBytesRead += toAdd->textBytesRead;
     addTo->indexLookupCount += toAdd->indexLookupCount;
@@ -409,6 +434,7 @@ void printSearchInfo(const char *format, const struct searchInfo *searchInfo, co
     printf(format, "Text length", searchInfo->textLength);
     printf(format, "Index bytes", searchInfo->searchIndexBytes);
     printf(format, "Index entries", searchInfo->searchIndexEntries);
+    printf(format, "Index2 entries", searchInfo->searchIndex2Entries);
     printf(format, "Main loop count", searchInfo->mainLoopCount);
     printf(format, "Text bytes read", searchInfo->textBytesRead);
     printf(format, "Index lookup count", searchInfo->indexLookupCount);
