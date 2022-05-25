@@ -136,8 +136,8 @@ struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) 
 
 struct algoValueNames getAlgoValueNames() {
     struct algoValueNames names = {0};
-    setAlgoValueName(&names, 0, "Gs table shifts", "Sum of shifts in Gs table");
-    setAlgoValueName(&names, 1, "Bc table shifts", "Sum of shifts in Gc table");
+    setAlgoValueName(&names, 0, "GsShifts", "Sum of shifts in Gs table");
+    setAlgoValueName(&names, 1, "BcShifts", "Sum of shifts in Bc table");
     return names;
 }
 
