@@ -489,6 +489,9 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
                 struct searchInfo averageSearchInfo = TOTAL_INFO[algo][il];
                 printf("\tmem=%ld", averageSearchInfo.searchIndexBytes);
                 printf(", entries=%ld", averageSearchInfo.searchIndexEntries);
+                if (averageSearchInfo.searchIndex2Entries > 0) {
+                    printf(", entries2=%ld", averageSearchInfo.searchIndex2Entries);
+                }
                 printf(", bytesRead=%ld", averageSearchInfo.textBytesRead);
                 printf(", numShifts=%ld", averageSearchInfo.numShifts);
                 printf(", validations=%ld", averageSearchInfo.validationCount);

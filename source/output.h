@@ -227,6 +227,7 @@ void outputAlgoStats(FILE *fp, int algo, int maxAlgoNameLen, int maxAlgoStatName
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, TEXT_LENGTH, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, SEARCH_INDEX_BYTES, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, SEARCH_INDEX_ENTRIES, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
+    outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, SEARCH_INDEX2_ENTRIES, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, MAIN_LOOP_COUNT, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, NUM_SHIFTS, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
     outputStatRows(fp, algo, maxAlgoNameLen, maxAlgoStatNameLen, INDEX_LOOKUP_COUNT, -1, AVG, BEST, WORST, ALGO_STAT_NAMES);
@@ -638,6 +639,7 @@ void printSTATS(struct searchInfo AVERAGE_INFO[NumAlgo][NumPatt],
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, TEXT_LENGTH, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, SEARCH_INDEX_BYTES, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, SEARCH_INDEX_ENTRIES, fp);
+    printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, SEARCH_INDEX2_ENTRIES, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, MAIN_LOOP_COUNT, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, NUM_SHIFTS, fp);
     printPatternStatsRow(AVERAGE_INFO, BEST_INFO, WORST_INFO, ALGO_STAT_NAMES, algo, tableNo, INDEX_LOOKUP_COUNT, fp);
