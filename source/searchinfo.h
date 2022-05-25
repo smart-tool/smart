@@ -209,6 +209,7 @@ const char* getStatName(enum searchInfoStats stat) {
         case TEXT_LENGTH: return "Text length";
         case SEARCH_INDEX_BYTES: return "Search index bytes";
         case SEARCH_INDEX_ENTRIES: return "Search index entries";
+        case SEARCH_INDEX2_ENTRIES: return "Search index 2 entries";
         case MAIN_LOOP_COUNT: return "Main loop count";
         case TEXT_BYTES_READ: return "Text bytes read";
         case INDEX_LOOKUP_COUNT: return "Index lookup count";
