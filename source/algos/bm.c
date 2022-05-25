@@ -93,7 +93,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 }
 
 struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) {
-    int i, j, bmGs[XSIZE], bmBc[SIGMA], count;
+    // bmGs is defined with XSIZE, maximum pattern length in the original code, but only m is required for Gs.
+    int i, j, bmGs[XSIZE], bmBc[SIGMA];
 
     /* Preprocessing */
     preBmGs(x, m, bmGs);
@@ -101,14 +102,13 @@ struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) 
 
     /* Basic search info */
     struct searchInfo results = {0};
-    initStats(&results, n, SIGMA + m + 1, sizeof(int));
+    initStats2(&results, n, SIGMA, sizeof(int), m, sizeof(int));
 
     sumTable(0, &results, bmGs, m + 1);
     sumTable(1, &results, bmBc, SIGMA);
 
     /* Searching */
     j = 0;
-    count = 0;
     while (j <= n - m) {
         results.mainLoopCount++;
 
