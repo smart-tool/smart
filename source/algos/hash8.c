@@ -22,7 +22,9 @@
  */
 
 #include "include/define.h"
-#include "include/main.h"
+#include "include/mainstats.h" // defines the search interface for time and statistics.
+#include "include/shiftstats.h"  // implements the standard set of shift-table algorithm statistic names.
+
 #define RANK8 8
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -102,4 +104,98 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       	return count;
       }
    }
+}
+
+
+struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) {
+    int i, j, sh, shift[WSIZE], sh1, mMinus1, mMinus7;
+    unsigned int h;
+    if(m<8) return NO_ALGO_RESULTS;
+
+    /* Preprocessing */
+    mMinus1 = m-1;
+    mMinus7 = m-7;
+    for (i = 0; i < WSIZE; ++i)
+        shift[i] = mMinus7;
+
+    h = x[0];
+    h = ((h<<1) + x[1]);
+    h = ((h<<1) + x[2]);
+    h = ((h<<1) + x[3]);
+    h = ((h<<1) + x[4]);
+    h = ((h<<1) + x[5]);
+    h = ((h<<1) + x[6]);
+    h = ((h<<1) + x[7]);
+    shift[h%WSIZE] = m-RANK8;
+    for (i=RANK8; i < mMinus1; ++i) {
+        h = x[i-7];
+        h = ((h<<1) + x[i-6]);
+        h = ((h<<1) + x[i-5]);
+        h = ((h<<1) + x[i-4]);
+        h = ((h<<1) + x[i-3]);
+        h = ((h<<1) + x[i-2]);
+        h = ((h<<1) + x[i-1]);
+        h = ((h<<1) + x[i]);
+        shift[h%WSIZE] = mMinus1-i;
+    }
+    h = x[i-7];
+    h = ((h<<1) + x[i-6]);
+    h = ((h<<1) + x[i-5]);
+    h = ((h<<1) + x[i-4]);
+    h = ((h<<1) + x[i-3]);
+    h = ((h<<1) + x[i-2]);
+    h = ((h<<1) + x[i-1]);
+    h = ((h<<1) + x[i]);
+    sh1 = shift[h%WSIZE];
+    shift[h%WSIZE] = 0;
+    if(sh1==0) sh1=1;
+
+    /* Basic search info */
+    struct searchInfo results = {0};
+    initStats(&results,n, WSIZE, sizeof(int));
+
+    /* Table stats */
+    sumTable(0, &results, shift, WSIZE);
+
+    /* Searching */
+    i = mMinus1;
+    memcpy(y+n, x, m);
+    while (1) {
+        results.mainLoopCount++;
+
+        sh = 1;
+        while (sh != 0) {
+            h = y[i-7];
+            h = ((h<<1) + y[i-6]);
+            h = ((h<<1) + y[i-5]);
+            h = ((h<<1) + y[i-4]);
+            h = ((h<<1) + y[i-3]);
+            h = ((h<<1) + y[i-2]);
+            h = ((h<<1) + y[i-1]);
+            h = ((h<<1) + y[i]);
+            results.textBytesRead += 8;
+
+            sh = shift[h%WSIZE];
+            results.indexLookupCount++;
+
+            i+=sh;
+            results.numShifts++;
+        }
+        if (i < n) {
+            results.validationCount++;
+            j=0;
+            while(++results.textBytesRead && ++results.validationBytesRead && j<m && x[j]==y[i-mMinus1+j]) {
+                j++;
+            }
+            if (j>=m) {
+                results.matchCount++;
+            }
+            i+=sh1;
+            results.validationShifts += sh1;
+            results.numShifts++;
+        }
+        else {
+            return results;
+        }
+    }
 }

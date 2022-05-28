@@ -12,19 +12,21 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the QF (Q-gram Filtering) algorithm
- * in Branislav Durian1, Hannu Peltola, Leena Salmela and Jorma Tarhio2 	
+ * in Branislav Durian1, Hannu Peltola, Leena Salmela and Jorma Tarhio2
  * Bit-Parallel Search Algorithms for Long Patterns
  * International Symposium on Experimental Algorithms (SEA 2010)
  * Q is the dimension of q-grams
  */
 
 #include "include/define.h"
-#include "include/main.h"
+#include "include/mainstats.h" // defines the search interface for time and statistics.
+#include "include/bitstats.h"  // implements the standard set of bit algorithm statistic names.
+
 #define	Q	4
 #define	S	3
 
@@ -34,56 +36,135 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n)
 {
-	int count = 0;
-	int i, j, k, mq1=m-Q+1, B[ASIZE];
-	unsigned int D, ch, mask=AMASK;
-	if(m <= Q) return -1;
-	if((WORD*8) < Q) abort();
-	if(ASIZE > BSIZE)	return -1;
-	
-	/* Preprocessing */
-   BEGIN_PREPROCESSING
-	for(i=0; i<ASIZE; i++) B[i]=0;		
-	ch = 0;
-	for(i = m-1; i >= 0; i--) {
-		ch = ((ch << S) + x[i]) & mask;
-		if(i < mq1)
-			B[ch] |= (1<<((m-i) % Q));
-	}
-   END_PREPROCESSING
-	
-	/* Searching */
-   BEGIN_SEARCHING
-	for(i=mq1-1; i<=n-Q; i+=mq1) {
-		ch = y[i+3];
-		ch = (ch<<S) + y[i+2];
-		ch = (ch<<S) + y[i+1];
-		ch = (ch<<S) + y[i];
-		D = B[ch & mask];
-		if( D ) {
-		   j = i-mq1+Q;
-	      more:
-		   i = i-Q;
-			if(i >= j) {
-				ch = y[i+3];
-				ch = (ch<<S) + y[i+2];
-				ch = (ch<<S) + y[i+1];
-				ch = (ch<<S) + y[i];
-				D = B[ch & mask];
-		      if(D == 0) continue;
-		      else goto more;
-			} 
-		   else {  /* verify potential matches */
-			   i = j;
-		      k = j-Q+1;
-		      if(j > n-m)  j = n-m;
-		      for(  ; k <= j; k++) {
-		         if(memcmp(y+k,x,m) == 0) 
-						count++;
-			   }  
-		   }
-	   }
-	}
-   END_SEARCHING
-	return count;
+    int count = 0;
+    int i, j, k, mq1=m-Q+1, B[ASIZE];
+    unsigned int D, ch, mask=AMASK;
+    if(m <= Q) return -1;
+    if((WORD*8) < Q) abort();
+    if(ASIZE > BSIZE)	return -1;
+
+    /* Preprocessing */
+    BEGIN_PREPROCESSING
+    for(i=0; i<ASIZE; i++) B[i]=0;
+    ch = 0;
+    for(i = m-1; i >= 0; i--) {
+        ch = ((ch << S) + x[i]) & mask;
+        if(i < mq1)
+            B[ch] |= (1<<((m-i) % Q));
+    }
+    END_PREPROCESSING
+
+    /* Searching */
+    BEGIN_SEARCHING
+    for(i=mq1-1; i<=n-Q; i+=mq1) {
+        ch = y[i+3];
+        ch = (ch<<S) + y[i+2];
+        ch = (ch<<S) + y[i+1];
+        ch = (ch<<S) + y[i];
+        D = B[ch & mask];
+        if( D ) {
+            j = i-mq1+Q;
+            more:
+            i = i-Q;
+            if(i >= j) {
+                ch = y[i+3];
+                ch = (ch<<S) + y[i+2];
+                ch = (ch<<S) + y[i+1];
+                ch = (ch<<S) + y[i];
+                D = B[ch & mask];
+                if(D == 0) continue;
+                else goto more;
+            }
+            else {  /* verify potential matches */
+                i = j;
+                k = j-Q+1;
+                if(j > n-m)  j = n-m;
+                for(  ; k <= j; k++) {
+                    if(memcmp(y+k,x,m) == 0)
+                        count++;
+                }
+            }
+        }
+    }
+    END_SEARCHING
+    return count;
+}
+
+struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) {
+    int i, j, k, mq1=m-Q+1, B[ASIZE];
+    unsigned int D, ch, mask=AMASK;
+    if(m <= Q) return NO_ALGO_RESULTS;
+    if((WORD*8) < Q) abort();
+    if(ASIZE > BSIZE)	return NO_ALGO_RESULTS;
+
+    /* Preprocessing */
+    for(i=0; i<ASIZE; i++) B[i]=0;
+    ch = 0;
+    for(i = m-1; i >= 0; i--) {
+        ch = ((ch << S) + x[i]) & mask;
+        if(i < mq1)
+            B[ch] |= (1<<((m-i) % Q));
+    }
+
+    /* Basic search info */
+    struct searchInfo results = {0};
+    initStats(&results, n, ASIZE, sizeof(int));
+
+    /* Table stats */
+    countEmptySlotsAndBitsSetU(0, 1, &results, B, ASIZE);
+
+    /* Instrumented Searching */
+    int lastPos = mq1 - 1;
+    for(i=mq1-1; i<=n-Q; i+=mq1) {
+        results.mainLoopCount++;
+        lastPos = i;
+
+        ch = y[i+3];
+        ch = (ch<<S) + y[i+2];
+        ch = (ch<<S) + y[i+1];
+        ch = (ch<<S) + y[i];
+        results.textBytesRead += 4;
+
+        D = B[ch & mask];
+        results.indexLookupCount++;
+
+        if( D ) {
+            j = i-mq1+Q;
+            more:
+            results.slowPathCount++;
+            i = i-Q;
+            if(i >= j) {
+                ch = y[i+3];
+                ch = (ch<<S) + y[i+2];
+                ch = (ch<<S) + y[i+1];
+                ch = (ch<<S) + y[i];
+                results.textBytesRead += 4;
+
+                D = B[ch & mask];
+                results.indexLookupCount++;
+
+                if(D == 0) {
+                    results.slowPathShifts += ((i + mq1) - lastPos);
+                    results.numShifts++;
+                    continue;
+                }
+                else goto more;
+            }
+            else {  /* verify potential matches */
+                i = j;
+                k = j-Q+1;
+                if(j > n-m)  j = n-m;
+                for(  ; k <= j; k++) {
+                    matchTest(&results, x, m, y, n, k);
+                }
+                results.validationShifts += ((i + mq1) - lastPos);
+                results.numShifts++;
+            }
+        } else {
+            results.fastPathCount++;
+            results.fastPathShifts += mq1;
+            results.numShifts++;
+        }
+    }
+    return results;
 }
