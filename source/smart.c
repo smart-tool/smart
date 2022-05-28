@@ -488,10 +488,13 @@ int run_setting(char *filename, key_t tkey, unsigned char* T, int n,
             if(gotStats) {
                 struct searchInfo averageSearchInfo = TOTAL_INFO[algo][il];
                 printf("\tmem=%ld", averageSearchInfo.searchIndexBytes);
-                printf(", entries=%ld", averageSearchInfo.searchIndexEntries);
-                printf(", bytesRead=%ld", averageSearchInfo.textBytesRead);
-                printf(", numShifts=%ld", averageSearchInfo.numShifts);
-                printf(", validations=%ld", averageSearchInfo.validationCount);
+                printf(", size=%ld", averageSearchInfo.searchIndexEntries);
+                if (averageSearchInfo.searchIndex2Entries > 0) {
+                    printf(", size2=%ld", averageSearchInfo.searchIndex2Entries);
+                }
+                printf(", bytes=%ld", averageSearchInfo.textBytesRead);
+                printf(", shifts=%ld", averageSearchInfo.numShifts);
+                printf(", tests=%ld", averageSearchInfo.validationCount);
                 for (int i=0; i<MAX_ALGO_VALUES;i++) {
                     const char * valueName = statNames->shortName[i];
                     if(valueName[0] != '\0') {
