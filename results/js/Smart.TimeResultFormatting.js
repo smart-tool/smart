@@ -75,6 +75,14 @@ function showDivs(document, divClass, show) {
   }
 }
 
+function showDivsByName(document, divName, show) {
+    const divs = document.getElementsByName(divName);
+    const displayValue = show ? 'block' : 'none';
+    for (const counter in divs) {
+        divs[counter].style.display = displayValue;
+    }
+}
+
 function findChildWithClassNames(parent, namesOfClass) {
     const parentChildren = parent.children;
     for (let counter = 0; counter < parentChildren.length; counter++) {
