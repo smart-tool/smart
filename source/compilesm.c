@@ -28,7 +28,7 @@
  */
 
 int main(int argc, char **argv) {
-	char filename[100], command[100], binary[100];
+	char filename[100], command[512], binary[100];
 	int i,j;
 	char gcc[100] = "gcc source/algos/";
 	char options[100] = " -O3 -msse4 -lm -o source/bin/"; 
