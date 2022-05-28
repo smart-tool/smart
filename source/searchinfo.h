@@ -179,7 +179,6 @@ struct searchInfo {
  * An enum for each of the different stat types.
  */
 enum searchInfoStats {
-    PATTERN_LENGTH,
     TEXT_LENGTH,
     SEARCH_INDEX_BYTES,
     SEARCH_INDEX_ENTRIES,
@@ -205,7 +204,6 @@ enum searchInfoStats {
  */
 const char* getStatName(enum searchInfoStats stat) {
     switch (stat) {
-        case PATTERN_LENGTH : return "Pattern length";
         case TEXT_LENGTH: return "Text length";
         case SEARCH_INDEX_BYTES: return "Search index bytes";
         case SEARCH_INDEX_ENTRIES: return "Search index entries";
