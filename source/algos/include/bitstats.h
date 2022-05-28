@@ -9,7 +9,7 @@
 
 struct algoValueNames getAlgoValueNames() {
     struct algoValueNames names = {0};
-    setAlgoValueName(&names, 0, "bitcount", "Count of bits set in index");
+    setAlgoValueName(&names, 0, "bits", "Count of bits set in index");
     setAlgoValueName(&names, 1, "empty", "Count of empty index entries");
     return names;
 }
