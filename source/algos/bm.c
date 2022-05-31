@@ -112,9 +112,7 @@ struct searchInfo searchStats(unsigned char *x, int m, unsigned char *y, int n) 
     while (j <= n - m) {
         results.mainLoopCount++;
 
-        for (i = m - 1; i >= 0 && x[i] == y[i + j]; --i) {
-            results.textBytesRead++;
-        }
+        for (i = m - 1; i >= 0 && ++results.textBytesRead && ++results.validationBytesRead && x[i] == y[i + j]; --i);
         results.validationCount++;
 
         if (i < 0) {
