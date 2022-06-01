@@ -7,7 +7,7 @@
  *   2.  Pre-processing is done on q-grams rather than bytes, as for the WFRQ variants.
  *
  * PREPROCESSING:
- *		an hash value is computed for al factors of the pattern with length in [1..16]
+ *		an hash value is computed for al factors of the pattern with length in [1..8]
  *		the computed hash value is always a number in [0...256*256]
  *		if w is a factor of x, and hash(w) is its hash value, than F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE
  * SEARCHING
