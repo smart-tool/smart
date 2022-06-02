@@ -88,8 +88,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
    do {
       j += m;
    } while (j < n && z[y[j]] < 0);
-   if (j >= n)
-     return count;
+   if (j >= n) {
+       END_SEARCHING
+       return count;
+   }
    i = z[y[j]];
    start = j - i;
    while (start <= n - m) {
@@ -107,8 +109,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
          do {
             j += m;
          } while (j < n && z[y[j]] < 0);
-         if (j >= n)
-            return count;
+         if (j >= n) {
+             END_SEARCHING
+             return count;
+         }
          i = z[y[j]];
       }
       kmpStart = start + k - kmpNext[k];
@@ -122,8 +126,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
                do {
                   j += m;
                } while (j < n && z[y[j]] < 0);
-               if (j >= n)
-                  return count;
+               if (j >= n) {
+                   END_SEARCHING
+                   return count;
+               }
                i = z[y[j]];
             }
             start = j - i;

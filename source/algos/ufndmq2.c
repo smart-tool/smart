@@ -63,8 +63,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
             for (j=0; j<m; j++)
                if (y[k+j]!=x[j]) goto mismatch;
             if (k+m > n)  {
-            	return(count);
-   				END_SEARCHING
+                END_SEARCHING
+                return(count);
             }
             OUTPUT(k);
           
@@ -121,8 +121,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n)
             for (j=0; j<p_len; j++)
                if (y[k+j]!=x[j]) goto mismatch;
             if (k+p_len > n)  {
-            	return(count);
-   				END_SEARCHING
+                END_SEARCHING
+                return(count);
             }
             OUTPUT(k);
           

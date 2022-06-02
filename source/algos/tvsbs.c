@@ -60,6 +60,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n){
       }
       j += BrBc[y[j + m]][y[j+m+1]];
    }
-   END_PREPROCESSING
+   END_SEARCHING
    return count;
  }
