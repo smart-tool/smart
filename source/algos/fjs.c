@@ -61,7 +61,10 @@ int search( unsigned char *x, int m, unsigned char *y, int n ) {
    count = 0;
    while(s<=n-m) {
       while(s<=n-m && x[m-1]!=y[s+m-1]) s+=qsbc[y[s+m]];
-      if(s>n-m) return count;
+      if(s>n-m) {
+          END_SEARCHING
+          return count;
+      }
       i=0; 
       while(i<m && x[i]==y[s+i]) i++;
       if(i>=m) count++;
