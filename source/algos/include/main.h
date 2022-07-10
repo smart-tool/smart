@@ -44,7 +44,10 @@ int main(int argc, char *argv[])
 	_timer = (TIMER*) malloc (sizeof(TIMER));
     unsigned char *p, *t;
 	int m, n;
-	if(!strcmp("shared", argv[1])) {
+    if(argc==2 && !strcmp("-stats", argv[1])) {
+        return -4; // stats not supported.
+    }
+    if(!strcmp("shared", argv[1])) {
 		if(argc < 7) {
 			printf("error in input parameter\nfive parameters needed when used with shared memory\n");
 			return 1;
