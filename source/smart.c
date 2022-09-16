@@ -123,17 +123,71 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	}
 	else printf("\tError in loading text buffer. No index file exists.\n");
 	T[i]='\0';
-	// compute the frequency of characters and the dimension of the alphabet
-	int nalpha = 0;
-	int maxcode= 0;
-	for(j=0; j<SIGMA; j++) FREQ[j]=0;
-	for(j=0; j<i; j++) {
-		if(FREQ[T[j]]==0) nalpha++;
-		FREQ[T[j]]++;
-		if(maxcode<T[j]) maxcode=T[j];
-	}
-	printf("\tAlphabet of %d characters.\n", nalpha);
-	printf("\tGreater chararacter has code %d.\n", maxcode);
+    // compute the frequency of characters and the dimension of the alphabet
+    int nalpha = 0;
+    int nbigram = 0;
+    int ntrigram = 0;
+    int maxcode= 0;
+    for(j=0; j<SIGMA; j++) FREQ[j]=0;
+    int FREQ2[256*256];
+    int freq3size = 256 * 256 * 256;
+    int * FREQ3 = malloc(freq3size*sizeof(int));
+    int byteValue = -1;
+    int byteValue2 = -1;
+    for(j=0; j<256*256;j++) FREQ2[j]=0;
+    for(j=0; j<freq3size;j++) FREQ3[j]=0;
+
+    for(j=0; j<i; j++) {
+
+        if(byteValue>-1) {
+            const int bigram = (byteValue<<8) | T[j];
+            if(FREQ2[bigram]==0) nbigram++;
+            FREQ2[bigram]++;
+            if (byteValue2 >-1) {
+                const int trigram = ((byteValue2 << 16U) | bigram);
+                if (FREQ3[trigram]==0) ntrigram++;
+                FREQ3[trigram]++;
+            }
+            byteValue2 = byteValue;
+        }
+        byteValue = T[j];
+        if(FREQ[byteValue]==0) nalpha++;
+        FREQ[byteValue]++;
+        if(maxcode<byteValue) maxcode=byteValue;
+    }
+    // compute the shannon entropy of the text on the bytes:
+    double shannonEntropy = 0.0;
+    double log2 = log(2);
+    for(j=0;j<SIGMA;j++) {
+        const int value = FREQ[j];
+        if (value > 0.0) {
+            const double frequency = (double) value / (double) i;
+            shannonEntropy -= (frequency * (log(frequency) / log2));
+        }
+    }
+    // compute the shannon entropy of the text on bigrams:
+    double shannonBigramEntropy = 0.0;
+    for (j=0;j<256*256;j++) {
+        const int value = FREQ2[j];
+        if (value > 0) {
+            const double frequency = (double) value / (double) (i-1);
+            shannonBigramEntropy -= (frequency * (log(frequency) / log2));
+        }
+    }
+    // compute the shannon entropy of the text on trigrams:
+    double shannonTrigramEntropy = 0.0;
+    for (j=0;j<256*256*256;j++) {
+        const int value = FREQ3[j];
+        if (value > 0) {
+            const double frequency = (double) value / (double) (i-2);
+            shannonTrigramEntropy -= (frequency * (log(frequency) / log2));
+        }
+    }
+    free(FREQ3);
+
+    printf("\tAlphabet of %d characters, %d bigrams and %d trigrams.\n", nalpha, nbigram,ntrigram);
+    printf("\tShannon entropy of %.2f bits per byte, %.2f bits per bigram (2 bytes) and %.2f bits per trigram (3 bytes).\n", shannonEntropy, shannonBigramEntropy, shannonTrigramEntropy);
+    printf("\tGreater chararacter has code %d.\n", maxcode);
 	return i;
 }
 
