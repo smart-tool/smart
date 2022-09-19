@@ -98,6 +98,23 @@ void initArr(int *arr, int length) {
     }
 }
 
+/*
+ * Computes shannon entropy, given an array containing the count of each element, the size of the array,
+ * and the length of data over which those counts were made.
+ */
+double computeShannonEntropy(int *arr, int arrSize, int length) {
+    const double log2 = log(2);
+    double shannonEntropy = 0.0;
+    for (int j = 0; j < arrSize; j++) {
+        const int value = arr[j];
+        if (value > 0) {
+            const double frequency = (double) value / (double) length;
+            shannonEntropy -= (frequency * (log(frequency) / log2));
+        }
+    }
+    return shannonEntropy;
+}
+
 int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	//obtains the input text
 	int j,i = 0;
@@ -130,17 +147,20 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	else printf("\tError in loading text buffer. No index file exists.\n");
 	T[i]='\0';
     // compute the frequency of characters and the dimension of the alphabet
+    const int FREQ2SIZE = 256 * 256;
+    const int FREQ3SIZE = 256 * 256 * 256;
     int nalpha = 0;
     int nbigram = 0;
     int ntrigram = 0;
     int maxcode= 0;
     int byteValue = -1;
     int byteValue2 = -1;
-    int FREQ2[256*256];
-    int * FREQ3 = malloc(256 * 256 * 256 * sizeof(int));
+    int FREQ2[FREQ2SIZE];
+    // Allocate the trigram array on the heap - too big for stack.
+    int * FREQ3 = malloc(FREQ3SIZE * sizeof(int));
     initArr(FREQ, SIGMA);
-    initArr(FREQ2, 256*256);
-    initArr(FREQ3, 256*256*256);
+    initArr(FREQ2, FREQ2SIZE);
+    initArr(FREQ3, FREQ3SIZE);
     for (j = 0; j < i; j++) {
         if (byteValue > -1) {
             const int bigram = (byteValue << 8) | T[j];
@@ -159,33 +179,11 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
         if (maxcode < byteValue) maxcode = byteValue;
     }
     // compute the shannon entropy of the text on the bytes:
-    double shannonEntropy = 0.0;
-    double log2 = log(2);
-    for (j = 0; j < SIGMA; j++) {
-        const int value = FREQ[j];
-        if (value > 0) {
-            const double frequency = (double) value / (double) i;
-            shannonEntropy -= (frequency * (log(frequency) / log2));
-        }
-    }
-    // compute the shannon entropy of the text on bigrams:
-    double shannonBigramEntropy = 0.0;
-    for (j = 0; j < 256 * 256; j++) {
-        const int value = FREQ2[j];
-        if (value > 0) {
-            const double frequency = (double) value / (double) (i-1);
-            shannonBigramEntropy -= (frequency * (log(frequency) / log2));
-        }
-    }
-    // compute the shannon entropy of the text on trigrams:
-    double shannonTrigramEntropy = 0.0;
-    for (j = 0; j < 256 * 256 * 256; j++) {
-        const int value = FREQ3[j];
-        if (value > 0) {
-            const double frequency = (double) value / (double) (i-2);
-            shannonTrigramEntropy -= (frequency * (log(frequency) / log2));
-        }
-    }
+    double shannonEntropy = computeShannonEntropy(FREQ, SIGMA, i);
+    double shannonBigramEntropy = computeShannonEntropy(FREQ2, FREQ2SIZE, i -1 );
+    double shannonTrigramEntropy = computeShannonEntropy(FREQ3, FREQ3SIZE, i - 2);
+
+    // Free the large trigram array.
     free(FREQ3);
 
     printf("\tAlphabet of %d characters, %d bigrams and %d trigrams.\n", nalpha, nbigram,ntrigram);
