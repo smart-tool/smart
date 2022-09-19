@@ -92,6 +92,12 @@ void generateCode(char *code) {
 	sprintf(code,"EXP%d",t);
 }
 
+void initArr(int *arr, int length) {
+    for(int i = 0; i < length; i++) {
+        arr[i] = 0;
+    }
+}
+
 int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	//obtains the input text
 	int j,i = 0;
@@ -99,7 +105,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	strcpy(indexfilename, path);
 	strcat(indexfilename, "/index.txt");
 	FILE *index;
-	if((index = fopen(indexfilename, "r"))) {
+	if ((index = fopen(indexfilename, "r"))) {
 		char c;
 		while( i<TSIZE && (c=getc(index))!=EOF ) {
 			if(c=='#') {
@@ -128,37 +134,34 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     int nbigram = 0;
     int ntrigram = 0;
     int maxcode= 0;
-    for(j=0; j<SIGMA; j++) FREQ[j]=0;
-    int FREQ2[256*256];
-    int freq3size = 256 * 256 * 256;
-    int * FREQ3 = malloc(freq3size*sizeof(int));
     int byteValue = -1;
     int byteValue2 = -1;
-    for(j=0; j<256*256;j++) FREQ2[j]=0;
-    for(j=0; j<freq3size;j++) FREQ3[j]=0;
-
-    for(j=0; j<i; j++) {
-
-        if(byteValue>-1) {
-            const int bigram = (byteValue<<8) | T[j];
-            if(FREQ2[bigram]==0) nbigram++;
+    int FREQ2[256*256];
+    int * FREQ3 = malloc(256 * 256 * 256 * sizeof(int));
+    initArr(FREQ, SIGMA);
+    initArr(FREQ2, 256*256);
+    initArr(FREQ3, 256*256*256);
+    for (j = 0; j < i; j++) {
+        if (byteValue > -1) {
+            const int bigram = (byteValue << 8) | T[j];
+            if (FREQ2[bigram] == 0) nbigram++;
             FREQ2[bigram]++;
-            if (byteValue2 >-1) {
+            if (byteValue2 > -1) {
                 const int trigram = ((byteValue2 << 16U) | bigram);
-                if (FREQ3[trigram]==0) ntrigram++;
+                if (FREQ3[trigram] == 0) ntrigram++;
                 FREQ3[trigram]++;
             }
             byteValue2 = byteValue;
         }
         byteValue = T[j];
-        if(FREQ[byteValue]==0) nalpha++;
+        if (FREQ[byteValue] == 0) nalpha++;
         FREQ[byteValue]++;
-        if(maxcode<byteValue) maxcode=byteValue;
+        if (maxcode < byteValue) maxcode = byteValue;
     }
     // compute the shannon entropy of the text on the bytes:
     double shannonEntropy = 0.0;
     double log2 = log(2);
-    for(j=0;j<SIGMA;j++) {
+    for (j = 0; j < SIGMA; j++) {
         const int value = FREQ[j];
         if (value > 0.0) {
             const double frequency = (double) value / (double) i;
@@ -167,7 +170,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     }
     // compute the shannon entropy of the text on bigrams:
     double shannonBigramEntropy = 0.0;
-    for (j=0;j<256*256;j++) {
+    for (j = 0; j < 256 * 256; j++) {
         const int value = FREQ2[j];
         if (value > 0) {
             const double frequency = (double) value / (double) (i-1);
@@ -176,7 +179,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     }
     // compute the shannon entropy of the text on trigrams:
     double shannonTrigramEntropy = 0.0;
-    for (j=0;j<256*256*256;j++) {
+    for (j = 0; j < 256 * 256 * 256; j++) {
         const int value = FREQ3[j];
         if (value > 0) {
             const double frequency = (double) value / (double) (i-2);
