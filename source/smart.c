@@ -163,7 +163,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     double log2 = log(2);
     for (j = 0; j < SIGMA; j++) {
         const int value = FREQ[j];
-        if (value > 0.0) {
+        if (value > 0) {
             const double frequency = (double) value / (double) i;
             shannonEntropy -= (frequency * (log(frequency) / log2));
         }
