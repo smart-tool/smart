@@ -92,6 +92,29 @@ void generateCode(char *code) {
 	sprintf(code,"EXP%d",t);
 }
 
+void initArr(int *arr, int length) {
+    for(int i = 0; i < length; i++) {
+        arr[i] = 0;
+    }
+}
+
+/*
+ * Computes shannon entropy, given an array containing the count of each element, the size of the array,
+ * and the length of data over which those counts were made.
+ */
+double computeShannonEntropy(int *arr, int arrSize, int length) {
+    const double log2 = log(2);
+    double shannonEntropy = 0.0;
+    for (int j = 0; j < arrSize; j++) {
+        const int value = arr[j];
+        if (value > 0) {
+            const double frequency = (double) value / (double) length;
+            shannonEntropy -= (frequency * (log(frequency) / log2));
+        }
+    }
+    return shannonEntropy;
+}
+
 int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	//obtains the input text
 	int j,i = 0;
@@ -99,7 +122,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	strcpy(indexfilename, path);
 	strcat(indexfilename, "/index.txt");
 	FILE *index;
-	if((index = fopen(indexfilename, "r"))) {
+	if ((index = fopen(indexfilename, "r"))) {
 		char c;
 		while( i<TSIZE && (c=getc(index))!=EOF ) {
 			if(c=='#') {
@@ -123,17 +146,49 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 	}
 	else printf("\tError in loading text buffer. No index file exists.\n");
 	T[i]='\0';
-	// compute the frequency of characters and the dimension of the alphabet
-	int nalpha = 0;
-	int maxcode= 0;
-	for(j=0; j<SIGMA; j++) FREQ[j]=0;
-	for(j=0; j<i; j++) {
-		if(FREQ[T[j]]==0) nalpha++;
-		FREQ[T[j]]++;
-		if(maxcode<T[j]) maxcode=T[j];
-	}
-	printf("\tAlphabet of %d characters.\n", nalpha);
-	printf("\tGreater chararacter has code %d.\n", maxcode);
+    // compute the frequency of characters and the dimension of the alphabet
+    const int FREQ2SIZE = 256 * 256;
+    const int FREQ3SIZE = 256 * 256 * 256;
+    int nalpha = 0;
+    int nbigram = 0;
+    int ntrigram = 0;
+    int maxcode= 0;
+    int byteValue = -1;
+    int byteValue2 = -1;
+    int FREQ2[FREQ2SIZE];
+    // Allocate the trigram array on the heap - too big for stack.
+    int * FREQ3 = malloc(FREQ3SIZE * sizeof(int));
+    initArr(FREQ, SIGMA);
+    initArr(FREQ2, FREQ2SIZE);
+    initArr(FREQ3, FREQ3SIZE);
+    for (j = 0; j < i; j++) {
+        if (byteValue > -1) {
+            const int bigram = (byteValue << 8) | T[j];
+            if (FREQ2[bigram] == 0) nbigram++;
+            FREQ2[bigram]++;
+            if (byteValue2 > -1) {
+                const int trigram = ((byteValue2 << 16U) | bigram);
+                if (FREQ3[trigram] == 0) ntrigram++;
+                FREQ3[trigram]++;
+            }
+            byteValue2 = byteValue;
+        }
+        byteValue = T[j];
+        if (FREQ[byteValue] == 0) nalpha++;
+        FREQ[byteValue]++;
+        if (maxcode < byteValue) maxcode = byteValue;
+    }
+    // compute the shannon entropy of the text on the bytes:
+    double shannonEntropy = computeShannonEntropy(FREQ, SIGMA, i);
+    double shannonBigramEntropy = computeShannonEntropy(FREQ2, FREQ2SIZE, i -1 );
+    double shannonTrigramEntropy = computeShannonEntropy(FREQ3, FREQ3SIZE, i - 2);
+
+    // Free the large trigram array.
+    free(FREQ3);
+
+    printf("\tAlphabet of %d characters, %d bigrams and %d trigrams.\n", nalpha, nbigram,ntrigram);
+    printf("\tShannon entropy of %.2f bits per byte, %.2f bits per bigram (2 bytes) and %.2f bits per trigram (3 bytes).\n", shannonEntropy, shannonBigramEntropy, shannonTrigramEntropy);
+    printf("\tGreater chararacter has code %d.\n", maxcode);
 	return i;
 }
 
