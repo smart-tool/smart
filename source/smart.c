@@ -112,7 +112,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 				printf("\tLoading the file %s\n",filename);
 				FILE *input;
 				if( (input = fopen(filename, "r")) )  {
-					char d;
+					int d;
 					while(i<TSIZE && (d=getc(input))!=EOF ) T[i++]=d;
 					fclose(input);
 				}
