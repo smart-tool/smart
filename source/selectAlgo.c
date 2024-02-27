@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #define NumAlgo 500   // numero di algoritmi da testare
 #define NumPatt 17    // maximal number of pattern lengths
 #define NumSetting 12 // number of text buffers
@@ -82,17 +83,37 @@ int main(int argc, const char *argv[]) {
       printf("The list of all string matching algorithms\n");
       for (i = 0; i < NumAlgo; i++)
         if (ALGO_NAME[i]) {
-          printf("%s\n", ALGO_NAME[i]);
+          char buf[100];
+          struct stat st;
+          printf("%s", ALGO_NAME[i]);
+          strcpy(buf, "source/algos/");
+          strcat(buf, ALGO_NAME[i]);
+          strcat(buf, ".c");
+          int res = stat(buf, &st);
+          if (res)
+            printf("  FAIL missing %s\n", buf);
+          else
+            printf("\n");
         }
       return 1;
     }
     if (par < argc && !strcmp("-which", argv[par])) {
       par++;
       // shows all selected algorithms
-      printf("\n\tThe list of selected algorithms:\n");
+      printf("\nThe list of selected algorithms:\n");
       for (i = 0; i < NumAlgo; i++)
         if (ALGO_NAME[i] && EXECUTE[i]) {
-          printf("\t-%s\n", ALGO_NAME[i]);
+          char buf[100];
+          struct stat st;
+          printf("\t-%s", ALGO_NAME[i]);
+          strcpy(buf, "source/algos/");
+          strcat(buf, ALGO_NAME[i]);
+          strcat(buf, ".c");
+          int res = stat(buf, &st);
+          if (res)
+            printf("  FAIL missing %s\n", buf);
+          else
+            printf("\n");
         }
       printf("\n");
       return 1;
@@ -119,7 +140,7 @@ int main(int argc, const char *argv[]) {
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test ../bin/%s -nv", filename);
+          sprintf(command, "./test %s -nv", filename);
           fflush(stdout);
           if (system(command)) {
             printf("failed!\n");
