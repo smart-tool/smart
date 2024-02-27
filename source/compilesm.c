@@ -94,12 +94,17 @@ int main(int argc, char **argv) {
 				if( system(command)==1 ) printf("[ERROR]\n");
 				else {
 					//check if compiled file is present
-					sprintf(binary,"%s%s",destination,filename);
+					if (strlen(destination) + strlen(filename) >= sizeof(binary)) {
+						perror("snprintf");
+						exit(1);
+					}
+					strncpy(binary,destination,sizeof(binary)-1);
+					strncat(binary,filename,sizeof(binary)-1);
 					FILE *fp = fopen(binary,"r");
 					if(fp) {
+						int failed = 0;
 						fclose(fp);
 						fflush(stdout);
-                        int failed = 0;
 						if(doTest) {
 							//testing correctness of the algorithm
 							sprintf(command,"./test %s -nv",filename);

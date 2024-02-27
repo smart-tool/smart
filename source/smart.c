@@ -567,8 +567,9 @@ int main(int argc, const char *argv[])
 		exit(1);
     }
 
-	if( SIMPLE ) {  
-        system("./logo");
+    if( SIMPLE ) {
+	        if (system("./logo"))
+		    perror("logo"); 
 		//experimental results on a single pattern and a single text
    		n = strlen((char *)simpleText);
    		int m = strlen((char *)simplePattern);
@@ -598,7 +599,8 @@ int main(int argc, const char *argv[])
 	}
 	else if( strcmp(filename, "all") ) {  
 		//experimental results on a list of text buffers
-        system("./logo");
+	if (system("./logo"))
+	    perror("logo"); 
         char list_of_filenames[NumSetting][50];
         int num_buffers = split_filelsit(filename, list_of_filenames);
 
@@ -635,11 +637,12 @@ int main(int argc, const char *argv[])
 			outputINDEX(list_of_filenames, num_buffers, expcode);
 		}
 	}
-	else {  
-        system("./logo");
+	else {
+	        if (system("./logo"))
+		    perror("logo"); 
 		//starts experimental results on all texts
-        char list_of_filenames[NumSetting][50];
-        int num_buffers = split_filelsit(filename, list_of_filenames);
+	        char list_of_filenames[NumSetting][50];
+	        int num_buffers = split_filelsit(filename, list_of_filenames);
 		srand(time(NULL));
 		char expcode[100];
 		generateCode(expcode);
