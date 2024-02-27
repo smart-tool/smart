@@ -1,18 +1,24 @@
-#!/bin/bash
+#!/bin/sh
 ./logo
+uname_p="$(uname -p)"
+CC="gcc"
+if [ $uname_p = x86_64 ]
+then
+    CFLAGS="-march=native -mtune=native"
+fi
 echo "	Compiling smart.c..................................[OK]"
-gcc source/smart.c -O3 -msse2 -o smart -lm -std=gnu99
+$CC source/smart.c -O3 $CFLAGS -msse2 -o smart -lm -std=gnu99
 echo "	Compiling show.c...................................[OK]"
-gcc source/show.c -O3 -msse2 -o show 
+$CC source/show.c -O3 $CFLAGS -msse2 -o show
 echo "	Compiling selectAlgo.c.............................[OK]"
-gcc source/selectAlgo.c -O3 -o select
+$CC source/selectAlgo.c -O3 $CFLAGS -o select
 echo "	Compiling test.c...................................[OK]"
-gcc source/test.c -O3 -o test
+$CC source/test.c -O3 $CFLAGS -o test
 echo "	Generating random text buffers....................."
-gcc source/textgen.c -o textgen -std=gnu99
+$CC source/textgen.c -o textgen -std=gnu99
 ./textgen
 echo "	Compiling all string matching algorithms..........."
-gcc source/compilesm.c -o compilesm -std=gnu99
+$CC source/compilesm.c -o compilesm -std=gnu99
 ./compilesm
 echo " "
 echo " "
