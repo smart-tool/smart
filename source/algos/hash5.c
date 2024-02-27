@@ -12,13 +12,14 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * This is an implementation of the Wu Manber algorithm for Single Pattern Matching
- * in T. Lecroq. Fast exact string matching algorithms. 
- * Information Processing Letters, vol.102, n.6, pp.229--235, Elsevier North-Holland, (2007).
+ * This is an implementation of the Wu Manber algorithm for Single Pattern
+ * Matching in T. Lecroq. Fast exact string matching algorithms. Information
+ * Processing Letters, vol.102, n.6, pp.229--235, Elsevier North-Holland,
+ * (2007).
  */
 
 #include "include/define.h"
@@ -26,67 +27,69 @@
 #define RANK5 5
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int count,i, j,sh, shift[WSIZE], sh1, mMinus1, mMinus4;
-   unsigned int h;
-   if(m<5) return -1;
+  int count, i, j, sh, shift[WSIZE], sh1, mMinus1, mMinus4;
+  unsigned int h;
+  if (m < 5)
+    return -1;
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   count = 0;
-   mMinus1 = m-1;
-   mMinus4 = m-4;
-   for (i = 0; i < WSIZE; ++i)
-      shift[i] = mMinus4;
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  count = 0;
+  mMinus1 = m - 1;
+  mMinus4 = m - 4;
+  for (i = 0; i < WSIZE; ++i)
+    shift[i] = mMinus4;
 
-   h = x[0];
-   h = ((h<<1) + x[1]);
-   h = ((h<<1) + x[2]);
-   h = ((h<<1) + x[3]);
-   h = ((h<<1) + x[4]);
-   shift[h%WSIZE] = m-RANK5;
-   for (i=RANK5; i < mMinus1; ++i) {
-      h = x[i-4];
-      h = ((h<<1) + x[i-3]);
-      h = ((h<<1) + x[i-2]);
-      h = ((h<<1) + x[i-1]);
-      h = ((h<<1) + x[i]);
-      shift[h%WSIZE] = mMinus1-i;
-   }
-   h = x[i-4];
-   h = ((h<<1) + x[i-3]);
-   h = ((h<<1) + x[i-2]);
-   h = ((h<<1) + x[i-1]);
-   h = ((h<<1) + x[i]);
-   sh1 = shift[h%WSIZE];
-   shift[h%WSIZE] = 0;
-   if(sh1==0) sh1=1;
-   END_PREPROCESSING
+  h = x[0];
+  h = ((h << 1) + x[1]);
+  h = ((h << 1) + x[2]);
+  h = ((h << 1) + x[3]);
+  h = ((h << 1) + x[4]);
+  shift[h % WSIZE] = m - RANK5;
+  for (i = RANK5; i < mMinus1; ++i) {
+    h = x[i - 4];
+    h = ((h << 1) + x[i - 3]);
+    h = ((h << 1) + x[i - 2]);
+    h = ((h << 1) + x[i - 1]);
+    h = ((h << 1) + x[i]);
+    shift[h % WSIZE] = mMinus1 - i;
+  }
+  h = x[i - 4];
+  h = ((h << 1) + x[i - 3]);
+  h = ((h << 1) + x[i - 2]);
+  h = ((h << 1) + x[i - 1]);
+  h = ((h << 1) + x[i]);
+  sh1 = shift[h % WSIZE];
+  shift[h % WSIZE] = 0;
+  if (sh1 == 0)
+    sh1 = 1;
+  END_PREPROCESSING
 
-   BEGIN_SEARCHING
-   i = mMinus1;
-   memcpy(y+n, x, m);
-   while (1) {
-      sh = 1;
-      while (sh != 0) {
-         h = y[i-4];
-         h = ((h<<1) + y[i-3]);
-         h = ((h<<1) + y[i-2]);
-         h = ((h<<1) + y[i-1]);
-         h = ((h<<1) + y[i]);
-         sh = shift[h%WSIZE];
-         i+=sh;
+  BEGIN_SEARCHING
+  i = mMinus1;
+  memcpy(y + n, x, m);
+  while (1) {
+    sh = 1;
+    while (sh != 0) {
+      h = y[i - 4];
+      h = ((h << 1) + y[i - 3]);
+      h = ((h << 1) + y[i - 2]);
+      h = ((h << 1) + y[i - 1]);
+      h = ((h << 1) + y[i]);
+      sh = shift[h % WSIZE];
+      i += sh;
+    }
+    if (i < n) {
+      j = 0;
+      while (j < m && x[j] == y[i - mMinus1 + j])
+        j++;
+      if (j >= m) {
+        OUTPUT(i - mMinus1);
       }
-      if (i < n) {
-         j=0;
-         while(j<m && x[j]==y[i-mMinus1+j]) j++;
-         if (j>=m) {
-            OUTPUT(i-mMinus1);
-         }
-         i+=sh1;
-      }
-      else {
-      	END_SEARCHING;
-      	return count;
-      }
-   }
+      i += sh1;
+    } else {
+      END_SEARCHING;
+      return count;
+    }
+  }
 }

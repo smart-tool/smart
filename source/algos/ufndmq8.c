@@ -12,124 +12,141 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Shift Or with q-grams algorithm
- * in B. Durian and J. Holub and H. Peltola and J. Tarhio. 
- * Tuning BNDM with q-Grams. Proceedings of the Workshop on Algorithm Engineering and Experiments, 
- * ALENEX 2009, pp.29--37, SIAM, New York, New York, USA, (2009).
+ * in B. Durian and J. Holub and H. Peltola and J. Tarhio.
+ * Tuning BNDM with q-Grams. Proceedings of the Workshop on Algorithm
+ * Engineering and Experiments, ALENEX 2009, pp.29--37, SIAM, New York, New
+ * York, USA, (2009).
  */
 
 #include "include/define.h"
 #include "include/main.h"
-#define GRAM8(i) ((B[y[i-7]]<<7)|(B[y[i-6]]<<6)|(B[y[i-5]]<<5)|(B[y[i-4]]<<4)|(B[y[i-3]]<<3)|(B[y[i-2]]<<2)|(B[y[i-1]]<<1)|B[y[i]])
+#define GRAM8(i)                                                               \
+  ((B[y[i - 7]] << 7) | (B[y[i - 6]] << 6) | (B[y[i - 5]] << 5) |              \
+   (B[y[i - 4]] << 4) | (B[y[i - 3]] << 3) | (B[y[i - 2]] << 2) |              \
+   (B[y[i - 1]] << 1) | B[y[i]])
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   unsigned int D, F, mm, mask, B[SIGMA], S;
-   int i, j, k, mq, q;
-   int count = 0;
-   q = 8;
-   if (m<q) return -1;
+  unsigned int D, F, mm, mask, B[SIGMA], S;
+  int i, j, k, mq, q;
+  int count = 0;
+  q = 8;
+  if (m < q)
+    return -1;
 
-   if(m+q > WORD) return search_large(x,m,y,n);
+  if (m + q > WORD)
+    return search_large(x, m, y, n);
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   S = ~((unsigned char)127 << m);
-   for (j = 0; j < SIGMA; ++j) B[j] = S;
-   for (j = 0; j < m; ++j)   B[x[j]] &= ~((unsigned char)1<<j);
-   for (i=0; i<m; i++) y[n+i]=y[n+m+i]=x[i];
-   mm = (unsigned char)1 << (m+q-2);
-   mask = ((unsigned char)1 << (m-1)) - 1;
-   mq = m+q-1;
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  S = ~((unsigned char)127 << m);
+  for (j = 0; j < SIGMA; ++j)
+    B[j] = S;
+  for (j = 0; j < m; ++j)
+    B[x[j]] &= ~((unsigned char)1 << j);
+  for (i = 0; i < m; i++)
+    y[n + i] = y[n + m + i] = x[i];
+  mm = (unsigned char)1 << (m + q - 2);
+  mask = ((unsigned char)1 << (m - 1)) - 1;
+  mq = m + q - 1;
+  END_PREPROCESSING
 
-   /* Searching */
-   BEGIN_SEARCHING
-   if( !memcmp(x,y,m) ) OUTPUT(0);
-   i = 0;
-   D = ~0;
-   while (1) {
-      while ( (D|127) == ~0 ) { 
-         i += m;
-         D = (D<<m) | GRAM8(i);
-      }
-      if (F=~(D|mask)) {
-         for (k=i-mq+1; F; F<<=1, k++)
-            if (F >= mm) {
-               for (j=0; j<m; j++)
-                  if (y[k+j]!=x[j]) goto mismatch;
-               if (k+m > n)  {
-   				END_SEARCHING
-               	return(count);
-               }
-               OUTPUT(k);
-          
-               mismatch:
-               F -= mm;
-            }
-      }
-      i += q;
-      D = (D<<q) | GRAM8(i);
-   }
-   abort(); 
+  /* Searching */
+  BEGIN_SEARCHING
+  if (!memcmp(x, y, m))
+    OUTPUT(0);
+  i = 0;
+  D = ~0;
+  while (1) {
+    while ((D | 127) == ~0) {
+      i += m;
+      D = (D << m) | GRAM8(i);
+    }
+    if (F = ~(D | mask)) {
+      for (k = i - mq + 1; F; F <<= 1, k++)
+        if (F >= mm) {
+          for (j = 0; j < m; j++)
+            if (y[k + j] != x[j])
+              goto mismatch;
+          if (k + m > n) {
+            END_SEARCHING
+            return (count);
+          }
+          OUTPUT(k);
+
+        mismatch:
+          F -= mm;
+        }
+    }
+    i += q;
+    D = (D << q) | GRAM8(i);
+  }
+  abort();
 }
 
 /*
  * Shift Or with q-grams algorithm designed for large patterns
  * The present implementation searches for prefixes of the pattern of length 32.
- * When an occurrence is found the algorithm tests for the whole occurrence of the pattern
+ * When an occurrence is found the algorithm tests for the whole occurrence of
+ * the pattern
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-   unsigned int D, F, mm, mask, B[SIGMA], S;
-   int i, j, k, mq, q, p_len;
-   int count = 0;
-   q = 8;
+  unsigned int D, F, mm, mask, B[SIGMA], S;
+  int i, j, k, mq, q, p_len;
+  int count = 0;
+  q = 8;
 
-   for (i=0; i<m; i++) y[n+i]=y[n+m+i]=x[i];
-   p_len = m;
-   m = 32-q;
+  for (i = 0; i < m; i++)
+    y[n + i] = y[n + m + i] = x[i];
+  p_len = m;
+  m = 32 - q;
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   S = ~((unsigned char)127 << m);
-   for (j = 0; j < SIGMA; ++j) B[j] = S;
-   for (j = 0; j < m; ++j)   B[x[j]] &= ~((unsigned char)1<<j);
-   mm = (unsigned char)1 << (m+q-2);
-   mask = ((unsigned char)1 << (m-1)) - 1;
-   mq = m+q-1;
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  S = ~((unsigned char)127 << m);
+  for (j = 0; j < SIGMA; ++j)
+    B[j] = S;
+  for (j = 0; j < m; ++j)
+    B[x[j]] &= ~((unsigned char)1 << j);
+  mm = (unsigned char)1 << (m + q - 2);
+  mask = ((unsigned char)1 << (m - 1)) - 1;
+  mq = m + q - 1;
+  END_PREPROCESSING
 
-   /* Searching */
-   BEGIN_SEARCHING
-   if( !memcmp(x,y,p_len) ) OUTPUT(0);
-   i = 0;
-   D = ~0;
-   while (1) {
-      while ( (D|127) == ~0 ) { 
-         i += m;
-         D = (D<<m) | GRAM8(i);
-      }
-      if (F=~(D|mask)) {
-         for (k=i-mq+1; F; F<<=1, k++)
-            if (F >= mm) {
-               for (j=0; j<p_len; j++)
-                  if (y[k+j]!=x[j]) goto mismatch;
-               if (k+p_len > n)  {
-   				END_SEARCHING
-               	return(count);
-               }
-               OUTPUT(k);
-          
-               mismatch:
-               F -= mm;
-            }
-      }
-      i += q;
-      D = (D<<q) | GRAM8(i);
-   }
-   abort();
+  /* Searching */
+  BEGIN_SEARCHING
+  if (!memcmp(x, y, p_len))
+    OUTPUT(0);
+  i = 0;
+  D = ~0;
+  while (1) {
+    while ((D | 127) == ~0) {
+      i += m;
+      D = (D << m) | GRAM8(i);
+    }
+    if (F = ~(D | mask)) {
+      for (k = i - mq + 1; F; F <<= 1, k++)
+        if (F >= mm) {
+          for (j = 0; j < p_len; j++)
+            if (y[k + j] != x[j])
+              goto mismatch;
+          if (k + p_len > n) {
+            END_SEARCHING
+            return (count);
+          }
+          OUTPUT(k);
+
+        mismatch:
+          F -= mm;
+        }
+    }
+    i += q;
+    D = (D << q) | GRAM8(i);
+  }
+  abort();
 }

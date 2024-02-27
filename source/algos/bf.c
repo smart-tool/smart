@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
@@ -23,18 +23,19 @@
 #include "include/main.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-    int i, count, j;
-    BEGIN_PREPROCESSING
-    END_PREPROCESSING
+  int i, count, j;
+  BEGIN_PREPROCESSING
+  END_PREPROCESSING
 
-    /* Searching */
-    BEGIN_SEARCHING
-    count = 0;
-    for (j = 0; j <= n-m; ++j) {
-        for (i = 0; i < m && x[i] == y[i + j]; ++i);
-        if (i >= m) OUTPUT(j);
-    }
-    END_SEARCHING
-    return count;
+  /* Searching */
+  BEGIN_SEARCHING
+  count = 0;
+  for (j = 0; j <= n - m; ++j) {
+    for (i = 0; i < m && x[i] == y[i + j]; ++i)
+      ;
+    if (i >= m)
+      OUTPUT(j);
+  }
+  END_SEARCHING
+  return count;
 }
-

@@ -12,37 +12,37 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the string matching algorithm based on DFA
  */
 
+#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
-#include "include/AUTOMATON.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int j, state, count;
-   int *ttransSMA;
-   count = 0;
+  int j, state, count;
+  int *ttransSMA;
+  count = 0;
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   ttransSMA = (int *)malloc((m+1)*SIGMA*sizeof(int));
-   memset(ttransSMA, -1, (m+1)*SIGMA*sizeof(int));
-   preSMA(x, m, ttransSMA);
-   END_PREPROCESSING
-    
-   /* Searching */
-   BEGIN_SEARCHING
-   for (state = 0, j = 0; j < n; ++j) {
-      state = getSMA(state, y[j]);
-      if (state==m) OUTPUT(j - m + 1);
-   }
-   free(ttransSMA);
-   END_SEARCHING
-   return count;
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
+  memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
+  preSMA(x, m, ttransSMA);
+  END_PREPROCESSING
+
+  /* Searching */
+  BEGIN_SEARCHING
+  for (state = 0, j = 0; j < n; ++j) {
+    state = getSMA(state, y[j]);
+    if (state == m)
+      OUTPUT(j - m + 1);
+  }
+  free(ttransSMA);
+  END_SEARCHING
+  return count;
 }
-

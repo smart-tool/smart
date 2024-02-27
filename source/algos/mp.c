@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
@@ -24,39 +24,38 @@
 #include "include/main.h"
 
 void preMp(unsigned char *x, int m, int mpNext[]) {
-   int i, j;
-   i = 0;
-   j = mpNext[0] = -1;
-   while (i < m) {
-      while (j > -1 && x[i] != x[j])
-         j = mpNext[j];
-      mpNext[++i] = ++j;
-   }
+  int i, j;
+  i = 0;
+  j = mpNext[0] = -1;
+  while (i < m) {
+    while (j > -1 && x[i] != x[j])
+      j = mpNext[j];
+    mpNext[++i] = ++j;
+  }
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int i, j, mpNext[XSIZE], count;
+  int i, j, mpNext[XSIZE], count;
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   preMp(x, m, mpNext);
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  preMp(x, m, mpNext);
+  END_PREPROCESSING
 
-   count = 0;
-   BEGIN_SEARCHING
-   /* Searching */
-   i = j = 0;
-   while (j < n) {
-      while (i > -1 && x[i] != y[j])
-         i = mpNext[i];
-      i++;
-      j++;
-      if (i >= m) {
-         OUTPUT(j - i);
-         i = mpNext[i];
-      }
-   }
-   END_SEARCHING
-   return count;
+  count = 0;
+  BEGIN_SEARCHING
+  /* Searching */
+  i = j = 0;
+  while (j < n) {
+    while (i > -1 && x[i] != y[j])
+      i = mpNext[i];
+    i++;
+    j++;
+    if (i >= m) {
+      OUTPUT(j - i);
+      i = mpNext[i];
+    }
+  }
+  END_SEARCHING
+  return count;
 }
-

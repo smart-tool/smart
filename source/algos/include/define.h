@@ -12,23 +12,21 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
-
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
-#define MAX(a,b) ((a) > (b) ? (a) : (b))
-#define FALSE      0
-#define TRUE       1
-#define XSIZE       4200			//maximal length of the pattern
-#define WSIZE  	    256				//greater int value fitting in a computer word
-#define SIGMA       256				//constant alphabet size
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define FALSE 0
+#define TRUE 1
+#define XSIZE 4200 // maximal length of the pattern
+#define WSIZE 256  // greater int value fitting in a computer word
+#define SIGMA 256  // constant alphabet size
 //#define ALPHA       256				//constant alphabet size
 //#define ASIZE		256				//constant alphabet size
-#define UNDEFINED       -1
-#define HALFDEFINED     -2
-#define WORD	    32				//computer word size (in bit)
-#define OUTPUT(j)   count++
-
+#define UNDEFINED -1
+#define HALFDEFINED -2
+#define WORD 32 // computer word size (in bit)
+#define OUTPUT(j) count++

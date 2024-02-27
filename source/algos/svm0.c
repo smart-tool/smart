@@ -12,113 +12,126 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Shift Vector Matching algorithm
- * in H. Peltola and J. Tarhio. 
- * Alternative Algorithms for Bit-Parallel String Matching. 
- * Proceedings of the 10th International Symposium on String Processing and Information Retrieval SPIRE'03, (2003).
+ * in H. Peltola and J. Tarhio.
+ * Alternative Algorithms for Bit-Parallel String Matching.
+ * Proceedings of the 10th International Symposium on String Processing and
+ * Information Retrieval SPIRE'03, (2003).
  */
 
 #include "include/define.h"
 #include "include/main.h"
-#define w ((int)sizeof(unsigned int)*8)
+#define w ((int)sizeof(unsigned int) * 8)
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 unsigned int asm_bsf(unsigned int x) {
-    asm ("bsfl %0, %0" : "=r" (x) : "0" (x));
-    return x;
+  asm("bsfl %0, %0" : "=r"(x) : "0"(x));
+  return x;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int count = 0;
-   int s, j;
-   unsigned int tmp, h, sv = 0, cv[SIGMA];
-   if(m>31) return search_large(x,m,y,n);
+  int count = 0;
+  int s, j;
+  unsigned int tmp, h, sv = 0, cv[SIGMA];
+  if (m > 31)
+    return search_large(x, m, y, n);
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   tmp = (~0);
-   tmp >>= (WORD-m);
-   for(j = 0; j < SIGMA; j++) cv[j] = tmp;
-   tmp = 1;
-   for(j = m-1; j >= 0; j--) {
-      cv[x[j]] &= ~tmp;
-      tmp <<= 1;
-   }
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  tmp = (~0);
+  tmp >>= (WORD - m);
+  for (j = 0; j < SIGMA; j++)
+    cv[j] = tmp;
+  tmp = 1;
+  for (j = m - 1; j >= 0; j--) {
+    cv[x[j]] &= ~tmp;
+    tmp <<= 1;
+  }
+  END_PREPROCESSING
 
-   /* Searching */
-   BEGIN_SEARCHING
-   if( !memcmp(x,y,m) ) OUTPUT(0);
-   s = m;
-   while(s < n) {
-      sv |= cv[y[s]];
-      j = 1;
-      while((sv&1) == 0) {
-         if(j >= m) {OUTPUT(s); break;}
-         sv |= (cv[y[s-j]] >> j);
-         j++;
+  /* Searching */
+  BEGIN_SEARCHING
+  if (!memcmp(x, y, m))
+    OUTPUT(0);
+  s = m;
+  while (s < n) {
+    sv |= cv[y[s]];
+    j = 1;
+    while ((sv & 1) == 0) {
+      if (j >= m) {
+        OUTPUT(s);
+        break;
       }
-      h = ~(sv >> 1);
-      j = asm_bsf(h);
-      sv >>= j+1;
-      s += j+1;
-   }
-   END_SEARCHING
-   return(count);
+      sv |= (cv[y[s - j]] >> j);
+      j++;
+    }
+    h = ~(sv >> 1);
+    j = asm_bsf(h);
+    sv >>= j + 1;
+    s += j + 1;
+  }
+  END_SEARCHING
+  return (count);
 }
 
 /*
  * Shift Vector Matching algorithm designed for large patterns
  * The present implementation searches for prefixes of the pattern of length 32.
- * When an occurrence is found the algorithm tests for the whole occurrence of the pattern
+ * When an occurrence is found the algorithm tests for the whole occurrence of
+ * the pattern
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-   int count = 0;
-   int s, j, p_len, first, k;
-   unsigned int tmp, h, sv = 0, cv[SIGMA];
-   p_len= m;
-   m = 31;
+  int count = 0;
+  int s, j, p_len, first, k;
+  unsigned int tmp, h, sv = 0, cv[SIGMA];
+  p_len = m;
+  m = 31;
 
-   /* proprocessing */
-   BEGIN_PREPROCESSING
-   tmp = (~0);
-   tmp >>= (WORD-m);
-   for(j = 0; j < SIGMA; j++) cv[j] = tmp;
-   tmp = 1;
-   for(j = m-1; j >= 0; j--) {
-      cv[x[j]] &= ~tmp;
-      tmp <<= 1;
-   }
-   END_PREPROCESSING
+  /* proprocessing */
+  BEGIN_PREPROCESSING
+  tmp = (~0);
+  tmp >>= (WORD - m);
+  for (j = 0; j < SIGMA; j++)
+    cv[j] = tmp;
+  tmp = 1;
+  for (j = m - 1; j >= 0; j--) {
+    cv[x[j]] &= ~tmp;
+    tmp <<= 1;
+  }
+  END_PREPROCESSING
 
-   /* searching */
-   BEGIN_SEARCHING
-   if( !memcmp(x,y,p_len) ) OUTPUT(0);
-   s = m;
-   while(s < n){
-      sv |= cv[y[s]];
-      j = 1;
-      while((sv&1) == 0) {
-         if(j >= m) {
-            k = m; first = s-m+1;
-            while (k<p_len && x[k]==y[first+k]) k++;
-            if (k==p_len) OUTPUT(first); 
-            break;
-         }
-         sv |= (cv[y[s-j]] >> j);
-         j++;
+  /* searching */
+  BEGIN_SEARCHING
+  if (!memcmp(x, y, p_len))
+    OUTPUT(0);
+  s = m;
+  while (s < n) {
+    sv |= cv[y[s]];
+    j = 1;
+    while ((sv & 1) == 0) {
+      if (j >= m) {
+        k = m;
+        first = s - m + 1;
+        while (k < p_len && x[k] == y[first + k])
+          k++;
+        if (k == p_len)
+          OUTPUT(first);
+        break;
       }
-      h = ~(sv >> 1);
-      j = asm_bsf(h);
-      sv >>= j+1;
-      s += j+1;
-   }
-   END_SEARCHING
-   return(count);
+      sv |= (cv[y[s - j]] >> j);
+      j++;
+    }
+    h = ~(sv >> 1);
+    j = asm_bsf(h);
+    sv >>= j + 1;
+    s += j + 1;
+  }
+  END_SEARCHING
+  return (count);
 }

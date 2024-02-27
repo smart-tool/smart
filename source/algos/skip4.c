@@ -12,47 +12,50 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
+#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
-#include "include/AUTOMATON.h"
 
 #define DSIGMA 16380
-#define HS(x,i) (x[i]<<6) + (x[i+1]<<4) +  (x[i+2]<<2) + x[i+3]
+#define HS(x, i) (x[i] << 6) + (x[i + 1] << 4) + (x[i + 2] << 2) + x[i + 3]
 #define Q 4
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int i, j, count, h, k;
-   List ptr, z[DSIGMA];
-   if(m<Q) return -1;
+  int i, j, count, h, k;
+  List ptr, z[DSIGMA];
+  if (m < Q)
+    return -1;
 
-   BEGIN_PREPROCESSING	
-   memset(z, 0, DSIGMA*sizeof(List));
-   for (i = 0; i < m-Q+1; ++i) {
-      ptr = (List)malloc(sizeof(struct _cell));
-      if (ptr == NULL)
-         error("SKIP");
-      ptr->element = i;
-      ptr->next = z[HS(x,i)];
-      z[HS(x,i)] = ptr;
-   }
-   END_PREPROCESSING	
-  
-   BEGIN_SEARCHING
-   count = 0;
-   int mq = m-Q+1;
-   for (j = mq - 1; j < n; j += mq)
-      for (ptr = z[HS(y,j)]; ptr != NULL; ptr = ptr->next) 
-			if((j-ptr->element) <= n-m) {
-				k = 0;
-				h = j-ptr->element;
-				while(k<m && x[k]==y[h+k]) k++;
-				if(k>=m) count++;
-    	     }
-   END_SEARCHING
-   return count;
+  BEGIN_PREPROCESSING
+  memset(z, 0, DSIGMA * sizeof(List));
+  for (i = 0; i < m - Q + 1; ++i) {
+    ptr = (List)malloc(sizeof(struct _cell));
+    if (ptr == NULL)
+      error("SKIP");
+    ptr->element = i;
+    ptr->next = z[HS(x, i)];
+    z[HS(x, i)] = ptr;
+  }
+  END_PREPROCESSING
+
+  BEGIN_SEARCHING
+  count = 0;
+  int mq = m - Q + 1;
+  for (j = mq - 1; j < n; j += mq)
+    for (ptr = z[HS(y, j)]; ptr != NULL; ptr = ptr->next)
+      if ((j - ptr->element) <= n - m) {
+        k = 0;
+        h = j - ptr->element;
+        while (k < m && x[k] == y[h + k])
+          k++;
+        if (k >= m)
+          count++;
+      }
+  END_SEARCHING
+  return count;
 }

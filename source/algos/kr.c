@@ -12,13 +12,14 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Karp Rabin algorithm
- * in R. M. Karp and M. O. Rabin. 
- * Efficient randomized pattern-matching algorithms. ibmjrd, vol.31, n.2, pp.249--260, (1987).
+ * in R. M. Karp and M. O. Rabin.
+ * Efficient randomized pattern-matching algorithms. ibmjrd, vol.31, n.2,
+ * pp.249--260, (1987).
  */
 
 #include "include/define.h"
@@ -26,29 +27,29 @@
 #define REHASH(a, b, h) ((((h) - (a)*d) << 1) + (b))
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int d, hx, hy, i, j, count;
+  int d, hx, hy, i, j, count;
 
-   BEGIN_PREPROCESSING
-   count = 0;
-   /* Preprocessing */
-   for (d = i = 1; i < m; ++i)
-      d = (d<<1);
+  BEGIN_PREPROCESSING
+  count = 0;
+  /* Preprocessing */
+  for (d = i = 1; i < m; ++i)
+    d = (d << 1);
 
-   for (hy = hx = i = 0; i < m; ++i) {
-      hx = ((hx<<1) + x[i]);
-      hy = ((hy<<1) + y[i]);
-   }
-   END_PREPROCESSING
+  for (hy = hx = i = 0; i < m; ++i) {
+    hx = ((hx << 1) + x[i]);
+    hy = ((hy << 1) + y[i]);
+  }
+  END_PREPROCESSING
 
-   /* Searching */
-   BEGIN_SEARCHING
-   j = 0;
-   while (j <= n-m) {
-      if (hx == hy && memcmp(x, y + j, m) == 0) OUTPUT(j);
-      hy = REHASH(y[j], y[j + m], hy);
-      ++j;
-   }
-   END_SEARCHING
-   return count;
+  /* Searching */
+  BEGIN_SEARCHING
+  j = 0;
+  while (j <= n - m) {
+    if (hx == hy && memcmp(x, y + j, m) == 0)
+      OUTPUT(j);
+    hy = REHASH(y[j], y[j + m], hy);
+    ++j;
+  }
+  END_SEARCHING
+  return count;
 }
-
