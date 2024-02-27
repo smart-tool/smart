@@ -22,9 +22,9 @@
  * Society, Hangzhou, China, (2006).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 #define setTarget(p, c, q) ttrans[(p)*SIGMA + (c)] = (q)
 #define getTarget(p, c) ttrans[(p)*SIGMA + (c)]
@@ -39,14 +39,14 @@
 #define getSMA(p, c) ttransSMA[(p)*SIGMA + (c)]
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int k, i, j, R, L, r, ell, end, count, l, m2;
+  int k, i, R, L, count, l;
   int *ttrans, *tlength, *tsuffix;
   int *ttransSMA;
   unsigned char *tterminal;
   unsigned char *xR;
 
   BEGIN_PREPROCESSING
-  xR = (char *)malloc(sizeof(char) * (m + 1));
+  xR = (unsigned char *)malloc(sizeof(unsigned char) * (m + 1));
   for (i = 0; i < m; i++)
     xR[i] = x[m - i - 1];
   xR[m] = '\0';
@@ -56,7 +56,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   tlength = (int *)calloc(3 * m, sizeof(int));
   tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (char *)calloc(3 * m, sizeof(char));
+  tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
   ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));

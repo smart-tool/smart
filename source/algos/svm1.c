@@ -30,7 +30,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int count, s, j;
-  unsigned int tmp, h, sv, cv[SIGMA], ONE;
+  unsigned int tmp, sv, cv[SIGMA], ONE;
 
   if (m > 32)
     return search_large(x, m, y, n);
@@ -88,7 +88,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   int count, s, j, first, k, p_len;
-  unsigned int tmp, h, sv, cv[SIGMA], ONE;
+  unsigned int tmp, sv, cv[SIGMA], ONE;
   p_len = m;
   m = 32;
 

@@ -45,6 +45,8 @@ static void bit_alloc_n(WORD_TYPE **name, int n, int bits) {
     name[i] = name[0] + i * bit_size(bits);
 }
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA];
   int i, j, s, D, last, count;

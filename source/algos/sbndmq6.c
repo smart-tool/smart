@@ -29,6 +29,8 @@
   (B[y[j]] << 5) & (B[y[j - 1]] << 4) & (B[y[j - 2]] << 3) &                   \
       (B[y[j - 3]] << 2) & (B[y[j - 4]] << 1) & B[y[j - 5]]
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, q, shift;
   int i, j, pos, mMinusq, mq, count;
@@ -71,7 +73,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     D = GRAM6(j);
     if (D != 0) {
       pos = j;
-      while (D = (D << 1) & B[y[j - q]])
+      while ((D = (D << 1) & B[y[j - q]]))
         --j;
       j += mq;
       if (j == pos) {
@@ -133,7 +135,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     D = GRAM6(j);
     if (D != 0) {
       pos = j;
-      while (D = (D << 1) & B[y[j - q]])
+      while ((D = (D << 1) & B[y[j - q]]))
         --j;
       j += mq;
       if (j == pos) {

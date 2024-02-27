@@ -41,9 +41,10 @@
  *pattern) and jump to the right, like in BOM.
  */
 
-#include "include/GRAPH.h"
 #include "include/define.h"
 #include "include/main.h" // defines the search interface for time and statistics.
+#include "include/GRAPH.h"
+
 #define Q 8
 #define HASH(j)                                                                \
   (y[j] << 14) + (y[j - 1] << 12) + (y[j - 2] << 10) + (y[j - 3] << 8) +       \
@@ -52,7 +53,7 @@
 /*
  * Pre-process q-gram factors of the pattern.
  */
-int preprocessingQ(unsigned char *x, int m, char *F) {
+void preprocessingQ(unsigned char *x, int m, char *F) {
   int i, j;
   unsigned short h;
   int fact = m < 8 ? m : 8;
@@ -73,7 +74,7 @@ int preprocessingQ(unsigned char *x, int m, char *F) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, p, k, count, test;
+  int i, j, k, count, test;
   char F[256 * 256];
   unsigned short h;
   if (m < Q)
@@ -84,7 +85,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int plen = m;
   if (m % Q != 0)
     m = m - (m % Q);
-  int mq = m - Q + 1;
+  //int mq = m - Q + 1;
   preprocessingQ(x, m, F);
   for (i = 0; i < m; i++)
     y[n + i] = x[i];

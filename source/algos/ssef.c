@@ -43,13 +43,13 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   LIST *flist[65536];
   LIST *t;
   memset(flist, 0, sizeof(LIST *) * 65536);
-  __m128i tmp128;
+  //__m128i tmp128;
   TEXT T;
   T.data16 = (__m128i *)y;
   T.data = (unsigned char *)y;
 
   BEGIN_PREPROCESSING
-  unsigned int K = 7;
+  //unsigned int K = 7;
   unsigned int count = 0;
   unsigned int i, last, j;
   __m128i *ptr16;

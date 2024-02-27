@@ -21,9 +21,9 @@
  * (1994).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, init, ell, state, count;
@@ -37,7 +37,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   tlength = (int *)calloc(3 * m, sizeof(int));
   tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (char *)calloc(3 * m, sizeof(char));
+  tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   init = 0;
   END_PREPROCESSING

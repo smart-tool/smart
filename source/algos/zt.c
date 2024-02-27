@@ -26,7 +26,7 @@
 #include "include/main.h"
 
 void suffixes(unsigned char *x, int m, int *suff) {
-  int f, g, i;
+  int f = m - 2, g, i;
 
   suff[m - 1] = m;
   g = m - 1;

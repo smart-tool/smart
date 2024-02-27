@@ -23,9 +23,9 @@
  * Ltd., Essex, UK, (2005).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 void preSMARev(unsigned char *x, int m, int *ttransSMA) {
   int c, i, state, target, oldTarget;
@@ -46,7 +46,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int *ttrans, *tlength, *tsuffix;
   int *ttransSMA;
   unsigned char *tterminal;
-  unsigned char *xR;
+  //unsigned char *xR;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -54,7 +54,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   tlength = (int *)calloc(3 * m, sizeof(int));
   tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (char *)calloc(3 * m, sizeof(char));
+  tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   END_PREPROCESSING
 

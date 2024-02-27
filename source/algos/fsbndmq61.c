@@ -68,7 +68,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     D = (D << 1) & B[y[j - 4]];
     if (D != 0) {
       pos = j;
-      while (D = (D << 1) & B[y[j - 5]])
+      while ((D = (D << 1) & B[y[j - 5]]))
         --j;
       j += mm;
       if (j == pos) {

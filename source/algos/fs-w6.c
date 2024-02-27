@@ -68,10 +68,10 @@ void Pre_GS(unsigned char *x, int m, int bm_gs[]) {
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, j, s1, s2, s3, s4, s5, s6, k1, k2, k3, k4, k5, k6, i1, i2, i3, i4;
+  int i, j, s1, s2, s3, s4, s5, s6, k1, k2, k3, k4, k5, k6;
   int l1, l2, l3, l4, l5, l6;
-  int h, count, hbcr[SIGMA], hbcl[SIGMA], gsR[XSIZE], gsL[XSIZE];
-  unsigned char c, Pr[XSIZE];
+  int count, hbcr[SIGMA], hbcl[SIGMA], gsR[XSIZE], gsL[XSIZE];
+  unsigned char Pr[XSIZE];
   if (n < 8)
     return -1;
 

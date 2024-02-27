@@ -26,7 +26,7 @@
 #include "include/define.h"
 #include "include/main.h"
 
-int PreBadPosBC(unsigned char *P, int m, int *hbc, int pos) {
+void PreBadPosBC(unsigned char *P, int m, int *hbc, int pos) {
 
   int i, alpha = SIGMA;
 
@@ -38,13 +38,12 @@ int PreBadPosBC(unsigned char *P, int m, int *hbc, int pos) {
 }
 
 int FindBadPos(unsigned char *P, int m) {
-  int i, j, alpha, pos, bc[SIGMA], temp, max, q, gbc;
-  double last_value, values[SIGMA], best_value, adv;
-  char c;
+  int i, alpha, bc[SIGMA], max, q, gbc;
+  double adv;
   alpha = SIGMA;
   // P[m]='1';
   // P[m+1]='\0';
-  for (i = 0; i <= alpha; i++)
+  for (i = 0; i < alpha; i++)
     bc[i] = -1;
   adv = 1;
   max = 1;
@@ -64,7 +63,7 @@ int FindBadPos(unsigned char *P, int m) {
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, j, k, d, shift, s, count, bc[SIGMA], pos;
+  int i, s, count, bc[SIGMA], pos;
   BEGIN_PREPROCESSING
   pos = FindBadPos(P, m);
   PreBadPosBC(P, m, bc, pos);

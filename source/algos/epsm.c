@@ -53,7 +53,7 @@ int search1(unsigned char *pattern, int patlen, unsigned char *x,
   __m128i *tend = (__m128i *)(x + 16 * (textlen / 16));
   __m128i t0, a;
   VectorUnion template0;
-  unsigned int j, k;
+  unsigned int j;
   int cnt = 0;
 
   BEGIN_PREPROCESSING
@@ -231,14 +231,14 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
              int textlen) {
   LIST *flist[2048]; // 11 bit hash is gives the best result according to our
                      // tests, no shorter no longer
-  LIST *t, *t1;
+  LIST *t;
 
   unsigned int i, filter, shift = (patlen / 8) - 1;
   unsigned long long crc, seed = 123456789, mask;
   unsigned long long *ptr64;
   unsigned long long *lastchunk;
   unsigned char *charPtr;
-  int count = 0, p = 0, tmppatlen = (patlen / 8) * 8;
+  int count = 0, tmppatlen = (patlen / 8) * 8;
   mask = 2047;
 
   BEGIN_PREPROCESSING

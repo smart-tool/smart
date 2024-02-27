@@ -19,9 +19,9 @@
  * This is an implementation of the string matching algorithm based on DFA
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, state, count;

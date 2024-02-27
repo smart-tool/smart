@@ -26,7 +26,7 @@
 #include "include/main.h"
 
 void preSA(unsigned char *x, int m, unsigned int S[]) {
-  unsigned int j, lim;
+  unsigned int j;
   int i;
   for (i = 0; i < SIGMA; ++i)
     S[i] = 0;
@@ -35,8 +35,10 @@ void preSA(unsigned char *x, int m, unsigned int S[]) {
   }
 }
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int lim, D;
+  unsigned int D;
   unsigned int S[SIGMA], F;
   int j, count;
   if (m > WORD)
@@ -68,7 +70,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int lim, D, k, h, p_len;
+  unsigned int D, k, h, p_len;
   unsigned int S[SIGMA], F;
   int j, count;
 

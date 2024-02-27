@@ -49,6 +49,8 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
   }
 }
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n, int q);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, h, mm;
   unsigned int masq;
@@ -118,7 +120,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
                   int q, int u, unsigned int D, unsigned int mm, int *count,
                   int p_len) {
-  int s, c, mq, v, z, i, k;
+  int s, c, mq, v, z, i;
 
   D = (D & mm) ^ mm;
   mq = m / q - 1;

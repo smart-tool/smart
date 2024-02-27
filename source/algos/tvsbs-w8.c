@@ -34,10 +34,9 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int count, i, s1, s2, s3, s4, s5, s6, s7, s8, j = 0;
+  int count, i, s1, s2, s3, s4, s5, s6, s7, s8;
   int l1, l2, l3, l4, l5, l6, l7, l8;
   int BrBcR[SIGMA][SIGMA], BrBcL[SIGMA][SIGMA];
-  unsigned char firstCh, lastCh;
   unsigned char xr[XSIZE];
   unsigned char c;
   if (n < m + 2)

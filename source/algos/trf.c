@@ -22,9 +22,9 @@
  * algorithms. Algorithmica, vol.12, n.4/5, pp.247--267, (1994).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 void preMpforTRF(unsigned char *x, int m, int mpNext[]) {
   int i, j;
@@ -121,7 +121,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   BEGIN_SEARCHING
   count = 0;
-  if (strncmp(x, y, m) == 0)
+  if (strncmp((char*)x, (char*)y, m) == 0)
     OUTPUT(0);
   j = 1;
   while (j <= nMinusm) {
@@ -138,7 +138,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         shift = i;
       --i;
     }
-    if (i <= u)
+    if (i <= u) {
       if (disp == 0) {
         OUTPUT(j);
         shift = period;
@@ -166,6 +166,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           }
         }
       }
+    }
     j += shift;
   }
   free(mpNext);

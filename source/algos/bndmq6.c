@@ -29,6 +29,8 @@
   (B[y[i + 5]] << 5) & (B[y[i + 4]] << 4) & (B[y[i + 3]] << 3) &               \
       (B[y[i + 2]] << 2) & (B[y[i + 1]] << 1) & B[y[i]]
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int D, B[SIGMA], M, s;
   int i, j, q, count, first;
@@ -89,7 +91,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int D, B[SIGMA], M, s;
-  int i, j, q, count, first, p_len, k;
+  int i, j, q, count, first, p_len;
   q = 6;
   if (m <= q)
     return 0;

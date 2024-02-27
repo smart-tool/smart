@@ -27,8 +27,8 @@
 #include "include/main.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, k, left, l, end, count, p_len, j1, j2;
-  unsigned int B[SIGMA] = {0}, C[SIGMA] = {0}, M, D, H, c;
+  int i, k, left, l, end, count, p_len, j1, j2 = 0;
+  unsigned int B[SIGMA] = {0}, C[SIGMA] = {0}, M, D, H;
   unsigned int suf;
 
   p_len = m;

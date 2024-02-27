@@ -47,7 +47,7 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
-  int i, j, s1, s2, s3, s4, pos, mm1, mp1, count;
+  int i, j, s1, s2, s3, s4, pos, mm1, count;
 
   BEGIN_PREPROCESSING
   /* Preprocessing */
@@ -56,7 +56,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     m = 31;
   count = 0;
   mm1 = m - 1;
-  mp1 = m + 1;
+  //mp1 = m + 1;
   set = 1;
   for (i = 0; i < SIGMA; i++)
     B[i] = W[i] = set;
@@ -91,8 +91,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       s4 -= hbcl[y[s4 - m]];
     }
     pos = s1;
-    while (d = (d + d) &
-               (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] | W[y[s4 + 1]])) {
+    while ((d = (d + d) &
+            (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] | W[y[s4 + 1]]))) {
       --s1;
       ++s2;
       --s3;

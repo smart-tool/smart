@@ -28,6 +28,8 @@
 #define GRAM4(j)                                                               \
   (B[y[j]] << 3) & (B[y[j - 1]] << 2) & (B[y[j - 2]] << 1) & B[y[j - 3]]
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, q;
   int i, j, pos, mMinusq, mq, count, shift;
@@ -68,7 +70,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     D = GRAM4(j);
     if (D != 0) {
       pos = j;
-      while (D = (D << 1) & B[y[j - q]])
+      while ((D = (D << 1) & B[y[j - q]]))
         --j;
       j += mq;
       if (j == pos) {
@@ -130,7 +132,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     D = GRAM4(j);
     if (D != 0) {
       pos = j;
-      while (D = (D << 1) & B[y[j - q]])
+      while ((D = (D << 1) & B[y[j - q]]))
         --j;
       j += mq;
       if (j == pos) {

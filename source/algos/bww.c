@@ -26,6 +26,8 @@
 #include "include/define.h"
 #include "include/main.h"
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, left, r, ell, end, count;
   unsigned int B[SIGMA], C[SIGMA], s, t, R, L;

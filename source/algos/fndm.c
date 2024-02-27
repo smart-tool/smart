@@ -26,6 +26,8 @@
 #include "include/main.h"
 #define neg(K) (~K)
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int D, B[SIGMA], NEG0, NEG0m1;
   int i, j, k, count, first;

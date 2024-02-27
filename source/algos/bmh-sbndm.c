@@ -95,11 +95,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, k, s, count, hbc[SIGMA], shift, p_len;
+  int i, j, k, s, count, hbc[SIGMA], p_len;
   unsigned int B[SIGMA], D;
   p_len = m;
   m = 31;
-  int diff = p_len - m;
+  //int diff = p_len - m;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -117,10 +117,10 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     y[n + i] = x[i];
   D = B[x[m - 1]];
   j = 1;
-  shift = 1;
+  // shift = 1;
   for (i = m - 2; i > 0; i--, j++) {
-    if (D & (1 << (m - 1)))
-      shift = j;
+    // if (D & (1 << (m - 1)))
+    //  shift = j;
     D = (D << 1) & B[x[i]];
   }
   for (i = 0; i < m; i++)

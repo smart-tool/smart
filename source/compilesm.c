@@ -24,14 +24,14 @@
 
 /*
  * This program compiles all c programs of string matching algorithms
- * It is called by makefile script, when compiling SMART
+ * It is called by build.sh script, when compiling SMART
  */
 
 int main(int argc, char **argv) {
   char filename[100], command[512], binary[100];
-  int i, j;
+  int i;
   char gcc[100] = "gcc source/algos/";
-  char options[100] = " -O3 -W -Wall -msse4 -lm -o source/bin/";
+  char options[100] = " -O3 -Wall -msse4 -lm -o source/bin/";
   char destination[100] = "source/bin/";
 
   int doTest = 0;

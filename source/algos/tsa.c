@@ -11,8 +11,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   unsigned char PopCount[65536];
   int j, i;
   uint64_t D;
-  uint64_t mask = 0;
-  uint64_t B[256], B1[256];
+  uint64_t B[256];
 
   if (m > 64)
     abort();

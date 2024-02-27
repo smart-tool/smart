@@ -59,7 +59,7 @@ void preprocessing(unsigned char *x, int m, char *F) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, p, b, lf, count, test, kmpNext[XSIZE];
+  int i, j, b, lf, count, test, kmpNext[XSIZE];
   int tp, st;
   char F[256 * 256];
   unsigned short h;

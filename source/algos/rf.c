@@ -21,9 +21,9 @@
  * vol.92, n.1, pp.119--144, (1992).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 void buildSuffixAutomaton(unsigned char *x, int m, int *ttrans, int *tlength,
                           int *tsuffix, unsigned char *tterminal) {
@@ -96,7 +96,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   BEGIN_SEARCHING
   count = 0;
-  if (strncmp(x, y, m) == 0)
+  if (strncmp((char*)x, (char*)y, m) == 0)
     OUTPUT(0);
   j = 1;
   while (j <= nMinusm) {

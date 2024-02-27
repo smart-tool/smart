@@ -34,7 +34,7 @@ void preBmBc(unsigned char *x, int m, int bmBc[]) {
 }
 
 void suffixes(unsigned char *x, int m, int *suff) {
-  int f, g, i;
+  int f = 0, g, i;
   suff[m - 1] = m;
   g = m - 1;
   for (i = m - 2; i >= 0; --i) {

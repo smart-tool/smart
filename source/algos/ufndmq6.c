@@ -29,6 +29,8 @@
   ((B[y[i - 5]] << 5) | (B[y[i - 4]] << 4) | (B[y[i - 3]] << 3) |              \
    (B[y[i - 2]] << 2) | (B[y[i - 1]] << 1) | B[y[i]])
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int D, F, mm, mask, B[SIGMA], S;
   int i, j, k, mq, q;
@@ -64,7 +66,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       i += m;
       D = (D << m) | GRAM6(i);
     }
-    if (F = ~(D | mask)) {
+    if ((F = ~(D | mask))) {
       for (k = i - mq + 1; F; F <<= 1, k++)
         if (F >= mm) {
           for (j = 0; j < m; j++)
@@ -127,7 +129,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
       i += m;
       D = (D << m) | GRAM6(i);
     }
-    if (F = ~(D | mask)) {
+    if ((F = ~(D | mask))) {
       for (k = i - mq + 1; F; F <<= 1, k++)
         if (F >= mm) {
           for (j = 0; j < p_len; j++)

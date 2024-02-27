@@ -27,7 +27,7 @@
 #include "include/main.h"
 
 void PreBFS(unsigned char *x, int m, int bm_gs[XSIZE][SIGMA]) {
-  int i, j, p, c, h, last, suffix_len, temp[XSIZE];
+  int i, j, c, last, suffix_len, temp[XSIZE];
   suffix_len = 1;
   last = m - 1;
   for (i = 0; i <= m; i++)
@@ -68,8 +68,7 @@ void PreBFS(unsigned char *x, int m, int bm_gs[XSIZE][SIGMA]) {
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, s, count, gs[XSIZE][SIGMA], bc[SIGMA];
-  int *last, first;
-  char ch = x[m - 1];
+  int first;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -86,7 +85,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_SEARCHING
   count = 0;
   s = m - 1;
-  last = gs[m];
   first = gs[1][x[0]];
   while (s < n) {
     while ((k = bc[y[s]]) != 0)

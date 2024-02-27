@@ -47,7 +47,7 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
-  int i, j, s1, s2, s3, s4, s5, s6, s7, s8, pos, mm1, mp1, count;
+  int i, j, s1, s2, s3, s4, s5, s6, s7, s8, pos, mm1, count;
   int l1, l2, l3, l4, l5, l6, l7, l8;
 
   if (m < 11)
@@ -59,7 +59,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     m = 31;
   count = 0;
   mm1 = m - 1;
-  mp1 = m + 1;
+  //mp1 = m + 1;
   set = 1;
   for (i = 0; i < SIGMA; i++)
     B[i] = W[i] = set;

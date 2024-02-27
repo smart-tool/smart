@@ -46,13 +46,13 @@
 #include "include/main.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA], PR[SIGMA];
-  int i, j, s1, s2, h, f, d, z, first, count, stop;
+  int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA];
+  int i, j, s1, s2, f, d, first, count;
   int plen = m;
   if (m > 32)
     m = 32;
   int m1 = m - 1;
-  int mp1 = m + 1;
+  //int mp1 = m + 1;
 
   /* Pre processing*/
   BEGIN_PREPROCESSING

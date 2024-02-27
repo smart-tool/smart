@@ -80,7 +80,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     count++;
   s = m;
   while (s < n) {
-    while (k = bc[y[s]])
+    while ((k = bc[y[s]]))
       s += k;
     for (j = s - 1, k = m - 1; k > 0 && x[k - 1] == y[j]; k--, j--)
       ;

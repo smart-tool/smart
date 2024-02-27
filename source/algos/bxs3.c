@@ -29,7 +29,7 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, set;
-  int i, j, first, k, mm, sh, m1, count;
+  int i, j, first, k, count;
   if (m < Q)
     return -1;
   int w = WORD, mq1 = m - Q + 1, nq1 = n - Q + 1;

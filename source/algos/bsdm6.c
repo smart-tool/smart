@@ -33,9 +33,8 @@
 #define Q 6
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[DSIGMA];
+  //unsigned int B[DSIGMA];
   int i, j, k, count;
-  unsigned int s, d;
   if (m < Q)
     return -1;
 

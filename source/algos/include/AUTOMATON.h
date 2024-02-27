@@ -17,6 +17,7 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
+#include <stdlib.h>
 #define setTarget(p, c, q) ttrans[(p)*SIGMA + (c)] = (q)
 #define getTarget(p, c) ttrans[(p)*SIGMA + (c)]
 #define setLength(p, q) tlength[(p)] = (q)
@@ -55,6 +56,16 @@ char *reverse(char *x, int m) {
   int i;
 
   xR = (char *)malloc((m + 1) * sizeof(char));
+  for (i = 0; i < m; ++i)
+    xR[i] = x[m - 1 - i];
+  xR[m] = '\0';
+  return (xR);
+}
+unsigned char *ureverse(unsigned char *x, int m) {
+  unsigned char *xR;
+  int i;
+
+  xR = (unsigned char *)malloc((m + 1) * sizeof(unsigned char));
   for (i = 0; i < m; ++i)
     xR[i] = x[m - 1 - i];
   xR[m] = '\0';
@@ -145,7 +156,7 @@ void buildSimpleSuffixAutomaton(unsigned char *x, int m, int *ttrans,
     p = last;
     q = newState();
     setLength(q, getLength(p) + 1);
-    while (p != init && getTarget(p, c) == UNDEFINED) {
+    while (p != init && (getTarget(p, c) == UNDEFINED)) {
       setTarget(p, c, q);
       p = getSuffixLink(p);
     }

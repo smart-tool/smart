@@ -17,9 +17,9 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 int getTransitionSimon(unsigned char *x, int m, int p, List L[], char c) {
   List cell;

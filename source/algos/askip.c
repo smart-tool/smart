@@ -93,7 +93,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   Automaton automaton;
   int i, j, ell, pos, size, shift, q, count;
   ListOfIntegers cell, *z;
-  Node art, root, node, childNode, lastNode;
+  Node art, root, node, childNode;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -157,10 +157,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       node = delta(node, y[j + q]);
     if (node != NIL)
       for (cell = getZ(node); cell != NULL; cell = cell->next) {
-        if (memcmp(x, y + j - cell->position, m) == 0)
-          if (j - cell->position <= n - m)
+        if (memcmp(x, y + j - cell->position, m) == 0) {
+          if (j - cell->position <= n - m) {
             OUTPUT(j - cell->position);
-          else {
+          } else {
             free(automaton->trans);
             free(automaton->term);
             free(automaton->fail);
@@ -171,6 +171,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
             END_SEARCHING
             return count;
           }
+        }
       }
     j += shift;
   }

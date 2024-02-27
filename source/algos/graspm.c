@@ -66,7 +66,7 @@ int search(unsigned char *p, int m, unsigned char *t, int n) {
   count = 0;
   j = m - 1;
   while (j < n) {
-    while (k = hbc[t[j]])
+    while ((k = hbc[t[j]]))
       j += k;
     {
       pos = z[t[j - 1]];

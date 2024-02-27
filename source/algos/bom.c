@@ -23,9 +23,9 @@
  * Science, n.1725, pp.291--306, (1999).
  */
 
-#include "include/GRAPH.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/GRAPH.h"
 
 int getTransition(unsigned char *x, int p, List L[], unsigned char c) {
   List cell;
@@ -53,7 +53,7 @@ void setTransition(int p, int q, List L[]) {
 }
 
 void oracle(unsigned char *x, int m, char T[], List L[]) {
-  int i, p, q;
+  int i, p, q = 0;
   int S[XSIZE + 1];
   char c;
   S[m] = m + 1;
@@ -76,7 +76,7 @@ void oracle(unsigned char *x, int m, char T[], List L[]) {
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   char T[XSIZE + 1];
   List L[XSIZE + 1];
-  int i, j, r, period, q, shift, count;
+  int i, j, r, period = 0, q, shift, count;
 
   BEGIN_PREPROCESSING
   /* Preprocessing */

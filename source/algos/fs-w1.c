@@ -68,9 +68,9 @@ void Pre_GS(unsigned char *x, int m, int bm_gs[]) {
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, j, s1, s2, k, h, count, hbcr[SIGMA], hbcl[SIGMA], gsR[XSIZE],
+  int i, j, s1, k, count, hbcr[SIGMA], gsR[XSIZE],
       gsL[XSIZE];
-  unsigned char c, Pr[XSIZE], P2[XSIZE];
+  unsigned char Pr[XSIZE];
 
   /* prprocessing */
   BEGIN_PREPROCESSING
@@ -79,10 +79,12 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   for (i = 0; i < m; i++)
     hbcr[P[i]] = (m - i - 1);
 
+  /*
   for (i = 0; i < SIGMA; i++)
     hbcl[i] = m;
   for (i = 0; i < m; i++)
     hbcl[P[m - 1 - i]] = (m - i - 1);
+  */
 
   for (i = 0; i < m; i++)
     Pr[i] = P[m - 1 - i];
@@ -90,7 +92,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   Pre_GS(P, m, gsR);
   Pre_GS(Pr, m, gsL);
 
-  unsigned char lastch = P[m - 1], firstch = P[0];
+  // unsigned char lastch = P[m - 1], firstch = P[0];
   for (i = 0; i < m; i++)
     T[n + i] = P[i];
   int mm1 = m - 1;

@@ -38,7 +38,7 @@
 #include "include/define.h"
 #include "include/main.h"
 
-int preprocessing(unsigned char *x, int m, char *F) {
+void preprocessing(unsigned char *x, int m, char *F) {
   int i, j;
   unsigned short h;
   int fact = m < 16 ? m : 16;
@@ -59,7 +59,7 @@ int preprocessing(unsigned char *x, int m, char *F) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, p, k, count, test;
+  int i, j, k, count, test;
   char F[256 * 256];
   unsigned short h;
   int mMinus1 = m - 1;

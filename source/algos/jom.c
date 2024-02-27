@@ -91,7 +91,7 @@ int FindWorstOccurrence(unsigned char *p, int m, double freq[]) {
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, j, k, s, count, jbc[SIGMA][SIGMA];
+  int i, j, s, count, jbc[SIGMA][SIGMA];
   double freq[SIGMA];
   if (m < 2)
     return -1;

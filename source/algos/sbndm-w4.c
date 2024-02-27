@@ -47,12 +47,12 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA];
-  int i, j, s, s1, s2, s3, s4, f, d, z, first, count, stop;
+  int i, s, s1, s2, s3, s4, f, d, first, count;
   int plen = m;
   if (m > 32)
     m = 32;
   int m1 = m - 1;
-  int mp1 = m + 1;
+  //int mp1 = m + 1;
 
   /* Pre processing */
   BEGIN_PREPROCESSING

@@ -41,15 +41,17 @@ int mylog2(int unsigned n) {
   return ell;
 }
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, z, count;
+  int i, j, count;
   unsigned int b, D, Delta, mask, mask2, T[SIGMA];
   if (m > 30)
     return search_large(x, m, y, n);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  z = WORD;
+  // z = WORD;
   mask = 1;
   for (i = 1; i < m; ++i)
     mask = (mask << 1) | 1;
@@ -100,14 +102,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 }
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, z, k, count, first, p_len;
+  int i, j, k, count, first, p_len;
   unsigned int b, D, Delta, mask, mask2, T[SIGMA];
   p_len = m;
   m = 30;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  z = WORD;
+  //z = WORD;
   mask = 1;
   for (i = 1; i < m; ++i)
     mask = (mask << 1) | 1;

@@ -26,6 +26,8 @@
 #include "include/log2.h"
 #include "include/main.h"
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n, int q);
+
 void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
             unsigned int D, unsigned int mm, int *count) {
   unsigned int s;
@@ -46,7 +48,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, h, mm, tmp, not_mm;
+  unsigned int B[SIGMA], D, h, mm, tmp;
   int i, j, count;
   int q = 2;
 
@@ -95,7 +97,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
                   int q, unsigned int D, unsigned int mm, int *count,
                   int p_len) {
-  unsigned int s, tmp;
+  unsigned int s;
   int c, k, i;
   D = (D & mm) ^ mm;
   while (D != 0) {

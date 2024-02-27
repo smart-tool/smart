@@ -49,7 +49,7 @@ void preBmBc_(unsigned char *x, int m, int *bmBc) {
 }
 
 void suffixes_(unsigned char *x, int m, int *suff) {
-  int f, g, i;
+  int f = 0, g, i;
   suff[m - 1] = m;
   g = m - 1;
   for (i = m - 2; i >= 0; --i) {
@@ -316,7 +316,7 @@ int getBcGS(unsigned char a, int i, Pair1 *bcGsPtr, Pair2 *bcGsVal) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, k, h, ell, lsp, bmBc[SIGMA], *clink, *pref, *skip, *slink, *suff,
+  int i, j, k, ell, lsp, bmBc[SIGMA], *clink, *pref, *skip, *slink, *suff,
       count;
   Pair1 bcGsPtr[SIGMA];
   Pair2 *bcGsVal;
@@ -353,7 +353,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   skip[0] = m;
   M = 2 * m;
   while (j <= n - m) {
-    h = j;
+    //h = j;
     i = m - 1;
     k = skip[ell];
     while (i >= 0) {

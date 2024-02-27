@@ -38,6 +38,8 @@ int preSo(unsigned char *x, int m, unsigned int S[]) {
   return (lim);
 }
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int lim, D;
   unsigned int S[SIGMA];

@@ -27,9 +27,8 @@
 #include "include/main.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA];
+  //unsigned int B[SIGMA];
   int i, j, k, count;
-  unsigned int s, d;
 
   BEGIN_PREPROCESSING
   unsigned int occ[SIGMA] = {0};

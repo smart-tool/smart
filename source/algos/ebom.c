@@ -29,7 +29,7 @@
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE], FT[SIGMA][SIGMA];
   int *trans[XSIZE];
-  int i, j, p, q;
+  int i, j, p, q = 0;
   int iMinus1, mMinus1, count;
   unsigned char c;
   count = 0;

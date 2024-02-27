@@ -17,9 +17,9 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 #define DSIGMA 65536
 #define HS(x, i)                                                               \

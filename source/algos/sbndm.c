@@ -26,11 +26,13 @@
 #include "include/define.h"
 #include "include/main.h"
 
+int search_large(unsigned char *x, int m, unsigned char *y, int n);
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, i, last, first;
   unsigned int D, B[SIGMA], s;
-  int mM1 = m - 1;
-  int mM2 = m - 2;
+  //int mM1 = m - 1;
+  //int mM2 = m - 2;
   int count = 0, restore[XSIZE + 1], shift;
 
   if (m > 32)
@@ -101,8 +103,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   int j, i, last, first, p_len, k;
   unsigned int D, B[SIGMA], s;
-  int mM1 = m - 1;
-  int mM2 = m - 2;
+  //int mM1 = m - 1;
+  //int mM2 = m - 2;
   int count = 0, restore[XSIZE + 1], shift;
 
   p_len = m;

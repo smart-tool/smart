@@ -22,26 +22,26 @@
  * Ltd., Essex, UK, (2005).
  */
 
-#include "include/AUTOMATON.h"
 #include "include/define.h"
 #include "include/main.h"
+#include "include/AUTOMATON.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int k, R, L, r, ell, end, count;
   int *ttrans, *tlength, *tsuffix;
   int *ttransSMA;
-  char *tterminal;
+  unsigned char *tterminal;
   unsigned char *xR;
 
   BEGIN_PREPROCESSING
   count = 0;
   /* Preprocessing */
-  xR = reverse(x, m);
+  xR = ureverse(x, m);
   ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   tlength = (int *)calloc(3 * m, sizeof(int));
   tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (char *)calloc(3 * m, sizeof(char));
+  tterminal = (unsigned char *)calloc(3 * m, sizeof(char));
   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
 
   ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
