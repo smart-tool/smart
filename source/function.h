@@ -126,7 +126,7 @@ void getAlgoDescription(char *ALGO_DESCRIPTION[]) {
   fclose(fp);
 }
 
-int split_filelsit(char *filename, char list_of_filenames[NumSetting][50]) {
+int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {
   int i, j, k;
   i = j = k = 0;
   int m = strlen(filename);

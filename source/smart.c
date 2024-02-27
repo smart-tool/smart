@@ -741,7 +741,7 @@ int main(int argc, const char *argv[]) {
     if (system("./logo"))
       perror("logo");
     char list_of_filenames[NumSetting][50];
-    int num_buffers = split_filelsit(filename, list_of_filenames);
+    int num_buffers = split_filelist(filename, list_of_filenames);
 
     srand(time(NULL));
     char expcode[100];
@@ -783,7 +783,7 @@ int main(int argc, const char *argv[]) {
       perror("logo");
     // starts experimental results on all texts
     char list_of_filenames[NumSetting][50];
-    int num_buffers = split_filelsit(filename, list_of_filenames);
+    int num_buffers = split_filelist(filename, list_of_filenames);
     srand(time(NULL));
     char expcode[100];
     generateCode(expcode);
