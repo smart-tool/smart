@@ -114,7 +114,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 }
 
 int main(int argc, char *argv[]) {
-  int i, j;
+  int i;
 
   /* processing of input parameters */
   if (argc == 1) {
@@ -241,8 +241,10 @@ int main(int argc, char *argv[]) {
 
   // begin testing
   int rip = 0;
-  int alpha, k, h, m, occur1, occur2, test = 1;
-  /*for(alpha = 2; alpha<=128; alpha*=2) {
+  int alpha = 2, h;
+  /*
+  int k, m, occur1, occur2, test = 1
+  for(alpha = 2; alpha<=128; alpha*=2) {
           for(i=0; i<YSIZE; i++) T[i] = rand()%alpha;
           // compute the frequency of characters
           //for(j=0; j<SIGMA; j++) FREQ[j]=0;
@@ -251,17 +253,18 @@ int main(int argc, char *argv[]) {
                   for(j=0; j<10; j++) {
                           rip++;
                           printf("\b\b\b\b\b\b[%.3d%%]",rip*10/28);
-  fflush(stdout);
+                          fflush(stdout);
                           (*count) = 0;
                           k = j*2;
                           for(h=0; h<m; h++) P[h] = T[k+h];
                           P[m]='\0';
                           occur1 = search(P,m,T,YSIZE);
-                  occur2 =
-  execute(algoname,pkey,m,tkey,YSIZE,rkey,ekey,prekey,count,alpha); if(occur2>=0
-  && occur1 != occur2) { if(!VERBOSE) printf("\n\tERROR: test failed\n\n");
-                                  free_shm();
-                                  exit(1);
+                          occur2 =
+                          execute(algoname,pkey,m,tkey,YSIZE,rkey,ekey,prekey,count,alpha);
+                          if(occur2>=0 && occur1 != occur2) {
+                            if(!VERBOSE) printf("\n\tERROR: test failed\n\n");
+                            free_shm();
+                            exit(1);
                           }
                   }
           }
