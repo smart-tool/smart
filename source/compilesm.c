@@ -49,6 +49,8 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strcpy(filename, dir->d_name);
+      if (strcmp(filename, ".gitignore") == 0)
+        continue;
       sprintf(command, "./source/bin/%s", filename);
       remove(command);
     }
