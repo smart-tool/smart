@@ -68,7 +68,7 @@ void getAlgoName(char *ALGO_NAME[]) {
 }
 
 void getAlgo(char *ALGO_NAME[], int EXECUTE[]) {
-  FILE *fp = fopen("source/algorithms.h", "r");
+  FILE *fp = fopen("source/algorithms.lst", "r");
   char c;
   int i = 0;
   while ((c = getc(fp)) != EOF)
