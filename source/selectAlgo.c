@@ -57,8 +57,8 @@ int search_ALGO(char *ALGO_NAME[], char *algo) {
 int main(int argc, const char *argv[]) {
   int EXECUTE[NumAlgo];
   char *ALGO_NAME[NumAlgo];
-  char *ALGO_DESCRIPTION[NumAlgo];
-  char *PATH[NumAlgo];
+  //char *ALGO_DESCRIPTION[NumAlgo];
+  //char *PATH[NumAlgo];
   char filename[20], command[100];
   int i, j;
 
