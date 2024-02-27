@@ -33,7 +33,7 @@
 #define SIGMA 256
 #define XSIZE 100
 #define YSIZE 100
-#define ATTEMPT 40 // numer of attempt to allocate shared memory
+#define ATTEMPT 40 // number of attempts to allocate shared memory
 #define VERBOSE !strcmp(parameter, "-nv")
 
 int tshmid, eshmid, preshmid, pshmid, rshmid;
@@ -58,7 +58,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
 void printManual() {
   printf("\n\tSMART UTILITY FOR TESTING STRING MATCHING ALGORITHMS\n\n");
-  printf("\tusage: ./test ALGONAME\n");
+  printf("\tusage: ./test ALGONAME [-nv]\n");
   printf("\tTest the program named \"algoname\" for correctness.\n");
   printf("\tThe program \"algoname\" must be located in source/bin/\n");
   printf("\tOnly programs in smart format can be tested.\n");
