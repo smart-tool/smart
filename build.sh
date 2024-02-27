@@ -4,7 +4,7 @@ uname_p="$(uname -p)"
 CC="gcc"
 if [ $uname_p = x86_64 ]
 then
-    CFLAGS="-march=native -mtune=native"
+    CFLAGS="-march=native -mtune=native -Wall"
 fi
 echo "	Compiling smart.c..................................[OK]"
 $CC source/smart.c -O3 $CFLAGS -msse2 -o smart -lm -std=gnu99

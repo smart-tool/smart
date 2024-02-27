@@ -56,7 +56,7 @@ void computeRandomColors(char colors[100][8]) {
 int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
               int alpha, char *filename, char *expcode, int dif, int std) {
-  int i, il, algo;
+  int il, algo;
   FILE *fp;
   char outname[100];
   // printing results in txt format
@@ -171,7 +171,7 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
 
 int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
                 char *expcode, char *time_format) {
-  int i, j, il, algo;
+  int j, il, algo;
   FILE *fp;
   char outname[100];
   // printing results in latex format
@@ -202,7 +202,6 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   fprintf(fp, "\\\\\n");
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo]) {
-      int first = 1;
       fprintf(fp, "\\textsc{%s}", str2upper(ALGO_NAME[algo]));
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
@@ -221,7 +220,7 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
 
 int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
               char *expcode) {
-  int i, il, algo;
+  int il, algo;
   FILE *fp;
   char outname[100];
   // finds the best result for each pattern length
@@ -287,7 +286,6 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
               int algo, char *expcode, FILE *fp) {
 
-  int i;
   double dymax = 0.0;
   for (int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
@@ -456,7 +454,7 @@ void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
           dymax = TIME[algo][il];
       }
   }
-  int ymax = dymax + 1.0;
+  //int ymax = dymax + 1.0;
 
   fprintf(fp,
           "<div class=\"chart_container_small\" style=\"height:300px\"><div "
@@ -782,7 +780,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
 int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
                int pre, int alpha, char *filename, char *expcode,
                char *time_format) {
-  int i, il, algo;
+  int i;
   FILE *fp;
   char outname[100];
   // printing results in html format
@@ -856,7 +854,7 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
 
 int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers,
                 char *expcode) {
-  int i, sett, il, algo;
+  int sett;
   FILE *fp;
   char outname[100];
   // printing results in html format

@@ -29,9 +29,6 @@
 unsigned int MINLEN = 1,
              MAXLEN = 4200; // min length and max length of pattern size
 
-#include "output.h"
-#include "sets.h"
-#include "timer.h"
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -40,11 +37,14 @@ unsigned int MINLEN = 1,
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <sys/time.h>
-#include <sys/types.h>
+#include <time.h>
+#include "sets.h"
+#include "output.h"
+#include "timer.h"
 
 void printManual() {
-  int i = system("./logo");
+  if (system("./logo"))
+    exit(1);
   printf("\tThis is a basic help guide for using the tool\n\n");
   // printf("\t-alpha S      sets to S the size of the alphabet (default
   // 256)\n");
@@ -217,8 +217,8 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
       (unsigned char **)malloc(sizeof(unsigned char *) * VOLTE);
   for (i = 0; i < VOLTE; i++)
     setP[i] = (unsigned char *)malloc(sizeof(unsigned char) * (XSIZE + 1));
-  unsigned char c, *P;
-  FILE *fp, *ip, *stream;
+  unsigned char *P = NULL;
+  FILE *stream = NULL;
   int SIMPLE = (strcmp((char *)simplePattern, "") ? 1 : 0);
   if (!SIMPLE) {
     char logfile[100];
@@ -228,9 +228,9 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     stream = freopen(logfile, "w", stderr); // redirect of stderr
   }
 
-  int eshmid, preshmid, pshmid, rshmid;
-  double *e_time, *pre_time;
-  int *count;
+  int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
+  double *e_time = NULL, *pre_time = NULL;
+  int *count = NULL;
 
   // allocate space for running time in shered memory
   srand(time(NULL));
@@ -506,9 +506,8 @@ int main(int argc, const char *argv[]) {
   /* useful variables */
   unsigned char *T;   // text and pattern
   int n, tshmid, try; // length of the text
-  FILE *ip;           // file pointer for input text
+  //FILE *ip;           // file pointer for input text
   char parameter[1000];
-  char c;
 
   srand(time(NULL));
 
@@ -688,11 +687,11 @@ int main(int argc, const char *argv[]) {
 
   // allocate space for text in shered memory
   key_t tkey = rand() % 1000;
-  size_t size = sizeof(unsigned char) * TSIZE + 10;
+  const size_t size = sizeof(unsigned char) * TSIZE + 10;
   try = 0;
   do {
     tkey = rand() % 1000;
-    tshmid = shmget(tkey, TSIZE + 10, IPC_CREAT | 0666);
+    tshmid = shmget(tkey, size, IPC_CREAT | 0666);
   } while (++try < 10 && tshmid < 0);
   if (tshmid < 0) {
     perror("shmget");
