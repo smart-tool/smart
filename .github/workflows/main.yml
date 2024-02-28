@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+  pull_request:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v4
+    - run:  ./build.sh
+  windows:
+    runs-on: windows-latest
+    env:
+      MSYS2_DIR: msys64
+      MSYS2_ARCH: x86_64
+      MSYSTEM: MINGW64
+      ARCH: win64
+      PLATFORM: x64
+    steps:
+      # see https://github.com/msys2/setup-msys2
+    - name: setup-msys2
+      uses: msys2/setup-msys2@v2
+      with:
+        path-type: minimal
+        update: true
+        install: >-
+          git
+          base-devel
+          mingw-w64-x86_64-toolchain
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    - shell: msys2 {0}
+      run: make -j
+  macOS:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run:  ./build.sh
+  aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: uraimo/run-on-arch-action@v2
+        name: Test
+        id: runcmd
+        with:
+          arch: aarch64
+          githubToken: ${{ github.token }}
+          distro: ubuntu_latest
+          install: |
+            apt-get update -q -y
+            apt-get install -y make gcc
+          run: ./build.sh
