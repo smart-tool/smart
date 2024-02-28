@@ -349,7 +349,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 
       int current_running = 0;
       for (algo = 0; algo < NumAlgo; algo++)
-        if (EXECUTE[algo]) {
+        if (EXECUTE[algo] && (!ALGOS[i].minlen || m >= ALGOS[i].minlen)) {
           current_running++;
           char data[30];
           sprintf(data, "\t - [%d/%d] %s ", current_running, num_running,
@@ -579,7 +579,7 @@ int main(int argc, const char *argv[]) {
       }
       strcpy(parameter, argv[par++]);
       MINLEN = string2decimal(parameter);
-      ;
+
       if (MINLEN < 1 || MINLEN > 4200) {
         printf("Error in input parameters. The minimum length is not a valid "
                "argument.\n\n");
@@ -591,7 +591,7 @@ int main(int argc, const char *argv[]) {
       }
       strcpy(parameter, argv[par++]);
       MAXLEN = string2decimal(parameter);
-      ;
+
       if (MAXLEN < 1 || MINLEN > MAXLEN) {
         printf("Error in input parameters. The maximum length is not a valid "
                "argument.\n\n");
