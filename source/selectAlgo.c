@@ -30,6 +30,7 @@
 
 void printManual() {
   printf("\n\tSMART UTILITY FOR SELECTING STRING MATCHING ALGORITHMS\n\n");
+  printf("\t-desc           with description\n");
   printf("\t-show           shows the list of all algorithms\n");
   printf("\t-which          shows the list of all selected algorithms\n");
   printf("\tALGO            selects/deselects the algorithm ALGO (ex. select "
@@ -46,12 +47,9 @@ void printManual() {
 }
 
 int main(int argc, const char *argv[]) {
-  //int EXECUTE[NumAlgo];
-  //char *ALGO_NAME[NumAlgo];
-  //char *ALGO_DESCRIPTION[NumAlgo];
-  //char *PATH[NumAlgo];
   char filename[20], command[100];
   int i, j;
+  int desc = 0;
 
   getAlgo(ALGO_NAME, EXECUTE);
 
@@ -67,6 +65,10 @@ int main(int argc, const char *argv[]) {
   int par = 1;
   while (par < argc) {
     int selected = 0;
+    if (par < argc && !strcmp("-desc", argv[par])) {
+      desc++;
+      par++;
+    }
     if (par < argc && !strcmp("-show", argv[par])) {
       par++;
       // shows all algorithms
@@ -76,6 +78,9 @@ int main(int argc, const char *argv[]) {
           char buf[100];
           struct stat st;
           printf("%s", ALGO_NAME[i]);
+          if (desc)
+            printf("\t\"%s\"", ALGOS[i].desc);
+          
           strcpy(buf, "source/algos/");
           strcat(buf, ALGO_NAME[i]);
           strcat(buf, ".c");
@@ -100,6 +105,9 @@ int main(int argc, const char *argv[]) {
           char buf[100];
           struct stat st;
           printf("\t-%s", ALGO_NAME[i]);
+          if (desc)
+            printf("\t\"%s\"", ALGOS[i].desc);
+
           strcpy(buf, "source/algos/");
           strcat(buf, ALGO_NAME[i]);
           strcat(buf, ".c");
