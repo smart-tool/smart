@@ -238,7 +238,11 @@ int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   // printing results in xml format
   strcpy(outname, "results/");
   strcat(outname, expcode);
+#ifndef _WIN32
   mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
   strcat(outname, "/");
   strcat(outname, filename);
   strcat(outname, ".xml");
@@ -543,7 +547,11 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
   // printing results in html format
   strcpy(outname, "results/");
   strcat(outname, expcode);
+#ifndef _WIN32
   mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
   strcat(outname, "/");
   strcat(outname, filename);
   strcat(outname, ".html");
@@ -788,7 +796,11 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
   // printing results in html format
   strcpy(outname, "results/");
   strcat(outname, expcode);
+#ifndef _WIN32
   mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
   strcat(outname, "/");
   strcat(outname, filename);
   strcat(outname, ".html");
@@ -862,7 +874,11 @@ int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers,
   // printing results in html format
   strcpy(outname, "results/");
   strcat(outname, expcode);
+#ifndef _WIN32
   mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
   strcat(outname, "/index.html");
   printf("\tWriting %s/index.html\n", expcode);
   if (!(fp = fopen(outname, "w"))) {

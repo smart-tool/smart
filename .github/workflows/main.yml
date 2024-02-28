@@ -41,7 +41,7 @@ jobs:
       with:
         fetch-depth: 1
     - shell: msys2 {0}
-      run: make -j
+      run: ./build.sh
   macOS:
     runs-on: macos-latest
     steps:

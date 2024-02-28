@@ -30,13 +30,16 @@
 int main(int argc, char **argv) {
   char filename[100], command[512], binary[100];
   int i;
-  char gcc[100] = "gcc source/algos/";
-#ifdef __x86_64__
-  char options[100] = " -O3 -Wall -march=native -mtune=native -msse4 -lm -o source/bin/";
-#else
-  char options[100] = " -O3 -Wall -lm -o source/bin/";
-#endif
   char destination[100] = "source/bin/";
+  char gcc[100] = "gcc source/algos/";
+  char options[100] = " -O3";
+#ifndef _WIN32
+  strcat(options, " -Wall");
+#endif
+#ifdef __x86_64__
+  strcat(options, " -march=native -mtune=native -msse4");
+#endif
+  strcat(options, " -lm -o source/bin/");
 
   int doTest = 0;
   if (argc > 1) {

@@ -1,10 +1,18 @@
 #!/bin/sh
 ./logo
+CC="${CC:-gcc}"
 uname_p="$(uname -p)"
-CC="gcc"
 if [ $uname_p = x86_64 ]
 then
-    CFLAGS="-march=native -mtune=native -Wall"
+    CFLAGS="-march=native -mtune=native"
+    # we don't care that much about windows non-compat warnings yet
+    uname_s="$(uname -s)"
+    case "$uname_s" in
+        MINGW*)  ;;
+        CYGWIN*) ;;
+        MSYS_NT*) ;;
+        *) CFLAGS="$CFLAGS -Wall" ;;
+    esac
     SSE2="-msse2"
 fi
 echo "	Compiling smart.c..................................[OK]"

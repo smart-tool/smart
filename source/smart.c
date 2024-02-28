@@ -34,8 +34,14 @@ unsigned int MINLEN = 1,
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#else
+//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
+#define key_t int
+#define shmctl(a,b,c)
+#endif
 #include <sys/stat.h>
 #include <time.h>
 #include "sets.h"
@@ -158,11 +164,18 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   return i;
 }
 
-int execute(int algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-            key_t ekey, key_t prekey, int *count, int alpha) {
+int execute(int algo, key_t pkey, int m, key_t tkey, int n,
+            key_t rkey, key_t ekey, key_t prekey,
+            int *count, int alpha) {
   char command[100];
+#ifdef _WIN32
+  (void)rkey; (void)ekey; (void)prekey;
+  sprintf(command, "./source/bin/%s %d %d %d %d", ALGO_NAME[algo],
+          pkey, m, tkey, n);
+#else
   sprintf(command, "./source/bin/%s shared %d %d %d %d %d %d %d",
-          str2lower(ALGO_NAME[algo]), pkey, m, tkey, n, rkey, ekey, prekey);
+          ALGO_NAME[algo], pkey, m, tkey, n, rkey, ekey, prekey);
+#endif
   int res = system(command);
   if (!res)
     return (*count);
@@ -177,7 +190,7 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
     if (strcmp((char *)simplePattern, ""))
       strcpy((char *)setP[i], (char *)simplePattern);
     else {
-      k = random() % (n - m); // generates a number between 0 and n-m
+      k = rand() % (n - m); // generates a number between 0 and n-m
       for (j = 0; j < m; j++)
         setP[i][j] = T[k + j]; // creates the pattern
       setP[i][j] = '\0';
@@ -185,7 +198,8 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
   }
 }
 
-/* Free up shared memory allocated by sm execution */
+#ifndef _WIN32
+/* Free up shared memory allocated by shm execution */
 void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
               double *pre_time, int tshmid, int pshmid, int rshmid, int eshmid,
               int preshmid) {
@@ -200,6 +214,7 @@ void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
   shmctl(eshmid, IPC_RMID, 0);
   shmctl(preshmid, IPC_RMID, 0);
 }
+#endif
 
 /********************************************************/
 
@@ -223,18 +238,23 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   if (!SIMPLE) {
     char logfile[100];
     sprintf(logfile, "results/%s", code);
+#ifndef _WIN32
     mkdir(logfile, 0775);
+#else
+    mkdir(logfile);
+#endif
     strcat(logfile, "/errorlog.txt");
     stream = freopen(logfile, "w", stderr); // redirect of stderr
   }
 
-  int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
   double *e_time = NULL, *pre_time = NULL;
   int *count = NULL;
 
-  // allocate space for running time in shered memory
+  // allocate space for running time in shared memory
   srand(time(NULL));
+#ifndef _WIN32
   key_t ekey = rand() % 1000;
+  int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
   try = 0;
   do {
     ekey = rand() % 1000;
@@ -253,7 +273,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     exit(1);
   }
 
-  // allocate space for preprocessing running time in shered memory
+  // allocate space for preprocessing running time in shared memory
   key_t prekey = rand() % 1000;
   try = 0;
   do {
@@ -275,7 +295,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   for (i = 0; i < SIGMA; i++)
     FREQ[i] = 0;
 
-  // allocate space for pattern in shered memory
+  // allocate space for pattern in shared memory
   key_t pkey = rand() % 1000;
   try = 0;
   do {
@@ -318,6 +338,9 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
              preshmid);
     exit(1);
   }
+#else
+  key_t pkey, tkey, rkey, ekey, prekey;
+#endif // _WIN32
 
   // initializes the vector which will contain running times
   for (i = 0; i < NumAlgo; i++)
@@ -685,9 +708,10 @@ int main(int argc, const char *argv[]) {
   // get information about the set of algorithms
   getAlgo(ALGO_NAME, EXECUTE);
 
-  // allocate space for text in shered memory
-  key_t tkey = rand() % 1000;
+  // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
+#ifndef _WIN32  
+  key_t tkey;
   try = 0;
   do {
     tkey = rand() % 1000;
@@ -705,6 +729,7 @@ int main(int argc, const char *argv[]) {
     shmctl(tshmid, IPC_RMID, 0);
     exit(1);
   }
+#endif
 
   if (SIMPLE) {
     if (system("./logo"))

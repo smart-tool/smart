@@ -25,8 +25,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#else
+//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
+#define key_t int
+#define shmctl(a,b,c)
+#endif
 #include <sys/types.h>
 #include <time.h>
 
@@ -68,8 +74,14 @@ void printManual() {
 int execute(char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
             key_t ekey, key_t prekey, int *count, int alpha) {
   char command[100];
+#ifdef _WIN32
+  (void)rkey; (void)ekey; (void)prekey;
+  sprintf(command, "./source/bin/%s %d %d %d %d", algoname,
+          pkey, m, tkey, n);
+#else
   sprintf(command, "./source/bin/%s shared %d %d %d %d %d %d %d", algoname,
           pkey, m, tkey, n, rkey, ekey, prekey);
+#endif
   // printf("%s\n",command);
   int res = system(command);
   if (!res)
@@ -81,6 +93,7 @@ int execute(char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
 int FREQ[SIGMA];
 
 void free_shm() {
+#ifndef _WIN32
   shmdt(T);
   shmdt(P);
   shmdt(count);
@@ -91,6 +104,7 @@ void free_shm() {
   shmctl(rshmid, IPC_RMID, 0);
   shmctl(eshmid, IPC_RMID, 0);
   shmctl(preshmid, IPC_RMID, 0);
+#endif
 }
 
 int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
@@ -136,8 +150,12 @@ int main(int argc, char *argv[]) {
   }
   fclose(fp);
 
-  // allocate space for text in shered memory
+  for (i = 0; i < SIGMA; i++)
+    FREQ[i] = 0;
+
+  // allocate space for text in shared memory
   srand(time(NULL));
+#ifndef _WIN32
   key_t tkey = rand() % 1000;
   int try = 0;
   do {
@@ -154,7 +172,7 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  // allocate space for running time in shered memory
+  // allocate space for running time in shared memory
   srand(time(NULL));
   key_t ekey = rand() % 1000;
   try = 0;
@@ -173,7 +191,7 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  // allocate space for preprocessing running time in shered memory
+  // allocate space for preprocessing running time in shared memory
   key_t prekey = rand() % 1000;
   try = 0;
   do {
@@ -191,10 +209,8 @@ int main(int argc, char *argv[]) {
     free_shm();
     exit(1);
   }
-  for (i = 0; i < SIGMA; i++)
-    FREQ[i] = 0;
 
-  // allocate space for pattern in shered memory
+  // allocate space for pattern in shared memory
   key_t pkey = rand() % 1000;
   try = 0;
   do {
@@ -212,8 +228,6 @@ int main(int argc, char *argv[]) {
     free_shm();
     exit(1);
   }
-  for (i = 0; i < SIGMA; i++)
-    FREQ[i] = 0;
 
   // allocate space for the result number of occurrences in shared memory
   int *count;
@@ -234,6 +248,9 @@ int main(int argc, char *argv[]) {
     free_shm();
     exit(1);
   }
+#else
+  key_t  pkey, tkey, rkey, ekey, prekey, *count;
+#endif
 
   if (!VERBOSE)
     printf("\n\tPlease, wait a moment..............");

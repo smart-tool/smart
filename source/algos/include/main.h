@@ -21,8 +21,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#else
+//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
+#define key_t int
+#define shmctl(a,b,c)
+#endif
 #include <sys/types.h>
 
 #define BEGIN_PREPROCESSING                                                    \
@@ -74,6 +80,7 @@ int main(int argc, char *argv[]) {
     key_t ekey = atoi(argv[7]); // segment name for the running time
     key_t prekey =
         atoi(argv[8]); // segment name for the preprocessing running time
+#ifndef _WIN32
     /* Locate the pattern. */
     if ((pshmid = shmget(pkey, m, 0666)) < 0) {
       perror("shmget");
@@ -114,6 +121,7 @@ int main(int argc, char *argv[]) {
       perror("shmat");
       return 1;
     }
+#endif
 
     // timer_start(_timer);
     // start = clock();
@@ -125,6 +133,7 @@ int main(int argc, char *argv[]) {
     int rshmid, *result;
     key_t rkey = atoi(argv[6]); // segment name for the occurrences
                                 //  Locate the int value.
+#ifndef _WIN32
     if ((rshmid = shmget(rkey, 4, 0666)) < 0) {
       perror("shmget");
       return 1;
@@ -134,6 +143,7 @@ int main(int argc, char *argv[]) {
       perror("shmat");
       return 1;
     }
+#endif
     *result = count;
     return 0;
   } else {
