@@ -26,7 +26,7 @@ enum algo_id {
   _Raita,   // Raita
   _SMOA,    // String Matching on Ordered Alphabets
   _RColussi,// Reverse Colussi
-  _Skip,    // Skip Serach
+  _Skip,    // Skip Search
   _KMPSkip, // KMP skip search
   _ASkip,   // Alpha-Skip-Search
   _BR,      // Berry-ravindran

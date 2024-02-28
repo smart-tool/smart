@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
-    - run:  ./build.sh
+    - run:  ./build.sh && make check
   windows:
     runs-on: windows-latest
     env:
@@ -46,7 +46,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
-    - run:  ./build.sh
+    - run:  ./build.sh && make check
   aarch64:
     runs-on: ubuntu-latest
     steps:
@@ -61,4 +61,4 @@ jobs:
           install: |
             apt-get update -q -y
             apt-get install -y make gcc
-          run: ./build.sh
+          run: ./build.sh && make check

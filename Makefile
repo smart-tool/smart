@@ -3,6 +3,7 @@ CFLAGS=-O3 -march=native -mtune=native -Wall -Wfatal-errors
 ALGOS=$(wildcard source/algos/*.c)
 BINS=$(patsubst source/algos/%,source/bin/%,$(patsubst %.c,%,$(ALGOS)))
 HELPERS=smart show select test textgen compilesm
+TESTS=bm mp kmp tbm bom so
 
 all: $(BINS) $(HELPERS)
 
@@ -15,9 +16,14 @@ select: source/selectAlgo.c
 
 .PHONY: check clean all
 check: all
-	./select -which
-	-cp source/bin/br cp source/bin/br1
+	./select -which | grep br
+	-cp source/bin/br source/bin/br1
 	./select -add br1
+	-rm source/bin/br1
+	./select -none $(TESTS)
+	./smart -text rand32
+	for t in $(TESTS); do echo $$t; ./test $$t; done
+	./select -all block bmh2 bmh4 ssef dfdm sbdm faoso2 blim ssecp
 
 clean:
 	rm $(BINS) $(HELPERS)

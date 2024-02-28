@@ -72,6 +72,7 @@ int main(int argc, const char *argv[]) {
       par++;
     }
     if (par < argc && !strcmp("-show", argv[par])) {
+      int ret = 0;
       par++;
       // shows all algorithms
       printf("The list of all string matching algorithms\n");
@@ -89,16 +90,20 @@ int main(int argc, const char *argv[]) {
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
-          else if (res && !ALGOS[i].missing) // not there and not marked as missing
-            printf("\tFAIL missing %s\n", buf);
-          else if (!res && ALGOS[i].missing) // there and marked as missing
+          else if (res && !ALGOS[i].missing) { // not there and not marked as missing
+            printf("\tFAIL missing %s\n", buf); ret++;
+          }
+          else if (!res && ALGOS[i].missing) { // there and marked as missing
             printf("\tFAIL exist %s, but marked as missing\n", buf);
+            ret++;
+          }
           else
             printf("\n");
         }
-      return 1;
+      return ret;
     }
     if (par < argc && !strcmp("-which", argv[par])) {
+      int ret = 0;
       par++;
       // shows all selected algorithms
       printf("\nThe list of selected algorithms:\n");
@@ -116,15 +121,19 @@ int main(int argc, const char *argv[]) {
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
-          else if (res && !ALGOS[i].missing) // not there and not marked as missing
+          else if (res && !ALGOS[i].missing) { // not there and not marked as missing
             printf("\tFAIL missing %s\n", buf);
-          else if (!res && ALGOS[i].missing) // there and marked as missing
+            ret++;
+          }
+          else if (!res && ALGOS[i].missing) { // there and marked as missing
             printf("\tFAIL exist %s, but marked as missing\n", buf);
+            ret++;
+          }
           else
             printf("\n");
         }
       printf("\n");
-      return 1;
+      return ret;
     }
     if (par < argc && !strcmp("-add", argv[par])) {
       par++;
