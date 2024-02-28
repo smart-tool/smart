@@ -8,7 +8,7 @@ enum algo_id {
   _KMP,     // Knuth-Morris Pratt
   _BM,      // Boyer-Moore
   _HOR,     // Hoorspool
-  _GS,      // Galil Seiferas (missing)
+  _GS,      // Galil Seiferas
   _AG,      // Apostolico-Giancarlo
   _KR,      // Karp-Rabin
   _ZT,      // Zhu-Takaoka
@@ -245,7 +245,7 @@ const struct algo ALGOS[] = {
     [_KMP] = {_KMP, 1, "kmp", "Knuth-Morris Pratt", 0, 0},
     [_BM] = {_BM, 1, "bm", "Boyer-Moore", 0, 0},
     [_HOR] = {_HOR, 1, "hor", "Hoorspool", 0, 0},
-    [_GS] = {_GS, 0, "gs", "Galil Seiferas", 0, 1},
+    [_GS] = {_GS, 1, "gs", "Galil Seiferas", 0, 0},
     [_AG] = {_AG, 1, "ag", "Apostolico-Giancarlo", 0, 0},
     [_KR] = {_KR, 1, "kr", "Karp-Rabin", 0, 0},
     [_ZT] = {_ZT, 1, "zt", "Zhu-Takaoka", 0, 0},
