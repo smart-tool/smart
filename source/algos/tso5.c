@@ -15,7 +15,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   uint64_t B[256], B1[256];
 
   if (m > 64)
-    abort();
+    return -1;
   // memcpy(pat.pat+1, base, m);
 
   BEGIN_PREPROCESSING

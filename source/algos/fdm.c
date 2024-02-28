@@ -30,7 +30,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int *ttrans, *tlength, *tsuffix;
   unsigned char *tterminal;
 
-  count = 0;
   /* Preprocessing */
   BEGIN_PREPROCESSING
   ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
@@ -44,6 +43,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Searching */
   BEGIN_SEARCHING
+  count = 0;
   ell = 0;
   state = init;
   for (j = 0; j < n; ++j) {

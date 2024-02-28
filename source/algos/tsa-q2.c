@@ -22,6 +22,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
     return -1;
 
   BEGIN_PREPROCESSING
+  // TODO use __builtin_popcount()
   memset(B, 0, 256 * 4);
   for (j = 0; j < m - Q + 1; ++j)
     B[HS(P, j)] |= ((uint64_t)1 << (j));

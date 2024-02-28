@@ -14,9 +14,10 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   uint64_t B[256];
 
   if (m > 64)
-    abort();
+    return -1;
 
   BEGIN_PREPROCESSING
+  // TODO use __builtin_popcount()
   memset(B, 0, 256 * 4);
   for (j = 0; j < m; ++j)
     B[P[j]] |= ((uint64_t)1 << (j));
