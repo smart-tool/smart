@@ -17,14 +17,14 @@ enum algo_id {
   _OM,      // Optimal Mismatch
   _MS,      // Maximal shift
   _QS,      // Quick-Search
-  _TunBM,   // Tuned Boyer-Moore (missing)
+  _TunBM,   // Tuned Boyer-Moore
   _NSN,     // not so naive
   _TBM,     // Turbo Boyer-Moore
   _Colussi, // Colussi
   _Smith,   // Smith
   _GG,      // Galil-Giancarlo
   _Raita,   // Raita
-  _SMOA,    // String Mtahcing on Ordered Alphabets
+  _SMOA,    // String Matching on Ordered Alphabets
   _RColussi,// Reverse Colussi
   _Skip,    // Skip Serach
   _KMPSkip, // KMP skip search
@@ -44,8 +44,8 @@ enum algo_id {
   _HASH5,   // Wu-Manber for Single Pattern Matching (q=5)
   _HASH8,   // Wu-Manber for Single Pattern Matching (q=8)
   _TSW,     // Two-Sliding-Window
-  _BMH2,    // Boyer-Moore-Horspool with q-grams  (BMH2)
-  _BMH4,    // Boyer-Moore-Horspool with q-grams  (BMH4)
+  _BMH2,    // Boyer-Moore-Horspool with q-grams (missing)
+  _BMH4,    // Boyer-Moore-Horspool with q-grams (missing)
   _GRASPm,  // Genomic Rapid Algorithm for String Pattern-match
   _SSEF,    // SSEF (K=7)
   // Algorithms based on automata
@@ -56,7 +56,7 @@ enum algo_id {
   _FDM,   // Forward-DAWG-Match
   _BOM,   // BOM
   _BOM2,  // BOM2
-  _DFDM,  // Double Forward DAWG Matching (missing)
+  _DFDM,  // Double Forward DAWG Matching (in work)
   _WW,    // Wide Window
   _LDM,   // Linear DAWG Matching
   _ILDM1, // ILDM1
@@ -254,7 +254,7 @@ const struct algo ALGOS[] = {
     [_OM] = {_OM, 1, "om", "Optimal Mismatch", 0, 0},
     [_MS] = {_MS, 1, "ms", "Maximal shift", 0, 0},
     [_QS] = {_QS, 1, "qs", "Quick-Search", 0, 0},
-    [_TunBM] = {_TunBM, 0, "tunbm", "Tuned Boyer-Moore", 0, 1},
+    [_TunBM] = {_TunBM, 1, "tunbm", "Tuned Boyer-Moore", 0, 0},
     [_NSN] = {_NSN, 1, "nsn", "not so naive", 0, 0},
     [_TBM] = {_TBM, 1, "tbm", "Turbo Boyer-Moore", 0, 0},
     [_Colussi] = {_Colussi, 1, "colussi", "Colussi", 0, 0},
@@ -286,10 +286,10 @@ const struct algo ALGOS[] = {
     [_HASH8] = {_HASH8, 1, "hash8",
                 "Wu-Manber for Single Pattern Matching (q=8)", 0, 0},
     [_TSW] = {_TSW, 1, "tsw", "Two-Sliding-Window", 0, 0},
-    [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams  (BMH2)",
-               1},
-    [_BMH4] = {_BMH4, 0, "bmh4", "Boyer-Moore-Horspool with q-grams  (BMH4)",
-               1},
+    [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)",
+               2, 1},
+    [_BMH4] = {_BMH4, 0, "bmh4", "Boyer-Moore-Horspool with q-grams (BMH4)",
+               4, 1},
     [_GRASPm] = {_GRASPm, 1, "graspm",
                  "Genomic Rapid Algorithm for String Pattern-match", 0, 0},
     [_SSEF] = {_SSEF, 0, "ssef", "SSEF (K=7)", 0, 0},
@@ -301,7 +301,7 @@ const struct algo ALGOS[] = {
     [_FDM] = {_FDM, 1, "fdm", "Forward-DAWG-Match", 0, 0},
     [_BOM] = {_BOM, 1, "bom", "BOM", 0, 0},
     [_BOM2] = {_BOM2, 1, "bom2", "BOM2", 0, 0},
-    [_DFDM] = {_DFDM, 0, "dfdm", "Double Forward DAWG Matching", 0, 1},
+    [_DFDM] = {_DFDM, 0, "dfdm", "Double Forward DAWG Matching", 0, 0}, // in work
     [_WW] = {_WW, 1, "ww", "Wide Window", 0, 0},
     [_LDM] = {_LDM, 1, "ldm", "Linear DAWG Matching", 0, 0},
     [_ILDM1] = {_ILDM1, 1, "ildm1", "ILDM1", 0, 0},
