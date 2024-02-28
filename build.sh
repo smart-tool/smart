@@ -5,11 +5,12 @@ CC="gcc"
 if [ $uname_p = x86_64 ]
 then
     CFLAGS="-march=native -mtune=native -Wall"
+    SSE2="-msse2"
 fi
 echo "	Compiling smart.c..................................[OK]"
-$CC source/smart.c -O3 $CFLAGS -msse2 -o smart -lm -std=gnu99
+$CC source/smart.c -O3 $CFLAGS $SSE2 -o smart -lm -std=gnu99
 echo "	Compiling show.c...................................[OK]"
-$CC source/show.c -O3 $CFLAGS -msse2 -o show
+$CC source/show.c -O3 $CFLAGS $SSE2 -o show
 echo "	Compiling selectAlgo.c.............................[OK]"
 $CC source/selectAlgo.c -O3 $CFLAGS -o select
 echo "	Compiling test.c...................................[OK]"
