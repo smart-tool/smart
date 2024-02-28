@@ -115,26 +115,27 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   }
   closedir(d);
 
-  /*
+  // set the temp. EXECUTE flags
   FILE *fp = fopen("source/algorithms.lst", "r");
+  char *n;
   char c;
+  int execute;
   int i = 0;
   while ((c = getc(fp)) != EOF)
     if (c == '#') {
-      EXECUTE[i] = (getc(fp) - '0');
+      execute = (getc(fp) - '0');
       getc(fp);
       getc(fp);
-      ALGO_NAME[i] = (char *)malloc(sizeof(char) * 20);
+      n = (char *)malloc(sizeof(char) * 20);
       int j = 0;
       while ((c = getc(fp)) != ' ')
-        ALGO_NAME[i][j++] = c;
-      ALGO_NAME[i][j] = '\0';
-      i++;
+        n[j++] = c;
+      n[j] = '\0';
+      i = search_ALGO(ALGO_NAME, n);
+      if (i >= 0 && i < NumAlgo && !strcmp(ALGOS[i].name, n))
+        EXECUTE[i] = execute;
     }
-  while (i < NumAlgo)
-    ALGO_NAME[i++] = NULL;
   fclose(fp);
-  */
 }
 
 int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {

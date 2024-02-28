@@ -190,7 +190,7 @@ int main(int argc, const char *argv[]) {
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test ../bin/%s -nv", filename);
+          sprintf(command, "./test source/bin/%s -nv", filename);
           fflush(stdout);
           if (system(command)) {
             printf("failed!\n");
@@ -246,6 +246,8 @@ int main(int argc, const char *argv[]) {
       return 0;
     }
   }
+  // sorted alphabetically? No, let's keep our order by ID
+  /*
   int order[NumAlgo];
   for (i = 0; i < NumAlgo; i++)
     order[i] = i;
@@ -257,9 +259,10 @@ int main(int argc, const char *argv[]) {
         order[j] = order[j + 1];
         order[j + 1] = tmp;
       }
+  */
   FILE *fp = fopen("source/algorithms.lst", "w");
   for (j = 0; j < NumAlgo; j++)
     if (ALGO_NAME[j])
-      fprintf(fp, "#%d #%s \n", EXECUTE[order[j]], ALGO_NAME[order[j]]);
+      fprintf(fp, "#%d #%s \n", EXECUTE[j], ALGO_NAME[j]);
   fclose(fp);
 }
