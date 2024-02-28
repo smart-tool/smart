@@ -20,9 +20,9 @@ enum algo_id {
   _TunBM,   // Tuned Boyer-Moore (missing)
   _NSN,     // not so naive
   _TBM,     // Turbo Boyer-Moore
-  _Col,     // Colussi (missing)
+  _Colussi, // Colussi
   _Smith,   // Smith
-  _GG,      // Galil-Giancarlo (missing)
+  _GG,      // Galil-Giancarlo
   _Raita,   // Raita
   _SMOA,    // String Mtahcing on Ordered Alphabets
   _RColussi,// Reverse Colussi
@@ -257,9 +257,9 @@ const struct algo ALGOS[] = {
     [_TunBM] = {_TunBM, 0, "tunbm", "Tuned Boyer-Moore", 0, 1},
     [_NSN] = {_NSN, 1, "nsn", "not so naive", 0, 0},
     [_TBM] = {_TBM, 1, "tbm", "Turbo Boyer-Moore", 0, 0},
-    [_Col] = {_Col, 0, "col", "Colussi", 0, 1},
+    [_Colussi] = {_Colussi, 1, "colussi", "Colussi", 0, 0},
     [_Smith] = {_Smith, 1, "smith", "Smith", 0, 0},
-    [_GG] = {_GG, 0, "gg", "Galil-Giancarlo", 0, 1},
+    [_GG] = {_GG, 1, "gg", "Galil-Giancarlo", 0, 0},
     [_Raita] = {_Raita, 1, "raita", "Raita", 0, 0},
     [_SMOA] = {_SMOA, 1, "smoa", "String Matching on Ordered Alphabets", 0, 0},
     [_RColussi] = {_RColussi, 1, "rcolussi", "Reverse Colussi", 0, 0},
