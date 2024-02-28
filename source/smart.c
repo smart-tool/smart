@@ -253,7 +253,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   // allocate space for running time in shared memory
   srand(time(NULL));
 #ifndef _WIN32
-  key_t ekey = rand() % 1000;
+  key_t ekey;
   int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
   try = 0;
   do {
@@ -274,7 +274,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   }
 
   // allocate space for preprocessing running time in shared memory
-  key_t prekey = rand() % 1000;
+  key_t prekey;
   try = 0;
   do {
     prekey = rand() % 1000;
@@ -296,7 +296,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     FREQ[i] = 0;
 
   // allocate space for pattern in shared memory
-  key_t pkey = rand() % 1000;
+  key_t pkey;
   try = 0;
   do {
     pkey = rand() % 1000;
@@ -319,7 +319,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     FREQ[i] = 0;
 
   // allocate space for the result number of occurrences in shared memory
-  key_t rkey = rand() % 1000;
+  key_t rkey;
   try = 0;
   do {
     rkey = rand() % 1000;

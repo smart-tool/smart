@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
   // allocate space for text in shared memory
   srand(time(NULL));
 #ifndef _WIN32
-  key_t tkey = rand() % 1000;
+  key_t tkey;
   int try = 0;
   do {
     tkey = rand() % 1000;
@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
 
   // allocate space for running time in shared memory
   srand(time(NULL));
-  key_t ekey = rand() % 1000;
+  key_t ekey;
   try = 0;
   do {
     ekey = rand() % 1000;
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]) {
   }
 
   // allocate space for preprocessing running time in shared memory
-  key_t prekey = rand() % 1000;
+  key_t prekey;
   try = 0;
   do {
     prekey = rand() % 1000;
@@ -211,7 +211,7 @@ int main(int argc, char *argv[]) {
   }
 
   // allocate space for pattern in shared memory
-  key_t pkey = rand() % 1000;
+  key_t pkey;
   try = 0;
   do {
     pkey = rand() % 1000;
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
 
   // allocate space for the result number of occurrences in shared memory
   int *count;
-  key_t rkey = rand() % 1000;
+  key_t rkey;
   try = 0;
   do {
     rkey = rand() % 1000;
@@ -249,7 +249,8 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 #else
-  key_t  pkey, tkey, rkey, ekey, prekey, *count;
+  int *count;
+  key_t  pkey, tkey, rkey, ekey, prekey;
 #endif
 
   if (!VERBOSE)
