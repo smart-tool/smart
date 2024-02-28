@@ -1,6 +1,6 @@
-#!/bin/csh -f
-set l = `ipcs -m | grep "$USER"| cut -c12-19`
-foreach s ( $l )
+#!/bin/sh
+for s in `ipcs -m | grep "$USER"| cut -c12-19`
+do
     ipcrm -m $s 
-end
+done
 #if ($#l != 0 ) echo $#l shared memory\(s\) for $user removed
