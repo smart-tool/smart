@@ -4,6 +4,11 @@ ALGOS=$(wildcard source/algos/*.c)
 BINS=$(patsubst source/algos/%,source/bin/%,$(patsubst %.c,%,$(ALGOS)))
 HELPERS=smart show select test textgen compilesm
 TESTS=bm mp kmp tbm bom so
+uname_p := $(shell uname -p)
+ifneq ($(uname_p),x86_64)
+  NON_SSE=epsm ssecp ssef
+  BINS=$(filter-out $(NON_SSE),$(patsubst source/algos/%,source/bin/%,$(patsubst %.c,%,$(ALGOS))))
+endif
 
 all: $(BINS) $(HELPERS)
 

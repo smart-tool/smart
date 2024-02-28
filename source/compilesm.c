@@ -89,6 +89,14 @@ int main(int argc, char **argv) {
       if (filename[len - 1] == 'c' && filename[len - 2] == '.') {
         filename[len - 2] = '\0';
         current++;
+#ifndef __x86_64__
+        if (!strcmp(filename, "epsm") ||
+            !strcmp(filename, "ssecp") ||
+            !strcmp(filename, "ssef")) {
+          printf("\tSkipped %s.c", filename);
+          continue;
+        }
+#endif
         // compile
         sprintf(command, "%s%s.c%s%s", gcc, filename, options, filename);
         if (doTest)
