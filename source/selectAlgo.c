@@ -50,8 +50,10 @@ int main(int argc, const char *argv[]) {
   char filename[20], command[100];
   int i, j;
   int desc = 0;
+  int *execute = malloc(sizeof(int) * (NumAlgo + 10));
+  int numalgo = NumAlgo;
 
-  getAlgo(ALGO_NAME, EXECUTE);
+  getAlgo(ALGO_NAME, execute);
 
   /* processing of input parameters */
   if (argc == 1) {
@@ -101,7 +103,7 @@ int main(int argc, const char *argv[]) {
       // shows all selected algorithms
       printf("\nThe list of selected algorithms:\n");
       for (i = 0; i < NumAlgo; i++)
-        if (ALGO_NAME[i] && EXECUTE[i]) {
+        if (ALGO_NAME[i] && execute[i]) {
           char buf[100];
           struct stat st;
           printf("\t-%s", ALGO_NAME[i]);
@@ -130,36 +132,38 @@ int main(int argc, const char *argv[]) {
         printf("\n\n\tError in input parameters. Use -h for help.\n\n");
         return 0;
       }
-      strcpy(filename, argv[par++]);
+      char *algo = (char*)argv[par++];
+      strcpy(filename, algo);
       char path[50] = "source/bin/";
-      strcat(path, filename);
+      strcat(path, algo);
       FILE *fp = fopen(path, "r");
       if (fp) {
         // the file exists
-        if (search_ALGO(ALGO_NAME, filename) >= 0)
+        if (search_ALGO(ALGO_NAME, algo) >= 0)
           printf("\n\n\tSMART error message\n\tError in input "
                  "parameters....algorithm %s already in the set\n\n",
                  filename);
         else {
-          printf("\n\n\tAdding the algorithm %s to SMART\n", filename);
+          printf("\n\n\tAdding the algorithm %s to SMART\n", algo);
           fflush(stdout);
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test %s -nv", filename);
+          sprintf(command, "./test %s -nv", algo);
           fflush(stdout);
           if (system(command)) {
-            printf("failed!\n");
+            printf("\n%s failed!\n", command);
             printf("\tThe system is unable to add the algorithm %s to "
                    "SMART.\n\tPlease, check for algorithm's correctness.\n\n",
-                   filename);
+                   algo);
           } else {
             printf("ok\n");
-            for (i = 0; i < NumAlgo && ALGO_NAME[i]; i++)
-              ;
+            i = NumAlgo;
             EXECUTE[i] = 0;
-            ALGO_NAME[i] = filename;
-            printf("\tAlgorithm %s added succesfully.\n\n", filename);
+            execute[i] = 1;
+            ALGO_NAME[i] = algo;
+            numalgo++;
+            printf("\tAlgorithm %s added succesfully.\n\n", algo);
           }
         }
       } else
@@ -173,37 +177,39 @@ int main(int argc, const char *argv[]) {
         printf("\n\n\tError in input parameters. Use -h for help.\n\n");
         return 0;
       }
+      char *algo = (char *)argv[par++];
 
-      strcpy(filename, argv[par++]);
+      strcpy(filename, algo);
       char path[50] = "source/bin/";
       strcat(path, filename);
       FILE *fp = fopen(path, "r");
       if (fp) {
         // the file exists
-        if (search_ALGO(ALGO_NAME, filename) >= 0)
+        if (search_ALGO(ALGO_NAME, algo) >= 0)
           printf("\n\n\tSMART error message\n\tError in input "
                  "parameters....algorithm %s already in the set\n\n",
-                 filename);
+                 algo);
         else {
-          printf("\n\n\tAdding the algorithm %s to SMART\n", filename);
+          printf("\n\n\tAdding the algorithm %s to SMART\n", algo);
           fflush(stdout);
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test source/bin/%s -nv", filename);
+          sprintf(command, "./test %s -nv", algo);
           fflush(stdout);
           if (system(command)) {
-            printf("failed!\n");
+            printf("\n%s failed!\n", command);
             printf("\tThe system is unable to add the algorithm %s to "
                    "SMART.\n\tPlease, check for algorithm's correctness.\n\n",
-                   filename);
+                   algo);
           } else {
             printf("ok\n");
-            for (i = 0; i < NumAlgo && ALGO_NAME[i]; i++)
-              ;
+            i = NumAlgo;
             EXECUTE[i] = 0;
-            ALGO_NAME[i] = filename;
-            printf("\tAlgorithm %s added succesfully.\n\n", filename);
+            execute[i] = 1;
+            ALGO_NAME[i] = algo;
+            numalgo++;
+            printf("\tAlgorithm %s added.\n\n", algo);
           }
         }
       } else
@@ -211,15 +217,15 @@ int main(int argc, const char *argv[]) {
                "parameters....program %s does not exist\n\n",
                path);
     }
-    for (i = 0; i < NumAlgo; i++)
+    for (i = 0; i < numalgo; i++)
       if (ALGO_NAME[i]) {
         if (par < argc && !strcmp(argv[par], ALGO_NAME[i])) {
           par++;
-          if (EXECUTE[i] == 0) {
-            EXECUTE[i] = 1;
+          if (execute[i] == 0) {
+            execute[i] = 1;
             printf("\tThe %s algorithm has been selected\n", ALGO_NAME[i]);
           } else {
-            EXECUTE[i] = 0;
+            execute[i] = 0;
             printf("\tThe %s algorithm has been deselected\n", ALGO_NAME[i]);
           }
           selected = 1;
@@ -231,14 +237,14 @@ int main(int argc, const char *argv[]) {
       par++;
       for (i = 0; i < NumAlgo; i++)
         if (ALGO_NAME[i])
-          EXECUTE[i] = 1;
+          execute[i] = 1;
       continue;
     }
     if (par < argc && !strcmp("-none", argv[par])) {
       par++;
       for (i = 0; i < NumAlgo; i++)
         if (ALGO_NAME[i])
-          EXECUTE[i] = 0;
+          execute[i] = 0;
       continue;
     }
     if (par < argc) {
@@ -246,23 +252,10 @@ int main(int argc, const char *argv[]) {
       return 0;
     }
   }
-  // sorted alphabetically? No, let's keep our order by ID
-  /*
-  int order[NumAlgo];
-  for (i = 0; i < NumAlgo; i++)
-    order[i] = i;
-  for (i = 0; i < NumAlgo; i++)
-    for (j = 0; j < NumAlgo; j++)
-      if (ALGO_NAME[order[j]] && ALGO_NAME[order[j + 1]] &&
-          strcmp(ALGO_NAME[order[j]], ALGO_NAME[order[j + 1]]) > 0) {
-        int tmp = order[j];
-        order[j] = order[j + 1];
-        order[j + 1] = tmp;
-      }
-  */
+  // store only the changes from the default
   FILE *fp = fopen("source/algorithms.lst", "w");
-  for (j = 0; j < NumAlgo; j++)
-    if (ALGO_NAME[j])
-      fprintf(fp, "#%d #%s \n", EXECUTE[j], ALGO_NAME[j]);
+  for (j = 0; j < numalgo; j++)
+    if (ALGO_NAME[j] && (ALGOS[j].execute != execute[j]))
+      fprintf(fp, "#%d #%s \n", execute[j], ALGO_NAME[j]);
   fclose(fp);
 }

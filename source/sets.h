@@ -37,8 +37,8 @@ int SETTING_ALPHA_SIZE[NumSetting] = {2,   4,   8,   16,  32,  64, 128, 250,
 
 #include "algorithms.h"
 
-int EXECUTE[NumAlgo];
-const char *ALGO_NAME[NumAlgo];
-const char *ALGO_DESCRIPTION[NumAlgo];
+int EXECUTE[NumAlgo+10];
+const char *ALGO_NAME[NumAlgo+10];
+const char *ALGO_DESCRIPTION[NumAlgo+10];
 
 #include "function.h"

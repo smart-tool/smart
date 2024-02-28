@@ -115,8 +115,10 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   }
   closedir(d);
 
-  // set the temp. EXECUTE flags
+  // set temp. EXECUTE flags
   FILE *fp = fopen("source/algorithms.lst", "r");
+  if (!fp)
+    return;
   char *n;
   char c;
   int execute;
