@@ -21,10 +21,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#define NumAlgo 500   // numero di algoritmi da testare
-#define NumPatt 17    // maximal number of pattern lengths
-#define NumSetting 12 // number of text buffers
-#include "function.h"
+//#define NumAlgo 500   // numero di algoritmi da testare
+#include "sets.h"
 
 /***********************************************/
 /* SELECTS ALGORITHMS FOR EXPERIMENATL RESULTS */
@@ -47,17 +45,21 @@ void printManual() {
   printf("\n\n");
 }
 
-int search_ALGO(char *ALGO_NAME[], char *algo) {
+int search_ALGO(const char *ALGO_NAME[], char *algo) {
   int i;
+  char *low = str2lower(algo);
   for (i = 0; i < NumAlgo; i++)
-    if (ALGO_NAME[i] && !strcmp(str2lower(ALGO_NAME[i]), str2lower(algo)))
+    if (ALGO_NAME[i] && !strcmp(ALGO_NAME[i], algo)) {
+      free(low);
       return i;
+    }
+  free(low);
   return -1;
 }
 
 int main(int argc, const char *argv[]) {
-  int EXECUTE[NumAlgo];
-  char *ALGO_NAME[NumAlgo];
+  //int EXECUTE[NumAlgo];
+  //char *ALGO_NAME[NumAlgo];
   //char *ALGO_DESCRIPTION[NumAlgo];
   //char *PATH[NumAlgo];
   char filename[20], command[100];
@@ -90,8 +92,12 @@ int main(int argc, const char *argv[]) {
           strcat(buf, ALGO_NAME[i]);
           strcat(buf, ".c");
           int res = stat(buf, &st);
-          if (res)
-            printf("  FAIL missing %s\n", buf);
+          if (res && ALGOS[i].missing) // not there, and marked as missing
+            printf("\t(missing %s)\n", buf);
+          else if (res && !ALGOS[i].missing) // not there and not marked as missing
+            printf("\tFAIL missing %s\n", buf);
+          else if (!res && ALGOS[i].missing) // there and marked as missing
+            printf("\tFAIL exist %s, but marked as missing\n", buf);
           else
             printf("\n");
         }
@@ -110,8 +116,12 @@ int main(int argc, const char *argv[]) {
           strcat(buf, ALGO_NAME[i]);
           strcat(buf, ".c");
           int res = stat(buf, &st);
-          if (res)
-            printf("  FAIL missing %s\n", buf);
+          if (res && ALGOS[i].missing) // not there, and marked as missing
+            printf("\t(missing %s)\n", buf);
+          else if (res && !ALGOS[i].missing) // not there and not marked as missing
+            printf("\tFAIL missing %s\n", buf);
+          else if (!res && ALGOS[i].missing) // there and marked as missing
+            printf("\tFAIL exist %s, but marked as missing\n", buf);
           else
             printf("\n");
         }

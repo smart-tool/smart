@@ -20,7 +20,7 @@
 #define XSIZE 4200       // maximal length of the pattern
 #define SIGMA 256        // constant alphabet size
 #define MG (1024 * 1024) // costant for 1 MB size
-#define NumAlgo 500      // maximal number of algorithms
+//#define NumAlgo 500      // maximal number of algorithms
 #define NumPatt 17       // maximal number of pattern lengths
 #define NumSetting 15    // number of text buffers
 #define MAXTIME 999.00

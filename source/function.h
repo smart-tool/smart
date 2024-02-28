@@ -17,6 +17,8 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
+#include "algorithms.h"
+
 int string2decimal(char *s) {
   int i;
   int decimal;
@@ -37,37 +39,14 @@ int isInt(char *s) {
   return 1;
 }
 
-void getExecute(int EXECUTE[]) {
-  FILE *fp = fopen("source/execute.h", "r");
-  char c;
-  int i = 0;
-  while ((c = getc(fp)) != EOF)
-    if (c == '#')
-      EXECUTE[i++] = (getc(fp) - '0');
-  fclose(fp);
-  while (i < NumAlgo)
-    EXECUTE[i++] = 0;
-}
+void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
+  for (int id=0; id<ARRAY_SIZE(ALGOS); id++) {
+    EXECUTE[id] = ALGOS[id].execute;
+    ALGO_NAME[id] = ALGOS[id].name;
+    ALGO_DESCRIPTION[id] = ALGOS[id].desc;
+  }
 
-void getAlgoName(char *ALGO_NAME[]) {
-  FILE *fp = fopen("source/algoname.h", "r");
-  char c;
-  int i = 0;
-  while ((c = getc(fp)) != EOF)
-    if (c == '#') {
-      ALGO_NAME[i] = (char *)malloc(sizeof(char) * 20);
-      int j = 0;
-      while ((c = getc(fp)) != ',')
-        ALGO_NAME[i][j++] = c;
-      ALGO_NAME[i][j] = '\0';
-      i++;
-    }
-  while (i < NumAlgo)
-    ALGO_NAME[i++] = NULL;
-  fclose(fp);
-}
-
-void getAlgo(char *ALGO_NAME[], int EXECUTE[]) {
+  /*
   FILE *fp = fopen("source/algorithms.lst", "r");
   char c;
   int i = 0;
@@ -86,44 +65,33 @@ void getAlgo(char *ALGO_NAME[], int EXECUTE[]) {
   while (i < NumAlgo)
     ALGO_NAME[i++] = NULL;
   fclose(fp);
+  */
 }
 
 char *str2lower(char *s) {
   int n = strlen(s) - 1;
+  char* ret = malloc(n+1);
   while (n >= 0) {
     if (s[n] >= 'A' && s[n] <= 'Z')
-      s[n] = s[n] - 'A' + 'a';
+      ret[n] = s[n] - 'A' + 'a';
+    else
+      ret[n] = s[n];
     n--;
   }
-  return s;
+  return ret;
 }
 
 char *str2upper(char *s) {
   int n = strlen(s) - 1;
+  char* ret = malloc(n+1);
   while (n >= 0) {
     if (s[n] >= 'a' && s[n] <= 'z')
-      s[n] = s[n] - 'a' + 'A';
+      ret[n] = s[n] - 'a' + 'A';
+    else
+      ret[n] = s[n];
     n--;
   }
-  return s;
-}
-
-void getAlgoDescription(char *ALGO_DESCRIPTION[]) {
-  FILE *fp = fopen("source/algodescription.h", "r");
-  char c;
-  int i = 0;
-  while ((c = getc(fp)) != EOF)
-    if (c == '#') {
-      ALGO_DESCRIPTION[i] = (char *)malloc(sizeof(char) * 100);
-      int j = 0;
-      while ((c = getc(fp)) != ',')
-        ALGO_DESCRIPTION[i][j++] = c;
-      ALGO_DESCRIPTION[i][j] = '\0';
-      i++;
-    }
-  while (i < NumAlgo)
-    ALGO_DESCRIPTION[i++] = NULL;
-  fclose(fp);
+  return ret;
 }
 
 int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {
