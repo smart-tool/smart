@@ -23,6 +23,7 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#ifdef __x86_64__
 #include <inttypes.h>
 #include <memory.h>
 #include <smmintrin.h>
@@ -440,3 +441,4 @@ int search(unsigned char *pattern, int patlen, unsigned char *x, int textlen) {
   END_SEARCHING
   return count;
 }
+#endif

@@ -35,6 +35,7 @@
 #endif
 #include <sys/types.h>
 #include <time.h>
+#include "sets.h"
 
 #define SIGMA 256
 #define XSIZE 100
@@ -129,6 +130,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 
 int main(int argc, char *argv[]) {
   int i;
+  getAlgo(ALGO_NAME, EXECUTE);
 
   /* processing of input parameters */
   if (argc == 1) {
@@ -143,7 +145,8 @@ int main(int argc, char *argv[]) {
   char filename[100] = "source/bin/";
   strcat(filename, algoname);
   FILE *fp = fopen(filename, "r");
-  if (!fp) {
+  int id = search_ALGO(ALGO_NAME, algoname);
+  if (!fp || id < 0) {
     if (!VERBOSE)
       printf("\n\tERROR: unable to execute program %s\n\n", filename);
     exit(1);
@@ -289,19 +292,23 @@ int main(int argc, char *argv[]) {
   }*/
 
   // 1) search for "a" in "aaaaaaaaaa"
-  strcpy((char *)P, "a");
-  strcpy((char *)T, "aaaaaaaaaa");
-  if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 1))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+    strcpy((char *)P, "a");
+    strcpy((char *)T, "aaaaaaaaaa");
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 1))
+      exit(1);
+  }
 
   // 2) search for "aa" in "aaaaaaaaaa"
-  strcpy((char *)P, "aa");
-  strcpy((char *)T, "aaaaaaaaaa");
-  if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 2))
-    exit(1);
-
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+    strcpy((char *)P, "aa");
+    strcpy((char *)T, "aaaaaaaaaa");
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 2))
+      exit(1);
+  }
+    
   // 3) search for "aaaaaaaaaa" in "aaaaaaaaaa"
   strcpy((char *)P, "aaaaaaaaaa");
   strcpy((char *)T, "aaaaaaaaaa");
@@ -310,153 +317,173 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   // 4) search for "b" in "aaaaaaaaaa"
-  strcpy((char *)P, "b");
-  strcpy((char *)T, "aaaaaaaaaa");
-  if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 4))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+    strcpy((char *)P, "b");
+    strcpy((char *)T, "aaaaaaaaaa");
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 4))
+      exit(1);
+  }
 
-  // 5) search for "abab" in "ababababab"
-  strcpy((char *)P, "ab");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 5))
-    exit(1);
+  // 5) search for "ab" in "ababababab"
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+    strcpy((char *)P, "ab");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 5))
+      exit(1);
+  }
 
   // 6) search for "a" in "ababababab"
-  strcpy((char *)P, "a");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 6))
-    exit(1);
-
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+    strcpy((char *)P, "a");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 6))
+      exit(1);
+  }
+    
   // 7) search for "aba" in "ababababab"
-  strcpy((char *)P, "aba");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 7))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 3) {
+    strcpy((char *)P, "aba");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 7))
+      exit(1);
 
-  // 8) search for "abc" in "ababababab"
-  strcpy((char *)P, "abc");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 8))
-    exit(1);
+    // 8) search for "abc" in "ababababab"
+    strcpy((char *)P, "abc");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 8))
+      exit(1);
+  }
 
   // 9) search for "ba" in "ababababab"
-  strcpy((char *)P, "ba");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 8))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+    strcpy((char *)P, "ba");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 8))
+      exit(1);
+  }
 
   // 10) search for "babbbbb" in "ababababab"
-  strcpy((char *)P, "babbbbb");
-  strcpy((char *)T, "ababababab");
-  if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 10))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 7) {
+    strcpy((char *)P, "babbbbb");
+    strcpy((char *)T, "ababababab");
+    if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 10))
+      exit(1);
+  }
 
   // 11) search for "bcdefg" in "bcdefghilm"
-  strcpy((char *)P, "bcdefg");
-  strcpy((char *)T, "bcdefghilm");
-  if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 11))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 6) {
+    strcpy((char *)P, "bcdefg");
+    strcpy((char *)T, "bcdefghilm");
+    if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 11))
+      exit(1);
+  }
 
-  // 12) search for rand in rand
-  for (h = 0; h < 10; h++)
-    T[h] = rand() % 128;
-  for (h = 0; h < 4; h++)
-    P[h] = T[h];
-  T[YSIZE] = P[4] = '\0';
-  if (!attempt(&rip, count, P, 4, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 12))
-    exit(1);
+  // 12) search for rand4 in rand100
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 4) {
+    for (h = 0; h < YSIZE; h++)
+      T[h] = rand() % 128;
+    for (h = 0; h < 4; h++)
+      P[h] = T[h];
+    T[YSIZE] = P[4] = '\0';
+    if (!attempt(&rip, count, P, 4, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 12))
+      exit(1);
 
-  // 13) search for rand in rand
-  for (h = 0; h < 10; h++)
-    T[h] = rand() % 128;
-  for (h = 0; h < 4; h++)
-    P[h] = T[h];
-  T[10] = P[4] = '\0';
-  if (!attempt(&rip, count, P, 4, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 13))
-    exit(1);
+    // 13) search for rand4 in rand10
+    for (h = 0; h < 10; h++)
+      T[h] = rand() % 128;
+    for (h = 0; h < 4; h++)
+      P[h] = T[h];
+    T[10] = P[4] = '\0';
+    if (!attempt(&rip, count, P, 4, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 13))
+      exit(1);
+  }
 
-  // 14) search for rand in rand
+  // 14) search for rand32 in rand64
   for (h = 0; h < 64; h++)
     T[h] = rand() % 128;
-  for (h = 0; h < 40; h++)
+  for (h = 0; h < 32; h++)
     P[h] = T[h];
-  T[64] = P[40] = '\0';
-  if (!attempt(&rip, count, P, 40, T, 64, algoname, pkey, tkey, rkey, ekey,
+  T[64] = P[32] = '\0';
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter, 14))
     exit(1);
 
-  // 15) search for rand in rand
+  // 15) search for same rand32 in rand64
   for (h = 0; h < 64; h++)
     T[h] = rand() % 128;
-  for (h = 0; h < 40; h++)
+  for (h = 0; h < 32; h++)
     P[h] = T[h];
-  T[64] = P[40] = '\0';
-  if (!attempt(&rip, count, P, 40, T, 64, algoname, pkey, tkey, rkey, ekey,
+  T[64] = P[32] = '\0';
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter, 15))
     exit(1);
-
-  // 16) search for rand in rand
+  
+  // 16) search for a*32 in a*64
   for (h = 0; h < 64; h++)
     T[h] = 'a';
-  for (h = 0; h < 40; h++)
+  for (h = 0; h < 32; h++)
     P[h] = 'a';
-  T[64] = P[40] = '\0';
-  if (!attempt(&rip, count, P, 40, T, 64, algoname, pkey, tkey, rkey, ekey,
+  T[64] = P[32] = '\0';
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter, 16))
     exit(1);
 
-  // 17) search for rand in rand
+  // 17) search for ab*32 in ab*64
   for (h = 0; h < 64; h += 2)
     T[h] = 'a';
   for (h = 1; h < 64; h += 2)
     T[h] = 'b';
-  for (h = 0; h < 40; h += 2)
+  for (h = 0; h < 32; h += 2)
     P[h] = 'a';
-  for (h = 1; h < 40; h += 2)
+  for (h = 1; h < 32; h += 2)
     P[h] = 'b';
-  T[64] = P[40] = '\0';
-  if (!attempt(&rip, count, P, 40, T, 64, algoname, pkey, tkey, rkey, ekey,
+  T[64] = P[32] = '\0';
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter, 17))
     exit(1);
 
-  // 18) search for rand in rand
+  // 18) search for ab*30c in ab*64
   for (h = 0; h < 64; h += 2)
     T[h] = 'a';
   for (h = 1; h < 64; h += 2)
     T[h] = 'b';
-  for (h = 0; h < 40; h += 2)
+  for (h = 0; h < 32; h += 2)
     P[h] = 'a';
-  for (h = 1; h < 40; h += 2)
+  for (h = 1; h < 32; h += 2)
     P[h] = 'b';
-  P[39] = 'c';
-  T[64] = P[40] = '\0';
-  if (!attempt(&rip, count, P, 40, T, 64, algoname, pkey, tkey, rkey, ekey,
+  P[30] = 'c';
+  T[64] = P[32] = '\0';
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter, 18))
     exit(1);
 
-  // 19) search for "babbbbb" in "abababbbbb"
-  strcpy((char *)P, "babbbbb");
-  strcpy((char *)T, "abababbbbb");
-  if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 19))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 7) {
+    // 19) search for "babbbbb" in "abababbbbb"
+    strcpy((char *)P, "babbbbb");
+    strcpy((char *)T, "abababbbbb");
+    if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 19))
+      exit(1);
+  }
 
-  // 20) search for "bababb" in "abababbbbb"
-  strcpy((char *)P, "bababb");
-  strcpy((char *)T, "abababbbbb");
-  if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 20))
-    exit(1);
+  if (!ALGOS[id].minlen || ALGOS[id].minlen < 6) {
+    // 20) search for "bababb" in "abababbbbb"
+    strcpy((char *)P, "bababb");
+    strcpy((char *)T, "abababbbbb");
+    if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
+                 prekey, alpha, parameter, 20))
+      exit(1);
+  }
 
   if (!VERBOSE)
     printf("\n\tWell done! Test passed successfully\n\n");
