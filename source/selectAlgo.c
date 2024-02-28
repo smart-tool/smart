@@ -45,18 +45,6 @@ void printManual() {
   printf("\n\n");
 }
 
-int search_ALGO(const char *ALGO_NAME[], char *algo) {
-  int i;
-  char *low = str2lower(algo);
-  for (i = 0; i < NumAlgo; i++)
-    if (ALGO_NAME[i] && !strcmp(ALGO_NAME[i], algo)) {
-      free(low);
-      return i;
-    }
-  free(low);
-  return -1;
-}
-
 int main(int argc, const char *argv[]) {
   //int EXECUTE[NumAlgo];
   //char *ALGO_NAME[NumAlgo];

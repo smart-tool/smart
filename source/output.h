@@ -79,8 +79,9 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
     }
   fprintf(fp, "),\n");
   for (algo = 0; algo < NumAlgo; algo++) {
+    char *upname = str2upper(ALGO_NAME[algo]);
     if (EXECUTE[algo]) {
-      fprintf(fp, "\t\"%s\" => array(", str2upper(ALGO_NAME[algo]));
+      fprintf(fp, "\t\"%s\" => array(", upname);
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
           if (TIME[algo][il] == 0)
@@ -90,7 +91,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
         }
       fprintf(fp, "),\n");
       if (dif) {
-        fprintf(fp, "\t\"%s.best\" => array(", str2upper(ALGO_NAME[algo]));
+        fprintf(fp, "\t\"%s.best\" => array(", upname);
         for (il = 0; il < NumPatt; il++)
           if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
             if (TIME[algo][il] == 0)
@@ -99,7 +100,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               fprintf(fp, "\"%.2f\", ", BEST[algo][il]);
           }
         fprintf(fp, "),\n");
-        fprintf(fp, "\t\"%s.worst\" => array(", str2upper(ALGO_NAME[algo]));
+        fprintf(fp, "\t\"%s.worst\" => array(", upname);
         for (il = 0; il < NumPatt; il++)
           if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
             if (TIME[algo][il] == 0)
@@ -110,7 +111,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
         fprintf(fp, "),\n");
       }
       if (std) {
-        fprintf(fp, "\t\"%s.std\" => array(", str2upper(ALGO_NAME[algo]));
+        fprintf(fp, "\t\"%s.std\" => array(", upname);
         for (il = 0; il < NumPatt; il++)
           if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
             if (TIME[algo][il] == 0)
@@ -121,6 +122,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
         fprintf(fp, "),\n");
       }
     }
+    free(upname);
   }
   fprintf(fp, ");\n?>");
   fclose(fp);

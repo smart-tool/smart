@@ -18,6 +18,7 @@
  */
 
 #include "algorithms.h"
+#include <dirent.h>
 
 int string2decimal(char *s) {
   int i;
@@ -39,12 +40,80 @@ int isInt(char *s) {
   return 1;
 }
 
+char *str2lower(const char *s) {
+  int n = strlen(s) - 1;
+  char* ret = calloc(n+1, 1);
+  while (n >= 0) {
+    if (s[n] >= 'A' && s[n] <= 'Z')
+      ret[n] = s[n] - 'A' + 'a';
+    else
+      ret[n] = s[n];
+    n--;
+  }
+  return ret;
+}
+
+char *str2upper(const char *s) {
+  int n = strlen(s) - 1;
+  char* ret = calloc(n+1, 1);
+  while (n >= 0) {
+    if (s[n] >= 'a' && s[n] <= 'z')
+      ret[n] = s[n] - 'a' + 'A';
+    else
+      ret[n] = s[n];
+    n--;
+  }
+  return ret;
+}
+
+int search_ALGO(const char *ALGO_NAME[], char *algo) {
+  int i;
+  char *low = str2lower(algo);
+  for (i = 0; i < NumAlgo; i++)
+    if (ALGO_NAME[i] && !strcmp(ALGO_NAME[i], algo)) {
+      free(low);
+      return i;
+    }
+  free(low);
+  return -1;
+}
+
 void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
+  DIR *d;
+  struct dirent *dir;
+
   for (int id=0; id<ARRAY_SIZE(ALGOS); id++) {
     EXECUTE[id] = ALGOS[id].execute;
     ALGO_NAME[id] = ALGOS[id].name;
     ALGO_DESCRIPTION[id] = ALGOS[id].desc;
   }
+  // cross-check against existing algos:
+  char algo[50];
+  d = opendir("source/algos");
+  if (d) {
+    while ((dir = readdir(d)) != NULL) {
+      strcpy(algo, dir->d_name);
+      int len = strlen(algo);
+      if (algo[len - 1] == 'c' && algo[len - 2] == '.') {
+        algo[len - 2] = '\0';
+        int id = search_ALGO(ALGO_NAME, algo);
+        if (id == -1) {
+          printf ("FAIL %s.c exists, but is missing in algorithms.h\n", algo);
+          /*
+          FILE *f = fopen("source/algorithms.h", "a");
+          fseek(f, 0, SEEK_END);
+          char *upname = str2upper(algo);
+          fprintf(f, "   [_%s] = {_%s, 1, \"%s\", \"\", 0},\n", upname, upname, algo);
+          free(upname);
+          fclose(f);
+          */
+        }
+        else if (ALGOS[id].missing)
+          printf ("FAIL %s.c exists, but has a missing flag in algorithms.h\n", algo);
+      }
+    }
+  }
+  closedir(d);
 
   /*
   FILE *fp = fopen("source/algorithms.lst", "r");
@@ -66,32 +135,6 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
     ALGO_NAME[i++] = NULL;
   fclose(fp);
   */
-}
-
-char *str2lower(char *s) {
-  int n = strlen(s) - 1;
-  char* ret = malloc(n+1);
-  while (n >= 0) {
-    if (s[n] >= 'A' && s[n] <= 'Z')
-      ret[n] = s[n] - 'A' + 'a';
-    else
-      ret[n] = s[n];
-    n--;
-  }
-  return ret;
-}
-
-char *str2upper(char *s) {
-  int n = strlen(s) - 1;
-  char* ret = malloc(n+1);
-  while (n >= 0) {
-    if (s[n] >= 'a' && s[n] <= 'z')
-      ret[n] = s[n] - 'a' + 'A';
-    else
-      ret[n] = s[n];
-    n--;
-  }
-  return ret;
 }
 
 int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {

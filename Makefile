@@ -8,7 +8,7 @@ all: $(BINS) $(HELPERS)
 
 source/bin/%: source/algos/%.c
 	$(CC) $(CFLAGS) $< -o $@
-%: source/%.c
+%: source/%.c source/*.h
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
 select: source/selectAlgo.c
 	$(CC) $(CFLAGS) $< -o $@
