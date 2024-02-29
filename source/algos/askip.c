@@ -164,9 +164,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
             free(automaton->trans);
             free(automaton->term);
             free(automaton->fail);
-            free(automaton);
             for (i = automaton->root; i < automaton->nodeCounter; ++i)
               freeListOfIntegers(z[i]);
+            free(automaton);
             free(z);
             END_SEARCHING
             return count;
