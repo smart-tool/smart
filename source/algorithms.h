@@ -347,7 +347,7 @@ const struct algo ALGOS[] = {
     [_BMH_SBNDM] = {_BMH_SBNDM, 0, "bmh-sbndm", "Horspool with SBNDM test", 0, 0},
     [_FNDM] = {_FNDM, 1, "fndm", "forward nondeterministic dawg matching", 0, 0},
     [_BWW] = {_BWW, 1, "bww", "bit parallel wide window", 0, 0},
-    [_FAOSO2] = {_FAOSO2, 0, "faoso2", "fast average optimal shift-or (u=2)",
+    [_FAOSO2] = {_FAOSO2, 1, "faoso2", "fast average optimal shift-or (u=2)",
                   2, 0},
     [_FAOSO4] = {_FAOSO4, 1, "faoso4", "fast average optimal shift-or (u=2)",
                   4, 0},
@@ -356,7 +356,7 @@ const struct algo ALGOS[] = {
     [_AOSO2] = {_AOSO2, 1, "aoso2", "average optimal shift-or (q=2)", 2, 0},
     [_AOSO4] = {_AOSO4, 1, "aoso4", "average optimal shift-or (q=4)", 4, 0},
     [_AOSO6] = {_AOSO6, 1, "aoso6", "average optimal shift-or (q=6)", 6, 0},
-    [_BLIM] = {_BLIM, 0, "blim", "bit-parallel length invariant matcher", 0, 0}, // broken
+    [_BLIM] = {_BLIM, 1, "blim", "bit-parallel length invariant matcher", 0, 0},
     [_FSBNDM] = {_FSBNDM, 0, "fsbndm", "forward sbndm", 0, 0},
     [_BNDMq2] = {_BNDMq2, 1, "bndmq2", "bndm with q-grams", 2, 0},
     [_BNDMq4] = {_BNDMq4, 1, "bndmq4", "bndm with q-grams", 4, 0},

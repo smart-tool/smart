@@ -53,7 +53,9 @@
 ./test bom2 OK
 ./test dfdm OK
 ./test ww OK
-./test ldm OK
+./test ldm
+       ERROR: test failed on case n.1 (m=2,n=10) ("aa" in "aaaaaaaaaa")
+       found 10 occ instead of 9
 ./test ildm1 OK
 ./test ildm2 OK
 ./test ebom OK
