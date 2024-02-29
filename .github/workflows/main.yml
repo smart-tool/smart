@@ -63,5 +63,5 @@ jobs:
           distro: ubuntu_latest
           install: |
             apt-get update -q -y
-            apt-get install -y make gcc
+            apt-get install -y make gcc grep
           run: ./build.sh dotest
