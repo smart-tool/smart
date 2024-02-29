@@ -19,7 +19,10 @@ else
 endif
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
 HELPERS = smart show select test textgen compilesm
-TESTS   = bm mp kmp tbm bom so
+TESTS := $(shell shuf -n 6 algos.lst)
+ifeq ($(TESTS),)
+  TESTS = bm mp kmp tbm bom so
+endif
 
 all: $(BINS) $(HELPERS)
 
