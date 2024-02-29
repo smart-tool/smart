@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
-    - run:  ./build.sh && make check
+    - run:  ./build.sh dotest && make check
   windows:
     runs-on: windows-latest
     timeout-minutes: 10
@@ -48,7 +48,7 @@ jobs:
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
-    - run:  ./build.sh && make check
+    - run:  ./build.sh dotest && make check
   aarch64:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -64,4 +64,4 @@ jobs:
           install: |
             apt-get update -q -y
             apt-get install -y make gcc
-          run: make check
+          run: ./build.sh dotest

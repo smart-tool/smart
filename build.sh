@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 ./logo
 CC="${CC:-gcc}"
 MACHINE="$(uname -m)"
@@ -41,6 +42,6 @@ $CC source/textgen.c -o textgen -std=gnu99
 $DRV./textgen
 echo "	Compiling all string matching algorithms..........."
 $CC source/compilesm.c -o compilesm -std=gnu99 -DBINDIR="\"$BINDIR\""
-$DRV./compilesm
+$DRV./compilesm $@
 echo " "
 echo " "
