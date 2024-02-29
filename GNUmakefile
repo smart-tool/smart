@@ -34,7 +34,7 @@ $(BINDIR)/%: source/algos/%.c source/algos/include/*.h
 select: source/selectAlgo.c
 	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: check clean all
+.PHONY: check clean all cppcheck clang-tidy
 check: all
 	-cp source/algorithms.lst source/algorithms.lst.bak
 	$(DRV) ./select -all
@@ -50,6 +50,11 @@ check: all
 	-mv source/algorithms.lst.bak source/algorithms.lst
 cppcheck:
 	cppcheck -j4 -D__linux__ .
+compile_commands.json: $(ALGOSRC) $(wildcard source/*.c)
+	-make clean
+	bear -- make
+clang-tidy: compile_commands.json
+	clang-tidy source/*.c source/algos/*.c
 
 clean:
 	rm $(BINS) $(HELPERS)
