@@ -248,11 +248,11 @@ void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
     j = (j + z - 1) % z;
     k += skip[j];
     if (skip[ell] + k >= m)
-      return;
+      goto end;
     j = (j + z - 1) % z;
     k += skip[j];
     if (skip[ell] + k >= m)
-      return;
+      goto end;
     p = 0;
     while (skip[ell] + k < m) {
       j = (j + z - 1) % z;
@@ -291,6 +291,7 @@ void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
         skip[ell] = m - 1 - slink[m - skip[ell] - 1];
     }
   }
+ end:
   free(len);
   free(loc);
   free(next);

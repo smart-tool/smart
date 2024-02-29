@@ -377,10 +377,11 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
       int current_running = 0;
       for (algo = 0; algo < NumAlgo; algo++)
         if (EXECUTE[algo] && (!ALGOS[i].minlen || m >= ALGOS[i].minlen)) {
-          current_running++;
+          char *upname = str2upper(ALGO_NAME[algo]);
           char data[30];
+          current_running++;
           sprintf(data, "\t - [%d/%d] %s ", current_running, num_running,
-                  str2upper(ALGO_NAME[algo]));
+                  upname);
           printf("%s", data);
           fflush(stdout);
           for (i = 0; i < 35 - strlen(data); i++)
@@ -541,10 +542,16 @@ int main(int argc, const char *argv[]) {
   /* processing of input parameters */
   if (argc == 1) {
     printf("No parameter given. Use -h for help.\n\n");
+    free(filename);
+    free(simplePattern);
+    free(simpleText);
     return 0;
   }
   if (!strcmp("-h", argv[1])) {
     printManual();
+    free(filename);
+    free(simplePattern);
+    free(simpleText);
     return 0;
   }
   int par = 1;

@@ -48,6 +48,8 @@ check: all
 	for t in $(TESTS); do echo $$t; ./test $$t; done
 	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
+cppcheck:
+	cppcheck -j4 -D__linux__ .
 
 clean:
 	rm $(BINS) $(HELPERS)

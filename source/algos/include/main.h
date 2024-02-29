@@ -66,7 +66,7 @@ int search(unsigned char *p, int m, unsigned char *t, int n);
 
 int main(int argc, char *argv[]) {
   _timer = (TIMER *)malloc(sizeof(TIMER));
-  unsigned char *p, *t;
+  unsigned char *p = NULL, *t = NULL;
   int m, n;
   if (!strcmp("shared", argv[1])) {
     if (argc < 7) {
@@ -145,8 +145,8 @@ int main(int argc, char *argv[]) {
       perror("shmat");
       return 1;
     }
-#endif
     *result = count;
+#endif
     return 0;
   } else {
     if (argc < 5) {

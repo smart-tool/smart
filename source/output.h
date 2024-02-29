@@ -149,8 +149,9 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   }
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
       int first = 1;
-      fprintf(fp, "%s", str2upper(ALGO_NAME[algo]));
+      fprintf(fp, "%s", upname);
       for (i = 0; i < 20 - strlen(ALGO_NAME[algo]); i++)
         fprintf(fp, " ");
       for (il = 0; il < NumPatt; il++)
@@ -164,6 +165,7 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
             fprintf(fp, "%.2f", TIME[algo][il]);
         }
       fprintf(fp, "\n");
+      free(upname);
     }
   }
   fclose(fp);
@@ -204,7 +206,8 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   fprintf(fp, "\\\\\n");
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo]) {
-      fprintf(fp, "\\textsc{%s}", str2upper(ALGO_NAME[algo]));
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp, "\\textsc{%s}", upname);
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
           if (TIME[algo][il] == 0)
@@ -213,6 +216,7 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
             fprintf(fp, " & %.2f", TIME[algo][il]);
         }
       fprintf(fp, "\\\\\n");
+      free (upname);
     }
   }
   fprintf(fp, "\\hline\n\\end{tabular}");
@@ -255,8 +259,8 @@ int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
           filename);
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo]) {
-      fprintf(fp, "\t<ALGO>\n\t\t<NAME>%s</NAME>\n",
-              str2upper(ALGO_NAME[algo]));
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp, "\t<ALGO>\n\t\t<NAME>%s</NAME>\n", upname);
       // for(i=0; i<20-strlen(ALGO_NAME[algo]); i++) fprintf(fp," ");
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
@@ -267,6 +271,7 @@ int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
           fprintf(fp, "\t\t</DATA>\n");
         }
       fprintf(fp, "\t</ALGO>\n");
+      free(upname);
     }
   }
   fprintf(fp, "\t<BEST>\n");
@@ -293,6 +298,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               int algo, char *expcode, FILE *fp) {
 
   double dymax = 0.0;
+  char *upname = str2upper(ALGO_NAME[algo]);
   for (int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (WORST[algo][il] > dymax)
@@ -304,8 +310,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
 
   fprintf(fp,
           "<div class=\"chart_container_small\"><div class=\"chart_title\">%s "
-          "algorithm</div>\n",
-          str2upper(ALGO_NAME[algo]));
+          "algorithm</div>\n", upname);
   fprintf(fp,
           "<div><canvas class=\"exp_chart_small\" id=\"cvs%d\" width=\"460\" "
           "height=\"250\">[No canvas support]</canvas>",
@@ -313,7 +318,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp,
           "<div class=\"caption_small\">Detailed plot of the running times "
           "relative to the <b>%s algorithm</b>. ",
-          str2upper(ALGO_NAME[algo]));
+          upname);
   fprintf(
       fp,
       "The plot reports the mean and the distribution of the running times.");
@@ -446,6 +451,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "} }).draw();");
 
   fprintf(fp, "}</script>");
+  free(upname);
 }
 
 void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
@@ -606,9 +612,10 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
   const char *difVisible = dif ? "block" : "none";
   for (algo = 0; algo < NumAlgo; algo++)
     if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
       fprintf(fp, "<tr>\n");
       fprintf(fp, "<td class=\"algo\"><b>%s</b></td>\n",
-              str2upper(ALGO_NAME[algo]));
+              upname);
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
           int best = 0;
@@ -633,6 +640,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
           fprintf(fp, "</center></td>");
         }
       fprintf(fp, "</tr>\n");
+      free(upname);
     }
   fprintf(fp, "</table>\n");
   fprintf(fp,
@@ -694,12 +702,16 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
               "height=\"400\">[No canvas support]</canvas>");
   fprintf(fp, "<div style=\"padding-top:40px\">");
   int col = 0;
-  for (algo = 0; algo < NumAlgo; algo++)
-    if (EXECUTE[algo])
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
       fprintf(fp,
               "<div class=\"didascalia\"><div class=\"line\" "
               "style=\"background-color:%s\"></div class=\"label\"> %s</div>\n",
-              colors[col++], str2upper(ALGO_NAME[algo]));
+              colors[col++], upname);
+      free(upname);
+    }
+  }
   fprintf(fp, "</div><br/><br/>");
   fprintf(fp,
           "<div class=\"caption\"><b>Chart 1.</b> Plot of the running times of "
