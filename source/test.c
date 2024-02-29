@@ -149,6 +149,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 
 int main(int argc, char *argv[]) {
   int i;
+  int minlen;
   getAlgo(ALGO_NAME, EXECUTE);
 
   /* processing of input parameters */
@@ -165,12 +166,19 @@ int main(int argc, char *argv[]) {
   strcat(filename, algoname);
   FILE *fp = fopen(filename, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
-  if (!fp || id < 0) {
+  if (!fp) {
     if (!VERBOSE)
       printf("\n\tERROR: unable to execute program %s\n\n", filename);
     exit(1);
   }
   fclose(fp);
+  if (id < 0) {
+    printf("\n\tWARNING: unregistered algo %s\nDon't known which minlen tests to skip\n",
+           algoname);
+    minlen = 0;
+  } else {
+    minlen = ALGOS[id].minlen;
+  }
 
   for (i = 0; i < SIGMA; i++)
     FREQ[i] = 0;
@@ -311,7 +319,7 @@ int main(int argc, char *argv[]) {
   }*/
 
   // 1) search for "a" in "aaaaaaaaaa"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+  if (!minlen || minlen < 1) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -320,7 +328,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 2) search for "aa" in "aaaaaaaaaa"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+  if (!minlen || minlen < 2) {
     strcpy((char *)P, "aa");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -336,7 +344,7 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   // 4) search for "b" in "aaaaaaaaaa"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+  if (!minlen || minlen < 1) {
     strcpy((char *)P, "b");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -345,7 +353,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 5) search for "ab" in "ababababab"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+  if (!minlen || minlen < 2) {
     strcpy((char *)P, "ab");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -354,7 +362,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 6) search for "a" in "ababababab"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 1) {
+  if (!minlen || minlen < 1) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -363,7 +371,7 @@ int main(int argc, char *argv[]) {
   }
     
   // 7) search for "aba" in "ababababab"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 3) {
+  if (!minlen || minlen < 3) {
     strcpy((char *)P, "aba");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -379,7 +387,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 9) search for "ba" in "ababababab"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 2) {
+  if (!minlen || minlen < 2) {
     strcpy((char *)P, "ba");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -388,7 +396,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 10) search for "babbbbb" in "ababababab"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 7) {
+  if (!minlen || minlen < 7) {
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -397,7 +405,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 11) search for "bcdefg" in "bcdefghilm"
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 6) {
+  if (!minlen || minlen < 6) {
     strcpy((char *)P, "bcdefg");
     strcpy((char *)T, "bcdefghilm");
     if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
@@ -406,7 +414,7 @@ int main(int argc, char *argv[]) {
   }
 
   // 12) search for rand4 in rand100
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 4) {
+  if (!minlen || minlen < 4) {
     for (h = 0; h < YSIZE; h++)
       T[h] = rand() % 128;
     for (h = 0; h < 4; h++)
@@ -486,7 +494,7 @@ int main(int argc, char *argv[]) {
                prekey, alpha, parameter))
     exit(1);
 
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 7) {
+  if (!minlen || minlen < 7) {
     // 19) search for "babbbbb" in "abababbbbb"
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "abababbbbb");
@@ -495,7 +503,7 @@ int main(int argc, char *argv[]) {
       exit(1);
   }
 
-  if (!ALGOS[id].minlen || ALGOS[id].minlen < 6) {
+  if (!minlen || minlen < 6) {
     // 20) search for "bababb" in "abababbbbb"
     strcpy((char *)P, "bababb");
     strcpy((char *)T, "abababbbbb");
