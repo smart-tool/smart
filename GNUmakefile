@@ -41,7 +41,7 @@ check: all
 	-rm $(BINDIR)/br1
 	$(DRV) ./select -none $(TESTS)
 	$(DRV) ./smart -text rand32 -plen 2 4
-	$(DRV) ./smart -simple 8 64
+	$(DRV) ./smart -simple abab chbjhxsscsjndwkjnjdnwelabakdlkewdkklewlkdewlkdnewknabdewab
 	for t in $(TESTS); do echo $$t; ./test $$t; done
 	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
