@@ -13,12 +13,13 @@ on:
 jobs:
   linux:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
     - run:  ./build.sh && make check
   windows:
     runs-on: windows-latest
+    timeout-minutes: 10
     env:
       MSYS2_DIR: msys64
       MSYS2_ARCH: x86_64
@@ -44,11 +45,13 @@ jobs:
       run: ./build.sh
   macOS:
     runs-on: macos-latest
+    timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
     - run:  ./build.sh && make check
   aarch64:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: uraimo/run-on-arch-action@v2

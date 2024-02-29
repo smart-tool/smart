@@ -29,9 +29,14 @@
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
+// bitscanforward
 unsigned int asm_bsf(unsigned int x) {
+#ifdef __x86_64__
   asm("bsfl %0, %0" : "=r"(x) : "0"(x));
   return x;
+#else
+  return x != 0 ? __builtin_ffs(x) - 1 : 0;
+#endif
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {

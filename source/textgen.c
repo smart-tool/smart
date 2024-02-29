@@ -28,29 +28,41 @@
  */
 
 int main(int argc, const char *argv[]) {
-  FILE *stream;
+  FILE *stream = NULL;
   unsigned char c;
 
   for (int sigma = 2; sigma <= 256; sigma *= 2) {
     printf("\tGenerating random text over %.3d chars ...........[000%%]",
            sigma);
-    if (sigma == 2)
+    switch (sigma) {
+    case 2:
       stream = fopen("data/rand2/rand2.txt", "w");
-    if (sigma == 4)
+      break;
+    case 4:
       stream = fopen("data/rand4/rand4.txt", "w");
-    if (sigma == 8)
+      break;
+    case 8:
       stream = fopen("data/rand8/rand8.txt", "w");
-    if (sigma == 16)
+      break;
+    case 16:
       stream = fopen("data/rand16/rand16.txt", "w");
-    if (sigma == 32)
+      break;
+    case 32:
       stream = fopen("data/rand32/rand32.txt", "w");
-    if (sigma == 64)
+      break;
+    case 64:
       stream = fopen("data/rand64/rand64.txt", "w");
-    if (sigma == 128)
+      break;
+    case 128:
       stream = fopen("data/rand128/rand128.txt", "w");
-    if (sigma == 256) {
+      break;
+    case 256:
       sigma = 250;
       stream = fopen("data/rand250/rand250.txt", "w");
+      break;
+    default:
+      fprintf(stderr, "Invalid sigma %d\n", sigma);
+      exit(1);
     }
     for (int i = 0; i < 5000000; i++) {
       c = rand() % sigma;

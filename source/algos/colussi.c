@@ -52,6 +52,7 @@ int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
       kmin[hmax[i]] = i;
 
   /* Computation of rmin */
+  memset(rmin, 0, m * sizeof(int));
   for (i = m - 1; i >= 0; --i) {
     if (hmax[i + 1] == m)
       r = i + 1;

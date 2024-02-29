@@ -1,6 +1,12 @@
 #ifndef _ALGORITHMS_H
 #define _ALGORITHMS_H
 
+#ifdef __x64_86__
+# define X64_ONLY 1
+#else
+# define X64_ONLY 0
+#endif
+
 enum algo_id {
   // Comparison based Algorithms
   _BF,      // Brute Force
@@ -292,7 +298,7 @@ const struct algo ALGOS[] = {
                4, 1},
     [_GRASPm] = {_GRASPm, 1, "graspm",
                  "Genomic Rapid Algorithm for String Pattern-match", 0, 0},
-    [_SSEF] = {_SSEF, 0, "ssef", "SSEF (K=7)", 0, 0},
+    [_SSEF] = {_SSEF, X64_ONLY, "ssef", "SSEF (K=7)", 32, 0},
     // Algorithms based on automata
     [_AUT] = {_AUT, 1, "aut", "Automaton Matcher", 0, 0},
     [_RF] = {_RF, 1, "rf", "Reverse-Factor", 0, 0},
@@ -476,7 +482,7 @@ const struct algo ALGOS[] = {
     [_WOM] = {_WOM, 1, "wom", "", 0, 0},
     // state of the art:
     [_SSECP] = {_SSECP, 0, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
-    [_EPSM] = {_EPSM, 1, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
+    [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
 };
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
