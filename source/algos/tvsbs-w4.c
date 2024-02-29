@@ -15,6 +15,8 @@
  *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
+ *
+ * Note: Broken! Only for n >= m + 2
  */
 
 #include "include/define.h"

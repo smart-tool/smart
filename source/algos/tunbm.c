@@ -22,6 +22,7 @@
  * https://www-igm.univ-mlv.fr/~lecroq/string/tunedbm.html
  *
  * Note: It requires m additional bytes at the end of y.
+ * Note: Broken! Off by one
  */
 
 #include "include/define.h"

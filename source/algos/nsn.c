@@ -19,6 +19,8 @@
  * This is an implementation of the Not So Naive algorithm
  * in C. Hancart. Analyse exacte et en moyenne d'algorithmes de recherche d'un
  * motif dans un texte. (1993).
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"

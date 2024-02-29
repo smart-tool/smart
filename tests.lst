@@ -13,15 +13,11 @@
 ./test ms OK
 ./test qs OK
 ./test tunbm
-	Please, wait a moment..............
 	ERROR: test failed on case n.2 ("aa" in "aaaaaaaaaaaa")
-							found 10 occ instead of 9
-
+	found 10 occ instead of 9
 ./test nsn
-	Please, wait a moment..............
 	ERROR: test failed on case n.1 ("a" in "aaaaaaaaaa")
-							found 0 occ instead of 10
-
+	found 0 occ instead of 10
 ./test tbm OK
 ./test colussi OK
 ./test smith OK
@@ -84,31 +80,25 @@
 ./test svm2 OK
 ./test svm3 OK
 ./test svm4 OK
-./test sbndm2
-	Please, wait a moment..............
-	ERROR: test failed on case n.16 ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-							found 2 occ instead of 25
-
+./test sbndm2 OK
 ./test sbndm-bmh OK
-./test bmh-sbndm OK
+./test bmh-sbndm
+       ERROR: test failed on case n.15 (m=32,n=64) ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaao%Q~bF")
+       found 3 occ instead of 33
 ./test fndm OK
 ./test bww OK
 ./test faoso2 OK
 ./test faoso4 OK
 ./test faoso6
-	Please, wait a moment..............
-	ERROR: test failed on case n.16 ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-							found 21 occ instead of 25
-
+       ERROR: test failed on case n.4 (m=32,n=64) ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+       found 27 occ instead of 33
 ./test aoso2 OK
 ./test aoso4 OK
 ./test aoso6 OK
 ./test blim OK
 ./test fsbndm
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test bndmq2 OK
 ./test bndmq4 OK
 ./test bndmq6 OK
@@ -142,92 +132,52 @@
 ./test bxs8 OK
 ./test fs-w1 OK
 ./test fs-w2
-	Please, wait a moment..............
 	ERROR: test failed on case n.2 ("aa" in "aaaaaaaaaa")
-							found 10 occ instead of 9
-
-./test fs-w4 OK
+	found 10 occ instead of 9
+./test fs-w4
+       ERROR: test failed on case n.2 (m=32,n=64) ("r6[BCI%[zd(toI a/h~" in "r6[BCI%[zd(toI a/h~"#:VBa$MA;);4XH)H(hrFZD9y")
+       found 0 occ instead of 1
 ./test fs-w6 OK
 ./test fs-w8 OK
-./test fsbndm-w1
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababababababababababababababababababa")
-							found 13 occ instead of 0
-
+./test fsbndm-w1 OK
 ./test fsbndm-w2 OK
 ./test fsbndm-w4 OK
 ./test fsbndm-w6 OK
 ./test fsbndm-w8 OK
-./test fsbndmq20
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
-./test fsbndmq21
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
-./test fsbndmq31
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
-./test fsbndmq32
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
-./test fsbndmq41
-	Please, wait a moment..............
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+./test fsbndmq20 OK
+./test fsbndmq21 OK
+./test fsbndmq31 OK
+./test fsbndmq32 OK
+        ERROR: test failed on case n.9 (m=32,n=64) ("abababababababababababababababcb" in "abababababababababababababababababababababababababababababababab")
+        found 1 occ instead of 0
+./test fsbndmq41 OK
 ./test fsbndmq42
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq43
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq61
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq62
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq64
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq81
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq82
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq84
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test fsbndmq86
-	Please, wait a moment..............
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-							found 1 occ instead of 0
-
+	found 1 occ instead of 0
 ./test iom OK
 ./test jom OK
 ./test lwfr2 OK
@@ -256,20 +206,20 @@
 ./test ssm OK
 ./test tsa OK
 ./test tsa-q2
-	Please, wait a moment..............
 	ERROR: test failed on case n.2 ("aa" in "aaaaaaaaaa")
-							found 5 occ instead of 9
-
+	found 5 occ instead of 9
 ./test tso5 OK
 ./test tunedbm OK
 ./test tvsbs-w2 OK
-./test tvsbs-w4 OK
+./test tvsbs-w4
+       ERROR: test failed on case n.15 (m=32,n=64) ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+f      ound 32 occ instead of 33
 ./test tvsbs-w6
-	Please, wait a moment..............
 	ERROR: test failed on case n.19 ("babbbbb" in "abababbbbb")
-							found 0 occ instead of 1
-
-./test tvsbs-w8 OK
+	found 0 occ instead of 1
+./test tvsbs-w8
+       ERROR: test failed on case n.15 (m=32,n=64) ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+       found 32 occ instead of 33
 ./test twfr2 OK
 ./test twfr3 OK
 ./test twfr4 OK
@@ -303,8 +253,7 @@
 ./test wfr OK
 ./test wom OK
 ./test ssecp
-	Please, wait a moment..............
 	ERROR: test failed on case n.14 ("8eiszLz[7'r.[${73g o7UHJYTa+vpg~L" in "8eiszLz[7'r.[${73g o7UHJYTa+vpg~L%>LCp|z#cp[dI0Eu=^")
-							found 2 occ instead of 1
+	found 2 occ instead of 1
 
 ./test epsm OK

@@ -21,6 +21,8 @@
  * Proceedings of the Prague Stringology Conference 2011, pp.3--14, Czech
  * Technical University in Prague, Czech Republic, (2008). Q is the dimension of
  * q-grams F is the number of forward characters
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"

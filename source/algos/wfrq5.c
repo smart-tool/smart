@@ -23,22 +23,24 @@
  *  Proceedings of the Pague Stringology Conference 2017: pp.42-50
  *
  *  This variant of WFR, by Matt Palmer (matt.palmer@bcs.org), improves search
- *speed and pre-processing time by pre-processing hashes of the q-grams of the
- *pattern rather than the bytes of the pattern. As a result, fewer bits are set
- *in the hash table during pre-processing and fewer false positives arise in the
- *search phase.
+ *  speed and pre-processing time by pre-processing hashes of the q-grams of the
+ *  pattern rather than the bytes of the pattern. As a result, fewer bits are set
+ *  in the hash table during pre-processing and fewer false positives arise in the
+ *  search phase.
  *
  * PREPROCESSING:
- *		an hash value is computed for all q-gram factors of the pattern
- *with length in [1..8] the computed hash value is always a number in
- *[0...256*256] if w is a factor of x, and hash(w) is its hash value, than
- *F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE SEARCHING The algorithm searches
- *for factors of the pattern using a weak recognition method the search phase is
- *very similar to BOM. The window is scanned right to left and for each
- *character a new hash value of the suffix of the window is computed. Let w be
- *the suffix we scanned. If F[hash(w)]=TRUE we continue scanning the next
- *character of the window. Otherwise we stop scanning (w is not a factor of the
- *pattern) and jump to the right, like in BOM.
+ * A hash value is computed for all q-gram factors of the pattern
+ * with length in [1..8] the computed hash value is always a number in
+ * [0...256*256] if w is a factor of x, and hash(w) is its hash value, than
+ * F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE SEARCHING The algorithm searches
+ * for factors of the pattern using a weak recognition method the search phase is
+ * very similar to BOM. The window is scanned right to left and for each
+ * character a new hash value of the suffix of the window is computed. Let w be
+ * the suffix we scanned. If F[hash(w)]=TRUE we continue scanning the next
+ * character of the window. Otherwise we stop scanning (w is not a factor of the
+ * pattern) and jump to the right, like in BOM.
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"

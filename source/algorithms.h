@@ -236,7 +236,7 @@ enum algo_id {
 
 struct algo {
   const enum algo_id id;
-  const int execute;
+  const int execute; // e.g. broken
   const char *name;
   const char *desc;
   const int minlen;
@@ -260,8 +260,8 @@ const struct algo ALGOS[] = {
     [_OM] = {_OM, 1, "om", "Optimal Mismatch", 0, 0},
     [_MS] = {_MS, 1, "ms", "Maximal shift", 0, 0},
     [_QS] = {_QS, 1, "qs", "Quick-Search", 0, 0},
-    [_TunBM] = {_TunBM, 1, "tunbm", "Tuned Boyer-Moore", 0, 0},
-    [_NSN] = {_NSN, 1, "nsn", "not so naive", 0, 0},
+    [_TunBM] = {_TunBM, 0, "tunbm", "Tuned Boyer-Moore", 0, 0},
+    [_NSN] = {_NSN, 0, "nsn", "not so naive", 0, 0},
     [_TBM] = {_TBM, 1, "tbm", "Turbo Boyer-Moore", 0, 0},
     [_Colussi] = {_Colussi, 1, "colussi", "Colussi", 0, 0},
     [_Smith] = {_Smith, 1, "smith", "Smith", 0, 0},
@@ -309,7 +309,7 @@ const struct algo ALGOS[] = {
     [_BOM2] = {_BOM2, 1, "bom2", "BOM2", 0, 0},
     [_DFDM] = {_DFDM, 0, "dfdm", "Double Forward DAWG Matching", 0, 0}, // in work
     [_WW] = {_WW, 1, "ww", "Wide Window", 0, 0},
-    [_LDM] = {_LDM, 1, "ldm", "Linear DAWG Matching", 0, 0},
+    [_LDM] = {_LDM, 0, "ldm", "Linear DAWG Matching", 0, 0},
     [_ILDM1] = {_ILDM1, 1, "ildm1", "ILDM1", 0, 0},
     [_ILDM2] = {_ILDM2, 1, "ildm2", "ILDM2", 0, 0},
     [_EBOM] = {_EBOM, 1, "ebom", "Extended Backward Oracle Matching", 0, 0},
@@ -344,20 +344,20 @@ const struct algo ALGOS[] = {
     [_SBNDM2] = {_SBNDM2, 1, "sbndm2", "simplified bndm with loop-unrolling",
                  0, 0},
     [_SBNDM_BMH] = {_SBNDM_BMH, 1, "sbndm-bmh", "sbndm with horspool shift", 0, 0},
-    [_BMH_SBNDM] = {_BMH_SBNDM, 1, "bmh-sbndm", "Horspool with SBNDM test", 0, 0},
+    [_BMH_SBNDM] = {_BMH_SBNDM, 0, "bmh-sbndm", "Horspool with SBNDM test", 0, 0},
     [_FNDM] = {_FNDM, 1, "fndm", "forward nondeterministic dawg matching", 0, 0},
     [_BWW] = {_BWW, 1, "bww", "bit parallel wide window", 0, 0},
     [_FAOSO2] = {_FAOSO2, 0, "faoso2", "fast average optimal shift-or (u=2)",
                   2, 0},
     [_FAOSO4] = {_FAOSO4, 1, "faoso4", "fast average optimal shift-or (u=2)",
                   4, 0},
-    [_FAOSO6] = {_FAOSO6, 1, "faoso6", "fast average optimal shift-or (u=2)",
+    [_FAOSO6] = {_FAOSO6, 0, "faoso6", "fast average optimal shift-or (u=2)",
                   6, 0},
     [_AOSO2] = {_AOSO2, 1, "aoso2", "average optimal shift-or (q=2)", 2, 0},
     [_AOSO4] = {_AOSO4, 1, "aoso4", "average optimal shift-or (q=4)", 4, 0},
     [_AOSO6] = {_AOSO6, 1, "aoso6", "average optimal shift-or (q=6)", 6, 0},
     [_BLIM] = {_BLIM, 0, "blim", "bit-parallel length invariant matcher", 0, 0}, // broken
-    [_FSBNDM] = {_FSBNDM, 1, "fsbndm", "forward sbndm", 0, 0},
+    [_FSBNDM] = {_FSBNDM, 0, "fsbndm", "forward sbndm", 0, 0},
     [_BNDMq2] = {_BNDMq2, 1, "bndmq2", "bndm with q-grams", 2, 0},
     [_BNDMq4] = {_BNDMq4, 1, "bndmq4", "bndm with q-grams", 4, 0},
     [_BNDMq6] = {_BNDMq6, 1, "bndmq6", "bndm with q-grams", 6, 0},
@@ -391,8 +391,8 @@ const struct algo ALGOS[] = {
     [_BXS6] = {_BXS6, 1, "bxs6", "BXS with q-grams limit", 6, 0},
     [_BXS8] = {_BXS8, 1, "bxs8", "BXS with q-grams limit", 8, 0},
     [_FS_W1] = {_FS_W1, 1, "fs-w1", "", 0, 0},
-    [_FS_W2] = {_FS_W2, 1, "fs-w2", "", 0, 0},
-    [_FS_W4] = {_FS_W4, 1, "fs-w4", "", 6, 0}, // corpus must be >=6
+    [_FS_W2] = {_FS_W2, 0, "fs-w2", "", 0, 0},
+    [_FS_W4] = {_FS_W4, 0, "fs-w4", "", 6, 0}, // corpus must be >=6
     [_FS_W6] = {_FS_W6, 1, "fs-w6", "", 8, 0}, // corpus must be >=8
     [_FS_W8] = {_FS_W8, 1, "fs-w8", "", 0, 0},
     [_FSBNDM_W1] = {_FSBNDM_W1, 1, "fsbndm-w1", "", 0, 0}, //inexact >31
@@ -403,17 +403,17 @@ const struct algo ALGOS[] = {
     [_FSBNDMQ20] = {_FSBNDMQ20, 1, "fsbndmq20", "", 2, 0}, // m: 2..32
     [_FSBNDMQ21] = {_FSBNDMQ21, 1, "fsbndmq21", "", 2, 0}, // m: 2..31
     [_FSBNDMQ31] = {_FSBNDMQ31, 1, "fsbndmq31", "", 3, 0},
-    [_FSBNDMQ32] = {_FSBNDMQ32, 1, "fsbndmq32", "", 3, 0},
+    [_FSBNDMQ32] = {_FSBNDMQ32, 0, "fsbndmq32", "", 3, 0},
     [_FSBNDMQ41] = {_FSBNDMQ41, 1, "fsbndmq41", "", 4, 0},
-    [_FSBNDMQ42] = {_FSBNDMQ42, 1, "fsbndmq42", "", 4, 0},
-    [_FSBNDMQ43] = {_FSBNDMQ43, 1, "fsbndmq43", "", 4, 0},
+    [_FSBNDMQ42] = {_FSBNDMQ42, 0, "fsbndmq42", "", 4, 0},
+    [_FSBNDMQ43] = {_FSBNDMQ43, 0, "fsbndmq43", "", 4, 0},
     [_FSBNDMQ61] = {_FSBNDMQ61, 1, "fsbndmq61", "", 6, 0},
-    [_FSBNDMQ62] = {_FSBNDMQ62, 1, "fsbndmq62", "", 6, 0},
-    [_FSBNDMQ64] = {_FSBNDMQ64, 1, "fsbndmq64", "", 6, 0},
+    [_FSBNDMQ62] = {_FSBNDMQ62, 0, "fsbndmq62", "", 6, 0},
+    [_FSBNDMQ64] = {_FSBNDMQ64, 0, "fsbndmq64", "", 6, 0},
     [_FSBNDMQ81] = {_FSBNDMQ81, 1, "fsbndmq81", "", 8, 0},
-    [_FSBNDMQ82] = {_FSBNDMQ82, 1, "fsbndmq82", "", 8, 0},
-    [_FSBNDMQ84] = {_FSBNDMQ84, 1, "fsbndmq84", "", 8, 0},
-    [_FSBNDMQ86] = {_FSBNDMQ86, 1, "fsbndmq86", "", 8, 0},
+    [_FSBNDMQ82] = {_FSBNDMQ82, 0, "fsbndmq82", "", 8, 0},
+    [_FSBNDMQ84] = {_FSBNDMQ84, 0, "fsbndmq84", "", 8, 0},
+    [_FSBNDMQ86] = {_FSBNDMQ86, 0, "fsbndmq86", "", 8, 0},
     [_IOM] = {_IOM, 1, "iom", "Improved Occurrence Heuristic", 0, 0},
     [_JOM] = {_JOM, 1, "jom", "Jumping Occurrence Matcher", 2, 0},
     [_LWFR2] = {_LWFR2, 1, "lwfr2", "Weak Factor Recognizer, Linear Version", 2, 0},
@@ -441,13 +441,13 @@ const struct algo ALGOS[] = {
     [_SBNDM_W6] = {_SBNDM_W6, 1, "sbndm-w6", "", 0, 0}, //inexact >32
     [_SSM] = {_SSM, 1, "ssm", "SSM", 0, 0},
     [_TSA] = {_TSA, 1, "tsa", "word-wise popcount", 0, 0}, // max 64
-    [_TSA_Q2] = {_TSA_Q2, 1, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
+    [_TSA_Q2] = {_TSA_Q2, 0, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
     [_TSO5] = {_TSO5, 1, "tso5", "optimized word-wise popcount", 0, 0}, // max: 64
     [_TUNEDBM] = {_TUNEDBM, 1, "tunedbm", "", 0, 0},
-    [_TVSBS_W2] = {_TVSBS_W2, 1, "tvsbs-w2", "", 0, 0},
-    [_TVSBS_W4] = {_TVSBS_W4, 1, "tvsbs-w4", "", 0, 0},
-    [_TVSBS_W6] = {_TVSBS_W6, 1, "tvsbs-w6", "", 0, 0},
-    [_TVSBS_W8] = {_TVSBS_W8, 1, "tvsbs-w8", "", 0, 0},
+    [_TVSBS_W2] = {_TVSBS_W2, 1, "tvsbs-w2", "TVSBS", 0, 0},
+    [_TVSBS_W4] = {_TVSBS_W4, 0, "tvsbs-w4", "TVSBS", 2, 0},
+    [_TVSBS_W6] = {_TVSBS_W6, 0, "tvsbs-w6", "TVSBS", 2, 0},
+    [_TVSBS_W8] = {_TVSBS_W8, 0, "tvsbs-w8", "TVSBS", 2, 0},
     [_TWFR2] = {_TWFR2, 1, "twfr2", "", 0, 0},
     [_TWFR3] = {_TWFR3, 1, "twfr3", "", 0, 0},
     [_TWFR4] = {_TWFR4, 1, "twfr4", "", 0, 0},

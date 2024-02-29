@@ -21,6 +21,8 @@
  * Efficient Variants of the Backward-Oracle-Matching Algorithm.
  * Proceedings of the Prague Stringology Conference 2008, pp.146--160, Czech
  * Technical University in Prague, Czech Republic, (2008).
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"
@@ -70,7 +72,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 }
 
 /*
- * Forward Semplified BNDM algorithm designed for large patterns
+ * Forward Simplified BNDM algorithm designed for large patterns.
  * The present implementation searches for prefixes of the pattern of length 32.
  * When an occurrence is found the algorithm tests for the whole occurrence of
  * the pattern

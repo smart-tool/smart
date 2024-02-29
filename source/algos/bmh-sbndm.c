@@ -21,6 +21,8 @@
  * Talk: Fast variants of bit parallel approach to suffix automata.
  * The Second Haifa Annual International Stringology Research Workshop of the
  * Israeli Science Foundation, (2005).
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"

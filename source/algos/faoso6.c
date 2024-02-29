@@ -20,6 +20,8 @@
  * in K. Fredriksson and S. Grabowski.
  * Practical and Optimal String Matching. SPIRE, Lecture Notes in Computer
  * Science, vol.3772, pp.376--387, Springer-Verlag, Berlin, (2005).
+ *
+ * Note: Broken!
  */
 
 #include "include/define.h"
@@ -111,10 +113,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 }
 
 /*
- * Fast Average Optimal Shift Or algorithm designed for large patterns
+ * Fast Average Optimal Shift Or algorithm designed for large patterns.
  * The present implementation searches for prefixes of the pattern of length 32.
  * When an occurrence is found the algorithm tests for the whole occurrence of
- * the pattern
+ * the pattern.
  */
 
 void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,

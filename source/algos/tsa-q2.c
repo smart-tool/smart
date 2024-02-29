@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Note: Broken!
+
 #define Q 2
 #define HS(x, i) (x[i] << 1) + x[i + 1]
 

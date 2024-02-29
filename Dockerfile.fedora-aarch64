@@ -1,5 +1,6 @@
 # -*- Dockerfile -*-
-# podman/docker build -t smart-fc-aarch64 . -f Dockerfile.fedora-aarch64
+# podman build -t smart-fc-aarch64 . -f Dockerfile.fedora-aarch64
+# podman run -it smart-fc-aarch64 bash --login -i
 ARG BASE_IMAGE=fedora
 #FROM ${BASE_IMAGE}
 FROM fedora:39-aarch64
