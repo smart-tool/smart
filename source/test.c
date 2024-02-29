@@ -37,6 +37,10 @@
 #include <time.h>
 #include "sets.h"
 
+#ifndef BINDIR
+# define BINDIR "bin"
+#endif
+
 #define SIGMA 256
 #define XSIZE 100
 #define YSIZE 100
@@ -67,7 +71,7 @@ void printManual() {
   printf("\n\tSMART UTILITY FOR TESTING STRING MATCHING ALGORITHMS\n\n");
   printf("\tusage: ./test ALGONAME [-nv]\n");
   printf("\tTest the program named \"algoname\" for correctness.\n");
-  printf("\tThe program \"algoname\" must be located in source/bin/\n");
+  printf("\tThe program \"algoname\" must be located in bin/\n");
   printf("\tOnly programs in smart format can be tested.\n");
   printf("\n\n");
 }
@@ -85,10 +89,10 @@ int execute(
 {
   char command[100];
 #ifdef _WIN32
-  sprintf(command, "./source/bin/%s %s %d %s %d", algoname,
+  sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname,
           P, m, T, n);
 #else
-  sprintf(command, "./source/bin/%s shared %d %d %d %d %d %d %d", algoname,
+  sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR, algoname,
           pkey, m, tkey, n, rkey, ekey, prekey);
 #endif
   // printf("%s\n",command);
@@ -157,7 +161,7 @@ int main(int argc, char *argv[]) {
   char parameter[100];
   if (argc > 2)
     strcpy(parameter, argv[2]);
-  char filename[100] = "source/bin/";
+  char filename[100] = BINDIR "/";
   strcat(filename, algoname);
   FILE *fp = fopen(filename, "r");
   int id = search_ALGO(ALGO_NAME, algoname);

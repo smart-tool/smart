@@ -41,7 +41,7 @@ void printManual() {
   // a single algorithm named D\n");
   printf("\t-add ALGO       add the new alorithm ALGO to the set\n");
   printf("\t                the executable file of the new algorithm must be "
-         "in /source/bin\n");
+         "in /bin\n");
   printf("\t-h              gives this help list\n");
   printf("\n\n");
 }
@@ -143,7 +143,7 @@ int main(int argc, const char *argv[]) {
       }
       char *algo = (char*)argv[par++];
       strcpy(filename, algo);
-      char path[50] = "source/bin/";
+      char path[50] = "bin/";
       strcat(path, algo);
       FILE *fp = fopen(path, "r");
       if (fp) {
@@ -189,7 +189,7 @@ int main(int argc, const char *argv[]) {
       char *algo = (char *)argv[par++];
 
       strcpy(filename, algo);
-      char path[50] = "source/bin/";
+      char path[50] = "bin/";
       strcat(path, filename);
       FILE *fp = fopen(path, "r");
       if (fp) {

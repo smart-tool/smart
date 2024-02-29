@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 /*
  * This program compiles all c programs of string matching algorithms
@@ -28,37 +29,48 @@
  */
 
 int main(int argc, char **argv) {
-  char filename[100], command[512], binary[100];
   int i;
-  char destination[100] = "source/bin/";
+  char filename[100], command[512], binary[100];
+  char destdir[100] = "bin/";
   char gcc[100] = "gcc source/algos/";
   char options[100] = " -O3";
 #ifndef _WIN32
   strcat(options, " -Wall");
 #endif
 #ifdef __x86_64__
-  strcat(options, " -march=native -mtune=native -msse4");
+  strcat(options, " -march=native -mtune=native");
 #endif
-  strcat(options, " -lm -o source/bin/");
 
+#ifdef BINDIR
+  strncpy(destdir, BINDIR, sizeof(destdir) - 2);
+  strncat(destdir, "/", sizeof(destdir) - 1);
+# ifndef _WIN32
+  mkdir(destdir, 0775);
+# else
+  mkdir(destdir);
+# endif
+#endif
+  
   int doTest = 0;
   if (argc > 1) {
-    if (!strcmp(argv[1], "dotest"))
+    if (!strcmp(argv[1], "dotest")) {
       doTest = 1;
+    }
   }
+  strcat(options, " -lm");
 
   DIR *d;
   FILE *stream;
   struct dirent *dir;
 
   // delete previous compiled files
-  d = opendir("./source/bin");
+  d = opendir(destdir);
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strcpy(filename, dir->d_name);
-      if (strcmp(filename, ".gitignore") == 0)
+      if (*filename && *filename == '.')
         continue;
-      sprintf(command, "./source/bin/%s", filename);
+      snprintf(command, sizeof(command)-1, "%s%s", destdir, filename);
       remove(command);
     }
   }
@@ -71,7 +83,7 @@ int main(int argc, char **argv) {
     while ((dir = readdir(d)) != NULL) {
       strcpy(filename, dir->d_name);
       int len = strlen(filename);
-      if (filename[len - 1] == 'c' && filename[len - 2] == '.') {
+      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
         n_algo++;
       }
     }
@@ -86,10 +98,11 @@ int main(int argc, char **argv) {
     while ((dir = readdir(d)) != NULL) {
       strcpy(filename, dir->d_name);
       int len = strlen(filename);
-      if (filename[len - 1] == 'c' && filename[len - 2] == '.') {
+      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
         filename[len - 2] = '\0';
         current++;
-#ifndef __x86_64__
+#if !defined __x86_64__ || !defined __SSE__
+        // skip SSE specific algos
         if (!strcmp(filename, "epsm") ||
             !strcmp(filename, "ssecp") ||
             !strcmp(filename, "ssef")) {
@@ -98,7 +111,8 @@ int main(int argc, char **argv) {
         }
 #endif
         // compile
-        sprintf(command, "%s%s.c%s%s", gcc, filename, options, filename);
+        snprintf(command, sizeof(command)-1, "%s%s.c%s -o %s%s", gcc,
+                 filename, options, destdir, filename);
         if (doTest)
           printf("\tCompiling and testing %s.c", filename);
         else
@@ -116,11 +130,11 @@ int main(int argc, char **argv) {
           printf("[ERROR]\n");
         else {
           // check if compiled file is present
-          if (strlen(destination) + strlen(filename) >= sizeof(binary)) {
+          if (strlen(destdir) + strlen(filename) >= sizeof(binary)) {
             perror("snprintf");
             exit(1);
           }
-          strncpy(binary, destination, sizeof(binary) - 1);
+          strncpy(binary, destdir, sizeof(binary) - 1);
           strncat(binary, filename, sizeof(binary) - 1);
           FILE *fp = fopen(binary, "r");
           if (fp) {
@@ -129,7 +143,7 @@ int main(int argc, char **argv) {
             fflush(stdout);
             if (doTest) {
               // testing correctness of the algorithm
-              sprintf(command, "./test %s -nv", filename);
+              snprintf(command, sizeof(command)-1, "./test %s -nv", filename);
               // printf("\b\b\b\b\b[000%]");
               fflush(stdout);
               if (system(command)) {

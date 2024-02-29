@@ -14,7 +14,7 @@ The release of smart will be available [here](https://github.com/smart-tool/smar
 The documentation about smart is available [here](https://www.dmi.unict.it/faro/smart/howto.php)
 
 ## How to compile it from source
-To compile the source just download (or clone) this repository and run the file build.sh from terminal (with **./build.sh**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into source/bin/).
+To compile the source just download (or clone) this repository and run the file build.sh from terminal (with **./build.sh**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into bin/).
 
 ## Reference
 

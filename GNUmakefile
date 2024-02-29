@@ -1,6 +1,7 @@
-CC := gcc
-uname_m := $(shell $CC -dumpmachine | cut -f1 -d-)
-ifneq ($(uname_m),x86_64)
+CC      := gcc
+MACHINE := $(shell uname -m)
+ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
+ifneq ($(ARCH),x86_64)
   CFLAGS  := -O3 -Wall
   NON_SSE = source/algos/epsm.c source/algos/ssecp.c source/algos/ssef.c
   ALGOSRC = $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
@@ -8,13 +9,22 @@ else
   CFLAGS  := -O3 -march=native -mtune=native -Wall -Wfatal-errors
   ALGOSRC = $(wildcard source/algos/*.c)
 endif
-BINS    = $(patsubst source/algos/%,source/bin/%,$(patsubst %.c,%,$(ALGOSRC)))
+ifneq ($(ARCH),$(MACHINE))
+  BINDIR = bin/$(ARCH)
+  CFLAGS += -DBINDIR=\"$(BINDIR)\"
+  DRV = qemu-$(ARCH)
+else
+  BINDIR = bin
+  DRV =
+endif
+BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
 HELPERS = smart show select test textgen compilesm
 TESTS   = bm mp kmp tbm bom so
 
 all: $(BINS) $(HELPERS)
 
-source/bin/%: source/algos/%.c
+$(BINDIR)/%: source/algos/%.c source/algos/include/*.h
+	@test -d $(BINDIR) || mkdir $(BINDIR)
 	$(CC) $(CFLAGS) $< -o $@
 ./%: source/%.c source/*.h
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
@@ -23,14 +33,18 @@ select: source/selectAlgo.c
 
 .PHONY: check clean all
 check: all
-	./select -which | grep br
-	-cp source/bin/br source/bin/br1
-	./select -add br1
-	-rm source/bin/br1
-	./select -none $(TESTS)
-	./smart -text rand32
+	-cp source/algorithms.lst source/algorithms.lst.bak
+	$(DRV) ./select -all
+	$(DRV) ./select -which | grep br
+	-cp $(BINDIR)/br $(BINDIR)/br1
+	$(DRV) ./select -add br1
+	-rm $(BINDIR)/br1
+	$(DRV) ./select -none $(TESTS)
+	$(DRV) ./smart -text rand32 -plen 2 4
+	$(DRV) ./smart -simple 8 64
 	for t in $(TESTS); do echo $$t; ./test $$t; done
-	./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
+	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
+	-mv source/algorithms.lst.bak source/algorithms.lst
 
 clean:
 	rm $(BINS) $(HELPERS)

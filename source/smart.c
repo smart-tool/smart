@@ -48,6 +48,10 @@ unsigned int MINLEN = 1,
 #include "output.h"
 #include "timer.h"
 
+#ifndef BINDIR
+# define BINDIR "bin"
+#endif
+
 void printManual() {
   if (system("./logo"))
     exit(1);
@@ -170,10 +174,10 @@ int execute(int algo, key_t pkey, int m, key_t tkey, int n,
   char command[100];
 #ifdef _WIN32
   (void)rkey; (void)ekey; (void)prekey;
-  sprintf(command, "./source/bin/%s %d %d %d %d", ALGO_NAME[algo],
+  sprintf(command, "./%s/%s %d %d %d %d", BINDIR, ALGO_NAME[algo],
           pkey, m, tkey, n);
 #else
-  sprintf(command, "./source/bin/%s shared %d %d %d %d %d %d %d",
+  sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR,
           ALGO_NAME[algo], pkey, m, tkey, n, rkey, ekey, prekey);
 #endif
   int res = system(command);
