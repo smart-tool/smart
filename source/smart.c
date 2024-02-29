@@ -343,7 +343,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     exit(1);
   }
 #else
-  key_t pkey, tkey, rkey, ekey, prekey;
+  key_t pkey, rkey, ekey, prekey;
 #endif // _WIN32
 
   // initializes the vector which will contain running times
@@ -714,8 +714,8 @@ int main(int argc, const char *argv[]) {
 
   // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
+  key_t tkey = 0;
 #ifndef _WIN32  
-  key_t tkey;
   try = 0;
   do {
     tkey = rand() % 1000;
