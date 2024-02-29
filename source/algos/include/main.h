@@ -45,18 +45,20 @@
   {                                                                            \
     timer_stop(_timer);                                                        \
     end = clock();                                                             \
-    (*pre_time) = timer_elapsed(_timer) * 1000;                                \
+    if (pre_time)                                                              \
+      (*pre_time) = timer_elapsed(_timer) * 1000;                              \
   }
 #define END_SEARCHING                                                          \
   {                                                                            \
     timer_stop(_timer);                                                        \
     end = clock();                                                             \
-    (*run_time) = timer_elapsed(_timer) * 1000;                                \
+    if (run_time)                                                              \
+      (*run_time) = timer_elapsed(_timer) * 1000;                              \
   }
 
 /* global variables used for computing preprocessing and searching times */
-double *run_time, // searching time
-    *pre_time;    // preprocessing time
+double *run_time = NULL, // searching time
+    *pre_time = NULL;    // preprocessing time
 clock_t start, end;
 TIMER *_timer;
 
@@ -152,11 +154,24 @@ int main(int argc, char *argv[]) {
              "mode\n");
       return 1;
     }
-    p = (unsigned char *)argv[1];
+    size_t lp = strlen(argv[1]);
+    size_t lt = strlen(argv[3]);
+    // for SSE code
+#define PAD_8(x) (((x) + 7) & ~7)
+    p = (unsigned char *)malloc(PAD_8(lp + 1));
+    strcpy((char*)p, argv[1]);
     m = atoi(argv[2]);
-    t = (unsigned char *)argv[3];
+    // boyer-moore requires space at the end of t. (tunbm)
+    t = (unsigned char *)malloc(PAD_8(lt + m + 1));
+    strcpy((char*)t, argv[3]);
     n = atoi(argv[4]);
+    if (m > (int)lp)
+      fprintf(stderr, "Invalid 2nd arg m=%d, should be <= %u\n", m, (unsigned)lp);
+    if (n > (int)lt)
+      fprintf(stderr, "Invalid 4nd arg n=%d, should be <= %u\n", n, (unsigned)lt);
     int occ = search(p, m, t, n);
+    free (p);
+    free (t);
     printf("found %d occurrences\n", occ);
     return 0;
   }

@@ -20,6 +20,8 @@
  * in HUME A. and SUNDAY D.M. , 1991. Fast string searching.
  * Software - Practice & Experience 21(11):1221-1248.
  * https://www-igm.univ-mlv.fr/~lecroq/string/tunedbm.html
+ *
+ * Note: It requires m additional bytes at the end of y.
  */
 
 #include "include/define.h"
