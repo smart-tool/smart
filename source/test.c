@@ -118,24 +118,28 @@ void free_shm() {
 
 int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
             int n, char *algoname, key_t pkey, key_t tkey, key_t rkey,
-            key_t ekey, key_t prekey, int alpha, char *parameter, int ncase) {
-  (*rip)++;
+            key_t ekey, key_t prekey, int alpha, char *parameter /*ignored*/) {
   // printf("\b\b\b\b\b\b[%.3d%%]",(*rip)*100/18); fflush(stdout);
   (*count) = 0;
   int occur1 = search(P, m, T, n);
-#ifdef _WIN32    
+#ifdef _WIN32
   int occur2 = execute(algoname, P, m, T, n, count);
+  (void)pkey; (void)tkey; (void)rkey; (void)ekey; (void)prekey; (void)tkey;
 #else  
   int occur2 = execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
 #endif
+  (void)parameter;
+
   if (occur2 >= 0 && occur1 != occur2) {
     if (!VERBOSE)
       printf("\n\tERROR: test failed on case n.%d (m=%d,n=%d) (\"%s\" in \"%s\")\n"
              "found %d occ instead of %d\n\n",
-             ncase, m, n, P, T, occur2, occur1);
+             *rip, m, n, P, T, occur2, occur1);
     free_shm();
+    (*rip)++;
     return 0;
   }
+  (*rip)++;
   return 1;
 }
 
@@ -307,7 +311,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 1))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -316,7 +320,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "aa");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 2))
+                 prekey, alpha, parameter))
       exit(1);
   }
     
@@ -324,7 +328,7 @@ int main(int argc, char *argv[]) {
   strcpy((char *)P, "aaaaaaaaaa");
   strcpy((char *)T, "aaaaaaaaaa");
   if (!attempt(&rip, count, P, 10, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 3))
+               prekey, alpha, parameter))
     exit(1);
 
   // 4) search for "b" in "aaaaaaaaaa"
@@ -332,7 +336,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "b");
     strcpy((char *)T, "aaaaaaaaaa");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 4))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -341,7 +345,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "ab");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 5))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -350,7 +354,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 6))
+                 prekey, alpha, parameter))
       exit(1);
   }
     
@@ -359,14 +363,14 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "aba");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 7))
+                 prekey, alpha, parameter))
       exit(1);
 
     // 8) search for "abc" in "ababababab"
     strcpy((char *)P, "abc");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 8))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -375,7 +379,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "ba");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 8))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -384,7 +388,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "ababababab");
     if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 10))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -393,7 +397,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "bcdefg");
     strcpy((char *)T, "bcdefghilm");
     if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 11))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -405,7 +409,7 @@ int main(int argc, char *argv[]) {
       P[h] = T[h];
     T[YSIZE] = P[4] = '\0';
     if (!attempt(&rip, count, P, 4, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 12))
+                 prekey, alpha, parameter))
       exit(1);
 
     // 13) search for rand4 in rand10
@@ -415,7 +419,7 @@ int main(int argc, char *argv[]) {
       P[h] = T[h];
     T[10] = P[4] = '\0';
     if (!attempt(&rip, count, P, 4, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 13))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -426,7 +430,7 @@ int main(int argc, char *argv[]) {
     P[h] = T[h];
   T[64] = P[32] = '\0';
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 14))
+               prekey, alpha, parameter))
     exit(1);
 
   // 15) search for same rand32 in rand64
@@ -436,7 +440,7 @@ int main(int argc, char *argv[]) {
     P[h] = T[h];
   T[64] = P[32] = '\0';
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 15))
+               prekey, alpha, parameter))
     exit(1);
   
   // 16) search for a*32 in a*64
@@ -446,7 +450,7 @@ int main(int argc, char *argv[]) {
     P[h] = 'a';
   T[64] = P[32] = '\0';
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 16))
+               prekey, alpha, parameter))
     exit(1);
 
   // 17) search for ab*32 in ab*64
@@ -460,7 +464,7 @@ int main(int argc, char *argv[]) {
     P[h] = 'b';
   T[64] = P[32] = '\0';
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 17))
+               prekey, alpha, parameter))
     exit(1);
 
   // 18) search for ab*30c in ab*64
@@ -475,7 +479,7 @@ int main(int argc, char *argv[]) {
   P[30] = 'c';
   T[64] = P[32] = '\0';
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter, 18))
+               prekey, alpha, parameter))
     exit(1);
 
   if (!ALGOS[id].minlen || ALGOS[id].minlen < 7) {
@@ -483,7 +487,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "abababbbbb");
     if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 19))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
@@ -492,7 +496,7 @@ int main(int argc, char *argv[]) {
     strcpy((char *)P, "bababb");
     strcpy((char *)T, "abababbbbb");
     if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter, 20))
+                 prekey, alpha, parameter))
       exit(1);
   }
 
