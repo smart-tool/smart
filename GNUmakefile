@@ -1,11 +1,11 @@
-CC = gcc
-uname_m := $(shell uname -m)
+CC := gcc
+uname_m := $(shell $CC -dumpmachine | cut -f1 -d-)
 ifneq ($(uname_m),x86_64)
-  CFLAGS  = -O3 -Wall
+  CFLAGS  := -O3 -Wall
   NON_SSE = source/algos/epsm.c source/algos/ssecp.c source/algos/ssef.c
   ALGOSRC = $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
 else
-  CFLAGS  = -O3 -march=native -mtune=native -Wall -Wfatal-errors
+  CFLAGS  := -O3 -march=native -mtune=native -Wall -Wfatal-errors
   ALGOSRC = $(wildcard source/algos/*.c)
 endif
 BINS    = $(patsubst source/algos/%,source/bin/%,$(patsubst %.c,%,$(ALGOSRC)))
