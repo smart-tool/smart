@@ -72,13 +72,21 @@ void printManual() {
   printf("\n\n");
 }
 
-int execute(char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-            key_t ekey, key_t prekey, int *count, int alpha) {
+
+int execute(
+#ifdef _WIN32
+            char *algoname, unsigned char *P, int m, unsigned char *T, int n,
+            int *count
+#else
+            char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
+            key_t ekey, key_t prekey, int *count, int alpha
+#endif
+            )
+{
   char command[100];
 #ifdef _WIN32
-  (void)rkey; (void)ekey; (void)prekey;
-  sprintf(command, "./source/bin/%s %d %d %d %d", algoname,
-          pkey, m, tkey, n);
+  sprintf(command, "./source/bin/%s %s %d %s %d", algoname,
+          P, m, T, n);
 #else
   sprintf(command, "./source/bin/%s shared %d %d %d %d %d %d %d", algoname,
           pkey, m, tkey, n, rkey, ekey, prekey);
@@ -115,13 +123,16 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   // printf("\b\b\b\b\b\b[%.3d%%]",(*rip)*100/18); fflush(stdout);
   (*count) = 0;
   int occur1 = search(P, m, T, n);
-  int occur2 =
-      execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
+#ifdef _WIN32    
+  int occur2 = execute(algoname, P, m, T, n, count);
+#else  
+  int occur2 = execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
+#endif
   if (occur2 >= 0 && occur1 != occur2) {
     if (!VERBOSE)
-      printf("\n\tERROR: test failed on case n.%d (\"%s\" in \"%s\")\n\
-							found %d occ instead of %d\n\n",
-             ncase, P, T, occur2, occur1);
+      printf("\n\tERROR: test failed on case n.%d (m=%d,n=%d) (\"%s\" in \"%s\")\n"
+             "found %d occ instead of %d\n\n",
+             ncase, m, n, P, T, occur2, occur1);
     free_shm();
     return 0;
   }

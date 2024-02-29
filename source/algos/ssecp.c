@@ -173,7 +173,7 @@ void compute(unsigned char *x, int m, int *mu, int *pi) {
 }
 
 // algorithm is not exactly like paper- allow overflow anchor match.
-// todo: double up loops to avoid the one comparison for the length
+// TODO: double up loops to avoid the one comparison for the length
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (m <= max_needle) // raw SSE instructions for short patterns
