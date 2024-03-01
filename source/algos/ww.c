@@ -107,11 +107,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   }
   END_SEARCHING
   if (m > M_CUTOFF) {
-    free(ttrans);
-    free(tlength);
-    free(tsuffix);
-    free(tterminal);
     free(ttransSMA);
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
   }
   return count;
 }
