@@ -27,6 +27,13 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+#define M_CUTOFF 32
+static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
+static int s_tlength[3 * M_CUTOFF * sizeof(int)];
+static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
+static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA * sizeof(int)];
+static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
+
 void preSMARev(unsigned char *x, int m, int *ttransSMA) {
   int c, i, state, target, oldTarget;
 
@@ -50,19 +57,27 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+  if (m > M_CUTOFF) {
+    ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+    tlength = (int *)calloc(3 * m, sizeof(int));
+    tsuffix = (int *)calloc(3 * m, sizeof(int));
+    tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
+    ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
+  } else {
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+    ttransSMA = s_ttransSMA;
+  }
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
-  tlength = (int *)calloc(3 * m, sizeof(int));
-  tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
+  count = 0;
+  memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   END_PREPROCESSING
 
   /* Searching */
   BEGIN_SEARCHING
-  count = 0;
-  ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
-  memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   preSMARev(x, m, ttransSMA);
   end = n / m;
   if (n % m > 0)
@@ -90,11 +105,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (r >= m)
       count++;
   }
-  free(ttrans);
-  free(tlength);
-  free(tsuffix);
-  free(tterminal);
-  free(ttransSMA);
   END_SEARCHING
+  if (m > M_CUTOFF) {
+    free(ttrans);
+    free(tlength);
+    free(tsuffix);
+    free(tterminal);
+    free(ttransSMA);
+  }
   return count;
 }
