@@ -137,9 +137,9 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 
   if (occur2 >= 0 && occur1 != occur2) {
     if (!VERBOSE)
-      printf("\n\tERROR: test failed on case n.%d (m=%d,n=%d) (\"%s\" in \"%s\")\n"
-             "found %d occ instead of %d\n\n",
-             *rip, m, n, P, T, occur2, occur1);
+      printf("%s\tERROR: test failed on case n.%d (m=%d,n=%d) (\"%s\" in \"%s\")\n"
+             "\tfound %d occ instead of %d\n\n",
+             algoname, *rip, m, n, P, T, occur2, occur1);
     free_shm();
     (*rip)++;
     return 0;
