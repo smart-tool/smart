@@ -20,6 +20,8 @@ To compile the source just download (or clone) this repository and run the file 
 
 [Stringology Conference article url](https://www.stringology.org/event/2016/p09.html)
 
+[Lecroq's EXACT STRING MATCHING ALGORITHMS](https://www-igm.univ-mlv.fr/~lecroq/string/)
+
 If you work with SMART, please cite:
 ```BibTeX
 @INPROCEEDINGS( PSC2016-9, 
