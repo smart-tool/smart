@@ -54,17 +54,17 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = 0;
   for (i = 1; i <= m; ++i)
-    B[x[m - i]] |= (1 << (i - 1));
+    B[x[m - i]] |= (1U << (unsigned)(i - 1));
 
   D = B[x[m - 2]];
   j = 1;
   shift = 0;
-  if (D & (1 << (m - 1)))
+  if (D & (1U << (unsigned)(m - 1)))
     shift = m - j;
   for (i = m - 3; i >= 0; i--) {
     D = (D << 1) & B[x[i]];
     j++;
-    if (D & (1 << (m - 1)))
+    if (D & (1U << (unsigned)(m - 1)))
       shift = m - j;
   }
   END_PREPROCESSING
@@ -100,9 +100,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, q, shift;
+  unsigned int B[SIGMA], D, shift;
   int i, j, pos, mMinusq, mq, count, p_len;
-  q = 8;
+  const int q = 8;
 
   if (m < q)
     return 0;
