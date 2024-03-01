@@ -21,21 +21,25 @@
  * Tuning BNDM with q-Grams.
  * Proceedings of the Workshop on Algorithm Engineering and Experiments, ALENEX
  * 2009, pp.29--37, SIAM, New York, New York, USA, (2009).
+ *
+ * Constraints: requires m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
 #define GRAM2(j) (B[y[j]] << 1) & B[y[j - 1]]
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, q;
+  unsigned int B[SIGMA], D;
   int i, j, pos, mMinusq, mq, count, shift;
-  q = 2;
+  const int q = 2;
 
   if (m < q)
-    return -1;
+    return search_small(x, m, y, n);
   if (m > 32)
     return search_large(x, m, y, n);
 

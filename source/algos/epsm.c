@@ -18,7 +18,9 @@
  *
  * This is an implementation of the EPSM algorithm in S. Faro and O. M. Kulekci.
  * It includes corrections to the original implementations gently provided by
- * Jorma Tarhio and Jan Holub
+ * Jorma Tarhio and Jan Holub.
+ *
+ * This is so far the best, but x86_64 with sse4 only.
  */
 
 #include "include/define.h"

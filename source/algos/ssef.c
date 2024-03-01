@@ -21,10 +21,14 @@
  * Filter Based Fast Matching of Long Patterns by Using SIMD Instructions.
  * Proceedings of the Prague Stringology Conference 2009, pp.118--128, Czech
  * Technical University in Prague, Czech Republic, (2009).
+ *
+ * Constraints: requires m>=32
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
 #include <emmintrin.h>
 
 typedef union {
@@ -39,7 +43,7 @@ typedef struct list {
 
 int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   if (Plen < 32)
-    return -1;
+    return search_small(x, Plen, y, Tlen);
   LIST *flist[65536];
   LIST *t;
   memset(flist, 0, sizeof(LIST *) * 65536);

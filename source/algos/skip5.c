@@ -15,11 +15,14 @@
  *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
+ *
+ * Constraints: requires m>=5
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/AUTOMATON.h"
+#include "include/search_small.h"
 
 #define DSIGMA 65536
 #define HS(x, i)                                                               \
@@ -30,7 +33,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h, k;
   List ptr, z[DSIGMA];
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   memset(z, 0, DSIGMA * sizeof(List));

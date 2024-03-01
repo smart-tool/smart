@@ -21,12 +21,14 @@
  * Practical and Optimal String Matching. SPIRE, Lecture Notes in Computer
  * Science, vol.3772, pp.376--387, Springer-Verlag, Berlin, (2005).
  *
- * Note: Broken!
+ * Constraints: requires m>6
+ * Note: Broken search_large() m>31
  */
 
 #include "include/define.h"
 #include "include/log2.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
             int u, unsigned int D, unsigned int mm, int *count) {
@@ -58,13 +60,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int masq;
   int i, j, u, count;
   int uq, uq1, mq;
-  int q = 6;
+  const int q = 6;
 
   u = 2;
   if (m > 32 - u + 1)
     return search_large(x, m, y, n, q);
   if (m <= q)
-    return -1;
+    return search_small(x, m, y, n);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

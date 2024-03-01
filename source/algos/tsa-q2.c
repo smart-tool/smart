@@ -1,5 +1,7 @@
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -7,6 +9,7 @@
 #include <string.h>
 
 // Note: Broken!
+// Constraints: requires m>=2 and m<=64
 
 #define Q 2
 #define HS(x, i) (x[i] << 1) + x[i + 1]
@@ -21,7 +24,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   if (m > 64)
     return -1;
   if (m < 2)
-    return -1;
+    return search_small(P, m, T, n);
 
   BEGIN_PREPROCESSING
   // TODO use __builtin_popcount()

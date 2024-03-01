@@ -42,6 +42,7 @@
  SUCH DAMAGE.
  *
  * Note: Broken!
+ * Constraints: requires n>=6
  */
 
 #include "include/define.h"
@@ -75,7 +76,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   int count, hbcr[SIGMA], hbcl[SIGMA], gsR[XSIZE], gsL[XSIZE];
   unsigned char Pr[XSIZE];
   if (n < 6)
-    return -1;
+    return -1; // todo search_large
 
   /* proprocessing */
   BEGIN_PREPROCESSING

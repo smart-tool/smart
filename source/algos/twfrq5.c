@@ -4,26 +4,32 @@
  *
  * This tuned variant has two optimisations:
  *   1.  An initial fast loop which does not require a position test, as the
- *pattern is copied to the end of the data.
+ *       pattern is copied to the end of the data.
  *   2.  Pre-processing is done on q-grams rather than bytes, as for the WFRQ
- *variants.
+ *       variants.
  *
  * PREPROCESSING:
- *		an hash value is computed for al factors of the pattern with
- *length in [1..8] the computed hash value is always a number in [0...256*256]
- *		if w is a factor of x, and hash(w) is its hash value, than
- *F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE SEARCHING The algorithm searches
- *for factors of the pattern using a weak recognition method the search phase is
- *very similar to BOM. The window is scanned right to left and for each
- *character a new hash value of the suffix of the window is computed. Let w be
- *the suffix we scanned. If F[hash(w)]=TRUE we continue scanning the next
- *character of the window. Otherwise we stop scanning (w is not a factor of the
- *pattern) and jump to the right, like in BOM.
+ * An hash value is computed for all factors of the pattern with
+ * length in [1..8] the computed hash value is always a number in
+ * [0...256*256] if w is a factor of x, and hash(w) is its hash value,
+ * than F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE
+ *
+ * SEARCHING:
+ * The algorithm searches for factors of the pattern using a weak
+ * recognition method; the search phase is very similar to BOM. The
+ * window is scanned right to left and for each character a new hash
+ * value of the suffix of the window is computed. Let w be the suffix
+ * we scanned. If F[hash(w)]=TRUE we continue scanning the next
+ * character of the window. Otherwise we stop scanning (w is not a
+ * factor of the pattern) and jump to the right, like in BOM.
+ *
+ * Constraints: requires m>=5
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/GRAPH.h"
+#include "include/search_small.h"
 
 #define Q 5
 #define HASH(j)                                                                \
@@ -56,7 +62,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   char F[256 * 256];
   unsigned short h;
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   /* Preprocessing */

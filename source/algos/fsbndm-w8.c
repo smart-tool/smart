@@ -40,10 +40,13 @@
  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
+ *
+ * Constraints: requires m>=11, inexact for m>31
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
@@ -51,7 +54,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int l1, l2, l3, l4, l5, l6, l7, l8;
 
   if (m < 11)
-    return -1;
+    return search_small(x, m, y, n);
   /* Preprocessing */
   BEGIN_PREPROCESSING
   int plen = m;

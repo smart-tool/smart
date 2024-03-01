@@ -22,11 +22,13 @@
  * The Second Haifa Annual International Stringology Research Workshop of the
  * Israeli Science Foundation, (2005).
  *
- * Note: Broken!
+ * Note: Broken! See sbndm-bmh instead
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -36,7 +38,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (m > 32)
     return search_large(x, m, y, n);
   if (m < 2)
-    return -1;
+    return search_small(x, m, y, n);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

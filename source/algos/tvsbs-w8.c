@@ -15,10 +15,14 @@
  *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
+ *
+ * Note: Flaky tests with m=32,n=64
+ * Constraints: requires n >= m + 2, and m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
   int a, b, i;
@@ -34,15 +38,16 @@ void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
+  if (n < m + 2)
+    return search_small(x, m, y, n);
+  if (m < 2)
+    return search_small(x, m, y, n);
+
   int count, i, s1, s2, s3, s4, s5, s6, s7, s8;
   int l1, l2, l3, l4, l5, l6, l7, l8;
   int BrBcR[SIGMA][SIGMA], BrBcL[SIGMA][SIGMA];
   unsigned char xr[XSIZE];
   unsigned char c;
-  if (n < m + 2)
-    return -1;
-  if (m < 2)
-    return -1;
 
   BEGIN_PREPROCESSING
   for (i = 0; i < m; i++)

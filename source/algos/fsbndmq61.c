@@ -21,10 +21,13 @@
  * Proceedings of the Prague Stringology Conference 2011, pp.3--14, Czech
  * Technical University in Prague, Czech Republic, (2008). Q is the dimension of
  * q-grams F is the number of forward characters
+ *
+ * Constraints: requires m>=6, inexact for m>31
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 #define Q 6
 #define F 1
 
@@ -32,7 +35,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, set;
   int i, j, pos, mm, sh, m1, count;
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
   int plen = m;
   int larger = m + F > WORD ? 1 : 0;
   if (larger)

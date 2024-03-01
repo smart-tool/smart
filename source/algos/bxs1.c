@@ -21,17 +21,20 @@
  * Bit-Parallel Search Algorithms for Long Patterns
  * International Symposium on Experimental Algorithms (SEA 2010)
  * Q is the dimension of q-grams
+ *
+ * Constraints: requires m>=1. inexact m>32
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 #define Q 1
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], D, set;
   int i, j, first, k, count;
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
   // int larger = m>WORD? 1:0;
   // if(larger) m = WORD;
   int w = WORD, mq1 = m - Q + 1, nq1 = n - Q + 1;

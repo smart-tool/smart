@@ -46,6 +46,7 @@ fdm
 bom
 bom2
 ww
+ldm
 ildm1
 ildm2
 ebom
@@ -173,6 +174,7 @@ twfrq7
 twfrq8
 twfr
 wc
+wfr
 wfr2
 wfr3
 wfr4
@@ -187,6 +189,5 @@ wfrq5
 wfrq6
 wfrq7
 wfrq8
-wfr
 wom
 epsm

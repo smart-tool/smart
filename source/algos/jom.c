@@ -20,10 +20,13 @@
  * in Simone Faro and Domenico Cantone, Improved and Self-Tuned Occurrence
  * Heuristics, Proceedings of the Prague Stringology Conference 2013, PSC 2013,
  * pp.92-106 (2013)
+ *
+ * Constraints: requires m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 /* we suppose an alphabet of SIGMA characters with a distribution equal to the
  * first 100 characters of the pattern */
@@ -94,7 +97,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   int i, j, s, count, jbc[SIGMA][SIGMA];
   double freq[SIGMA];
   if (m < 2)
-    return -1;
+    return search_small(P, m, T, n);
 
   BEGIN_PREPROCESSING
   computeFreq(T, freq);

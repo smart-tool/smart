@@ -16,11 +16,13 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * Note: Broken! Only for n >= m + 2
+ * Note: Broken!
+ * Constraints: requires n >= m + 2, and m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
   int a, b, i;
@@ -41,9 +43,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int BrBcR[SIGMA][SIGMA], BrBcL[SIGMA][SIGMA];
 
   if (n < m + 2)
-    return -1;
+    return search_small(x, m, y, n);
   if (m < 2)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   unsigned char xr[XSIZE];

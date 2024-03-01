@@ -1,10 +1,13 @@
+// optimized word-wise popcount
 #include "include/define.h"
 #include "include/main.h"
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// Constraints: requires m<=64
 
 // searching
 int search(unsigned char *P, int m, unsigned char *T, int n) {

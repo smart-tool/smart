@@ -22,7 +22,7 @@
  * Proceedings of the Prague Stringology Conference 2008, pp.146--160, Czech
  * Technical University in Prague, Czech Republic, (2008).
  *
- * Note: Broken!
+ * Note: Broken m>31 search_large()
  */
 
 #include "include/define.h"

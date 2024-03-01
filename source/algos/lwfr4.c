@@ -3,21 +3,24 @@
  *  By Simone Faro, Domenico Cantone and Arianna Pavone
  *
  * PREPROCESSING:
- *		an hash value is computed for al factors of the pattern with
- *length in [1..16] the computed hash value is always a number in [0...256*256]
- *		if w is a factor of x, and hash(w) is its hash value, than
- *F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE SEARCHING The algorithm searches
- *for factors of the pattern using a weak recognition method the search phase is
- *very similar to BOM. The window is scanned right to left and for each
- *character a new hash value of the suffix of the window is computed. Let w be
- *the suffix we scanned. If F[hash(w)]=TRUE we continue scanning the next
- *character of the window. Otherwise we stop scanning (w is not a factor of the
- *pattern) and jump to the right, like in BOM. Linearity is obtained by
- *combaining the veification phase of the KMP algorithm
+ * A hash value is computed for al factors of the pattern with
+ * length in [1..16] the computed hash value is always a number in [0...256*256]
+ * if w is a factor of x, and hash(w) is its hash value, than
+ * F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE SEARCHING The algorithm searches
+ * for factors of the pattern using a weak recognition method the search phase is
+ * very similar to BOM. The window is scanned right to left and for each
+ * character a new hash value of the suffix of the window is computed. Let w be
+ * the suffix we scanned. If F[hash(w)]=TRUE we continue scanning the next
+ * character of the window. Otherwise we stop scanning (w is not a factor of the
+ * pattern) and jump to the right, like in BOM. Linearity is obtained by
+ * combining the verification phase of the KMP algorithm.
+ *
+ * Constraints: requires m>=4
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 #define Q 4
 #define HASH(j) (y[j] << 6) + (y[j - 1] << 4) + (y[j - 2] << 2) + y[j - 3]
 
@@ -63,7 +66,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   char F[256 * 256];
   unsigned short h;
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   /* Preprocessing */

@@ -21,10 +21,13 @@
  * A Fast Suffix Automata Based Algorithm for Exact Online String Matching.
  * 17-th International Conference on Implementation and Application of Automata
  * - CIAA 2012, pp.146--160 (2012).
+ *
+ * Constraints: requires m>=8
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 #define DSIGMA 65536
 #define HS(x, i)                                                               \
@@ -36,7 +39,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   //unsigned int B[DSIGMA];
   int i, j, k, count;
   if (m < Q)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   unsigned int occ[DSIGMA] = {0};

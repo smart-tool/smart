@@ -98,7 +98,8 @@ int main(int argc, char **argv) {
     while ((dir = readdir(d)) != NULL) {
       strcpy(filename, dir->d_name);
       int len = strlen(filename);
-      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
+      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.'
+          && filename[0] != '.' && filename[1] != '#') {
         filename[len - 2] = '\0';
         current++;
 #if !defined __x86_64__ || !defined __SSE__
