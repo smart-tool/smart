@@ -77,6 +77,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (r >= m)
       count++;
   }
+  free(xR);
   free(ttrans);
   free(tlength);
   free(tsuffix);
