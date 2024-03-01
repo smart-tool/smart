@@ -156,13 +156,13 @@ int main(int argc, char *argv[]) {
     }
     size_t lp = strlen(argv[1]);
     size_t lt = strlen(argv[3]);
-    // for SSE code
-#define PAD_8(x) (((x) + 7) & ~7)
-    p = (unsigned char *)calloc(PAD_8(lp + 1), 1);
+    // for SSE code, esp. ssecp for int128 mu
+#define PAD_16(x) (((x) + 15) & ~15)
+    p = (unsigned char *)calloc(PAD_16(lp + 1), 1);
     strcpy((char*)p, argv[1]);
     m = atoi(argv[2]);
     // boyer-moore requires space at the end of t. (tunbm)
-    t = (unsigned char *)calloc(PAD_8(lt + m + 1), 1);
+    t = (unsigned char *)calloc(PAD_16(lt + m + 1), 1);
     strcpy((char*)t, argv[3]);
     n = atoi(argv[4]);
     if (m > (int)lp)

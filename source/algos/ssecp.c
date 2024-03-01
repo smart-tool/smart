@@ -193,7 +193,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   // SSE instruction search anchor block after critical factorization; maximum
   // length needle_length
-  __m128i needle_reg = _mm_loadu_si128((__m128i *)&x[mu]);
+  __m128i needle_reg;
+  if (mu < m - 8)
+    needle_reg = _mm_loadu_si128((__m128i *)&x[mu]);
+  else
+    needle_reg = _mm_loadu_si128((__m128i *)&x[m - 8]);
   int needle_length = m - mu;
   if (needle_length > 16)
     needle_length = 16;
