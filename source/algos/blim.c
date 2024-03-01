@@ -44,7 +44,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   memset(M, 0xff, sizeof(unsigned long) * SIGMA * wsize);
   for (i = 0; i < WORD; i++) {
-    tmp = 1 << i;
+    tmp = 1U << i;
     for (j = 0; j < (unsigned)m; j++) {
       for (k = 0; k < SIGMA; k++)
         M[((i + j) * SIGMA) + k] &= ~tmp;
@@ -81,7 +81,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     if (F) {
       for (j = 0; j < WORD; j++)
-        if (F & (1 << j))
+        if (F & (1U << j))
           if ((int)(i + j) <= n - m)
             OUTPUT(i + j);
     }
