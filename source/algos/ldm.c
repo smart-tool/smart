@@ -20,11 +20,15 @@
  * in L. He and B. Fang and J. Sui. The wide window string matching algorithm.
  * Theor. Comput. Sci., vol.332, n.1-3, pp.391--404, Elsevier Science Publishers
  * Ltd., Essex, UK, (2005).
+ *
+ * Broken for m=2, off-by-one
+ * Constraints: requires m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/AUTOMATON.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int k, R, L, r, ell, end, count;
@@ -32,10 +36,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int *ttransSMA;
   unsigned char *tterminal;
   unsigned char *xR;
+  if (m < 2)
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
   count = 0;
-  /* Preprocessing */
   xR = ureverse(x, m);
   ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
@@ -56,9 +61,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_SEARCHING
   for (k = 1; k < end; ++k) {
     R = L = r = ell = 0;
-    while (L != UNDEFINED && k * m - 1 - ell >= 0) {
-      L = getTarget(L, y[k * m - 1 - ell]);
+    int iy = k * m - 1 - ell;
+    while (L != UNDEFINED && iy < n && iy >= 0) {
+      L = getTarget(L, y[iy]);
       ++ell;
+      iy--;
       if (L != UNDEFINED && isTerminal(L))
         R = ell;
     }
@@ -68,7 +75,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       ++r;
       if (r == m)
         break;
-      R = getSMA(R, y[k * m - 1 + r]);
+      iy = k * m - 1 + r;
+      if (iy < n)
+        R = getSMA(R, y[iy]);
     }
   }
   for (k = (end - 1) * m; k <= n - m; ++k) {
@@ -77,12 +86,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (r >= m)
       count++;
   }
+  END_SEARCHING
+
   free(xR);
   free(ttrans);
   free(tlength);
   free(tsuffix);
   free(ttransSMA);
   free(tterminal);
-  END_SEARCHING
   return count;
 }
