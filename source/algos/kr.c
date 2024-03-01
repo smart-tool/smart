@@ -27,7 +27,8 @@
 #define REHASH(a, b, h) ((((h) - (a)*d) << 1) + (b))
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int d, hx, hy, i, j, count;
+  unsigned int d, hx, hy;
+  int i, j, count;
 
   BEGIN_PREPROCESSING
   count = 0;
