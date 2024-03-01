@@ -17,9 +17,8 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
-
-int *PATT_SIZE;
-#define NumPatt 17    // maximal number of pattern lengths
+unsigned int *PATT_SIZE;
+#define NumPatt 17U // maximal number of pattern lengths
 int PATT_CUSTOM_SIZE[NumPatt];
 int PATT_VERY_SHORT[NumPatt] = {1,  2,  3,  4,  5,  6,  7,  8, 9,
                                 10, 11, 12, 13, 14, 15, 16, 0};
@@ -27,18 +26,18 @@ int PATT_SHORT_SIZE[NumPatt] = {2,  4,  6,  8,  10, 12, 14, 16, 18,
                                 20, 22, 24, 26, 28, 30, 32, 0};
 int PATT_LARGE_SIZE[NumPatt] = {2,    4,    8,    16, 32, 64, 128, 256, 512,
                                 1024, 2048, 4096, 0,  0,  0,  0,   0};
-#define NumSetting 15 // number of text buffers
+#define NumSetting 15U // number of text buffers
 char *SETTING_BUFFER[NumSetting] = {
     "rand2",       "rand4",        "rand8",     "rand16",       "rand32",
     "rand64",      "rand128",      "rand250",   "italianTexts", "englishTexts",
     "frenchTexts", "chineseTexts", "midimusic", "genome",       "protein"};
-int SETTING_ALPHA_SIZE[NumSetting] = {2,   4,   8,   16,  32,  64, 128, 250,
-                                      128, 128, 128, 128, 128, 64, 64};
+unsigned int SETTING_ALPHA_SIZE[NumSetting] = {
+    2, 4, 8, 16, 32, 64, 128, 250, 128, 128, 128, 128, 128, 64, 64};
 
 #include "algorithms.h"
 
-int EXECUTE[NumAlgo+10];
-const char *ALGO_NAME[NumAlgo+10];
-const char *ALGO_DESCRIPTION[NumAlgo+10];
+int EXECUTE[NumAlgo + 10];
+const char *ALGO_NAME[NumAlgo + 10];
+const char *ALGO_DESCRIPTION[NumAlgo + 10];
 
 #include "function.h"

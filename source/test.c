@@ -92,6 +92,7 @@ int execute(
   sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname,
           P, m, T, n);
 #else
+  (void)alpha;
   sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR, algoname,
           pkey, m, tkey, n, rkey, ekey, prekey);
 #endif

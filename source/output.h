@@ -18,7 +18,7 @@
  */
 
 char colors[100][8];
-int num_colors = 100;
+unsigned int num_colors = 100U;
 
 char dec2hex(int v) {
   if (v < 10)
@@ -59,6 +59,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   unsigned int il, algo;
   FILE *fp;
   char outname[100];
+  (void)alpha;
   // printing results in txt format
   strcpy(outname, "results/");
   strcat(outname, expcode);
@@ -135,6 +136,8 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   unsigned int i, il, algo;
   FILE *fp;
   char outname[100];
+  (void)alpha;
+  (void)time_format;
   // printing results in txt format
   strcpy(outname, "results/");
   strcat(outname, expcode);
@@ -178,6 +181,8 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   unsigned int j, il, algo;
   FILE *fp;
   char outname[100];
+  (void)alpha;
+  (void)time_format;
   // printing results in latex format
   strcpy(outname, "results/");
   strcat(outname, expcode);
@@ -190,10 +195,10 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
     printf("\tError in writing file %s/%s.txt\n", expcode, filename);
     return 0;
   }
-  int start = 0;
+  unsigned int start = 0;
   while (PATT_SIZE[start] < MINLEN)
     start++;
-  int end = start;
+  unsigned int end = start;
   while (PATT_SIZE[end] <= MAXLEN)
     end++;
   fprintf(fp, "\\begin{tabular}{|l|");
@@ -231,6 +236,7 @@ int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   char outname[100];
   // finds the best result for each pattern length
   double BEST[NumPatt];
+  (void)alpha;
   for (il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       double best = 999999.0;
@@ -299,14 +305,15 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
 
   double dymax = 0.0;
   char *upname = str2upper(ALGO_NAME[algo]);
-  for (int il = 0; il < NumPatt; il++)
+  (void)expcode;
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (WORST[algo][il] > dymax)
         dymax = WORST[algo][il];
       if (TIME[algo][il] + STD[algo][il] > dymax)
         dymax = TIME[algo][il] + STD[algo][il];
     }
-  int ymax = dymax + 1.0;
+  int ymax = (int)(dymax + 1.0);
 
   fprintf(fp,
           "<div class=\"chart_container_small\"><div class=\"chart_title\">%s "
@@ -329,7 +336,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "<script>function loadChart%u() { ", algo);
 
   fprintf(fp, "var data = [");
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (TIME[algo][il] == 0)
         fprintf(fp, ",");
@@ -339,7 +346,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "];\n");
 
   fprintf(fp, "var std1 = [");
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (TIME[algo][il] == 0)
         fprintf(fp, ",");
@@ -349,7 +356,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "];\n");
 
   fprintf(fp, "var std2 = [");
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (TIME[algo][il] == 0)
         fprintf(fp, ",");
@@ -359,7 +366,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "];\n");
 
   fprintf(fp, "var bound1 = [");
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (TIME[algo][il] == 0)
         fprintf(fp, ",");
@@ -369,7 +376,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "];\n");
 
   fprintf(fp, "var bound2 = [");
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       if (TIME[algo][il] == 0)
         fprintf(fp, ",");
@@ -443,7 +450,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
                 tickmarks: null,\n\
                 labels: [",
           algo, ymax);
-  for (int il = 0; il < NumPatt; il++)
+  for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
       fprintf(fp, "'%d',", PATT_SIZE[il]);
   fprintf(fp, "],\n");
@@ -460,7 +467,7 @@ void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
   unsigned int i, algo, il;
   double dymax = 0.0;
   for (algo = 0; algo < NumAlgo; algo++) {
-    for (int il = 0; il < NumPatt; il++)
+    for (unsigned int il = 0; il < NumPatt; il++)
       if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
         if (TIME[algo][il] > dymax)
           dymax = TIME[algo][il];
@@ -535,6 +542,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
   unsigned int i, il, algo;
   FILE *fp;
   char outname[100];
+  (void)alpha;
 
   computeRandomColors(colors);
 
@@ -733,12 +741,12 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
   double dymax = 0.0;
   for (algo = 0; algo < NumAlgo; algo++)
     if (EXECUTE[algo])
-      for (int il = 0; il < NumPatt; il++)
+      for (unsigned int il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
           if (TIME[algo][il] > dymax)
             dymax = TIME[algo][il];
         }
-  int ymax = dymax + 1.0;
+  int ymax = (int)(dymax + 1.0);
 
   fprintf(fp, "<script>window.onload = (function () { var data = [");
   for (algo = 0; algo < NumAlgo; algo++) {
@@ -805,6 +813,11 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
   int i;
   FILE *fp;
   char outname[100];
+  (void)alpha;
+  (void)PRE_TIME;
+  (void)TIME;
+  (void)pre;
+
   // printing results in html format
   strcpy(outname, "results/");
   strcat(outname, expcode);
@@ -880,7 +893,7 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
 
 int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers,
                 char *expcode) {
-  int sett;
+  unsigned int sett;
   FILE *fp;
   char outname[100];
   // printing results in html format

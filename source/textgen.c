@@ -27,7 +27,7 @@
  * It is called by makefile script, when compiling SMART
  */
 
-int main(int argc, const char *argv[]) {
+int main(void) {
   FILE *stream = NULL;
   unsigned char c;
 
