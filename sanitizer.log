@@ -104,10 +104,6 @@ gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefine
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kmpskip.c -o bin/kmpskip
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kr.c -o bin/kr
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ksa.c -o bin/ksa
-source/algos/ksa.c: In function ‘search’:
-source/algos/ksa.c:46:17: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
-   46 |   for (k = 1; k < WORD_BITS - 1; k++) {
-      |                 ^
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lbndm.c -o bin/lbndm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ldm.c -o bin/ldm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr2.c -o bin/lwfr2
