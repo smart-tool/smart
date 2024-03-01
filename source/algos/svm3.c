@@ -72,7 +72,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     sv |= cv[y[s]];
     j = 1;
     while ((sv & 1) == 0) {
-      sv |= cv[y[s - j]] >> j;
+      sv |= j > 31 ? 0 : cv[y[s - j]] >> j;
       if (j >= m) {
         OUTPUT(s);
         break;
