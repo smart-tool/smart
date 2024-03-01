@@ -20,14 +20,18 @@
  * in C. Hancart. Analyse exacte et en moyenne d'algorithmes de recherche d'un
  * motif dans un texte. (1993).
  *
- * Note: Broken!
+ * Note: Original was broken with m=1
+ * Constraints: requires m>1
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, k, ell, count;
+  if (m < 2)
+    return search_small(x, m, y, n);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -43,14 +47,16 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   BEGIN_SEARCHING
   j = 0;
-  while (j <= n - m)
-    if (x[1] != y[j + 1])
+  while (j <= n - m) {
+    if (j + 1 < n && x[1] != y[j + 1]) {
       j += k;
+    }
     else {
-      if (memcmp(x + 2, y + j + 2, m - 2) == 0 && x[0] == y[j])
+      if (x[0] == y[j] && memcmp(x + 2, y + j + 2, m - 2) == 0)
         OUTPUT(j);
       j += ell;
     }
+  }
   END_SEARCHING
   return count;
 }
