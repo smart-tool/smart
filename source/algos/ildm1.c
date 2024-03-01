@@ -76,6 +76,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     k = k + m;
   }
 
+  free(xR);
   free(ttransSMA);
   free(ttrans);
   free(tlength);
