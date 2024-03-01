@@ -1,25 +1,3 @@
-source/algos/tvsbs-w8.c: In function ‘search’:
-source/algos/tvsbs-w8.c:91:14: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |
-      |            ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:91:48: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |
-      |                                              ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:91:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |
-      |                                                               ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:92:14: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
-      |            ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:92:31: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
-      |                             ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
-      |                                              ~~^~~~~~~~~~~~
-source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
-   92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
-      |                                                               ~~^~~~~~~~~~~~
 ssecp: source/algos/ssecp.c:188: search: Assertion `(mu > 0 && mu < pi && mu < m && pi > 0 && pi <= m)' failed.
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
