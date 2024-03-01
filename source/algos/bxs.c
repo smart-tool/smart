@@ -38,7 +38,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int w = WORD, mq1 = m - Q + 1, nq1 = n - Q + 1;
   if (w > m)
     w = m;
-  unsigned int mask = 1 << (w - 1);
+  unsigned int mask = 1U << (w - 1);
 
   BEGIN_PREPROCESSING
   count = 0;
