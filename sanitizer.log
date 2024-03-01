@@ -27,18 +27,6 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
-source/algos/twfr8.c:83:14: runtime error: left shift of 34370 by 16 places cannot be represented in type 'int'
-source/algos/twfr8.c:83:14: runtime error: left shift of 38088 by 16 places cannot be represented in type 'int'
-source/algos/twfr8.c:83:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/twfr8.c:83:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/twfrq8.c:95:14: runtime error: left shift of 53187 by 16 places cannot be represented in type 'int'
-source/algos/twfrq8.c:95:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/twfrq8.c:95:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/wfr8.c:99:14: runtime error: left shift of 58462 by 16 places cannot be represented in type 'int'
-source/algos/wfr8.c:99:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/wfr8.c:99:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/wfrq8.c:112:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
-source/algos/wfrq8.c:112:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
 ssecp: source/algos/ssecp.c:188: search: Assertion `(mu > 0 && mu < pi && mu < m && pi > 0 && pi <= m)' failed.
 AddressSanitizer:DEADLYSIGNAL
 =================================================================

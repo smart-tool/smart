@@ -92,7 +92,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     i = j - m + 1;
     while ((test = F[h]) && j > i + Q - 1) {
       j -= Q;
-      h = (h << 16) + HASH(j);
+      h = HASH(j);
     }
     if (j == i + Q - 1 && test) {
       k = 0;
