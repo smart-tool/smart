@@ -283,10 +283,6 @@ int main(int argc, char *argv[]) {
   key_t  pkey, tkey, rkey, ekey, prekey;
 #endif
 
-  if (!VERBOSE)
-    printf("\n\tPlease, wait a moment..............");
-  fflush(stdout);
-
   // begin testing
   int rip = 0;
   int alpha = 2, h;
@@ -513,7 +509,7 @@ int main(int argc, char *argv[]) {
   }
 
   if (!VERBOSE)
-    printf("\n\tWell done! Test passed successfully\n\n");
+    printf("%s\ttested OK\n", algoname);
 
   // free shared memory
   free_shm();

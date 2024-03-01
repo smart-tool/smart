@@ -136,6 +136,7 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
       i = search_ALGO(ALGO_NAME, n);
       if (i >= 0 && i < NumAlgo && !strcmp(ALGOS[i].name, n))
         EXECUTE[i] = execute;
+      free(n);
     }
   fclose(fp);
 }

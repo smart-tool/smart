@@ -7,6 +7,9 @@ ifneq ($(ARCH),x86_64)
   ALGOSRC = $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
 else
   CFLAGS  := -O3 -march=native -mtune=native -Wall -Wfatal-errors
+  ifeq ($(SANITIZE),1)
+    CFLAGS += -g -Wextra -fsanitize=address,undefined
+  endif
   ALGOSRC = $(wildcard source/algos/*.c)
 endif
 ifneq ($(ARCH),$(MACHINE))
