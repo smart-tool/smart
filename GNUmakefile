@@ -62,7 +62,7 @@ clang-tidy: compile_commands.json
 fmt:
 	clang-format -i `find source -name \*.c -o -name \*.h`
 clean:
-	rm $(BINS) $(HELPERS)
+	-rm $(BINS) $(HELPERS)
 TAGS: $(ALGOS)
 	-rm -f TAGS
 	find . \( -name \*.c -o -name \*.h \) -exec etags -a --language=c \{\} \;

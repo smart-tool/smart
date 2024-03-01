@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
           printf("\tCompiling and testing %s.c", filename);
         else
           printf("\tCompiling %s.c ...........", filename);
-        for (i = 0; i < 15 - strlen(filename); i++)
+        for (i = 0; i < 15 - (int)strlen(filename); i++)
           printf(".");
         printf("(%.3d/%.3d) [000%%]", current, n_algo);
         fflush(stdout);

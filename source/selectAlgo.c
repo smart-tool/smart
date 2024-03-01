@@ -48,20 +48,22 @@ void printManual() {
 
 int main(int argc, const char *argv[]) {
   char filename[20], command[100];
-  int i, j;
+  unsigned int i, j;
   int desc = 0;
   int *execute = malloc(sizeof(int) * (NumAlgo + 10));
-  int numalgo = NumAlgo;
+  unsigned int numalgo = NumAlgo;
 
   getAlgo(ALGO_NAME, execute);
 
   /* processing of input parameters */
   if (argc == 1) {
     printf("\n\tNo parameter given. Use -h for help.\n\n");
+    free(execute);
     return 0;
   }
   if (!strcmp("-h", argv[1])) {
     printManual();
+    free(execute);
     return 0;
   }
   int par = 1;
@@ -133,12 +135,14 @@ int main(int argc, const char *argv[]) {
             printf("\n");
         }
       printf("\n");
+      free(execute);
       return ret;
     }
     if (par < argc && !strcmp("-add", argv[par])) {
       par++;
       if (par >= argc) {
         printf("\n\n\tError in input parameters. Use -h for help.\n\n");
+        free(execute);
         return 0;
       }
       char *algo = (char*)argv[par++];
@@ -184,6 +188,7 @@ int main(int argc, const char *argv[]) {
       par++;
       if (par >= argc) {
         printf("\n\n\tError in input parameters. Use -h for help.\n\n");
+        free(execute);
         return 0;
       }
       char *algo = (char *)argv[par++];
@@ -258,13 +263,15 @@ int main(int argc, const char *argv[]) {
     }
     if (par < argc) {
       printf("\tError in input parameters....no parameter %s\n\n", argv[par]);
+      free(execute);
       return 0;
     }
   }
   // store only the changes from the default
   FILE *fp = fopen("source/algorithms.lst", "w");
   for (j = 0; j < numalgo; j++)
-    if (ALGO_NAME[j] && (ALGOS[j].execute != execute[j]))
+    if (ALGO_NAME[j] && (j >= NumAlgo || ALGOS[j].execute != execute[j]))
       fprintf(fp, "#%d #%s \n", execute[j], ALGO_NAME[j]);
   fclose(fp);
+  free(execute);
 }

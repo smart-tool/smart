@@ -56,7 +56,7 @@ void computeRandomColors(char colors[100][8]) {
 int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
               int alpha, char *filename, char *expcode, int dif, int std) {
-  int il, algo;
+  unsigned int il, algo;
   FILE *fp;
   char outname[100];
   // printing results in txt format
@@ -132,7 +132,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
 
 int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
               char *expcode, char *time_format) {
-  int i, il, algo;
+  unsigned int i, il, algo;
   FILE *fp;
   char outname[100];
   // printing results in txt format
@@ -175,7 +175,7 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
 
 int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
                 char *expcode, char *time_format) {
-  int j, il, algo;
+  unsigned int j, il, algo;
   FILE *fp;
   char outname[100];
   // printing results in latex format
@@ -226,7 +226,7 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
 
 int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
               char *expcode) {
-  int il, algo;
+  unsigned int il, algo;
   FILE *fp;
   char outname[100];
   // finds the best result for each pattern length
@@ -295,7 +295,7 @@ void appendFilesContent(char *source, FILE *target) {
 
 void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
               double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
-              int algo, char *expcode, FILE *fp) {
+              unsigned int algo, char *expcode, FILE *fp) {
 
   double dymax = 0.0;
   char *upname = str2upper(ALGO_NAME[algo]);
@@ -326,7 +326,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "</div>\n");
   fprintf(fp, "</div>\n");
 
-  fprintf(fp, "<script>function loadChart%d() { ", algo);
+  fprintf(fp, "<script>function loadChart%u() { ", algo);
 
   fprintf(fp, "var data = [");
   for (int il = 0; il < NumPatt; il++)
@@ -457,7 +457,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
 void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
                 char *title, int code) {
 
-  int i, algo, il;
+  unsigned int i, algo, il;
   double dymax = 0.0;
   for (algo = 0; algo < NumAlgo; algo++) {
     for (int il = 0; il < NumPatt; il++)
@@ -532,7 +532,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
                 double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
                 int pre, int dif, int alpha, int n, int volte, char *filename,
                 char *expcode, char *time_format) {
-  int i, il, algo;
+  unsigned int i, il, algo;
   FILE *fp;
   char outname[100];
 
@@ -788,7 +788,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
 
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo])
-      fprintf(fp, "loadChart%d();\n", algo);
+      fprintf(fp, "loadChart%u();\n", algo);
   }
   fprintf(fp, "multiChart2(); multiChart3();\n");
   fprintf(fp, "});</script>");

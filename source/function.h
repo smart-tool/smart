@@ -33,7 +33,7 @@ int string2decimal(char *s) {
 
 /* returns 1 if s is an integer number. 0 otherwise */
 int isInt(char *s) {
-  int i;
+  unsigned int i;
   for (i = 0; i < strlen(s); i++)
     if (s[i] < '0' || s[i] > '9')
       return 0;
@@ -67,7 +67,7 @@ char *str2upper(const char *s) {
 }
 
 int search_ALGO(const char *ALGO_NAME[], char *algo) {
-  int i;
+  unsigned int i;
   char *low = str2lower(algo);
   for (i = 0; i < NumAlgo; i++)
     if (ALGO_NAME[i] && !strcmp(ALGO_NAME[i], algo)) {
@@ -82,7 +82,7 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   DIR *d;
   struct dirent *dir;
 
-  for (int id=0; id<ARRAY_SIZE(ALGOS); id++) {
+  for (unsigned int id=0; id<ARRAY_SIZE(ALGOS); id++) {
     EXECUTE[id] = ALGOS[id].execute;
     ALGO_NAME[id] = ALGOS[id].name;
     ALGO_DESCRIPTION[id] = ALGOS[id].desc;
@@ -129,12 +129,12 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
       getc(fp);
       getc(fp);
       n = (char *)malloc(sizeof(char) * 20);
-      int j = 0;
+      unsigned int j = 0;
       while ((c = getc(fp)) != ' ')
         n[j++] = c;
       n[j] = '\0';
       i = search_ALGO(ALGO_NAME, n);
-      if (i >= 0 && i < NumAlgo && !strcmp(ALGOS[i].name, n))
+      if (i >= 0 && i < (int)NumAlgo && !strcmp(ALGOS[i].name, n))
         EXECUTE[i] = execute;
       free(n);
     }

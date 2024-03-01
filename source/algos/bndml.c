@@ -49,7 +49,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA];
-  int i, j, s, D, last, count;
+  int i, j, last, count;
+  unsigned int D, s;
 
   if (m > 32)
     return search_large(x, m, y, n);
@@ -97,14 +98,15 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j;
+  unsigned int i;
+  int j;
   WORD_TYPE *D, H, M;
   WORD_TYPE *B[SIGMA];
   int count = 0;
 
   BEGIN_PREPROCESSING
   bit_alloc_n(B, SIGMA, m);
-  for (i = 0; i < m; i++)
+  for (i = 0; i < (unsigned)m; i++)
     bit_set(B[x[m - 1 - i]], i);
   END_PREPROCESSING
 
