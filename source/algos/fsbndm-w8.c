@@ -67,8 +67,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = W[i] = set;
   for (i = 0; i < m; ++i) {
-    B[x[i]] |= (1 << (m - i));
-    W[x[m - 1 - i]] |= (1 << (m - i));
+    B[x[i]] |= (1U << (m - i));
+    W[x[m - 1 - i]] |= (1U << (m - i));
   }
 
   for (i = 0; i < SIGMA; i++)

@@ -63,7 +63,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = set;
   for (i = 0; i < m; ++i)
-    B[x[i]] |= (1 << (m - i));
+    B[x[i]] |= (1U << (m - i));
   for (i = 0; i < SIGMA; i++)
     hbc[i] = 2 * m;
   for (i = 0; i < m; i++)
