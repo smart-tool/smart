@@ -26,7 +26,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   List ptr, z[SIGMA];
 
   BEGIN_PREPROCESSING
-    List *allocs = (List*)calloc(m, sizeof(List));
+  List *allocs = (List*)calloc(m, sizeof(List));
   memset(z, 0, SIGMA * sizeof(List));
   for (i = 0; i < m; ++i) {
     ptr = (List)malloc(sizeof(struct _cell));
