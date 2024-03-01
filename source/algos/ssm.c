@@ -4,9 +4,13 @@
     Citaion:
     A. M. Al-Ssulami, Hybrid string matching algorithm with a pivot, J. Inf.
    Sci. 41 (1) (2015) 82-88.
+
+   Constraints: m > 1
 */
+
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void Horspool_Distance(int Horspool[], int Dist[], unsigned char *x, int m,
                        int *dMax) {
@@ -66,6 +70,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int count, q, j, Max, jMax, Pos;
   int Hors[SIGMA], Sht[XSIZE], Dis[XSIZE];
   unsigned char xMax;
+  if (m < 2)
+    return search_small(x, m, y, n);
 
   /*Preprocessing phase-----------*/
   BEGIN_PREPROCESSING
@@ -94,7 +100,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       q++;
     }
 
-    j = j + Sht[q];
+    if (q >= 0)
+      j += Sht[q];
   }
   END_SEARCHING
   return count;
