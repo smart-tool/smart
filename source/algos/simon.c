@@ -94,7 +94,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       state = ell;
     }
   }
-
+  END_SEARCHING
   for (unsigned i=0; i<XSIZE; i++) {
     if (L[i]) {
       List t = L[i];
@@ -105,6 +105,5 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
     }
   }
-  END_SEARCHING
   return count;
 }

@@ -63,11 +63,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
     }
   }
+  END_SEARCHING
   /* Freeing */
   for (i = 0; i < mq; ++i) {
     free(allocs[i]);
   }
   free(allocs);
-  END_SEARCHING
   return count;
 }

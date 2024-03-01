@@ -107,6 +107,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
+  END_SEARCHING
   for (i = 0; i <= m; i++) {
     if (L[i]) {
       List t = L[i];
@@ -117,6 +118,5 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
     }
   }
-  END_SEARCHING
   return count;
 }

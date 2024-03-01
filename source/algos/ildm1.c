@@ -75,13 +75,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     k = k + m;
   }
-
+  END_SEARCHING
   free(xR);
   free(ttransSMA);
   free(ttrans);
   free(tlength);
   free(tsuffix);
   free(tterminal);
-  END_SEARCHING
   return count;
 }

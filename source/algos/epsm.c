@@ -337,6 +337,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
       count++;
     charPtr++;
   }
+  END_SEARCHING
 
   // free all sublists of flist's, and flist's itself
   for (unsigned i = 0; i < 2048; i++) {
@@ -348,7 +349,6 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
       t = next;
     }
   }
-  END_SEARCHING
   return count;
 }
 
