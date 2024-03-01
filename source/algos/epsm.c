@@ -288,7 +288,6 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
     charPtr = (unsigned char *)ptr64;
     t = flist[filter];
     while (t) {
-
       if ((unsigned)t->pos <= 8 * (shift - 1)) {
         if (memcmp(pattern, charPtr - t->pos, patlen) == 0)
           count++;
@@ -304,7 +303,6 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
     charPtr = (unsigned char *)ptr64;
     t = flist[filter];
     while (t) {
-
       if ((unsigned)t->pos <= 8 * (2 * shift - 1)) {
         if (memcmp(pattern, charPtr - t->pos, patlen) == 0)
           count++;
@@ -339,8 +337,18 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
       count++;
     charPtr++;
   }
-  END_SEARCHING
 
+  // free all sublists of flist's, and flist's itself
+  for (unsigned i = 0; i < 2048; i++) {
+    t = flist[i];
+    while (t) {
+      LIST* next = t->next;
+      free(t);
+      flist[i] = NULL;
+      t = next;
+    }
+  }
+  END_SEARCHING
   return count;
 }
 

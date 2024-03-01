@@ -27,3 +27,3342 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
+
+=================================================================
+==4175984==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0bc9ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a7396f0019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4175988==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f95010b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56328b238019 in search source/algos/skip.c:31
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f95010b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56328b238019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4175994==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3df84b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e51835e019 in search source/algos/skip.c:31
+
+Indirect leak of 144 byte(s) in 9 object(s) allocated from:
+    #0 0x7f3df84b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e51835e019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 160 byte(s) leaked in 10 allocation(s).
+
+=================================================================
+==4175997==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7feca72b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f0bf556019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4176000==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f98aa6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564e99cce019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4176003==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f5d876b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e584aac019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4176006==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f0d778b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55676100d019 in search source/algos/skip.c:31
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0d778b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55676100d019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4176009==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7faf2e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f350bfc019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4176012==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f04940b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55866a098019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4176019==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f32064b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55724c51f019 in search source/algos/skip.c:31
+
+Indirect leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f32064b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55724c51f019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 112 byte(s) leaked in 7 allocation(s).
+
+=================================================================
+==4176022==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 96 byte(s) in 6 object(s) allocated from:
+    #0 0x7fc988ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5646524a4019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 96 byte(s) leaked in 6 allocation(s).
+
+=================================================================
+==4176025==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7f3cba4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x559b57df4019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4176028==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f710d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d95ec0a019 in search source/algos/skip.c:31
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f710d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d95ec0a019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4176031==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7ff9514b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56295fab7019 in search source/algos/skip.c:31
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7ff9514b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56295fab7019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 512 byte(s) leaked in 32 allocation(s).
+
+=================================================================
+==4176034==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7fd84aab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e1160ef019 in search source/algos/skip.c:31
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fd84aab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e1160ef019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 512 byte(s) leaked in 32 allocation(s).
+
+=================================================================
+==4176037==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc1b42b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f0dba9f019 in search source/algos/skip.c:31
+
+Indirect leak of 496 byte(s) in 31 object(s) allocated from:
+    #0 0x7fc1b42b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f0dba9f019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 512 byte(s) leaked in 32 allocation(s).
+
+=================================================================
+==4176040==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fee242b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b4ccb7f019 in search source/algos/skip.c:31
+
+Indirect leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7fee242b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b4ccb7f019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 512 byte(s) leaked in 32 allocation(s).
+
+=================================================================
+==4176043==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fdf674b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564f6f8fe019 in search source/algos/skip.c:31
+
+Indirect leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7fdf674b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564f6f8fe019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 512 byte(s) leaked in 32 allocation(s).
+
+=================================================================
+==4176046==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fa3998b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ca22f53019 in search source/algos/skip.c:31
+
+Indirect leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7fa3998b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ca22f53019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 112 byte(s) leaked in 7 allocation(s).
+
+=================================================================
+==4176049==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fb601eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d5a7dea019 in search source/algos/skip.c:31
+
+Indirect leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fb601eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d5a7dea019 in search source/algos/skip.c:31
+
+SUMMARY: AddressSanitizer: 96 byte(s) leaked in 6 allocation(s).
+
+=================================================================
+==4177052==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3952 byte(s) in 247 object(s) allocated from:
+    #0 0x7f0301cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d41d8f8506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55d41d8f8506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 3952 byte(s) leaked in 247 allocation(s).
+
+=================================================================
+==4177058==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3936 byte(s) in 246 object(s) allocated from:
+    #0 0x7f085e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5591ba018506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5591ba018506 in search source/algos/graspm.c:51
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f085e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5591ba0176f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5591ba0176f1 in search source/algos/graspm.c:54
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f085e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5591ba018506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5591ba018506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 3968 byte(s) leaked in 248 allocation(s).
+
+=================================================================
+==4177064==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3936 byte(s) in 246 object(s) allocated from:
+    #0 0x7f18bb8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620d7d29506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5620d7d29506 in search source/algos/graspm.c:51
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f18bb8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620d7d286f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5620d7d286f1 in search source/algos/graspm.c:54
+
+Indirect leak of 128 byte(s) in 8 object(s) allocated from:
+    #0 0x7f18bb8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620d7d286f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5620d7d286f1 in search source/algos/graspm.c:54
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f18bb8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620d7d29506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5620d7d29506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 4096 byte(s) leaked in 256 allocation(s).
+
+=================================================================
+==4177067==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3952 byte(s) in 247 object(s) allocated from:
+    #0 0x7fe1f80b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55bc77bbe506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55bc77bbe506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 3952 byte(s) leaked in 247 allocation(s).
+
+=================================================================
+==4177070==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f63882b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x561a1e42b6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x561a1e42b6f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177073==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3952 byte(s) in 247 object(s) allocated from:
+    #0 0x7f15f96b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x559135213506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x559135213506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 3952 byte(s) leaked in 247 allocation(s).
+
+=================================================================
+==4177076==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3936 byte(s) in 246 object(s) allocated from:
+    #0 0x7f84da6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ff22431506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55ff22431506 in search source/algos/graspm.c:51
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f84da6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ff224306f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55ff224306f1 in search source/algos/graspm.c:54
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f84da6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ff22431506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55ff22431506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 3968 byte(s) leaked in 248 allocation(s).
+
+=================================================================
+==4177079==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6714b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562e485666f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x562e485666f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177082==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9667ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56104eba96f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x56104eba96f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177085==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3920 byte(s) in 245 object(s) allocated from:
+    #0 0x7ffae56b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x558c784dc506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x558c784dc506 in search source/algos/graspm.c:51
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7ffae56b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x558c784db6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x558c784db6f1 in search source/algos/graspm.c:54
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7ffae56b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x558c784db6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x558c784db6f1 in search source/algos/graspm.c:54
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7ffae56b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x558c784dc506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x558c784dc506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 4032 byte(s) leaked in 252 allocation(s).
+
+=================================================================
+==4177088==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb065eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56296fd9c6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x56296fd9c6f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177091==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f521fab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560f1e2876f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x560f1e2876f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177098==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4e11eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5616c666b6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5616c666b6f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177101==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fccb6ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560263ff46f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x560263ff46f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177104==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fe2bc2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5593961166f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x5593961166f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177110==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3936 byte(s) in 246 object(s) allocated from:
+    #0 0x7f5fecab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55766d3f6506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55766d3f6506 in search source/algos/graspm.c:51
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f5fecab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55766d3f56f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55766d3f56f1 in search source/algos/graspm.c:54
+
+Indirect leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7f5fecab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55766d3f56f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55766d3f56f1 in search source/algos/graspm.c:54
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f5fecab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55766d3f6506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55766d3f6506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 4448 byte(s) leaked in 278 allocation(s).
+
+=================================================================
+==4177113==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fea93eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c96c8be6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c96c8be6f1 in search source/algos/graspm.c:54
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7fea93eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c96c8be6f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c96c8be6f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 256 byte(s) leaked in 16 allocation(s).
+
+=================================================================
+==4177116==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f0167ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b96ce866f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55b96ce866f1 in search source/algos/graspm.c:54
+
+Indirect leak of 224 byte(s) in 14 object(s) allocated from:
+    #0 0x7f0167ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b96ce866f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55b96ce866f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 256 byte(s) leaked in 16 allocation(s).
+
+=================================================================
+==4177119==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3920 byte(s) in 245 object(s) allocated from:
+    #0 0x7f94306b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f5c5631506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55f5c5631506 in search source/algos/graspm.c:51
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f94306b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f5c56306f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55f5c56306f1 in search source/algos/graspm.c:54
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f94306b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f5c56306f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55f5c56306f1 in search source/algos/graspm.c:54
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f94306b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f5c5631506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55f5c5631506 in search source/algos/graspm.c:51
+
+SUMMARY: AddressSanitizer: 4032 byte(s) leaked in 252 allocation(s).
+
+=================================================================
+==4177122==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3920 byte(s) in 245 object(s) allocated from:
+    #0 0x7fd28e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c6b72fa506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c6b72fa506 in search source/algos/graspm.c:51
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fd28e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c6b72f96f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c6b72f96f1 in search source/algos/graspm.c:54
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fd28e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c6b72fa506 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c6b72fa506 in search source/algos/graspm.c:51
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fd28e8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c6b72f96f1 in ADD_LIST source/algos/graspm.c:35
+    #2 0x55c6b72f96f1 in search source/algos/graspm.c:54
+
+SUMMARY: AddressSanitizer: 4000 byte(s) leaked in 250 allocation(s).
+
+=================================================================
+==4177130==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3f808b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b230891b33 in search source/algos/ssef.c:62
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3f808b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b230892685 in search source/algos/ssef.c:78
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7f3f808b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b230892152 in search source/algos/ssef.c:85
+
+SUMMARY: AddressSanitizer: 288 byte(s) leaked in 17 allocation(s).
+
+=================================================================
+==4177133==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f390b2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55caf1b7bb33 in search source/algos/ssef.c:62
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f390b2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55caf1b7c685 in search source/algos/ssef.c:78
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7f390b2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55caf1b7c152 in search source/algos/ssef.c:85
+
+SUMMARY: AddressSanitizer: 288 byte(s) leaked in 17 allocation(s).
+
+=================================================================
+==4177136==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4f968b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e7349c9b33 in search source/algos/ssef.c:62
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4f968b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e7349ca685 in search source/algos/ssef.c:78
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7f4f968b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e7349ca152 in search source/algos/ssef.c:85
+
+SUMMARY: AddressSanitizer: 288 byte(s) leaked in 17 allocation(s).
+
+=================================================================
+==4177139==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7d386b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55934c7c3b33 in search source/algos/ssef.c:62
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7d386b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55934c7c4685 in search source/algos/ssef.c:78
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7f7d386b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55934c7c4152 in search source/algos/ssef.c:85
+
+SUMMARY: AddressSanitizer: 288 byte(s) leaked in 17 allocation(s).
+
+=================================================================
+==4177142==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7fe0aceb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5558e5a04b33 in search source/algos/ssef.c:62
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fe0aceb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5558e5a05685 in search source/algos/ssef.c:78
+
+Indirect leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7fe0aceb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5558e5a05152 in search source/algos/ssef.c:85
+
+SUMMARY: AddressSanitizer: 288 byte(s) leaked in 17 allocation(s).
+=================================================================
+==4177337==ERROR: AddressSanitizer: negative-size-param: (size=-8)
+    #0 0x7fbfc2a39c87 in __interceptor_memset ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799
+    #1 0x564e5d55934a in memset /usr/include/x86_64-linux-gnu/bits/string_fortified.h:59
+    #2 0x564e5d55934a in preSimon source/algos/simon.c:56
+    #3 0x564e5d559e4f in search source/algos/simon.c:84
+    #4 0x564e5d555adf in main source/algos/include/main.h:130
+    #5 0x7fbfc1e29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #6 0x7fbfc1e29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #7 0x564e5d5561e4 in _start (/home/rurban/Software/smart/bin/simon+0x91e4)
+
+Address 0x7ffe52a8dc20 is located in stack of thread T0 at offset 160 in frame
+    #0 0x564e5d559c6f in search source/algos/simon.c:78
+
+  This frame has 5 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 33760) 'L' (line 80) <== Memory access at offset 160 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: negative-size-param ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799 in __interceptor_memset
+==4177337==ABORTING
+=================================================================
+==4177349==ERROR: AddressSanitizer: negative-size-param: (size=-8)
+    #0 0x7f0ab2639c87 in __interceptor_memset ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799
+    #1 0x55b0df84a34a in memset /usr/include/x86_64-linux-gnu/bits/string_fortified.h:59
+    #2 0x55b0df84a34a in preSimon source/algos/simon.c:56
+    #3 0x55b0df84ae4f in search source/algos/simon.c:84
+    #4 0x55b0df846adf in main source/algos/include/main.h:130
+    #5 0x7f0ab1a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #6 0x7f0ab1a29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #7 0x55b0df8471e4 in _start (/home/rurban/Software/smart/bin/simon+0x91e4)
+
+Address 0x7fff921706a0 is located in stack of thread T0 at offset 160 in frame
+    #0 0x55b0df84ac6f in search source/algos/simon.c:78
+
+  This frame has 5 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 33760) 'L' (line 80) <== Memory access at offset 160 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: negative-size-param ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799 in __interceptor_memset
+==4177349==ABORTING
+
+=================================================================
+==4177351==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f133feb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x565530caf716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x565530caf716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+=================================================================
+==4177354==ERROR: AddressSanitizer: negative-size-param: (size=-8)
+    #0 0x7faa52239c87 in __interceptor_memset ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799
+    #1 0x5568cf92d34a in memset /usr/include/x86_64-linux-gnu/bits/string_fortified.h:59
+    #2 0x5568cf92d34a in preSimon source/algos/simon.c:56
+    #3 0x5568cf92de4f in search source/algos/simon.c:84
+    #4 0x5568cf929adf in main source/algos/include/main.h:130
+    #5 0x7faa51629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #6 0x7faa51629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #7 0x5568cf92a1e4 in _start (/home/rurban/Software/smart/bin/simon+0x91e4)
+
+Address 0x7fff0f595680 is located in stack of thread T0 at offset 160 in frame
+    #0 0x5568cf92dc6f in search source/algos/simon.c:78
+
+  This frame has 5 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 33760) 'L' (line 80) <== Memory access at offset 160 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: negative-size-param ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:799 in __interceptor_memset
+==4177354==ABORTING
+
+=================================================================
+==4177373==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc7e52b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e1a179e716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x55e1a179e716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177376==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f485eab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x561f7a925716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x561f7a925716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4177379==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc569ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f200eae716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x55f200eae716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177382==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f82572b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56434ffcd716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x56434ffcd716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4177385==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f23b0cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564e04b7d716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x564e04b7d716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4177388==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f19d58b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a10a877716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x55a10a877716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4177391==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fc6a64b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d26183a716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x55d26183a716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4177394==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 496 byte(s) in 31 object(s) allocated from:
+    #0 0x7fc46d4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56457e63b716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x56457e63b716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4177397==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 496 byte(s) in 31 object(s) allocated from:
+    #0 0x7f9a3f0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5597e3b93716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x5597e3b93716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4177403==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 240 byte(s) in 15 object(s) allocated from:
+    #0 0x7f8fbf0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557166c744a1 in setTransitionSimon source/algos/simon.c:44
+    #2 0x557166c744a1 in preSimon source/algos/simon.c:71
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f8fbf0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557166c74716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x557166c74716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 256 byte(s) leaked in 16 allocation(s).
+
+=================================================================
+==4177406==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 224 byte(s) in 14 object(s) allocated from:
+    #0 0x7f4fe68b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5596e1e424a1 in setTransitionSimon source/algos/simon.c:44
+    #2 0x5596e1e424a1 in preSimon source/algos/simon.c:71
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f4fe68b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5596e1e42716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x5596e1e42716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 272 byte(s) leaked in 17 allocation(s).
+
+=================================================================
+==4177409==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f12078b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a7bfd4d716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x55a7bfd4d716 in preSimon source/algos/simon.c:65
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4177412==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f4bab8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564521159716 in setTransitionSimon source/algos/simon.c:44
+    #2 0x564521159716 in preSimon source/algos/simon.c:65
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4bab8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5645211594a1 in setTransitionSimon source/algos/simon.c:44
+    #2 0x5645211594a1 in preSimon source/algos/simon.c:71
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4177500==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f52748b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564229a7d259 in setTransition source/algos/bom.c:47
+    #2 0x564229a7d259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177509==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f188c2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55864f1b9259 in setTransition source/algos/bom.c:47
+    #2 0x55864f1b9259 in oracle source/algos/bom.c:64
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f188c2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55864f1b9259 in setTransition source/algos/bom.c:47
+    #2 0x55864f1b9259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4177512==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fde3e0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56181a377259 in setTransition source/algos/bom.c:47
+    #2 0x56181a377259 in oracle source/algos/bom.c:64
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fde3e0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56181a377259 in setTransition source/algos/bom.c:47
+    #2 0x56181a377259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4177515==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f99562b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55586da83259 in setTransition source/algos/bom.c:47
+    #2 0x55586da83259 in oracle source/algos/bom.c:64
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f99562b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55586da83259 in setTransition source/algos/bom.c:47
+    #2 0x55586da83259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4177518==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb95a2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5609fa8d6259 in setTransition source/algos/bom.c:47
+    #2 0x5609fa8d6259 in oracle source/algos/bom.c:64
+
+Indirect leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7fb95a2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5609fa8d6259 in setTransition source/algos/bom.c:47
+    #2 0x5609fa8d6259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4177525==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f130b8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555943bf3259 in setTransition source/algos/bom.c:47
+    #2 0x555943bf3259 in oracle source/algos/bom.c:64
+
+Indirect leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7f130b8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555943bf3259 in setTransition source/algos/bom.c:47
+    #2 0x555943bf3259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4177538==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7ff6d5cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fefd505259 in setTransition source/algos/bom.c:47
+    #2 0x55fefd505259 in oracle source/algos/bom.c:64
+
+SUMMARY: AddressSanitizer: 16 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177739==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7fcf400b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55786cd2e01c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55786cd2e01c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177742==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7f90f56b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5644009df01c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x5644009df01c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+=================================================================
+==4177745==ERROR: AddressSanitizer: unknown-crash on address 0x7f9076d9f000 at pc 0x55e3baaae17f bp 0x7ffe6b0c5820 sp 0x7ffe6b0c5810
+READ of size 1 at 0x7f9076d9f000 thread T0
+    #0 0x55e3baaae17e in search source/algos/ldm.c:71
+    #1 0x55e3baaa9b3f in main source/algos/include/main.h:130
+    #2 0x7f9075629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f9075629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x55e3baaaa244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f9076d9f000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff28edabdb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff28edabdc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff28edabdd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff28edabde0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff28edabdf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff28edabe00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff28edabe10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff28edabe20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff28edabe30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff28edabe40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff28edabe50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177745==ABORTING
+
+=================================================================
+==4177747==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7f398d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fb7008a01c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55fb7008a01c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177750==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb4d9cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56184c4dc01c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x56184c4dc01c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177753==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7f390deb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55eda83b601c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55eda83b601c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177756==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7fec5a0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55baa244b01c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55baa244b01c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177759==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3f102b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55bdb6ab401c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55bdb6ab401c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177762==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7f08456b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b236a9501c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x55b236a9501c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+=================================================================
+==4177765==ERROR: AddressSanitizer: unknown-crash on address 0x7f9e21eba000 at pc 0x55b13ac4417f bp 0x7fff9fd7a4b0 sp 0x7fff9fd7a4a0
+READ of size 1 at 0x7f9e21eba000 thread T0
+    #0 0x55b13ac4417e in search source/algos/ldm.c:71
+    #1 0x55b13ac3fb3f in main source/algos/include/main.h:130
+    #2 0x7f9e20829d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f9e20829e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x55b13ac40244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f9e21eba000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff4443cf3b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff4443cf3c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff4443cf3d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff4443cf3e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff4443cf3f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff4443cf400:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff4443cf410: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff4443cf420: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff4443cf430: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff4443cf440: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff4443cf450: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177765==ABORTING
+=================================================================
+==4177767==ERROR: AddressSanitizer: unknown-crash on address 0x7f74f87bd000 at pc 0x55e2e7e8b17f bp 0x7ffe5912dda0 sp 0x7ffe5912dd90
+READ of size 1 at 0x7f74f87bd000 thread T0
+    #0 0x55e2e7e8b17e in search source/algos/ldm.c:71
+    #1 0x55e2e7e86b3f in main source/algos/include/main.h:130
+    #2 0x7f74f7029d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f74f7029e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x55e2e7e87244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f74f87bd000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0fef1f0ef9b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fef1f0ef9c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fef1f0ef9d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fef1f0ef9e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fef1f0ef9f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0fef1f0efa00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fef1f0efa10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fef1f0efa20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fef1f0efa30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fef1f0efa40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fef1f0efa50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177767==ABORTING
+
+=================================================================
+==4177769==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7ff0988b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5599af57801c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x5599af57801c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177772==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7ff054eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562dd062701c in ureverse source/algos/include/AUTOMATON.h:68
+    #2 0x562dd062701c in search source/algos/ldm.c:39
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+=================================================================
+==4177775==ERROR: AddressSanitizer: unknown-crash on address 0x7f3648300000 at pc 0x564666dbd17f bp 0x7ffe1ffcf760 sp 0x7ffe1ffcf750
+READ of size 1 at 0x7f3648300000 thread T0
+    #0 0x564666dbd17e in search source/algos/ldm.c:71
+    #1 0x564666db8b3f in main source/algos/include/main.h:130
+    #2 0x7f3646c29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f3646c29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x564666db9244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f3648300000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0fe749057fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe749057fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe749057fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe749057fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe749057ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0fe749058000:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe749058010: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe749058020: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe749058030: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe749058040: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe749058050: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177775==ABORTING
+=================================================================
+==4177777==ERROR: AddressSanitizer: unknown-crash on address 0x7fb5cbdbf000 at pc 0x561cce1e417f bp 0x7ffdfb782880 sp 0x7ffdfb782870
+READ of size 1 at 0x7fb5cbdbf000 thread T0
+    #0 0x561cce1e417e in search source/algos/ldm.c:71
+    #1 0x561cce1dfb3f in main source/algos/include/main.h:130
+    #2 0x7fb5ca629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fb5ca629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x561cce1e0244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7fb5cbdbf000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff7397afdb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff7397afdc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff7397afdd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff7397afde0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff7397afdf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff7397afe00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff7397afe10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff7397afe20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff7397afe30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff7397afe40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff7397afe50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177777==ABORTING
+=================================================================
+==4177781==ERROR: AddressSanitizer: unknown-crash on address 0x7f9dd06ef000 at pc 0x5618364d017f bp 0x7fffe9d1a830 sp 0x7fffe9d1a820
+READ of size 1 at 0x7f9dd06ef000 thread T0
+    #0 0x5618364d017e in search source/algos/ldm.c:71
+    #1 0x5618364cbb3f in main source/algos/include/main.h:130
+    #2 0x7f9dcf029d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f9dcf029e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x5618364cc244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f9dd06ef000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff43a0d5db0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff43a0d5dc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff43a0d5dd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff43a0d5de0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff43a0d5df0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff43a0d5e00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff43a0d5e10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff43a0d5e20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff43a0d5e30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff43a0d5e40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff43a0d5e50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177781==ABORTING
+=================================================================
+==4177783==ERROR: AddressSanitizer: unknown-crash on address 0x7fa4fbd57000 at pc 0x5631405a117f bp 0x7ffe9052ad50 sp 0x7ffe9052ad40
+READ of size 1 at 0x7fa4fbd57000 thread T0
+    #0 0x5631405a117e in search source/algos/ldm.c:71
+    #1 0x56314059cb3f in main source/algos/include/main.h:130
+    #2 0x7fa4fa629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fa4fa629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x56314059d244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7fa4fbd57000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff51f7a2db0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff51f7a2dc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff51f7a2dd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff51f7a2de0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff51f7a2df0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff51f7a2e00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff51f7a2e10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff51f7a2e20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff51f7a2e30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff51f7a2e40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff51f7a2e50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177783==ABORTING
+=================================================================
+==4177785==ERROR: AddressSanitizer: unknown-crash on address 0x7f0b81143000 at pc 0x558bc0ca317f bp 0x7ffd2c30edf0 sp 0x7ffd2c30ede0
+READ of size 1 at 0x7f0b81143000 thread T0
+    #0 0x558bc0ca317e in search source/algos/ldm.c:71
+    #1 0x558bc0c9eb3f in main source/algos/include/main.h:130
+    #2 0x7f0b7fa29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f0b7fa29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x558bc0c9f244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f0b81143000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0fe1f02205b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe1f02205c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe1f02205d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe1f02205e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0fe1f02205f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0fe1f0220600:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe1f0220610: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe1f0220620: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe1f0220630: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe1f0220640: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0fe1f0220650: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177785==ABORTING
+=================================================================
+==4177788==ERROR: AddressSanitizer: unknown-crash on address 0x7f53a276d000 at pc 0x55cd0511317f bp 0x7ffd1e7b5780 sp 0x7ffd1e7b5770
+READ of size 1 at 0x7f53a276d000 thread T0
+    #0 0x55cd0511317e in search source/algos/ldm.c:71
+    #1 0x55cd0510eb3f in main source/algos/include/main.h:130
+    #2 0x7f53a1029d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f53a1029e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x55cd0510f244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7f53a276d000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0feaf44e59b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0feaf44e59c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0feaf44e59d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0feaf44e59e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0feaf44e59f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0feaf44e5a00:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0feaf44e5a10: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0feaf44e5a20: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0feaf44e5a30: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0feaf44e5a40: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0feaf44e5a50: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177788==ABORTING
+=================================================================
+==4177797==ERROR: AddressSanitizer: unknown-crash on address 0x7fabef588000 at pc 0x561c2b4db17f bp 0x7ffe9c74c520 sp 0x7ffe9c74c510
+READ of size 1 at 0x7fabef588000 thread T0
+    #0 0x561c2b4db17e in search source/algos/ldm.c:71
+    #1 0x561c2b4d6b3f in main source/algos/include/main.h:130
+    #2 0x7fabede29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fabede29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x561c2b4d7244 in _start (/home/rurban/Software/smart/bin/ldm+0x9244)
+
+Address 0x7fabef588000 is a wild pointer.
+SUMMARY: AddressSanitizer: unknown-crash source/algos/ldm.c:71 in search
+Shadow bytes around the buggy address:
+  0x0ff5fdea8fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff5fdea8fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff5fdea8fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff5fdea8fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0ff5fdea8ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0ff5fdea9000:[fe]fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff5fdea9010: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff5fdea9020: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff5fdea9030: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff5fdea9040: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+  0x0ff5fdea9050: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4177797==ABORTING
+
+=================================================================
+==4177801==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb526eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x563d4f73eeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177804==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7fd0d96b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55db28a85eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177807==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 11 byte(s) in 1 object(s) allocated from:
+    #0 0x7f868c8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55aec6085eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 11 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177810==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7fd57d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fb71a9aeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177813==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9eaa0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a5db161eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177816==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc70ceb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5647eaecfeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177819==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7ffa7ecb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562743586eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177822==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9ae26b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56447f02beb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177827==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7f461f8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560062ce4eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177830==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8 byte(s) in 1 object(s) allocated from:
+    #0 0x7fd4d6cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564d458ceeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 8 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177833==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 7 byte(s) in 1 object(s) allocated from:
+    #0 0x7f48f00b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x559408c06eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 7 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177836==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f2d33cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56093bccfeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177853==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f640d4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564a537bbeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177856==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f65df0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5625d887beb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177859==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3303cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fba9b55eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177862==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7fabfe8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b2ca845eb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177865==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc86acb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x558ed1aeeeb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177868==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7fd0522b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56009b35deb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177871==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8 byte(s) in 1 object(s) allocated from:
+    #0 0x7f54c6eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a9e9c0beb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 8 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177874==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 7 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7e59cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5566b087ceb3 in search source/algos/ildm1.c:36
+
+SUMMARY: AddressSanitizer: 7 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177879==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7f510d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564fd8eb6f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177882==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbd1d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564b92fa6f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177885==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 11 byte(s) in 1 object(s) allocated from:
+    #0 0x7fe51d8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55991a1d4f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 11 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177892==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7f356ecb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564a84eaff94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177899==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7546eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x559667ca2f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177902==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2 byte(s) in 1 object(s) allocated from:
+    #0 0x7fcc372b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fa16128f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177905==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6ebab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556ccfcecf94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177908==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x7f482f4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a9511f8f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 4 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177915==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 3 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbd5fcb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x563ebd2b4f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 3 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177919==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9d9acb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d8d4a08f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 8 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177922==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 7 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4c980b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564f22e8bf94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 7 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177925==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f1a01eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ccc47c5f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177928==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f660fab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d608dbbf94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 5 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177931==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f75fd6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fdfc1f0f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177934==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f54138b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e49ec31f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177937==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f2ba28b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f1503f2f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177940==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7f28574b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5558e0e63f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177943==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x7fe4522b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5626a9b4cf94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 33 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177947==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9e79eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55cce5101f94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 8 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4177950==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 7 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb5b64b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5581c747df94 in search source/algos/ildm2.c:49
+
+SUMMARY: AddressSanitizer: 7 byte(s) leaked in 1 allocation(s).
+
+=================================================================
+==4178203==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa039cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5578e80ce6af in search source/algos/skip2.c:40
+
+Indirect leak of 128 byte(s) in 8 object(s) allocated from:
+    #0 0x7fa039cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5578e80ce6af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 144 byte(s) leaked in 9 allocation(s).
+
+=================================================================
+==4178206==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f775f6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c4160e56af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178217==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f20276b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564e823e86af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178220==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f3043cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5642e40796af in search source/algos/skip2.c:40
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f3043cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5642e40796af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 96 byte(s) leaked in 6 allocation(s).
+
+=================================================================
+==4178223==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f0973cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b5dd9b06af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4178226==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f63c42b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55739ed346af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178229==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f820feb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c32922c6af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178232==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 496 byte(s) in 31 object(s) allocated from:
+    #0 0x7f0cd2eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5611bd9516af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4178235==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7f053bcb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564c936aa6af in search source/algos/skip2.c:40
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f053bcb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x564c936aa6af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4178238==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f21eeab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5589cbb466af in search source/algos/skip2.c:40
+
+Indirect leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7f21eeab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5589cbb466af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4178241==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f24114b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620201666af in search source/algos/skip2.c:40
+
+Indirect leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7f24114b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620201666af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4178244==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fe595cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56217f1236af in search source/algos/skip2.c:40
+
+Indirect leak of 432 byte(s) in 27 object(s) allocated from:
+    #0 0x7fe595cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56217f1236af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 496 byte(s) leaked in 31 allocation(s).
+
+=================================================================
+==4178247==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fe178eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b1803e86af in search source/algos/skip2.c:40
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fe178eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b1803e86af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 96 byte(s) leaked in 6 allocation(s).
+
+=================================================================
+==4178250==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f666b0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555ca1b146af in search source/algos/skip2.c:40
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f666b0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555ca1b146af in search source/algos/skip2.c:40
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4178255==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f559b2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b7a83ee882 in search source/algos/skip3.c:40
+
+Indirect leak of 112 byte(s) in 7 object(s) allocated from:
+    #0 0x7f559b2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b7a83ee882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 128 byte(s) leaked in 8 allocation(s).
+
+=================================================================
+==4178258==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fa949cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5642b49bc882 in search source/algos/skip3.c:40
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fa949cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5642b49bc882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4178261==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fd466cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5591fc410882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4178264==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f22766b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560e5670b882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178267==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fad40eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5573d2a3a882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178270==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7f33e04b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e966781882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 480 byte(s) leaked in 30 allocation(s).
+
+=================================================================
+==4178273==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 480 byte(s) in 30 object(s) allocated from:
+    #0 0x7f8a56eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b06a92c882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 480 byte(s) leaked in 30 allocation(s).
+
+=================================================================
+==4178276==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ca36b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556e9ec8a882 in search source/algos/skip3.c:40
+
+Indirect leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7f4ca36b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556e9ec8a882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 480 byte(s) leaked in 30 allocation(s).
+
+=================================================================
+==4178279==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f52242b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557deaef1882 in search source/algos/skip3.c:40
+
+Indirect leak of 448 byte(s) in 28 object(s) allocated from:
+    #0 0x7f52242b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557deaef1882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 480 byte(s) leaked in 30 allocation(s).
+
+=================================================================
+==4178282==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fdca92b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55567f20d882 in search source/algos/skip3.c:40
+
+Indirect leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7fdca92b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55567f20d882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 480 byte(s) leaked in 30 allocation(s).
+
+=================================================================
+==4178285==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f9aa0ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a920b72882 in search source/algos/skip3.c:40
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f9aa0ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a920b72882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4178288==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f59468b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556eb122d882 in search source/algos/skip3.c:40
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f59468b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556eb122d882 in search source/algos/skip3.c:40
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4178301==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f6a148b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560cffe57652 in search source/algos/skip4.c:40
+
+Indirect leak of 96 byte(s) in 6 object(s) allocated from:
+    #0 0x7f6a148b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x560cffe57652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 112 byte(s) leaked in 7 allocation(s).
+
+=================================================================
+==4178304==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f006b8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56460f549652 in search source/algos/skip4.c:40
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f006b8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56460f549652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4178307==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fa8bc2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x559b7f5a0652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178310==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7fa03d2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5640c1775652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 464 byte(s) leaked in 29 allocation(s).
+
+=================================================================
+==4178317==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 464 byte(s) in 29 object(s) allocated from:
+    #0 0x7f0e468b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55d3a0823652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 464 byte(s) leaked in 29 allocation(s).
+
+=================================================================
+==4178320==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f23926b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5650eaeb6652 in search source/algos/skip4.c:40
+
+Indirect leak of 448 byte(s) in 28 object(s) allocated from:
+    #0 0x7f23926b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5650eaeb6652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 464 byte(s) leaked in 29 allocation(s).
+
+=================================================================
+==4178323==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fad144b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557b9407f652 in search source/algos/skip4.c:40
+
+Indirect leak of 432 byte(s) in 27 object(s) allocated from:
+    #0 0x7fad144b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x557b9407f652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 464 byte(s) leaked in 29 allocation(s).
+
+=================================================================
+==4178326==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7f85c1ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562ff5060652 in search source/algos/skip4.c:40
+
+Indirect leak of 400 byte(s) in 25 object(s) allocated from:
+    #0 0x7f85c1ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562ff5060652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 464 byte(s) leaked in 29 allocation(s).
+
+=================================================================
+==4178329==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f22a76b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x561fbed9c652 in search source/algos/skip4.c:40
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f22a76b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x561fbed9c652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4178332==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7fba45eb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a7ec7d3652 in search source/algos/skip4.c:40
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178337==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4c058b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5588fa579632 in search source/algos/skip5.c:41
+
+Indirect leak of 80 byte(s) in 5 object(s) allocated from:
+    #0 0x7f4c058b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5588fa579632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 96 byte(s) leaked in 6 allocation(s).
+
+=================================================================
+==4178340==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f1d7f8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e8141eb632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178343==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f5e8a8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56142fa90632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178346==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 448 byte(s) in 28 object(s) allocated from:
+    #0 0x7fed178b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5651e9955632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 448 byte(s) leaked in 28 allocation(s).
+
+=================================================================
+==4178349==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 448 byte(s) in 28 object(s) allocated from:
+    #0 0x7f8f2a2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5636ee578632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 448 byte(s) leaked in 28 allocation(s).
+
+=================================================================
+==4178352==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9988ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56263052c632 in search source/algos/skip5.c:41
+
+Indirect leak of 432 byte(s) in 27 object(s) allocated from:
+    #0 0x7f9988ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x56263052c632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 448 byte(s) leaked in 28 allocation(s).
+
+=================================================================
+==4178355==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f0c3e4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c371b8a632 in search source/algos/skip5.c:41
+
+Indirect leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7f0c3e4b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c371b8a632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 448 byte(s) leaked in 28 allocation(s).
+
+=================================================================
+==4178358==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fdbc22b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55912139f632 in search source/algos/skip5.c:41
+
+Indirect leak of 384 byte(s) in 24 object(s) allocated from:
+    #0 0x7fdbc22b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55912139f632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 448 byte(s) leaked in 28 allocation(s).
+
+=================================================================
+==4178361==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f0775cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b4ed3f8632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178364==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f4b510b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5635e974d632 in search source/algos/skip5.c:41
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178369==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fb7660b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f1635b7662 in search source/algos/skip6.c:42
+
+Indirect leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fb7660b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55f1635b7662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 80 byte(s) leaked in 5 allocation(s).
+
+=================================================================
+==4178372==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f4a340b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55a2eb32e662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178375==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7f5fbb0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c4d70f3662 in search source/algos/skip6.c:42
+
+Indirect leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f5fbb0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c4d70f3662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4178378==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 432 byte(s) in 27 object(s) allocated from:
+    #0 0x7f79fc6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5555ae529662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4178381==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7fced3cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562870a95662 in search source/algos/skip6.c:42
+
+Indirect leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7fced3cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562870a95662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4178388==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f0d410b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fbb3695662 in search source/algos/skip6.c:42
+
+Indirect leak of 400 byte(s) in 25 object(s) allocated from:
+    #0 0x7f0d410b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55fbb3695662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4178395==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7ffb140b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556f2512a662 in search source/algos/skip6.c:42
+
+Indirect leak of 368 byte(s) in 23 object(s) allocated from:
+    #0 0x7ffb140b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556f2512a662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 432 byte(s) leaked in 27 allocation(s).
+
+=================================================================
+==4178398==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7fb4ed8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x556c4f33f662 in search source/algos/skip6.c:42
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 2 allocation(s).
+
+=================================================================
+==4178403==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7c7d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5584be45a672 in search source/algos/skip7.c:42
+
+Indirect leak of 48 byte(s) in 3 object(s) allocated from:
+    #0 0x7f7c7d0b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5584be45a672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 4 allocation(s).
+
+=================================================================
+==4178406==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7fdf06cb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x563458c6c672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 416 byte(s) leaked in 26 allocation(s).
+
+=================================================================
+==4178409==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 416 byte(s) in 26 object(s) allocated from:
+    #0 0x7fb65beb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55ed3720e672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 416 byte(s) leaked in 26 allocation(s).
+
+=================================================================
+==4178412==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0a3c2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620f3a44672 in search source/algos/skip7.c:42
+
+Indirect leak of 400 byte(s) in 25 object(s) allocated from:
+    #0 0x7f0a3c2b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5620f3a44672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 416 byte(s) leaked in 26 allocation(s).
+
+=================================================================
+==4178415==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f2cba6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555b5cc8e672 in search source/algos/skip7.c:42
+
+Indirect leak of 384 byte(s) in 24 object(s) allocated from:
+    #0 0x7f2cba6b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555b5cc8e672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 416 byte(s) leaked in 26 allocation(s).
+
+=================================================================
+==4178418==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7ff9114b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555e475c3672 in search source/algos/skip7.c:42
+
+Indirect leak of 352 byte(s) in 22 object(s) allocated from:
+    #0 0x7ff9114b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x555e475c3672 in search source/algos/skip7.c:42
+
+SUMMARY: AddressSanitizer: 416 byte(s) leaked in 26 allocation(s).
+
+=================================================================
+==4178423==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f902cab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c9cd74c674 in search source/algos/skip8.c:42
+
+Indirect leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f902cab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55c9cd74c674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 48 byte(s) leaked in 3 allocation(s).
+
+=================================================================
+==4178426==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 400 byte(s) in 25 object(s) allocated from:
+    #0 0x7fe4a4ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55bdbcaa0674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 400 byte(s) leaked in 25 allocation(s).
+
+=================================================================
+==4178429==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 400 byte(s) in 25 object(s) allocated from:
+    #0 0x7f678c8b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55b92d2c2674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 400 byte(s) leaked in 25 allocation(s).
+
+=================================================================
+==4178432==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f943bcb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e9f1884674 in search source/algos/skip8.c:42
+
+Indirect leak of 384 byte(s) in 24 object(s) allocated from:
+    #0 0x7f943bcb4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55e9f1884674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 400 byte(s) leaked in 25 allocation(s).
+
+=================================================================
+==4178435==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 2 object(s) allocated from:
+    #0 0x7f2a60ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562f4ad85674 in search source/algos/skip8.c:42
+
+Indirect leak of 368 byte(s) in 23 object(s) allocated from:
+    #0 0x7f2a60ab4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x562f4ad85674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 400 byte(s) leaked in 25 allocation(s).
+
+=================================================================
+==4178438==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 4 object(s) allocated from:
+    #0 0x7fae906b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55be13301674 in search source/algos/skip8.c:42
+
+Indirect leak of 336 byte(s) in 21 object(s) allocated from:
+    #0 0x7fae906b4887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x55be13301674 in search source/algos/skip8.c:42
+
+SUMMARY: AddressSanitizer: 400 byte(s) leaked in 25 allocation(s).
+source/algos/sa.c:50:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sa.c:50:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sa.c:50:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sa.c:50:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sa.c:50:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:65:9: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:65:9: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:65:9: runtime error: left shift of negative value -1
+source/algos/bndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:65:9: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/bndm.c:65:9: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:55:7: runtime error: left shift of negative value -1
+source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndm.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:55:7: runtime error: left shift of negative value -1
+source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/tndma.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/lbndm.c:64:24: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/svm1.c:64:27: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm1.c:64:27: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm2.c:62:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm2.c:62:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm3.c:75:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm3.c:75:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm4.c:74:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/svm4.c:74:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'
+source/algos/sbndm2.c:45:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:50:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:55:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:45:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:50:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:55:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:45:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:50:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:55:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:45:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:50:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:55:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:45:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:50:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm2.c:55:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bmh-sbndm.c:59:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bmh-sbndm.c:59:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bmh-sbndm.c:59:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:163:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:164:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:178:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:163:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:164:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:178:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:163:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:164:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:178:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:143:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:163:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:164:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:178:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:163:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:164:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso2.c:178:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:161:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:162:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:176:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:161:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:162:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:176:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:161:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:162:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:176:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:141:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:161:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:162:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:176:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:161:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:162:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso4.c:176:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso6.c:164:16: runtime error: shift exponent 35 is too large for 32-bit type 'int'
+source/algos/faoso6.c:165:16: runtime error: shift exponent 35 is too large for 32-bit type 'int'
+source/algos/faoso6.c:175:30: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/faoso6.c:178:14: runtime error: shift exponent 34 is too large for 32-bit type 'int'
+source/algos/faoso6.c:180:14: runtime error: shift exponent 35 is too large for 32-bit type 'int'
+source/algos/aoso2.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:49:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso2.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:47:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:70:17: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/aoso4.c:74:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:47:13: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:84:20: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:47:13: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:84:20: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:47:13: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:84:20: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:47:13: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/blim.c:84:20: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq2.c:56:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq2.c:56:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq2.c:56:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq2.c:56:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq2.c:56:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq4.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq4.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq4.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq4.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq4.c:57:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq6.c:58:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq6.c:58:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq6.c:58:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq6.c:58:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bndmq6.c:58:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:54:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:59:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:64:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:54:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:59:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:64:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:54:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:59:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:64:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:54:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:59:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:64:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:54:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:59:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq2.c:64:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:56:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:61:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:66:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:56:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:61:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:66:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:56:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:61:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:66:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:56:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:61:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:66:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:56:23: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:61:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndmq6.c:66:16: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bxs.c:41:25: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bxs.c:41:25: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bxs.c:41:25: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bxs.c:41:25: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/bxs.c:41:25: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1023
+source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1023
+source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
+source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
+source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181198==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe9cf2001c at pc 0x564684151c82 bp 0x7ffe9cf1fa50 sp 0x7ffe9cf1fa40
+READ of size 4 at 0x7ffe9cf2001c thread T0
+    #0 0x564684151c81 in search source/algos/ssm.c:97
+    #1 0x56468414ea0f in main source/algos/include/main.h:130
+    #2 0x7f6b0b429d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f6b0b429e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x56468414f114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7ffe9cf2001c is located in stack of thread T0 at offset 1340 in frame
+    #0 0x564684150abf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x1000539dbfb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dbfc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dbfd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dbfe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dbff0: 00 00 00 00 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x1000539dc000: f2 f2 f2[f2]00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dc010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dc020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dc030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dc040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000539dc050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181198==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181203==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fffbf3c361c at pc 0x5620dc940c82 bp 0x7fffbf3c3050 sp 0x7fffbf3c3040
+READ of size 4 at 0x7fffbf3c361c thread T0
+    #0 0x5620dc940c81 in search source/algos/ssm.c:97
+    #1 0x5620dc93da0f in main source/algos/include/main.h:130
+    #2 0x7f0dbe229d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f0dbe229e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x5620dc93e114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7fffbf3c361c is located in stack of thread T0 at offset 1340 in frame
+    #0 0x5620dc93fabf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x100077e70670: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e70680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e70690: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e706a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e706b0: 00 00 00 00 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x100077e706c0: f2 f2 f2[f2]00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e706d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e706e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e706f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e70700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077e70710: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181203==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181220==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fffbabd9cdc at pc 0x56387c259c82 bp 0x7fffbabd9710 sp 0x7fffbabd9700
+READ of size 4 at 0x7fffbabd9cdc thread T0
+    #0 0x56387c259c81 in search source/algos/ssm.c:97
+    #1 0x56387c256a0f in main source/algos/include/main.h:130
+    #2 0x7fc649829d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fc649829e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x56387c257114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7fffbabd9cdc is located in stack of thread T0 at offset 1340 in frame
+    #0 0x56387c258abf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x100077573340: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077573350: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077573360: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077573370: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100077573380: 00 00 00 00 00 00 00 00 00 00 00 00 f2 f2 f2 f2
+=>0x100077573390: f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2[f2]00 00 00 00
+  0x1000775733a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000775733b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000775733c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000775733d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000775733e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181220==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181222==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe4d0f364c at pc 0x5639a7ab3c82 bp 0x7ffe4d0f3080 sp 0x7ffe4d0f3070
+READ of size 4 at 0x7ffe4d0f364c thread T0
+    #0 0x5639a7ab3c81 in search source/algos/ssm.c:97
+    #1 0x5639a7ab0a0f in main source/algos/include/main.h:130
+    #2 0x7f6c5f229d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f6c5f229e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x5639a7ab1114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7ffe4d0f364c is located in stack of thread T0 at offset 1340 in frame
+    #0 0x5639a7ab2abf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x100049a16670: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a16680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a16690: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a166a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a166b0: 00 00 00 00 00 00 00 00 00 00 f2 f2 f2 f2 f2 f2
+=>0x100049a166c0: f2 f2 f2 f2 f2 f2 f2 f2 f2[f2]00 00 00 00 00 00
+  0x100049a166d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a166e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a166f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a16700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100049a16710: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181222==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181224==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffd048c8c0c at pc 0x555e337bdc82 bp 0x7ffd048c8640 sp 0x7ffd048c8630
+READ of size 4 at 0x7ffd048c8c0c thread T0
+    #0 0x555e337bdc81 in search source/algos/ssm.c:97
+    #1 0x555e337baa0f in main source/algos/include/main.h:130
+    #2 0x7ff94ca29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7ff94ca29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x555e337bb114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7ffd048c8c0c is located in stack of thread T0 at offset 1340 in frame
+    #0 0x555e337bcabf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x100020911130: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020911140: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020911150: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020911160: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020911170: 00 00 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x100020911180: f2[f2]00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020911190: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000209111a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000209111b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000209111c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000209111d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181224==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181226==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffdeb0b3aac at pc 0x55d99cdfcc82 bp 0x7ffdeb0b34e0 sp 0x7ffdeb0b34d0
+READ of size 4 at 0x7ffdeb0b3aac thread T0
+    #0 0x55d99cdfcc81 in search source/algos/ssm.c:97
+    #1 0x55d99cdf9a0f in main source/algos/include/main.h:130
+    #2 0x7f495ee29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f495ee29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x55d99cdfa114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7ffdeb0b3aac is located in stack of thread T0 at offset 1340 in frame
+    #0 0x55d99cdfbabf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x10003d60e700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e710: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e720: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e730: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e740: 00 00 00 00 00 00 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x10003d60e750: f2 f2 f2 f2 f2[f2]00 00 00 00 00 00 00 00 00 00
+  0x10003d60e760: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e770: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003d60e7a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181226==ABORTING
+source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
+=================================================================
+==4181234==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffdf747be3c at pc 0x555e74cd3c82 bp 0x7ffdf747b870 sp 0x7ffdf747b860
+READ of size 4 at 0x7ffdf747be3c thread T0
+    #0 0x555e74cd3c81 in search source/algos/ssm.c:97
+    #1 0x555e74cd0a0f in main source/algos/include/main.h:130
+    #2 0x7f87d5c29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f87d5c29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #4 0x555e74cd1114 in _start (/home/rurban/Software/smart/bin/ssm+0x7114)
+
+Address 0x7ffdf747be3c is located in stack of thread T0 at offset 1340 in frame
+    #0 0x555e74cd2abf in search source/algos/ssm.c:64
+
+  This frame has 8 object(s):
+    [48, 52) 'Max' (line 66)
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 176) 'ts'
+    [192, 1216) 'Hors' (line 67)
+    [1344, 18144) 'Sht' (line 67) <== Memory access at offset 1340 underflows this variable
+    [18400, 35200) 'Dis' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/ssm.c:97 in search
+Shadow bytes around the buggy address:
+  0x10003ee87770: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee87780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee87790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee877a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee877b0: 00 00 00 00 00 00 00 00 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x10003ee877c0: f2 f2 f2 f2 f2 f2 f2[f2]00 00 00 00 00 00 00 00
+  0x10003ee877d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee877e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee877f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee87800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10003ee87810: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==4181234==ABORTING
+source/algos/twfr8.c:83:14: runtime error: left shift of 35637 by 16 places cannot be represented in type 'int'
+source/algos/twfr8.c:83:14: runtime error: left shift of 63255 by 16 places cannot be represented in type 'int'
+source/algos/twfr8.c:83:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/twfr8.c:83:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/twfrq8.c:95:14: runtime error: left shift of 50944 by 16 places cannot be represented in type 'int'
+source/algos/twfrq8.c:95:14: runtime error: left shift of 61904 by 16 places cannot be represented in type 'int'
+source/algos/twfrq8.c:95:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/twfrq8.c:95:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/wfr8.c:99:14: runtime error: left shift of 48702 by 16 places cannot be represented in type 'int'
+source/algos/wfr8.c:99:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/wfr8.c:99:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/wfrq8.c:112:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+source/algos/wfrq8.c:112:14: runtime error: left shift of 39289 by 16 places cannot be represented in type 'int'
+ssecp: source/algos/ssecp.c:188: search: Assertion `(mu > 0 && mu < pi && mu < m && pi > 0 && pi <= m)' failed.
+Aborted (core dumped)
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4182983==ERROR: AddressSanitizer: SEGV on unknown address 0x7f3b9c449fff (pc 0x555f33c91dc5 bp 0x000000000000 sp 0x7ffe39433ff0 T0)
+==4182983==The signal is caused by a READ memory access.
+    #0 0x555f33c91dc5 in search2 source/algos/epsm.c:118
+    #1 0x555f33c99e43 in search source/algos/epsm.c:359
+    #2 0x555f33c8f5bf in main source/algos/include/main.h:130
+    #3 0x7f3a9ae29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f3a9ae29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #5 0x555f33c8fcc4 in _start (/home/rurban/Software/smart/bin/epsm+0x10cc4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
+==4182983==ABORTING
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4182995==ERROR: AddressSanitizer: SEGV on unknown address 0x7f416ee22fff (pc 0x55d2d682bdc5 bp 0x000000000000 sp 0x7ffce63bc950 T0)
+==4182995==The signal is caused by a READ memory access.
+    #0 0x55d2d682bdc5 in search2 source/algos/epsm.c:118
+    #1 0x55d2d6833e43 in search source/algos/epsm.c:359
+    #2 0x55d2d68295bf in main source/algos/include/main.h:130
+    #3 0x7f406d829d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f406d829e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #5 0x55d2d6829cc4 in _start (/home/rurban/Software/smart/bin/epsm+0x10cc4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
+==4182995==ABORTING
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4183000==ERROR: AddressSanitizer: SEGV on unknown address 0x7fc345e3affe (pc 0x55a64279dfea bp 0x000000000000 sp 0x7ffe0d3fa650 T0)
+==4183000==The signal is caused by a READ memory access.
+    #0 0x55a64279dfea in search3 source/algos/epsm.c:164
+    #1 0x55a6427a3e63 in search source/algos/epsm.c:361
+    #2 0x55a6427995bf in main source/algos/include/main.h:130
+    #3 0x7fc244829d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7fc244829e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #5 0x55a642799cc4 in _start (/home/rurban/Software/smart/bin/epsm+0x10cc4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:164 in search3
+==4183000==ABORTING
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4183002==ERROR: AddressSanitizer: SEGV on unknown address 0x7f87aa42bffe (pc 0x564ef9988fea bp 0x000000000000 sp 0x7ffff1ab36d0 T0)
+==4183002==The signal is caused by a READ memory access.
+    #0 0x564ef9988fea in search3 source/algos/epsm.c:164
+    #1 0x564ef998ee63 in search source/algos/epsm.c:361
+    #2 0x564ef99845bf in main source/algos/include/main.h:130
+    #3 0x7f86a8e29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f86a8e29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #5 0x564ef9984cc4 in _start (/home/rurban/Software/smart/bin/epsm+0x10cc4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:164 in search3
+==4183002==ABORTING
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4183004==ERROR: AddressSanitizer: SEGV on unknown address 0x7fa5092eefff (pc 0x55bd1a3badc5 bp 0x000000000000 sp 0x7ffc9a585c80 T0)
+==4183004==The signal is caused by a READ memory access.
+    #0 0x55bd1a3badc5 in search2 source/algos/epsm.c:118
+    #1 0x55bd1a3c2e43 in search source/algos/epsm.c:359
+    #2 0x55bd1a3b85bf in main source/algos/include/main.h:130
+    #3 0x7fa407c29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7fa407c29e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #5 0x55bd1a3b8cc4 in _start (/home/rurban/Software/smart/bin/epsm+0x10cc4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
+==4183004==ABORTING
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7fd7875ba001 for type 'uint64_t', which requires 8 byte alignment
+0x7fd7875ba001: note: pointer points here
+ 00 00 00  48 3f 10 31 7e 77 4f 2f  33 25 61 73 17 31 56 24  00 54 25 03 22 05 68 0d  70 61 5e 68 33
+              ^ 
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f3b3be27001 for type 'uint64_t', which requires 8 byte alignment
+0x7f3b3be27001: note: pointer points here
+ 00 00 00  1a 78 69 36 73 26 06 14  44 4a 4d 14 63 29 64 51  2b 38 61 32 74 7e 29 11  7a 09 62 46 7d
+              ^ 
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f416931e001 for type 'uint64_t', which requires 8 byte alignment
+0x7f416931e001: note: pointer points here
+ 00 00 00  61 61 61 61 61 61 61 61  61 61 61 61 61 61 61 61  61 61 61 61 61 61 61 61  61 61 61 61 61
+              ^ 
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f11a6740001 for type 'uint64_t', which requires 8 byte alignment
+0x7f11a6740001: note: pointer points here
+ 00 00 00  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61
+              ^ 
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7fcea64d0001 for type 'uint64_t', which requires 8 byte alignment
+0x7fcea64d0001: note: pointer points here
+ 00 00 00  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61
+              ^ 
