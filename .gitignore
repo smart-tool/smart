@@ -17,3 +17,4 @@ source/algorithms.lst
 /results/
 /bin/
 /compile_commands.json
+/sanitizer.log

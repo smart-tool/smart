@@ -19,13 +19,13 @@
 
 unsigned int *PATT_SIZE;
 #define NumPatt 17U // maximal number of pattern lengths
-int PATT_CUSTOM_SIZE[NumPatt];
-int PATT_VERY_SHORT[NumPatt] = {1,  2,  3,  4,  5,  6,  7,  8, 9,
-                                10, 11, 12, 13, 14, 15, 16, 0};
-int PATT_SHORT_SIZE[NumPatt] = {2,  4,  6,  8,  10, 12, 14, 16, 18,
-                                20, 22, 24, 26, 28, 30, 32, 0};
-int PATT_LARGE_SIZE[NumPatt] = {2,    4,    8,    16, 32, 64, 128, 256, 512,
-                                1024, 2048, 4096, 0,  0,  0,  0,   0};
+unsigned PATT_CUSTOM_SIZE[NumPatt];
+unsigned PATT_VERY_SHORT[NumPatt] = {1,  2,  3,  4,  5,  6,  7,  8, 9,
+                                     10, 11, 12, 13, 14, 15, 16, 0};
+unsigned PATT_SHORT_SIZE[NumPatt] = {2,  4,  6,  8,  10, 12, 14, 16, 18,
+                                     20, 22, 24, 26, 28, 30, 32, 0};
+unsigned PATT_LARGE_SIZE[NumPatt] = {
+    2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 0, 0, 0, 0, 0};
 #define NumSetting 15U // number of text buffers
 char *SETTING_BUFFER[NumSetting] = {
     "rand2",       "rand4",        "rand8",     "rand16",       "rand32",

@@ -32,12 +32,12 @@ unsigned int MINLEN = 1,
 #include <stdlib.h>
 #include <string.h>
 #ifndef _WIN32
-#include <sys/ipc.h>
-#include <sys/shm.h>
+# include <sys/ipc.h>
+# include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a,b,c)
+# define key_t int
+# define shmctl(a,b,c)
 #endif
 #include <sys/stat.h>
 #include <time.h>
@@ -100,7 +100,7 @@ void printTopEdge(int len) {
 }
 
 int getAlpha(char *filename) {
-  int i = 0;
+  unsigned int i = 0;
   while (i < NumSetting && strcmp(SETTING_BUFFER[i], filename))
     i++;
   if (i == NumSetting) {
@@ -111,8 +111,8 @@ int getAlpha(char *filename) {
 }
 
 void generateCode(char *code) {
-  int t = (int)time(NULL);
-  sprintf(code, "EXP%d", t);
+  unsigned t = (unsigned)time(NULL);
+  sprintf(code, "EXP%u", t);
 }
 
 int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
@@ -169,6 +169,7 @@ int execute(int algo, key_t pkey, int m, key_t tkey, int n,
             key_t rkey, key_t ekey, key_t prekey,
             int *count, int alpha) {
   char command[100];
+  (void)alpha;
 #ifdef _WIN32
   (void)rkey; (void)ekey; (void)prekey;
   sprintf(command, "./%s/%s %d %d %d %d", BINDIR, ALGO_NAME[algo],
@@ -220,12 +221,13 @@ void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
 /********************************************************/
 
 int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
-                int *FREQ, int VOLTE, int occ, int pre, int dif, char *code,
+                int *FREQ, unsigned VOLTE, int occ, int pre, int dif, char *code,
                 int tshmid, int txt, int tex, int php,
                 unsigned char *simplePattern, int std, int limit,
                 char *time_format) {
   // performs experiments on a text
-  int m, i, j, k, il, algo, occur, total_occur, try;
+  int m, occur, total_occur, try;
+  unsigned int i, j, k, il, algo;
   double TIME[NumAlgo][NumPatt], PRE_TIME[NumAlgo][NumPatt],
       BEST[NumAlgo][NumPatt], WORST[NumAlgo][NumPatt], STD[NumAlgo][NumPatt],
       STDTIME[5000];
@@ -386,7 +388,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
           total_occur = 0;
 
           for (k = 1; k <= VOLTE; k++) {
-            for (j = 0; j < m; j++)
+            for (j = 0; j < (unsigned)m; j++)
               P[j] = setP[k - 1][j];
             P[j] = '\0'; // creates the pattern
             int perc = (int)((100 * k) / VOLTE);
@@ -441,7 +443,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
               nchar += 20;
             if (std)
               nchar += 15;
-            int i;
+            unsigned i;
             printf("\b\b\b\b\b\b\b.[OK]  ");
             if (pre)
               sprintf(data, "\t\%.2f + \%.2f ms", PRE_TIME[algo][il],
@@ -821,8 +823,7 @@ int main(int argc, const char *argv[]) {
     char expcode[100];
     generateCode(expcode);
     printf("\tStarting experimental tests with code %s\n", expcode);
-    int sett;
-    for (sett = 0; sett < NumSetting; sett++) {
+    for (unsigned sett = 0; sett < NumSetting; sett++) {
       char fullpath[100];
       strcpy(fullpath, "data/");
       strcat(fullpath, SETTING_BUFFER[sett]);
