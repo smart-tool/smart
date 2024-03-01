@@ -88,6 +88,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
       t->pos = i;
     }
   }
+  free(f);
   END_PREPROCESSING
 
   BEGIN_SEARCHING
@@ -107,6 +108,16 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
       }
     }
     ptr16 += last;
+  }
+  // free all sublists of flist's, and flist's itself
+  for (unsigned i = 0; i < 65536; i++) {
+    t = flist[i];
+    while (t) {
+      LIST* next = t->next;
+      free(t);
+      flist[i] = NULL;
+      t = next;
+    }
   }
   END_SEARCHING
   return count;
