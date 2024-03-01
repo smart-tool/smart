@@ -27,16 +27,6 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
-source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:55:7: runtime error: left shift of negative value -1
-source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/tndm.c:55:7: runtime error: left shift of 1431655765 by 1 places cannot be represented in type 'int'
 source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
 source/algos/tndma.c:55:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
 source/algos/tndma.c:44:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
