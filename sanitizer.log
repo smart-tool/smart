@@ -27,51 +27,6 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
-source/algos/sbndm-w2.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:92:14: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:92:14: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:92:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w2.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:92:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w2.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w2.c:92:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w4.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w4.c:97:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1023
-source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1023
-source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
-source/algos/sbndm-w6.c:64:9: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:68:7: runtime error: left shift of 1073741824 by 1 places cannot be represented in type 'int'
-source/algos/sbndm-w6.c:102:14: runtime error: left shift of negative value -1
 source/algos/ssm.c:97:16: runtime error: index -1 out of bounds for type 'int [4200]'
 =================================================================
 ==2658499==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7f037f60953c at pc 0x000000404f92 bp 0x7ffc3dbbd9d0 sp 0x7ffc3dbbd9c8

@@ -49,7 +49,8 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA];
-  int i, j, s1, s2, f, d, first, count;
+  unsigned int j, f, d;
+  int i, s1, s2, first, count;
   int plen = m;
   if (m > 32)
     m = 32;
@@ -61,7 +62,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = W[i] = 0;
   j = 1;
-  f = 1 << (m - 1);
+  f = 1U << (m - 1);
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= j;
     W[x[i]] |= f;
@@ -89,7 +90,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     first = s1 - m1;
     do {
-      d = (d << 1) & (B[y[--s1]] | W[y[++s2]]);
+      d = (d << 1U) & (B[y[--s1]] | W[y[++s2]]);
     } while (d);
     if (s1 < first) {
       s1++;
