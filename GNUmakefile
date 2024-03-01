@@ -51,6 +51,9 @@ check: all
 	for t in $(TESTS); do echo $$t; ./test $$t; done
 	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
+sanitizer.log: $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
+	-rm sanitizer.log
+	./sanitizer.sh 2>sanitizer.log
 lint: cppcheck clang-tidy
 cppcheck:
 	cppcheck -j4 -D__linux__ .
@@ -62,7 +65,7 @@ clang-tidy: compile_commands.json
 fmt:
 	clang-format -i `find source -name \*.c -o -name \*.h`
 clean:
-	-rm $(BINS) $(HELPERS)
+	-rm -f $(BINS) $(HELPERS) 2>/dev/null
 TAGS: $(ALGOS)
-	-rm -f TAGS
+	-rm -f TAGS 2>/dev/null
 	find . \( -name \*.c -o -name \*.h \) -exec etags -a --language=c \{\} \;

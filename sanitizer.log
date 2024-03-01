@@ -1,92 +1,3 @@
-rm bin/ac bin/ag bin/akc bin/aoso2 bin/aoso4 bin/aoso6 bin/askip bin/aut bin/bf bin/bfs bin/blim bin/bm bin/bmh-sbndm bin/bndm bin/bndml bin/bndmq2 bin/bndmq4 bin/bndmq6 bin/bom2 bin/bom bin/br bin/bsdm2 bin/bsdm3 bin/bsdm4 bin/bsdm5 bin/bsdm6 bin/bsdm7 bin/bsdm8 bin/bsdm bin/bww bin/bxs1 bin/bxs2 bin/bxs3 bin/bxs4 bin/bxs6 bin/bxs8 bin/bxs bin/colussi bin/dbww2 bin/dbww bin/dfdm bin/ebom bin/epsm bin/faoso2 bin/faoso4 bin/faoso6 bin/fbom bin/fdm bin/ffs bin/fjs bin/fndm bin/fsbndm bin/fsbndmq20 bin/fsbndmq21 bin/fsbndmq31 bin/fsbndmq32 bin/fsbndmq41 bin/fsbndmq42 bin/fsbndmq43 bin/fsbndmq61 bin/fsbndmq62 bin/fsbndmq64 bin/fsbndmq81 bin/fsbndmq82 bin/fsbndmq84 bin/fsbndmq86 bin/fsbndm-w1 bin/fsbndm-w2 bin/fsbndm-w4 bin/fsbndm-w6 bin/fsbndm-w8 bin/fs bin/fs-w1 bin/fs-w2 bin/fs-w4 bin/fs-w6 bin/fs-w8 bin/gg bin/graspm bin/gs bin/hash3 bin/hash5 bin/hash8 bin/hor bin/ildm1 bin/ildm2 bin/iom bin/jom bin/kbndm bin/kmp bin/kmpskip bin/kr bin/ksa bin/lbndm bin/ldm bin/lwfr2 bin/lwfr3 bin/lwfr4 bin/lwfr5 bin/lwfr6 bin/lwfr7 bin/lwfr8 bin/mp bin/ms bin/nsn bin/om bin/pbmh bin/qf23 bin/qf24 bin/qf26 bin/qf28 bin/qf33 bin/qf34 bin/qf36 bin/qf42 bin/qf43 bin/qf44 bin/qf62 bin/qf63 bin/qlqs bin/qs bin/raita bin/rcolussi bin/rf bin/sabp bin/sa bin/sbndm2 bin/sbndm-bmh bin/sbndm bin/sbndmq2 bin/sbndmq4 bin/sbndmq6 bin/sbndmq8 bin/sbndm-w2 bin/sbndm-w4 bin/sbndm-w6 bin/sebom bin/sfbom bin/simon bin/skip2 bin/skip3 bin/skip4 bin/skip5 bin/skip6 bin/skip7 bin/skip8 bin/skip bin/smith bin/smoa bin/so bin/ssabs bin/ssecp bin/ssef bin/ssm bin/svm0 bin/svm1 bin/svm2 bin/svm3 bin/svm4 bin/tbm bin/tndma bin/tndm bin/trf bin/tsa bin/tsa-q2 bin/ts bin/tso5 bin/tsw bin/tunbm bin/tunedbm bin/tvsbs bin/tvsbs-w2 bin/tvsbs-w4 bin/tvsbs-w6 bin/tvsbs-w8 bin/tw bin/twfr2 bin/twfr3 bin/twfr4 bin/twfr5 bin/twfr6 bin/twfr7 bin/twfr8 bin/twfr bin/twfrq2 bin/twfrq3 bin/twfrq4 bin/twfrq5 bin/twfrq6 bin/twfrq7 bin/twfrq8 bin/ufndmq2 bin/ufndmq4 bin/ufndmq6 bin/ufndmq8 bin/wc bin/wfr2 bin/wfr3 bin/wfr4 bin/wfr5 bin/wfr6 bin/wfr7 bin/wfr8 bin/wfr bin/wfrq2 bin/wfrq3 bin/wfrq4 bin/wfrq5 bin/wfrq6 bin/wfrq7 bin/wfrq8 bin/wom bin/ww bin/zt smart show select test textgen compilesm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ac.c -o bin/ac
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ag.c -o bin/ag
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/akc.c -o bin/akc
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/aoso2.c -o bin/aoso2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/aoso4.c -o bin/aoso4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/aoso6.c -o bin/aoso6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/askip.c -o bin/askip
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/aut.c -o bin/aut
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bf.c -o bin/bf
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bfs.c -o bin/bfs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/blim.c -o bin/blim
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bm.c -o bin/bm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bmh-sbndm.c -o bin/bmh-sbndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndm.c -o bin/bndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndml.c -o bin/bndml
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq2.c -o bin/bndmq2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq4.c -o bin/bndmq4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq6.c -o bin/bndmq6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bom2.c -o bin/bom2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bom.c -o bin/bom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/br.c -o bin/br
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm2.c -o bin/bsdm2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm3.c -o bin/bsdm3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm4.c -o bin/bsdm4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm5.c -o bin/bsdm5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm6.c -o bin/bsdm6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm7.c -o bin/bsdm7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm8.c -o bin/bsdm8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bsdm.c -o bin/bsdm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bww.c -o bin/bww
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs1.c -o bin/bxs1
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs2.c -o bin/bxs2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs3.c -o bin/bxs3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs4.c -o bin/bxs4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs6.c -o bin/bxs6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs8.c -o bin/bxs8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bxs.c -o bin/bxs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/colussi.c -o bin/colussi
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/dbww2.c -o bin/dbww2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/dbww.c -o bin/dbww
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/dfdm.c -o bin/dfdm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ebom.c -o bin/ebom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/epsm.c -o bin/epsm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso2.c -o bin/faoso2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso4.c -o bin/faoso4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso6.c -o bin/faoso6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fbom.c -o bin/fbom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fdm.c -o bin/fdm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ffs.c -o bin/ffs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fjs.c -o bin/fjs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fndm.c -o bin/fndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm.c -o bin/fsbndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq20.c -o bin/fsbndmq20
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq21.c -o bin/fsbndmq21
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq31.c -o bin/fsbndmq31
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq32.c -o bin/fsbndmq32
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq41.c -o bin/fsbndmq41
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq42.c -o bin/fsbndmq42
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq43.c -o bin/fsbndmq43
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq61.c -o bin/fsbndmq61
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq62.c -o bin/fsbndmq62
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq64.c -o bin/fsbndmq64
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq81.c -o bin/fsbndmq81
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq82.c -o bin/fsbndmq82
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq84.c -o bin/fsbndmq84
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq86.c -o bin/fsbndmq86
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm-w1.c -o bin/fsbndm-w1
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm-w2.c -o bin/fsbndm-w2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm-w4.c -o bin/fsbndm-w4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm-w6.c -o bin/fsbndm-w6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm-w8.c -o bin/fsbndm-w8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs.c -o bin/fs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs-w1.c -o bin/fs-w1
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs-w2.c -o bin/fs-w2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs-w4.c -o bin/fs-w4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs-w6.c -o bin/fs-w6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fs-w8.c -o bin/fs-w8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/gg.c -o bin/gg
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/graspm.c -o bin/graspm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/gs.c -o bin/gs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/hash3.c -o bin/hash3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/hash5.c -o bin/hash5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/hash8.c -o bin/hash8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/hor.c -o bin/hor
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ildm1.c -o bin/ildm1
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ildm2.c -o bin/ildm2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/iom.c -o bin/iom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/jom.c -o bin/jom
 source/algos/jom.c: In function ‘FindJumpDistance’:
 source/algos/jom.c:42:44: warning: unused parameter ‘m’ [-Wunused-parameter]
    42 | int FindJumpDistance(unsigned char *p, int m, int i, double freq[],
@@ -95,86 +6,14 @@ source/algos/jom.c: In function ‘PrecomputeJOH’:
 source/algos/jom.c:59:42: warning: unused parameter ‘m’ [-Wunused-parameter]
    59 | void PrecomputeJOH(unsigned char *p, int m, int i, int j,
       |                                      ~~~~^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kbndm.c -o bin/kbndm
 source/algos/kbndm.c: In function ‘search’:
 source/algos/kbndm.c:45:17: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
    45 |   for (k = 0; k < WORD_BITS - 1; k++) {
       |                 ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kmp.c -o bin/kmp
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kmpskip.c -o bin/kmpskip
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/kr.c -o bin/kr
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ksa.c -o bin/ksa
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lbndm.c -o bin/lbndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ldm.c -o bin/ldm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr2.c -o bin/lwfr2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr3.c -o bin/lwfr3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr4.c -o bin/lwfr4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr5.c -o bin/lwfr5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr6.c -o bin/lwfr6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr7.c -o bin/lwfr7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/lwfr8.c -o bin/lwfr8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/mp.c -o bin/mp
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ms.c -o bin/ms
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/nsn.c -o bin/nsn
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/om.c -o bin/om
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/pbmh.c -o bin/pbmh
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf23.c -o bin/qf23
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf24.c -o bin/qf24
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf26.c -o bin/qf26
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf28.c -o bin/qf28
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf33.c -o bin/qf33
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf34.c -o bin/qf34
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf36.c -o bin/qf36
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf42.c -o bin/qf42
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf43.c -o bin/qf43
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf44.c -o bin/qf44
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf62.c -o bin/qf62
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qf63.c -o bin/qf63
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qlqs.c -o bin/qlqs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/qs.c -o bin/qs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/raita.c -o bin/raita
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/rcolussi.c -o bin/rcolussi
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/rf.c -o bin/rf
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sabp.c -o bin/sabp
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sa.c -o bin/sa
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm2.c -o bin/sbndm2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm-bmh.c -o bin/sbndm-bmh
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm.c -o bin/sbndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndmq2.c -o bin/sbndmq2
 source/algos/sbndmq2.c: In function ‘search_large’:
 source/algos/sbndmq2.c:104:9: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
   104 |   if (m < q)
       |         ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndmq4.c -o bin/sbndmq4
-source/algos/sbndmq4.c: In function ‘search_large’:
-source/algos/sbndmq4.c:103:9: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-  103 |   if (m < q)
-      |         ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndmq6.c -o bin/sbndmq6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndmq8.c -o bin/sbndmq8
-source/algos/sbndmq8.c: In function ‘search_large’:
-source/algos/sbndmq8.c:107:9: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-  107 |   if (m < q)
-      |         ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm-w2.c -o bin/sbndm-w2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm-w4.c -o bin/sbndm-w4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sbndm-w6.c -o bin/sbndm-w6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sebom.c -o bin/sebom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/sfbom.c -o bin/sfbom
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/simon.c -o bin/simon
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip2.c -o bin/skip2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip3.c -o bin/skip3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip4.c -o bin/skip4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip5.c -o bin/skip5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip6.c -o bin/skip6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip7.c -o bin/skip7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip8.c -o bin/skip8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/skip.c -o bin/skip
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/smith.c -o bin/smith
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/smoa.c -o bin/smoa
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/so.c -o bin/so
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ssabs.c -o bin/ssabs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ssecp.c -o bin/ssecp
 source/algos/ssecp.c: In function ‘search_rawsse’:
 source/algos/ssecp.c:52:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
    52 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
@@ -182,33 +21,10 @@ source/algos/ssecp.c:52:35: warning: dereferencing type-punned pointer will brea
 source/algos/ssecp.c:63:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
    63 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
       |                                   ^~~~~~~~~~~~~~~~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ssef.c -o bin/ssef
 source/algos/ssef.c: In function ‘search’:
 source/algos/ssef.c:65:17: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
    65 |   for (i = 0; i < Plen; i++) {
       |                 ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ssm.c -o bin/ssm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/svm0.c -o bin/svm0
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/svm1.c -o bin/svm1
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/svm2.c -o bin/svm2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/svm3.c -o bin/svm3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/svm4.c -o bin/svm4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tbm.c -o bin/tbm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tndma.c -o bin/tndma
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tndm.c -o bin/tndm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/trf.c -o bin/trf
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tsa.c -o bin/tsa
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tsa-q2.c -o bin/tsa-q2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ts.c -o bin/ts
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tso5.c -o bin/tso5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tsw.c -o bin/tsw
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tunbm.c -o bin/tunbm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tunedbm.c -o bin/tunedbm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tvsbs.c -o bin/tvsbs
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tvsbs-w2.c -o bin/tvsbs-w2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tvsbs-w4.c -o bin/tvsbs-w4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tvsbs-w6.c -o bin/tvsbs-w6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tvsbs-w8.c -o bin/tvsbs-w8
 source/algos/tvsbs-w8.c: In function ‘search’:
 source/algos/tvsbs-w8.c:91:14: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |
@@ -231,23 +47,6 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/tw.c -o bin/tw
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr2.c -o bin/twfr2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr3.c -o bin/twfr3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr4.c -o bin/twfr4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr5.c -o bin/twfr5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr6.c -o bin/twfr6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr7.c -o bin/twfr7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr8.c -o bin/twfr8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfr.c -o bin/twfr
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq2.c -o bin/twfrq2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq3.c -o bin/twfrq3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq4.c -o bin/twfrq4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq5.c -o bin/twfrq5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq6.c -o bin/twfrq6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq7.c -o bin/twfrq7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/twfrq8.c -o bin/twfrq8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ufndmq2.c -o bin/ufndmq2
 source/algos/ufndmq2.c: In function ‘search’:
 source/algos/ufndmq2.c:68:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
    68 |     while ((D | 1) == ~0) {
@@ -256,7 +55,6 @@ source/algos/ufndmq2.c: In function ‘search_large’:
 source/algos/ufndmq2.c:131:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
   131 |     while ((D | 1) == ~0) {
       |                    ^~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ufndmq4.c -o bin/ufndmq4
 source/algos/ufndmq4.c: In function ‘search’:
 source/algos/ufndmq4.c:69:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
    69 |     while ((D | 7) == ~0) {
@@ -265,7 +63,6 @@ source/algos/ufndmq4.c: In function ‘search_large’:
 source/algos/ufndmq4.c:134:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
   134 |     while ((D | 7) == ~0) {
       |                    ^~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ufndmq6.c -o bin/ufndmq6
 source/algos/ufndmq6.c: In function ‘search’:
 source/algos/ufndmq6.c:70:21: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
    70 |     while ((D | 31) == ~0) {
@@ -274,7 +71,6 @@ source/algos/ufndmq6.c: In function ‘search_large’:
 source/algos/ufndmq6.c:133:21: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
   133 |     while ((D | 31) == ~0) {
       |                     ^~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ufndmq8.c -o bin/ufndmq8
 source/algos/ufndmq8.c: In function ‘search’:
 source/algos/ufndmq8.c:71:22: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
    71 |     while ((D | 127) == ~0) {
@@ -283,34 +79,14 @@ source/algos/ufndmq8.c: In function ‘search_large’:
 source/algos/ufndmq8.c:134:22: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
   134 |     while ((D | 127) == ~0) {
       |                      ^~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wc.c -o bin/wc
 source/algos/wc.c: In function ‘PreBadPosBC’:
 source/algos/wc.c:29:40: warning: unused parameter ‘m’ [-Wunused-parameter]
    29 | void PreBadPosBC(unsigned char *P, int m, int *hbc, int pos) {
       |                                    ~~~~^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr2.c -o bin/wfr2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr3.c -o bin/wfr3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr4.c -o bin/wfr4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr5.c -o bin/wfr5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr6.c -o bin/wfr6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr7.c -o bin/wfr7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr8.c -o bin/wfr8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfr.c -o bin/wfr
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq2.c -o bin/wfrq2
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq3.c -o bin/wfrq3
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq4.c -o bin/wfrq4
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq5.c -o bin/wfrq5
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq6.c -o bin/wfrq6
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq7.c -o bin/wfrq7
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wfrq8.c -o bin/wfrq8
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/wom.c -o bin/wom
 source/algos/wom.c: In function ‘PrecomputeWOH’:
 source/algos/wom.c:58:42: warning: unused parameter ‘m’ [-Wunused-parameter]
    58 | void PrecomputeWOH(unsigned char *p, int m, int q, int wo[]) {
       |                                      ~~~~^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ww.c -o bin/ww
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/zt.c -o bin/zt
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/smart.c -std=gnu99 -o smart -lm
 In file included from source/smart.c:48:
 source/output.h: In function ‘outputPHP’:
 source/output.h:77:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
@@ -565,14 +341,10 @@ source/smart.c:460:29: warning: comparison of integer expressions of different s
 source/smart.c:466:29: warning: comparison of integer expressions of different signedness: ‘int’ and ‘size_t’ {aka ‘long unsigned int’} [-Wsign-compare]
   466 |               for (i = 0; i < 15 - strlen(data); i++)
       |                             ^
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/show.c -std=gnu99 -o show -lm
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/selectAlgo.c -o select
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/test.c -std=gnu99 -o test -lm
 source/test.c: In function ‘execute’:
 source/test.c:86:55: warning: unused parameter ‘alpha’ [-Wunused-parameter]
    86 |             key_t ekey, key_t prekey, int *count, int alpha
       |                                                   ~~~~^~~~~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/textgen.c -std=gnu99 -o textgen -lm
 source/textgen.c: In function ‘main’:
 source/textgen.c:30:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
    30 | int main(int argc, const char *argv[]) {
@@ -580,22 +352,3 @@ source/textgen.c:30:14: warning: unused parameter ‘argc’ [-Wunused-parameter
 source/textgen.c:30:32: warning: unused parameter ‘argv’ [-Wunused-parameter]
    30 | int main(int argc, const char *argv[]) {
       |                    ~~~~~~~~~~~~^~~~~~
-gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/compilesm.c -std=gnu99 -o compilesm -lm
-bf	tested OK
-mp	tested OK
-kmp	tested OK
-bm	tested OK
-hor	tested OK
-gs	tested OK
-ag	tested OK
-kr	tested OK
-zt	tested OK
-ac	tested OK
-tw	tested OK
-om	tested OK
-ms	tested OK
-qs	tested OK
-
-	ERROR: test failed on case n.1 (m=2,n=10) ("aa" in "aaaaaaaaaaaa")
-found 10 occ instead of 9
-
