@@ -25,6 +25,7 @@
  * Note: Broken search_large() m>31
  */
 
+#include <stdint.h>
 #include "include/define.h"
 #include "include/log2.h"
 #include "include/main.h"
@@ -49,7 +50,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
         k++;
     if (k == m)
       (*count)++;
-    D &= ~(1 << s);
+    D &= ~(1U << s);
   }
 }
 
@@ -74,8 +75,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   mq = m / q;
   h = mq;
   for (j = 0; j < q; ++j) {
-    masq |= (1 << h);
-    masq |= (1 << h);
+    masq |= (1U << h);
+    masq |= (1U << h);
     h += mq;
     ++h;
   }
@@ -84,12 +85,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   h = mm = 0;
   for (j = 0; j < q; ++j) {
     for (i = 0; i < mq; ++i) {
-      B[x[i * q + j]] &= ~(1 << h);
+      B[x[i * q + j]] &= ~(1U << h);
       ++h;
     }
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
     --h;
   }
@@ -122,7 +123,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
-                  int q, int u, unsigned int D, unsigned int mm, int *count,
+                  int q, int u, uint64_t D, uint64_t mm, int *count,
                   int p_len) {
   int s, c, mq, v, z, i, k;
 
@@ -141,13 +142,14 @@ void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
         k++;
     if (k == p_len)
       (*count)++;
-    D &= ~(1 << s);
+    D &= ~(1U << s);
   }
 }
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
-  unsigned int B[SIGMA], D, h, mm;
-  unsigned int masq;
+  uint64_t B[SIGMA], mm, D;
+  uint64_t masq;
+  unsigned h;
   int i, j, u, count, p_len;
   int uq, uq1, mq;
 
@@ -157,12 +159,12 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  masq = 0;
+  masq = 0U;
   mq = m / q;
   h = mq;
   for (j = 0; j < q; ++j) {
-    masq |= (1 << h);
-    masq |= (1 << h);
+    if (h < 64)
+      masq |= (1UL << h);
     h += mq;
     ++h;
   }
@@ -172,12 +174,13 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
   h = mm = 0;
   for (j = 0; j < q; ++j) {
     for (i = 0; i < mq; ++i) {
-      B[x[i * q + j]] &= ~(1 << h);
+      if (h < 64)
+        B[x[i * q + j]] &= ~(1UL << h);
       ++h;
     }
-    mm |= (1 << (h - 1));
+    mm |= (1UL << (h - 1));
     ++h;
-    mm |= (1 << (h - 1));
+    mm |= (1UL << (h - 1));
     ++h;
     --h;
   }
