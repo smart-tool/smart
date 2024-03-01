@@ -56,7 +56,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   j = 1;
   shift = 1;
   for (i = m - 2; i > 0; i--, j++) {
-    if (D & (1 << (m - 1)))
+    if (D & (1U << (m - 1)))
       shift = j;
     D = (D << 1) & B[x[i]];
   }

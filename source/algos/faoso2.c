@@ -140,7 +140,7 @@ void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
         k++;
     if (k == p_len)
       (*count)++;
-    D &= ~(1 << s);
+    D &= ~(1U << s);
   }
 }
 
@@ -160,8 +160,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
   mq = m / q;
   h = mq;
   for (j = 0; j < q; ++j) {
-    masq |= (1 << h);
-    masq |= (1 << h);
+    masq |= (1U << h);
+    masq |= (1U << h);
     h += mq;
     ++h;
   }
@@ -173,9 +173,9 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
       B[x[i * q + j]] &= ~(1 << h);
       ++h;
     }
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
     --h;
   }
