@@ -1,10 +1,3 @@
-source/algos/ssecp.c: In function ‘search_rawsse’:
-source/algos/ssecp.c:52:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
-   52 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
-      |                                   ^~~~~~~~~~~~~~~~
-source/algos/ssecp.c:63:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
-   63 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
-      |                                   ^~~~~~~~~~~~~~~~
 source/algos/tvsbs-w8.c: In function ‘search’:
 source/algos/tvsbs-w8.c:91:14: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |

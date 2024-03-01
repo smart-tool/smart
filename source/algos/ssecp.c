@@ -22,6 +22,7 @@
 #include "include/define.h"
 #include "include/log2.h"
 #include "include/main.h"
+#include <stdint.h>
 #include <assert.h>
 #include <nmmintrin.h>
 
@@ -39,7 +40,7 @@ int search_rawsse(unsigned char *x, int m, unsigned char *y, int n) {
   __m128i needle_reg = _mm_loadu_si128((__m128i *)x);
 
   int step = 16 - m + 1; // experiment with aligned text blocks: step = 8.
-  unsigned int result_mask = (1 << step) - 1;
+  uint32_t result_mask = (1 << step) - 1;
 
   int number_of_steps = (n + step - 16) / step;
   int steps_size = number_of_steps * step;
@@ -49,7 +50,8 @@ int search_rawsse(unsigned char *x, int m, unsigned char *y, int n) {
     __m128i haystack_reg = _mm_loadu_si128((__m128i *)y);
     __m128i mask_reg = _mm_cmpestrm(needle_reg, m, haystack_reg, 16,
                                     _SIDD_UBYTE_OPS | _SIDD_CMP_EQUAL_ORDERED);
-    occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
+    uint32_t mask = _mm_extract_epi32(mask_reg, 0);
+    occurences += _mm_popcnt_u32(mask & result_mask);
     y += step;
   }
 
@@ -60,7 +62,8 @@ int search_rawsse(unsigned char *x, int m, unsigned char *y, int n) {
                                     _SIDD_UBYTE_OPS | _SIDD_CMP_EQUAL_ORDERED);
     step = n - m + 1;
     result_mask = (1 << step) - 1;
-    occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
+    uint32_t mask = _mm_extract_epi32(mask_reg, 0);
+    occurences += _mm_popcnt_u32(mask & result_mask);
   }
 
   return occurences;
@@ -256,10 +259,10 @@ loop: // optimize further !
 
       head += idx;
       /*
-                      if (b > 16)
-                              head += 16;
-                      else
-                              head += b;
+        if (b > 16)
+          head += 16;
+        else
+          head += b;
       */
     }
 
@@ -283,10 +286,10 @@ loop: // optimize further !
 
       head0 += idx;
       /*
-                      if (b > 16)
-                              head0 += 16;
-                      else
-                              head0 += b;
+        if (b > 16)
+          head0 += 16;
+        else
+          head0 += b;
       */
     }
 
