@@ -36,21 +36,23 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   BEGIN_PREPROCESSING
   memset(z, 0, DSIGMA * sizeof(List));
-  for (i = 0; i < m - Q + 1; ++i) {
+  const int mq = m - Q + 1;
+  List *allocs = (List*)calloc(mq, sizeof(List));
+  for (i = 0; i < mq; ++i) {
     ptr = (List)malloc(sizeof(struct _cell));
     if (ptr == NULL)
       error("SKIP");
     ptr->element = i;
     ptr->next = z[HS(x, i)];
     z[HS(x, i)] = ptr;
+    allocs[i] = ptr;
   }
   END_PREPROCESSING
 
   BEGIN_SEARCHING
   count = 0;
-  int mq = m - Q + 1;
-  for (j = mq - 1; j < n; j += mq)
-    for (ptr = z[HS(y, j)]; ptr != NULL; ptr = ptr->next)
+  for (j = mq - 1; j < n; j += mq) {
+    for (ptr = z[HS(y, j)]; ptr != NULL; ptr = ptr->next) {
       if ((j - ptr->element) <= n - m) {
         k = 0;
         h = j - ptr->element;
@@ -59,6 +61,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         if (k >= m)
           count++;
       }
+    }
+  }
+  /* Freeing */
+  for (i = 0; i < mq; ++i) {
+    free(allocs[i]);
+  }
+  free(allocs);
   END_SEARCHING
   return count;
 }
