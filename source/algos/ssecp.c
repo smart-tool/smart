@@ -188,7 +188,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   compute(x, m, &mu, &pi);
 
   // safety - remove?
-  assert((mu > 0 && mu < pi && mu < m && pi > 0 && pi <= m));
+  assert(mu > 0);
+  assert(mu < pi && mu < m && pi > 0 && pi <= m);
 
   // SSE instruction search anchor block after critical factorization; maximum
   // length needle_length

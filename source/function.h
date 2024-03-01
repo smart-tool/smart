@@ -19,6 +19,7 @@
 
 #include "algorithms.h"
 #include <dirent.h>
+#include <ctype.h>
 
 int string2decimal(char *s) {
   int i;
@@ -29,6 +30,30 @@ int string2decimal(char *s) {
     decimal = (decimal * 10) + (s[i] - '0');
   }
   return decimal;
+}
+
+char *printable(const char *s) {
+  int n = strlen(s) - 1;
+  unsigned sz = (n+1) * 4;
+  char* ret = calloc(sz, 1);
+  while (n >= 0) {
+    if (iscntrl(s[n]) || s[n] == '\'' || s[n] == ' '|| s[n] == '"') {
+      char tmp[5];
+      snprintf(tmp, sizeof(tmp), "\\%03o", s[n]);
+      if (strlen(ret) + n + 5 > sz) {
+        sz = strlen(ret) + n + 5;
+        ret = realloc(ret, sz);
+      }
+      strncat(ret, tmp, sz);
+    }
+    else {
+      char tmp[4];
+      snprintf(tmp, 4, "%c", s[n]);
+      strcat(ret, tmp);
+    }
+    n--;
+  }
+  return ret;
 }
 
 /* returns 1 if s is an integer number. 0 otherwise */

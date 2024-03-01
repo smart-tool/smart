@@ -35,6 +35,7 @@
 #endif
 #include <sys/types.h>
 #include <time.h>
+#include <ctype.h>
 #include "sets.h"
 
 #ifndef BINDIR
@@ -136,10 +137,16 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   (void)parameter;
 
   if (occur2 >= 0 && occur1 != occur2) {
-    if (!VERBOSE)
-      printf("%s\tERROR: test failed on case n.%d (m=%d,n=%d) (\"%s\" in \"%s\")\n"
+    if (!VERBOSE) {
+      char *pP = printable((char*)P);
+      char *pT = printable((char*)T);
+      printf("%s\tERROR: test failed on case n.%d\n"
+             "\tbin/%s %s %d %s %d\n"
              "\tfound %d occ instead of %d\n\n",
-             algoname, *rip, m, n, P, T, occur2, occur1);
+             algoname, *rip, algoname, pP, m, pT, n, occur2, occur1);
+      free(pP);
+      free(pT);
+    }
     free_shm();
     (*rip)++;
     return 0;
@@ -413,7 +420,9 @@ int main(int argc, char *argv[]) {
   // 12) search for rand4 in rand100
   if (!minlen || minlen < 4) {
     for (h = 0; h < YSIZE; h++)
-      T[h] = rand() % 128;
+      do {
+        T[h] = (rand() % 74) + '0';
+      } while (!isalnum(T[h]));
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[YSIZE] = P[4] = '\0';
@@ -423,7 +432,9 @@ int main(int argc, char *argv[]) {
 
     // 13) search for rand4 in rand10
     for (h = 0; h < 10; h++)
-      T[h] = rand() % 128;
+      do {
+        T[h] = (rand() % 74) + '0';
+      } while (!isalnum(T[h]));
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[10] = P[4] = '\0';
@@ -433,8 +444,11 @@ int main(int argc, char *argv[]) {
   }
 
   // 14) search for rand32 in rand64
-  for (h = 0; h < 64; h++)
-    T[h] = rand() % 128;
+  for (h = 0; h < 64; h++) {
+    do {
+      T[h] = (rand() % 74) + '0';
+    } while (!isalnum(T[h]));
+  }
   for (h = 0; h < 32; h++)
     P[h] = T[h];
   T[64] = P[32] = '\0';
@@ -444,7 +458,9 @@ int main(int argc, char *argv[]) {
 
   // 15) search for same rand32 in rand64
   for (h = 0; h < 64; h++)
-    T[h] = rand() % 128;
+    do {
+      T[h] = (rand() % 74) + '0';
+    } while (!isalnum(T[h]));
   for (h = 0; h < 32; h++)
     P[h] = T[h];
   T[64] = P[32] = '\0';
