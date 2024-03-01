@@ -114,7 +114,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       shift = MAX(bmGs[i], bmBc[y[i + j]] - m + 1 + i);
     }
     j += shift;
-    memcpy(skip, skip + shift, (m - shift) * sizeof(int));
+    memmove(skip, skip + shift, (m - shift) * sizeof(int));
     memset(skip + m - shift, 0, shift * sizeof(int));
   }
   END_SEARCHING
