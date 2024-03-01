@@ -3,11 +3,13 @@
 // from ts.c
 int search_small(unsigned char *x, int m, unsigned char *y, int n) {
   int s, j, i, k, h, dim, count;
+  if (m < 1)
+    return 0;
 
   BEGIN_PREPROCESSING
   END_PREPROCESSING
+
   BEGIN_SEARCHING
-  /* Searching */
   count = 0;
   /* phase n.1*/
   s = 0;
