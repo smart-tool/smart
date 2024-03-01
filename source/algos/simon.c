@@ -53,7 +53,7 @@ int preSimon(unsigned char *x, int m, List L[]) {
   int i, k, ell;
   List cell;
 
-  memset(L, 0, (m - 2) * sizeof(List));
+  memset(L, 0, m * sizeof(List));
   ell = -1;
   for (i = 1; i < m; ++i) {
     k = ell;
@@ -92,6 +92,17 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (state >= m - 1) {
       OUTPUT(j - m + 1);
       state = ell;
+    }
+  }
+
+  for (unsigned i=0; i<XSIZE; i++) {
+    if (L[i]) {
+      List t = L[i];
+      while (t) {
+        List next = t->next;
+        free(t);
+        t = next;
+      }
     }
   }
   END_SEARCHING
