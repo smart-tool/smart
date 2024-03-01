@@ -10,24 +10,10 @@ gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefine
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bf.c -o bin/bf
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bfs.c -o bin/bfs
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/blim.c -o bin/blim
-source/algos/blim.c: In function ‘search’:
-source/algos/blim.c:62:14: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-   62 |     while (k < wsize) {
-      |              ^
-source/algos/blim.c:79:24: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-   79 |     for (j = 2; F && j < wsize; j++) {
-      |                        ^
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bm.c -o bin/bm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bmh-sbndm.c -o bin/bmh-sbndm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndm.c -o bin/bndm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndml.c -o bin/bndml
-source/algos/bndml.c: In function ‘search_large’:
-source/algos/bndml.c:118:19: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
-  118 |     for (i = 0; i < bit_size(m); i++) {
-      |                   ^
-source/algos/bndml.c:128:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
-  128 |       for (i = 0; i < bit_size(m); i++) {
-      |                     ^
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq2.c -o bin/bndmq2
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq4.c -o bin/bndmq4
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/bndmq6.c -o bin/bndmq6
@@ -56,57 +42,14 @@ gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefine
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/dfdm.c -o bin/dfdm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ebom.c -o bin/ebom
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/epsm.c -o bin/epsm
-source/algos/epsm.c: In function ‘search1’:
-source/algos/epsm.c:77:35: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   77 |   for (j = 16 * (textlen / 16); j < textlen; j++)
-      |                                   ^
-source/algos/epsm.c:52:41: warning: unused parameter ‘patlen’ [-Wunused-parameter]
-   52 | int search1(unsigned char *pattern, int patlen, unsigned char *x,
-      |                                     ~~~~^~~~~~
-source/algos/epsm.c: In function ‘search2’:
-source/algos/epsm.c:114:35: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  114 |   for (j = 16 * (textlen / 16); j < textlen; j++)
-      |                                   ^
-source/algos/epsm.c:83:41: warning: unused parameter ‘patlen’ [-Wunused-parameter]
-   83 | int search2(unsigned char *pattern, int patlen, unsigned char *x,
-      |                                     ~~~~^~~~~~
-source/algos/epsm.c: In function ‘search3’:
-source/algos/epsm.c:159:35: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  159 |   for (j = 16 * (textlen / 16); j < textlen; j++)
-      |                                   ^
-source/algos/epsm.c:120:41: warning: unused parameter ‘patlen’ [-Wunused-parameter]
-  120 | int search3(unsigned char *pattern, int patlen, unsigned char *x,
-      |                                     ~~~~^~~~~~
-source/algos/epsm.c: In function ‘search16’:
-source/algos/epsm.c:250:17: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  250 |   for (i = 1; i < tmppatlen - 7; i++) {
-      |                 ^
-source/algos/epsm.c:286:18: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-  286 |       if (t->pos <= 8 * (shift - 1)) {
-      |                  ^~
-source/algos/epsm.c:302:18: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-  302 |       if (t->pos <= 8 * (2 * shift - 1)) {
-      |                  ^~
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso2.c -o bin/faoso2
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso4.c -o bin/faoso4
-source/algos/faoso4.c: In function ‘verify_large’:
-source/algos/faoso4.c:123:48: warning: unused parameter ‘n’ [-Wunused-parameter]
-  123 | void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
-      |                                            ~~~~^
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/faoso6.c -o bin/faoso6
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fbom.c -o bin/fbom
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fdm.c -o bin/fdm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/ffs.c -o bin/ffs
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fjs.c -o bin/fjs
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fndm.c -o bin/fndm
-source/algos/fndm.c: In function ‘search’:
-source/algos/fndm.c:44:19: warning: left shift of negative value [-Wshift-negative-value]
-   44 |   NEG0m1 = neg(0) << (m - 1);
-      |                   ^~
-source/algos/fndm.c: In function ‘search_large’:
-source/algos/fndm.c:92:19: warning: left shift of negative value [-Wshift-negative-value]
-   92 |   NEG0m1 = neg(0) << (m - 1);
-      |                   ^~
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndm.c -o bin/fsbndm
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq20.c -o bin/fsbndmq20
 gcc -g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined source/algos/fsbndmq21.c -o bin/fsbndmq21

@@ -120,7 +120,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  * the pattern
  */
 
-void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
+void verify_large(unsigned char *y, int j, /*int n,*/ unsigned char *x, int m,
                   int q, int u, unsigned int D, unsigned int mm, int *count,
                   int p_len) {
   int s, c, mq, v, z, i;
@@ -190,7 +190,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
     D = (D << 1) | (B[y[j]] & ~masq);
     D = (D << 1) | (B[y[j + q]] & ~masq);
     if ((D & mm) != mm)
-      verify_large(y, j + uq1, n, x, m, q, u, D, mm, &count, p_len);
+      verify_large(y, j + uq1, /*n,*/ x, m, q, u, D, mm, &count, p_len);
     D &= ~mm;
     j += uq;
   }

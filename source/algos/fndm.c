@@ -24,7 +24,7 @@
 
 #include "include/define.h"
 #include "include/main.h"
-#define neg(K) (~K)
+#define neg(K) (unsigned)(~(K))
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
@@ -33,13 +33,15 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, count, first;
   if (m > 32)
     return search_large(x, m, y, n);
+  if (m <= 0)
+    return 0;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
   for (i = 0; i < SIGMA; i++)
-    B[i] = neg(0);
+    B[i] = neg(0U);
   for (j = 0; j < m; j++)
-    B[x[j]] = B[x[j]] & neg((1 << j));
+    B[x[j]] = B[x[j]] & neg(1U << j);
   NEG0 = neg(0);
   NEG0m1 = neg(0) << (m - 1);
   END_PREPROCESSING
@@ -80,28 +82,27 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, count, first, p_len;
 
   p_len = m;
-  m = 32;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
   for (i = 0; i < SIGMA; i++)
     B[i] = neg(0);
-  for (j = 0; j < m; j++)
+  for (j = 0; j < 32; j++)
     B[x[j]] = B[x[j]] & neg((1 << j));
   NEG0 = neg(0);
-  NEG0m1 = neg(0) << (m - 1);
+  NEG0m1 = neg(0) << 31;
   END_PREPROCESSING
 
   /* searching */
   BEGIN_SEARCHING
   count = 0;
-  i = m - 1;
+  i = 31;
   while (i < n) {
     D = B[y[i]];
     while (D != NEG0) {
       if (D < NEG0m1) {
         k = 0;
-        first = i - m + 1;
+        first = i - 31;
         while (k < p_len && x[k] == y[first + k])
           k++;
         if (k == p_len && i < n)
@@ -110,7 +111,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
       i = i + 1;
       D = (D << 1) | B[y[i]];
     }
-    i = i + m;
+    i += 32;
   }
   END_SEARCHING
   return count;
