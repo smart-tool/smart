@@ -26,6 +26,7 @@
 #include "include/define.h"
 #include "include/main.h"
 #ifdef __x86_64__
+#include <stdint.h>
 #include <inttypes.h>
 #include <memory.h>
 #include <smmintrin.h>
@@ -58,6 +59,7 @@ int search1(unsigned char *pattern, int patlen, unsigned char *x,
   VectorUnion template0;
   unsigned int j;
   int cnt = 0;
+  (void)patlen;
 
   BEGIN_PREPROCESSING
   for (j = 0; j < 16; j++) {
@@ -74,7 +76,7 @@ int search1(unsigned char *pattern, int patlen, unsigned char *x,
     text++;
   }
   // now we are at the beginning of the last 16-byte block, perform naive check
-  for (j = 16 * (textlen / 16); j < textlen; j++)
+  for (j = 16 * (textlen / 16); j < (unsigned)textlen; j++)
     cnt += (x[j] == pattern[0]);
   END_SEARCHING
   return cnt;
@@ -90,6 +92,7 @@ int search2(unsigned char *pattern, int patlen, unsigned char *x,
   unsigned int j, k, carry = 0;
   int cnt = 0;
   unsigned char firstch = pattern[0], lastch = pattern[1];
+  (void)patlen;
 
   BEGIN_PREPROCESSING
   for (j = 0; j < 16; j++) {
@@ -111,7 +114,7 @@ int search2(unsigned char *pattern, int patlen, unsigned char *x,
     text++;
   }
   // now we are at the beginning of the last 16-byte block, perform naive check
-  for (j = 16 * (textlen / 16); j < textlen; j++)
+  for (j = 16 * (textlen / 16); j < (unsigned)textlen; j++)
     cnt += ((x[j - 1] == firstch) && (x[j] == lastch));
   END_SEARCHING
   return cnt;
@@ -126,6 +129,7 @@ int search3(unsigned char *pattern, int patlen, unsigned char *x,
   VectorUnion template0, template1, template2;
   unsigned int j, k, l, carry0 = 0, carry1 = 0;
   int cnt = 0;
+  (void)patlen;
 
   BEGIN_PREPROCESSING
   for (j = 0; j < 16; j++) {
@@ -156,7 +160,7 @@ int search3(unsigned char *pattern, int patlen, unsigned char *x,
     text++;
   }
   // now we are at the beginning of the last 16-byte block, perform naive check
-  for (j = 16 * (textlen / 16); j < textlen; j++)
+  for (j = 16 * (textlen / 16); j < (unsigned)textlen; j++)
     cnt += ((x[j - 2] == pattern[0]) && (x[j - 1] == pattern[1]) &&
             (x[j] == pattern[2]));
   END_SEARCHING
@@ -167,6 +171,7 @@ int search3(unsigned char *pattern, int patlen, unsigned char *x,
 int search4(unsigned char *pattern, int patlen, unsigned char *x, int textlen) {
   __m128i *text = (__m128i *)x;
   __m128i *tend = (__m128i *)(x + 16 * (textlen / 16));
+  (void)patlen;
   if ((textlen % 16) < 7)
     tend--;
 
@@ -237,9 +242,9 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   LIST *t;
 
   unsigned int i, filter, shift = (patlen / 8) - 1;
-  unsigned long long crc, seed = 123456789, mask;
-  unsigned long long *ptr64;
-  unsigned long long *lastchunk;
+  uint64_t crc, seed = 123456789, mask;
+  uint64_t *ptr64;
+  uint64_t *lastchunk;
   unsigned char *charPtr;
   int count = 0, tmppatlen = (patlen / 8) * 8;
   mask = 2047;
@@ -247,8 +252,9 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   BEGIN_PREPROCESSING
   memset(flist, 0, sizeof(LIST *) * 2048);
 
-  for (i = 1; i < tmppatlen - 7; i++) {
-    ptr64 = (unsigned long long *)(&pattern[i]);
+  for (i = 1; (int)i < tmppatlen - 7; i++) {
+    // FIXME: unaligned access, wordwise stepper please
+    ptr64 = (uint64_t *)(&pattern[i]);
     crc = _mm_crc32_u64(seed, *ptr64);
     filter = (unsigned int)(crc & mask);
 
@@ -273,8 +279,8 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   END_PREPROCESSING
 
   BEGIN_SEARCHING
-  lastchunk = (unsigned long long *)&x[((textlen - tmppatlen) / 8) * 8 + 1];
-  ptr64 = (unsigned long long *)&x[(shift - 1) * 8];
+  lastchunk = (uint64_t *)&x[((textlen - tmppatlen) / 8) * 8 + 1];
+  ptr64 = (uint64_t *)&x[(shift - 1) * 8];
 
   crc = _mm_crc32_u64(seed, *ptr64);
   filter = (unsigned int)(crc & mask);
@@ -283,7 +289,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
     t = flist[filter];
     while (t) {
 
-      if (t->pos <= 8 * (shift - 1)) {
+      if ((unsigned)t->pos <= 8 * (shift - 1)) {
         if (memcmp(pattern, charPtr - t->pos, patlen) == 0)
           count++;
       }
@@ -299,7 +305,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
     t = flist[filter];
     while (t) {
 
-      if (t->pos <= 8 * (2 * shift - 1)) {
+      if ((unsigned)t->pos <= 8 * (2 * shift - 1)) {
         if (memcmp(pattern, charPtr - t->pos, patlen) == 0)
           count++;
       }
