@@ -53,7 +53,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   }
   for (j = 0; j < m; j++)
     y[n + j] = x[j];
-  M = 1 << (m - 1);
+  M = 1U << (m - 1);
   END_PREPROCESSING
 
   /* Searching */
@@ -112,7 +112,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   }
   for (j = 0; j < m; j++)
     y[n + j] = x[j];
-  M = 1 << (m - 1);
+  M = 1U << (m - 1);
   END_PREPROCESSING
 
   /* Searching */
