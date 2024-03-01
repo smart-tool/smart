@@ -76,8 +76,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int plen = m;
   if (m % Q != 0)
     m = m - (m % Q);
-  int mm1 = m - 1;
-  int mq = m - Q + 1;
+  const int mm1 = m - 1;
+  const int mq = m - Q + 1;
   preprocessing(x, m, F);
   for (i = 0; i < m; i++)
     y[n + i] = x[i];
@@ -102,7 +102,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       b = tp - 1; // b is the maximum between lf and tp-1
     while ((test = F[h]) && j > b) {
       j -= Q;
-      h = (h << 16) + HASH(j);
+      h = HASH(j);
     }
 
     // verification
