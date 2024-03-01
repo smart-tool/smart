@@ -52,14 +52,14 @@ check: all
 	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
 sanitizer.log: $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
-	-rm sanitizer.log
+	-rm -f sanitizer.log 2>/dev/null
 	./sanitizer.sh 2>sanitizer.log
 lint: cppcheck clang-tidy
 cppcheck:
 	cppcheck -j4 -D__linux__ .
 compile_commands.json: $(ALGOSRC) $(wildcard source/*.c)
-	-make clean
-	bear -- make
+	-+$(MAKE) clean
+	bear -- $(MAKE)
 clang-tidy: compile_commands.json
 	clang-tidy source/*.c source/algos/*.c | tee clang-tidy.log
 fmt:

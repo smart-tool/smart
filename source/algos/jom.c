@@ -39,7 +39,7 @@ void computeFreq(unsigned char *T, double freq[]) {
     freq[i] /= 100.0;
 }
 
-int FindJumpDistance(unsigned char *p, int m, int i, double freq[],
+int FindJumpDistance(unsigned char *p, /*int m,*/ int i, double freq[],
                      double bound) {
   int v[SIGMA];
   for (int c = 0; c < SIGMA; c++)
@@ -56,7 +56,7 @@ int FindJumpDistance(unsigned char *p, int m, int i, double freq[],
   return j - 1;
 }
 
-void PrecomputeJOH(unsigned char *p, int m, int i, int j,
+void PrecomputeJOH(unsigned char *p, /*int m,*/ int i, int j,
                    int jbc[SIGMA][SIGMA]) {
   for (int a = 0; a < SIGMA; a++)
     for (int b = 0; b < SIGMA; b++)
@@ -102,8 +102,8 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_PREPROCESSING
   computeFreq(T, freq);
   i = FindWorstOccurrence(P, m, freq);
-  j = FindJumpDistance(P, m, i, freq, 0.9);
-  PrecomputeJOH(P, m, i, j, jbc);
+  j = FindJumpDistance(P, /*m,*/ i, freq, 0.9);
+  PrecomputeJOH(P, /*m,*/ i, j, jbc);
   END_PREPROCESSING
 
   BEGIN_SEARCHING

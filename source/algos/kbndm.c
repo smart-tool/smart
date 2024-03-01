@@ -31,8 +31,9 @@
 #define WORD_BITS (sizeof(WORD_TYPE) * CHAR_BIT)
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, k, m1;
+  int i, j, m1;
   int beg, end;
+  unsigned k;
   WORD_TYPE M;
   WORD_TYPE B[SIGMA][SIGMA] = {{0}};
   WORD_TYPE L[SIGMA] = {0};

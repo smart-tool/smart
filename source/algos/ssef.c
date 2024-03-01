@@ -62,7 +62,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   unsigned char *f = malloc(Plen);
 
   last = (Plen / 16) - 1;
-  for (i = 0; i < Plen; i++) {
+  for (i = 0; i < (unsigned)Plen; i++) {
     f[i] = (x[i] & 0x80) >> 7;
   }
   count = 15;

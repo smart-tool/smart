@@ -1,19 +1,3 @@
-source/algos/jom.c: In function ‘FindJumpDistance’:
-source/algos/jom.c:42:44: warning: unused parameter ‘m’ [-Wunused-parameter]
-   42 | int FindJumpDistance(unsigned char *p, int m, int i, double freq[],
-      |                                        ~~~~^
-source/algos/jom.c: In function ‘PrecomputeJOH’:
-source/algos/jom.c:59:42: warning: unused parameter ‘m’ [-Wunused-parameter]
-   59 | void PrecomputeJOH(unsigned char *p, int m, int i, int j,
-      |                                      ~~~~^
-source/algos/kbndm.c: In function ‘search’:
-source/algos/kbndm.c:45:17: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
-   45 |   for (k = 0; k < WORD_BITS - 1; k++) {
-      |                 ^
-source/algos/sbndmq2.c: In function ‘search_large’:
-source/algos/sbndmq2.c:104:9: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
-  104 |   if (m < q)
-      |         ^
 source/algos/ssecp.c: In function ‘search_rawsse’:
 source/algos/ssecp.c:52:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
    52 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
@@ -21,10 +5,6 @@ source/algos/ssecp.c:52:35: warning: dereferencing type-punned pointer will brea
 source/algos/ssecp.c:63:35: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
    63 |     occurences += _mm_popcnt_u32(*(int *)&mask_reg & result_mask);
       |                                   ^~~~~~~~~~~~~~~~
-source/algos/ssef.c: In function ‘search’:
-source/algos/ssef.c:65:17: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   65 |   for (i = 0; i < Plen; i++) {
-      |                 ^
 source/algos/tvsbs-w8.c: In function ‘search’:
 source/algos/tvsbs-w8.c:91:14: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    91 |     while (c == y[s1 + i] | c == y[s2 + i] | c == y[s3 + i] | c == y[s4 + i] |
@@ -47,46 +27,6 @@ source/algos/tvsbs-w8.c:92:48: warning: suggest parentheses around comparison in
 source/algos/tvsbs-w8.c:92:65: warning: suggest parentheses around comparison in operand of ‘|’ [-Wparentheses]
    92 |            c == y[s5 + i] | c == y[s6 + i] | c == y[s7 + i] | c == y[s8 + i])
       |                                                               ~~^~~~~~~~~~~~
-source/algos/ufndmq2.c: In function ‘search’:
-source/algos/ufndmq2.c:68:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   68 |     while ((D | 1) == ~0) {
-      |                    ^~
-source/algos/ufndmq2.c: In function ‘search_large’:
-source/algos/ufndmq2.c:131:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  131 |     while ((D | 1) == ~0) {
-      |                    ^~
-source/algos/ufndmq4.c: In function ‘search’:
-source/algos/ufndmq4.c:69:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   69 |     while ((D | 7) == ~0) {
-      |                    ^~
-source/algos/ufndmq4.c: In function ‘search_large’:
-source/algos/ufndmq4.c:134:20: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  134 |     while ((D | 7) == ~0) {
-      |                    ^~
-source/algos/ufndmq6.c: In function ‘search’:
-source/algos/ufndmq6.c:70:21: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   70 |     while ((D | 31) == ~0) {
-      |                     ^~
-source/algos/ufndmq6.c: In function ‘search_large’:
-source/algos/ufndmq6.c:133:21: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  133 |     while ((D | 31) == ~0) {
-      |                     ^~
-source/algos/ufndmq8.c: In function ‘search’:
-source/algos/ufndmq8.c:71:22: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-   71 |     while ((D | 127) == ~0) {
-      |                      ^~
-source/algos/ufndmq8.c: In function ‘search_large’:
-source/algos/ufndmq8.c:134:22: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
-  134 |     while ((D | 127) == ~0) {
-      |                      ^~
-source/algos/wc.c: In function ‘PreBadPosBC’:
-source/algos/wc.c:29:40: warning: unused parameter ‘m’ [-Wunused-parameter]
-   29 | void PreBadPosBC(unsigned char *P, int m, int *hbc, int pos) {
-      |                                    ~~~~^
-source/algos/wom.c: In function ‘PrecomputeWOH’:
-source/algos/wom.c:58:42: warning: unused parameter ‘m’ [-Wunused-parameter]
-   58 | void PrecomputeWOH(unsigned char *p, int m, int q, int wo[]) {
-      |                                      ~~~~^
 In file included from source/smart.c:48:
 source/output.h: In function ‘outputPHP’:
 source/output.h:77:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]

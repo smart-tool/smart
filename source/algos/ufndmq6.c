@@ -67,7 +67,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   i = 0;
   D = ~0;
   while (1) {
-    while ((D | 31) == ~0) {
+    while ((D | 31) == ~0U) {
       i += m;
       D = (D << m) | GRAM6(i);
     }
@@ -130,7 +130,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   i = 0;
   D = ~0;
   while (1) {
-    while ((D | 31) == ~0) {
+    while ((D | 31) == ~0U) {
       i += m;
       D = (D << m) | GRAM6(i);
     }

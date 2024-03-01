@@ -55,7 +55,7 @@ int FindWorstOccurrence(unsigned char *p, int m, double freq[]) {
   return q;
 }
 
-void PrecomputeWOH(unsigned char *p, int m, int q, int wo[]) {
+void PrecomputeWOH(unsigned char *p, /*int m,*/ int q, int wo[]) {
   for (int i = 0; i < SIGMA; i++)
     wo[i] = q + 1;
   for (int i = 0; i < q; i++)
@@ -69,7 +69,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_PREPROCESSING
   computeFreq(T, freq);
   q = FindWorstOccurrence(P, m, freq);
-  PrecomputeWOH(P, m, q, wo);
+  PrecomputeWOH(P, /*m,*/ q, wo);
   END_PREPROCESSING
 
   BEGIN_SEARCHING

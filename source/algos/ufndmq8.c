@@ -66,9 +66,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (!memcmp(x, y, m))
     OUTPUT(0);
   i = 0;
-  D = ~0;
+  D = ~0U;
   while (1) {
-    while ((D | 127) == ~0) {
+    while ((D | 127) == ~0U) {
       i += m;
       D = (D << m) | GRAM8(i);
     }
@@ -129,9 +129,9 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   if (!memcmp(x, y, p_len))
     OUTPUT(0);
   i = 0;
-  D = ~0;
+  D = ~0U;
   while (1) {
-    while ((D | 127) == ~0) {
+    while ((D | 127) == ~0U) {
       i += m;
       D = (D << m) | GRAM8(i);
     }

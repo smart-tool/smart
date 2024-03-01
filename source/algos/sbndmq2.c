@@ -97,9 +97,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, q;
+  unsigned int B[SIGMA], D;
   int i, j, pos, mMinusq, mq, count, p_len, shift;
-  q = 2;
+  const int q = 2;
 
   if (m < q)
     return 0;
