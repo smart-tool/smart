@@ -43,11 +43,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, count;
   if (m > WORD)
     return search_large(x, m, y, n);
+  if (m < 1)
+    return 0;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
   preSA(x, m, S);
-  F = 1 << (m - 1);
+  F = 1U << (unsigned)(m - 1);
   END_PREPROCESSING
 
   /* Searching */
