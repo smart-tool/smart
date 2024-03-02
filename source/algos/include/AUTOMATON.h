@@ -75,6 +75,13 @@ unsigned char *ureverse(unsigned char *x, int m) {
   return (xR);
 }
 
+void s_ureverse(unsigned char *xR, unsigned char *x, int m) {
+  int i;
+  for (i = 0; i < m; ++i)
+    xR[i] = x[m - 1 - i];
+  xR[m] = '\0';
+}
+
 /*void copyVertex(int target, int source) {
           for(i=0; i<SIGMA; i++) setTarget(target, i, getTarget(source,i) );
           for(i=0; i<SIGMA; i++) setShift(target, i, getShift(source,i) );
