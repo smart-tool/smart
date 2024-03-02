@@ -26,18 +26,27 @@
 #include "include/define.h"
 #include "include/main.h"
 
+static int s_trans[M_CUTOFF + 2][SIGMA];
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE], FT[SIGMA][SIGMA];
   int *trans[XSIZE];
   int i, j, p, q = 0;
   int iMinus1, mMinus1, count;
-  unsigned char c;
-  count = 0;
+  int allocated = 0;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  for (i = 0; i <= m + 1; i++)
-    trans[i] = (int *)malloc(sizeof(int) * (SIGMA));
+  unsigned char c;
+  count = 0;
+  if (m + 2 > M_CUTOFF) {
+    allocated = 1;
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+  } else {
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = s_trans[i];
+  }
   for (i = 0; i <= m + 1; i++)
     for (j = 0; j < SIGMA; j++)
       trans[i][j] = UNDEFINED;
@@ -95,8 +104,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     j = i + m;
   }
 
-  for (i = 0; i <= m + 1; i++)
-    free(trans[i]);
+  if (allocated) {
+    for (i = 0; i <= m + 1; i++)
+      free(trans[i]);
+  }
   END_SEARCHING
   return count;
 }
