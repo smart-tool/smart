@@ -23,6 +23,7 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#include <assert.h>
 
 unsigned char *x, *y;
 int k, m, n, p, p1, p2, q, q1, q2, s;
@@ -32,77 +33,84 @@ void newP1();
 void newP2();
 
 void _search() {
-   while (p <= n - m) {
-      while (p + s + q < n && x[s + q] == y[p + s + q])
-         ++q;
-      if (q == m - s && memcmp(x, y + p, s + 1) == 0)
-         OUTPUT(p);
-      if (q == p1 + q1) {
-         p += p1;
-         q -= p1;
-      }
-      else {
-         p += (q/k + 1);
-         q = 0;
-      }
-   }
+  while (p <= n - m) {
+    //if (s + p + q > n)
+    //  return;
+    assert(s + q <= m);
+    assert(s + p + q <= n);
+    while (s + p + q < n && x[s + q] == y[s + p + q])
+      ++q;
+    if (q == m - s && memcmp(x, y + p, s + 1) == 0)
+      OUTPUT(p);
+    if (q == p1 + q1) {
+      p += p1;
+      q -= p1;
+    }
+    else {
+      p += (q/k + 1);
+      q = 0;
+    }
+  }
 }
 
 void parse() {
-   while (1) {
-      while (x[s + q1] == x[s + p1 + q1])
-         ++q1;
-      while (p1 + q1 >= k*p1) {
-         s += p1;
-         q1 -= p1;
-      }
-      p1 += (q1/k + 1);
-      q1 = 0;
-      if (p1 >= p2)
-         break;
-   }
-   newP1();
+  while (1) {
+    assert(s + p1 + q1 <= m);
+    while (x[s + q1] == x[s + p1 + q1])
+      ++q1;
+    while (p1 + q1 >= k*p1) {
+      s += p1;
+      q1 -= p1;
+    }
+    p1 += (q1/k + 1);
+    q1 = 0;
+    if (p1 >= p2)
+      break;
+  }
+  newP1();
 }
  
 
 void newP2() {
-   while (x[s + q2] == x[s + p2 + q2] && p2 + q2 < k*p2)
-      ++q2;
-   if (p2 + q2 == k*p2)
-      parse();
-   else
-      if (s + p2 + q2 == m)
-         _search();
-      else {
-         if (q2 == p1 + q1) {
-            p2 += p1;
-            q2 -= p1;
-         }
-         else {
-            p2 += (q2/k + 1);
-            q2 = 0;
-         }
-         newP2();
+  assert(s + p2 + q2 <= m);
+  while (x[s + q2] == x[s + p2 + q2] && p2 + q2 < k*p2)
+    ++q2;
+  if (p2 + q2 == k*p2)
+    parse();
+  else
+    if (s + p2 + q2 == m)
+      _search();
+    else {
+      if (q2 == p1 + q1) {
+        p2 += p1;
+        q2 -= p1;
       }
+      else {
+        p2 += (q2/k + 1);
+        q2 = 0;
+      }
+      newP2();
+    }
 }
  
 void newP1() {
-   while (x[s + q1] == x[s + p1 + q1])
-      ++q1;
-   if (p1 + q1 >= k*p1) {
-      p2 = q1;
-      q2 = 0;
-      newP2();
-   }
-   else {
-      if (s + p1 + q1 == m)
-         _search();
-      else {
-         p1 += (q1/k + 1);
-         q1 = 0;
-         newP1();
-      }
-   }
+  assert(s + p1 + q1 <= m);
+  while (x[s + q1] == x[s + p1 + q1])
+    ++q1;
+  if (p1 + q1 >= k * p1) {
+    p2 = q1;
+    q2 = 0;
+    newP2();
+  }
+  else {
+    if (s + p1 + q1 == m)
+      _search();
+    else {
+      p1 += (q1/k + 1);
+      q1 = 0;
+      newP1();
+    }
+  }
 }
 
 
