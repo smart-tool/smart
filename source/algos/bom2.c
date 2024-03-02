@@ -25,18 +25,28 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#include <assert.h>
+
+static int s_trans[M_CUTOFF + 2][SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE];
   int *trans[XSIZE];
   int i, j, p, q = 0;
   int iMinus1, mMinus1, nMinusm, count;
+  int allocated = 0;
 
   BEGIN_PREPROCESSING
   unsigned char c;
   count = 0;
-  for (i = 0; i <= m + 1; i++)
-    trans[i] = (int *)malloc(sizeof(int) * (SIGMA));
+  if (m + 2 > M_CUTOFF) {
+    allocated = 1;
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+  } else {
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = s_trans[i];
+  }
 
   // Preprocessing
   for (i = 0; i <= m + 1; i++)
@@ -64,6 +74,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   while (j <= nMinusm) {
     i = mMinus1;
     p = m;
+    assert(i + j < n);
     while (i + j >= 0 && (q = trans[p][y[i + j]]) != UNDEFINED) {
       p = q;
       --i;
@@ -74,8 +85,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += (i + 1);
   }
-  for (i = 0; i <= m + 1; i++)
-    free(trans[i]);
+  if (allocated) {
+    for (i = 0; i <= m + 1; i++)
+      free(trans[i]);
+  }
   END_SEARCHING
   return count;
 }

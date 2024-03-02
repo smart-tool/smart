@@ -21,6 +21,9 @@
  * Factor oracle: a new structure for pattern matching.
  * SOFSEM'99, Theory and Practice of Informatics, Lecture Notes in Computer
  * Science, n.1725, pp.291--306, (1999).
+ *
+ * Note: requires malloc plus 2xXSIZE statically.
+ * TODO search_large if m > XSIZE
  */
 
 #include "include/define.h"
@@ -107,7 +110,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
-  END_SEARCHING
   for (i = 0; i <= m; i++) {
     if (L[i]) {
       List t = L[i];
@@ -118,5 +120,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
     }
   }
+  END_SEARCHING
   return count;
 }
