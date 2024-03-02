@@ -226,9 +226,9 @@ int main(int argc, char *argv[]) {
   unsigned long seed = time(NULL);
 #ifdef DEBUG
   if (getenv("SEED"))
-    sscanf(getenv("SEED"), "%u", &seed);
+    sscanf(getenv("SEED"), "%lu", &seed);
   if (VERBOSE)
-    printf("seed=%u\n", seed);
+    printf("seed=%lu\n", seed);
 #endif
   srand(seed);
 #ifdef HAVE_SHM
