@@ -25,7 +25,6 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-#define M_CUTOFF 32
 static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
 static int s_tlength[3 * M_CUTOFF * sizeof(int)];
 static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
