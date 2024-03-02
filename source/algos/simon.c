@@ -21,6 +21,9 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+// TODO prove the bounded size (2)
+struct _cell s_cells[2 * M_CUTOFF];
+
 int getTransitionSimon(unsigned char *x, int m, int p, List L[], char c) {
   List cell;
 
@@ -38,19 +41,23 @@ int getTransitionSimon(unsigned char *x, int m, int p, List L[], char c) {
     return (-1);
 }
 
-void setTransitionSimon(int p, int q, List L[]) {
+void setTransitionSimon(int p, int q, List L[], const int m, const int j) {
   List cell;
 
-  cell = (List)malloc(sizeof(struct _cell));
-  if (cell == NULL)
-    error("SIMON/setTransition");
+  if (m > M_CUTOFF) {
+    cell = (List)malloc(sizeof(struct _cell));
+    if (cell == NULL)
+      error("SIMON/setTransition");
+  } else {
+    cell = &s_cells[j];
+  }
   cell->element = q;
   cell->next = L[p];
   L[p] = cell;
 }
 
 int preSimon(unsigned char *x, int m, List L[]) {
-  int i, k, ell;
+  int i, j = 0, k, ell;
   List cell;
 
   memset(L, 0, m * sizeof(List));
@@ -62,13 +69,13 @@ int preSimon(unsigned char *x, int m, List L[]) {
     if (x[i] == x[k + 1])
       ell = k + 1;
     else
-      setTransitionSimon(i - 1, k + 1, L);
+      setTransitionSimon(i - 1, k + 1, L, m, j++);
     while (cell != NULL) {
       k = cell->element;
       if (x[i] == x[k])
         ell = k;
       else
-        setTransitionSimon(i - 1, k, L);
+        setTransitionSimon(i - 1, k, L, m, j++);
       cell = cell->next;
     }
   }
@@ -94,16 +101,21 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       state = ell;
     }
   }
-  END_SEARCHING
-  for (unsigned i=0; i<XSIZE; i++) {
-    if (L[i]) {
-      List t = L[i];
-      while (t) {
-        List next = t->next;
-        free(t);
-        t = next;
+  if (m > M_CUTOFF) {
+    //unsigned cells = 0;
+    for (unsigned i=0; i<XSIZE; i++) {
+      if (L[i]) {
+        List t = L[i];
+        while (t) {
+          List next = t->next;
+          //cells++;
+          free(t);
+          t = next;
+        }
       }
     }
   }
+  //fprintf(stderr, "cells=%u (m=%d)\n", cells, m, n);
+  END_SEARCHING
   return count;
 }
