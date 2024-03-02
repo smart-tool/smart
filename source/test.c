@@ -46,7 +46,7 @@
 #define XSIZE 100
 #define YSIZE 100
 #define ATTEMPT 40 // number of attempts to allocate shared memory
-#define VERBOSE !strcmp(parameter, "-nv")
+#define VERBOSE strcmp(parameter, "-nv")
 
 int tshmid, eshmid, preshmid, pshmid, rshmid;
 unsigned char *T, *P;
@@ -127,6 +127,15 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
             key_t ekey, key_t prekey, int alpha, char *parameter /*ignored*/) {
   // printf("\b\b\b\b\b\b[%.3d%%]",(*rip)*100/18); fflush(stdout);
   (*count) = 0;
+  char *pP = NULL;
+  char *pT = NULL;
+  if (VERBOSE) {
+    pP = printable((char*)P);
+    pT = printable((char*)T);
+#ifdef DEBUG
+    printf("\t%d bin/%s %s %d %s %d ", *rip, algoname, pP, m, pT, n);
+#endif
+  }
   int occur1 = search(P, m, T, n);
 #ifdef _WIN32
   int occur2 = execute(algoname, P, m, T, n, count);
@@ -137,25 +146,37 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   (void)parameter;
 
   if (occur2 >= 0 && occur1 != occur2) {
-    if (!VERBOSE) {
-      char *pP = printable((char*)P);
-      char *pT = printable((char*)T);
+    if (VERBOSE) {
       printf("%s\tERROR: test failed on case n.%d\n"
-             "\tbin/%s %s %d %s %d\n"
+#ifndef DEBUG
+             "\tbin/%s %s %d %s %d "
+#endif
              "\tfound %d occ instead of %d\n\n",
-             algoname, *rip, algoname, pP, m, pT, n, occur2, occur1);
+             algoname, *rip,
+#ifndef DEBUG
+             algoname, pP, m, pT, n,
+#endif
+             occur2, occur1);
       free(pP);
       free(pT);
     }
     free_shm();
     (*rip)++;
     return 0;
+  } else {
+    if (VERBOSE) {
+#ifdef DEBUG
+      printf("%d OK\n", *rip);
+#endif
+      free(pP);
+      free(pT);
+    }
   }
   (*rip)++;
   return 1;
 }
 
-#ifdef DEBUG
+#ifdef PRETTY_RANDCH
 #define RANDCH(c)            \
   do {                       \
     c = (rand() % 74) + '0'; \
@@ -185,7 +206,7 @@ int main(int argc, char *argv[]) {
   FILE *fp = fopen(filename, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
   if (!fp) {
-    if (!VERBOSE)
+    if (VERBOSE)
       printf("\n\tERROR: unable to execute program %s\n\n", filename);
     exit(1);
   }
@@ -202,7 +223,14 @@ int main(int argc, char *argv[]) {
     FREQ[i] = 0;
 
   // allocate space for text in shared memory
-  srand(time(NULL));
+  unsigned long seed = time(NULL);
+#ifdef DEBUG
+  if (getenv("SEED"))
+    sscanf(getenv("SEED"), "%u", &seed);
+  if (VERBOSE)
+    printf("seed=%u\n", seed);
+#endif
+  srand(seed);
 #ifndef _WIN32
   key_t tkey;
   int try = 0;
@@ -221,7 +249,6 @@ int main(int argc, char *argv[]) {
   }
 
   // allocate space for running time in shared memory
-  srand(time(NULL));
   key_t ekey;
   try = 0;
   do {
@@ -324,7 +351,7 @@ int main(int argc, char *argv[]) {
                           occur2 =
                           execute(algoname,pkey,m,tkey,YSIZE,rkey,ekey,prekey,count,alpha);
                           if(occur2>=0 && occur1 != occur2) {
-                            if(!VERBOSE) printf("\n\tERROR: test failed\n\n");
+                            if(VERBOSE) printf("\n\tERROR: test failed\n\n");
                             free_shm();
                             exit(1);
                           }
@@ -527,7 +554,7 @@ int main(int argc, char *argv[]) {
       exit(1);
   }
 
-  if (!VERBOSE)
+  if (VERBOSE)
     printf("%s\ttested OK\n", algoname);
 
   // free shared memory

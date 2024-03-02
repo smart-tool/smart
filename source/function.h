@@ -37,7 +37,7 @@ char *printable(const char *s) {
   unsigned sz = (n+1) * 4;
   char* ret = calloc(sz, 1);
   while (n >= 0) {
-    if (iscntrl(s[n]) || s[n] == '\'' || s[n] == ' '|| s[n] == '"') {
+    if (!isgraph(s[n]) || s[n] == '\'' || s[n] == ' '|| s[n] == '"') {
       char tmp[5];
       snprintf(tmp, sizeof(tmp), "\\%03o", s[n]);
       if (strlen(ret) + n + 5 > sz) {
