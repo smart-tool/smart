@@ -22,21 +22,21 @@
  * check the number of occurrences reported
  */
 
+#include "sets.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifndef _WIN32
-#include <sys/ipc.h>
-#include <sys/shm.h>
+#ifdef HAVE_SHM
+# include <sys/ipc.h>
+# include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a,b,c)
+# define key_t int
+# define shmctl(a,b,c)
 #endif
 #include <sys/types.h>
 #include <time.h>
 #include <ctype.h>
-#include "sets.h"
 
 #ifndef BINDIR
 # define BINDIR "bin"
@@ -79,7 +79,7 @@ void printManual() {
 
 
 int execute(
-#ifdef _WIN32
+#ifndef HAVE_SHM
             char *algoname, unsigned char *P, int m, unsigned char *T, int n,
             int *count
 #else
@@ -89,7 +89,7 @@ int execute(
             )
 {
   char command[100];
-#ifdef _WIN32
+#ifndef HAVE_SHM
   sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname,
           P, m, T, n);
 #else
@@ -108,7 +108,7 @@ int execute(
 int FREQ[SIGMA];
 
 void free_shm() {
-#ifndef _WIN32
+#ifdef HAVE_SHM
   shmdt(T);
   shmdt(P);
   shmdt(count);
@@ -137,7 +137,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 #endif
   }
   int occur1 = search(P, m, T, n);
-#ifdef _WIN32
+#ifndef HAVE_SHM
   int occur2 = execute(algoname, P, m, T, n, count);
   (void)pkey; (void)tkey; (void)rkey; (void)ekey; (void)prekey; (void)tkey;
 #else  
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
     printf("seed=%u\n", seed);
 #endif
   srand(seed);
-#ifndef _WIN32
+#ifdef HAVE_SHM
   key_t tkey;
   int try = 0;
   do {

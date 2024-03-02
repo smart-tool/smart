@@ -25,6 +25,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#if !defined(__AVR__)
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
@@ -34,7 +35,7 @@ typedef struct {
   double end;
 } TIMER;
 
-#ifdef __linux__
+#if defined(__linux__) && !defined(__AVR__)
 #include <syscall.h>
 #define clock_gettime(id, ts) syscall(SYS_clock_gettime, (id), (ts))
 #endif
@@ -57,4 +58,5 @@ static inline void timer_stop(TIMER *t) { t->end = get_time(); }
 
 static inline double timer_elapsed(TIMER *t) { return t->end - t->start; }
 
+#endif // AVR
 #endif

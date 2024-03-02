@@ -21,16 +21,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifndef _WIN32
-#include <sys/ipc.h>
-#include <sys/shm.h>
+#ifdef HAVE_SHM
+# include <sys/ipc.h>
+# include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a,b,c)
+# define key_t int
+# define shmctl(a,b,c)
 #endif
 #include <sys/types.h>
 
+double *run_time = NULL, // searching time
+    *pre_time = NULL;    // preprocessing time
+#ifndef __AVR__
 #define BEGIN_PREPROCESSING                                                    \
   {                                                                            \
     timer_start(_timer);                                                       \
@@ -57,15 +60,21 @@
   }
 
 /* global variables used for computing preprocessing and searching times */
-double *run_time = NULL, // searching time
-    *pre_time = NULL;    // preprocessing time
 clock_t start, end;
 TIMER *_timer;
+#else // AVR
+#define BEGIN_PREPROCESSING
+#define BEGIN_SEARCHING
+#define END_PREPROCESSING
+#define END_SEARCHING
+#endif
 
 int search(unsigned char *p, int m, unsigned char *t, int n);
 
 int main(int argc, char *argv[]) {
+#ifndef __AVR__
   _timer = (TIMER *)malloc(sizeof(TIMER));
+#endif
   unsigned char *p = NULL, *t = NULL;
   int m, n;
   if (!strcmp("shared", argv[1])) {
@@ -82,7 +91,7 @@ int main(int argc, char *argv[]) {
     key_t ekey = atoi(argv[7]); // segment name for the running time
     key_t prekey =
         atoi(argv[8]); // segment name for the preprocessing running time
-#ifndef _WIN32
+#ifdef HAVE_SHM
     /* Locate the pattern. */
     if ((pshmid = shmget(pkey, m, 0666)) < 0) {
       perror("shmget");
@@ -135,7 +144,7 @@ int main(int argc, char *argv[]) {
     int rshmid, *result;
     key_t rkey = atoi(argv[6]); // segment name for the occurrences
                                 //  Locate the int value.
-#ifndef _WIN32
+#ifdef HAVE_SHM
     if ((rshmid = shmget(rkey, 4, 0666)) < 0) {
       perror("shmget");
       return 1;

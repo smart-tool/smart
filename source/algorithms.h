@@ -7,6 +7,10 @@
 # define X64_ONLY 0
 #endif
 
+#if !(defined(_WIN32) || defined(__AVR__))
+# define HAVE_SHM
+#endif
+
 enum algo_id {
   // Comparison based Algorithms
   _BF,      // Brute Force
