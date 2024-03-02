@@ -436,7 +436,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     j += skip[ell]; // shift
   }
 
-  END_SEARCHING
   if (m > M_CUTOFF) {
     free(suff);
     free(pref);
@@ -445,5 +444,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     free(skip);
     free(bcGsVal);
   }
+  END_SEARCHING
   return count;
 }

@@ -27,6 +27,7 @@
 #include "include/define.h"
 #include "include/log2.h"
 #include "include/main.h"
+
 #define getZ(i) z[(i)]
 #define NIL 0
 #define delta(q, a) automaton->trans[(q)*SIGMA + (a)]
@@ -52,6 +53,12 @@ struct _automaton {
 
 typedef struct _automaton *Automaton;
 typedef int Node;
+
+#define S_CUTOFF 32
+static int s_trans[S_CUTOFF * SIGMA * sizeof(int)];
+static int s_fail[S_CUTOFF * sizeof(int)];
+static char s_term[S_CUTOFF * sizeof(char)];
+static ListOfIntegers s_z[S_CUTOFF * sizeof(ListOfIntegers)];
 
 void freeListOfIntegers(ListOfIntegers list) {
   ListOfIntegers old;
@@ -90,8 +97,9 @@ Node addNode(Automaton automaton, Node art, Node node, unsigned char c) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  Automaton automaton;
-  int i, j, ell, pos, size, shift, q, count;
+  struct _automaton s_automaton;
+  Automaton automaton = &s_automaton;
+  int i, j, ell, pos, shift, q, count;
   ListOfIntegers cell, *z;
   Node art, root, node, childNode;
 
@@ -102,14 +110,19 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     ell = 1;
   else if (ell > m / 2)
     ell = m / 2;
-  size = 2 + (2 * m - ell + 1) * ell;
-
-  automaton = (Automaton)malloc(sizeof(struct _automaton));
-  automaton->trans = (int *)calloc(size * SIGMA, sizeof(int));
-  automaton->term = (char *)calloc(size, sizeof(int));
-  automaton->fail = (int *)calloc(size, sizeof(int));
+  const int size = 2 + (2 * m - ell + 1) * ell;
+  if (size > S_CUTOFF) {
+    automaton->trans = (int *)calloc(size * SIGMA, sizeof(int));
+    automaton->term = (char *)calloc(size, 1);
+    automaton->fail = (int *)calloc(size, sizeof(int));
+    z = (ListOfIntegers *)calloc(size, sizeof(ListOfIntegers));
+  } else {
+    automaton->trans = s_trans;
+    automaton->term = s_term;
+    automaton->fail = s_fail;
+    z = s_z;
+  }
   automaton->nodeCounter = 0;
-  z = (ListOfIntegers *)calloc(size, sizeof(ListOfIntegers));
 
   art = automaton->nodeCounter++;
   automaton->root = automaton->nodeCounter++;
@@ -161,13 +174,15 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           if (j - cell->position <= n - m) {
             OUTPUT(j - cell->position);
           } else {
-            free(automaton->trans);
-            free(automaton->term);
-            free(automaton->fail);
             for (i = automaton->root; i < automaton->nodeCounter; ++i)
               freeListOfIntegers(z[i]);
-            free(automaton);
-            free(z);
+            if (size > S_CUTOFF) {
+              free(automaton->trans);
+              free(automaton->term);
+              free(automaton->fail);
+              free(z);
+            }
+            //free(automaton);
             END_SEARCHING
             return count;
           }
