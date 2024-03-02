@@ -155,6 +155,16 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   return 1;
 }
 
+#ifdef DEBUG
+#define RANDCH(c)            \
+  do {                       \
+    c = (rand() % 74) + '0'; \
+  } while (!isalnum(c))
+#else
+#define RANDCH(c)            \
+  c = rand() % 256
+#endif
+
 int main(int argc, char *argv[]) {
   int i;
   int minlen;
@@ -420,9 +430,7 @@ int main(int argc, char *argv[]) {
   // 12) search for rand4 in rand100
   if (!minlen || minlen < 4) {
     for (h = 0; h < YSIZE; h++)
-      do {
-        T[h] = (rand() % 74) + '0';
-      } while (!isalnum(T[h]));
+      RANDCH(T[h]);
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[YSIZE] = P[4] = '\0';
@@ -432,9 +440,7 @@ int main(int argc, char *argv[]) {
 
     // 13) search for rand4 in rand10
     for (h = 0; h < 10; h++)
-      do {
-        T[h] = (rand() % 74) + '0';
-      } while (!isalnum(T[h]));
+      RANDCH(T[h]);
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[10] = P[4] = '\0';
@@ -445,9 +451,7 @@ int main(int argc, char *argv[]) {
 
   // 14) search for rand32 in rand64
   for (h = 0; h < 64; h++) {
-    do {
-      T[h] = (rand() % 74) + '0';
-    } while (!isalnum(T[h]));
+    RANDCH(T[h]);
   }
   for (h = 0; h < 32; h++)
     P[h] = T[h];
@@ -458,9 +462,7 @@ int main(int argc, char *argv[]) {
 
   // 15) search for same rand32 in rand64
   for (h = 0; h < 64; h++)
-    do {
-      T[h] = (rand() % 74) + '0';
-    } while (!isalnum(T[h]));
+    RANDCH(T[h]);
   for (h = 0; h < 32; h++)
     P[h] = T[h];
   T[64] = P[32] = '\0';
