@@ -16,6 +16,14 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
+ * Skip Search algorithm, CHARRAS C., LECROQ T., PEHOUSHEK J.D., 1998,
+ * A very fast string matching algorithm for small alphabets and long
+ * patterns, in Proceedings of the 9th Annual Symposium on
+ * Combinatorial Pattern Matching , M. Farach-Colton ed., Piscataway,
+ * New Jersey, Lecture Notes in Computer Science 1448, pp 55-64,
+ * Springer-Verlag, Berlin.
+ * https://www-igm.univ-mlv.fr/~lecroq/string/node31.html#SECTION00310
+ *
  * Constraints: requires m>=3
  */
 
