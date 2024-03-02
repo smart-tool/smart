@@ -29,7 +29,8 @@
 #include "include/main.h"
 #include "include/search_small.h"
 
-#define DSIGMA 65536
+// 4080 + 2040 + 1020 + 510 + 255
+#define DSIGMA 7906
 #define HS(x, i)                                                               \
   (x[i] << 4) + (x[i + 1] << 3) + (x[i + 2] << 2) + (x[i + 3] << 1) + x[i + 4]
 #define Q 5
