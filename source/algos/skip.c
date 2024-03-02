@@ -29,21 +29,29 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+struct _cell s_cells[M_CUTOFF];
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h, k;
   List ptr, z[SIGMA];
+  List *allocs = NULL;
 
   BEGIN_PREPROCESSING
-  List *allocs = (List*)calloc(m, sizeof(List));
+  if (m > M_CUTOFF)
+    allocs = (List*)calloc(m, sizeof(List));
   memset(z, 0, SIGMA * sizeof(List));
   for (i = 0; i < m; ++i) {
-    ptr = (List)malloc(sizeof(struct _cell));
-    if (ptr == NULL)
-      error("SKIP");
+    if (m > M_CUTOFF) {
+      ptr = (List)malloc(sizeof(struct _cell));
+      if (ptr == NULL)
+        error("SKIP");
+      allocs[i] = ptr;
+    }
+    else
+      ptr = &s_cells[i];
     ptr->element = i;
     ptr->next = z[x[i]];
     z[x[i]] = ptr;
-    allocs[i] = ptr;
   }
   END_PREPROCESSING
 
@@ -63,10 +71,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
   }
   /* Freeing */
-  for (i = 0; i < m; ++i) {
-    free(allocs[i]);
+  if (m > M_CUTOFF) {
+    for (i = 0; i < m; ++i) {
+      free(allocs[i]);
+    }
+    free(allocs);
   }
-  free(allocs);
   END_SEARCHING
   return count;
 }
