@@ -19,8 +19,10 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 #define FT(i, j) LAMBDA[(i << 8) + j]
+static int s_trans[M_CUTOFF + 2][SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE], LAMBDA[SIGMA * SIGMA];
@@ -28,14 +30,21 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, p, q = 0;
   int iMinus1, mMinus1, count;
   unsigned char c;
-  count = 0;
   if (m < 2)
-    return -1;
+    return search_small(x, m, y, n);
 
   // Allocate space for oracle
   BEGIN_PREPROCESSING
-  for (i = 0; i <= m + 1; i++)
-    trans[i] = (int *)malloc(sizeof(int) * (SIGMA));
+  int allocated = 0;
+  count = 0;
+  if (m + 2 > M_CUTOFF) {
+    allocated = 1;
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+  } else {
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = s_trans[i];
+  }
 
   // Preprocessing
   for (i = 0; i <= m + 1; i++)
@@ -87,8 +96,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   }
 
   // free the space used by Oracle
-  for (i = 0; i <= m + 1; i++)
-    free(trans[i]);
+  if (allocated) {
+    for (i = 0; i <= m + 1; i++)
+      free(trans[i]);
+  }
   END_SEARCHING
   return count;
 }
