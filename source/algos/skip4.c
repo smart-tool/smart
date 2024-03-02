@@ -24,7 +24,8 @@
 #include "include/AUTOMATON.h"
 #include "include/search_small.h"
 
-#define DSIGMA 16380
+// 16320 + 4080 + 1020 + 255
+#define DSIGMA 21676
 #define HS(x, i) (x[i] << 6) + (x[i + 1] << 4) + (x[i + 2] << 2) + x[i + 3]
 #define Q 4
 

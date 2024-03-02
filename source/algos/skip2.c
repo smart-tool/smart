@@ -23,9 +23,11 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 #include "include/search_small.h"
+#include <assert.h>
 
-#define DSIGMA 1024
-#define HS(x, i) (x[i] << 2) + x[i + 1]
+// 255<<2 + 255 = 1275
+#define DSIGMA 1276
+#define HS(x, i) (x[i] << 2U) + x[i + 1]
 #define Q 2
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -35,7 +37,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
-  int mq = m - Q + 1;
+  const int mq = m - Q + 1;
   List *allocs = (List*)calloc(mq, sizeof(List));
   memset(z, 0, DSIGMA * sizeof(List));
   for (i = 0; i < mq; ++i) {
@@ -43,6 +45,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (ptr == NULL)
       error("SKIP");
     ptr->element = i;
+    assert(HS(x, i) < DSIGMA);
     ptr->next = z[HS(x, i)];
     z[HS(x, i)] = ptr;
     allocs[i] = ptr;
@@ -52,6 +55,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_SEARCHING
   count = 0;
   for (j = mq - 1; j < n; j += mq) {
+    assert(HS(y, j) < DSIGMA);
     for (ptr = z[HS(y, j)]; ptr != NULL; ptr = ptr->next) {
       if ((j - ptr->element) <= n - m) {
         k = 0;
