@@ -26,6 +26,13 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+static unsigned char s_xR[(M_CUTOFF + 1) * sizeof(unsigned char)];
+static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
+static int s_tlength[3 * M_CUTOFF * sizeof(int)];
+static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
+static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
+static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA * sizeof(int)];
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int k, i, R, L, count, l;
   int *ttrans, *tlength, *tsuffix;
@@ -33,21 +40,29 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned char *tterminal;
   unsigned char *xR;
 
-  xR = (unsigned char *)malloc(sizeof(char) * (m + 1));
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  if (m > M_CUTOFF) {
+    xR = (unsigned char *)malloc(sizeof(char) * (m + 1));
+    ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+    tlength = (int *)calloc(3 * m, sizeof(int));
+    tsuffix = (int *)calloc(3 * m, sizeof(int));
+    tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
+    ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
+  } else {
+    xR = s_xR;
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+    ttransSMA = s_ttransSMA;
+  }
   for (i = 0; i < m; i++)
     xR[i] = x[m - i - 1];
   xR[m] = '\0';
-
-  /* Preprocessing */
-  BEGIN_PREPROCESSING
-  ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
-  tlength = (int *)calloc(3 * m, sizeof(int));
-  tsuffix = (int *)calloc(3 * m, sizeof(int));
-  tterminal = (unsigned char *)calloc(3 * m, sizeof(char));
   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
 
-  ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   preSMA(x, m, ttransSMA);
   END_PREPROCESSING
@@ -76,11 +91,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     k = k + m;
   }
   END_SEARCHING
-  free(xR);
-  free(ttransSMA);
-  free(ttrans);
-  free(tlength);
-  free(tsuffix);
-  free(tterminal);
+  if (m > M_CUTOFF) {
+    free(ttransSMA);
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
+    free(xR);
+  }
   return count;
 }
