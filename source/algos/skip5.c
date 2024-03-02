@@ -38,6 +38,8 @@
   (x[i] << 4) + (x[i + 1] << 3) + (x[i + 2] << 2) + (x[i + 3] << 1) + x[i + 4]
 #define Q 5
 
+struct _cell s_cells[M_CUTOFF];
+
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h, k;
   List ptr, z[DSIGMA];
@@ -45,17 +47,23 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
+  List *allocs = NULL;
   memset(z, 0, DSIGMA * sizeof(List));
   const int mq = m - Q + 1;
-  List *allocs = (List*)calloc(mq, sizeof(List));
+  if (m > M_CUTOFF)
+    allocs = (List*)calloc(mq, sizeof(List));
   for (i = 0; i < mq; ++i) {
-    ptr = (List)malloc(sizeof(struct _cell));
-    if (ptr == NULL)
-      error("SKIP");
+    if (m > M_CUTOFF) {
+      ptr = (List)malloc(sizeof(struct _cell));
+      if (ptr == NULL)
+        error("SKIP");
+      allocs[i] = ptr;
+    }
+    else
+      ptr = &s_cells[i];
     ptr->element = i;
     ptr->next = z[HS(x, i)];
     z[HS(x, i)] = ptr;
-    allocs[i] = ptr;
   }
   END_PREPROCESSING
 
@@ -74,10 +82,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
   }
   /* Freeing */
-  for (i = 0; i < mq; ++i) {
-    free(allocs[i]);
+  if (m > M_CUTOFF) {
+    for (i = 0; i < mq; ++i) {
+      free(allocs[i]);
+    }
+    free(allocs);
   }
-  free(allocs);
   END_SEARCHING
   return count;
 }
