@@ -27,7 +27,7 @@
 /* Computing of the maximal suffix for <= */
 int maxSuf(unsigned char *x, int m, int *p) {
   int ms, j, k;
-  char a, b;
+  unsigned char a, b;
 
   ms = -1;
   j = 0;
@@ -58,7 +58,7 @@ int maxSuf(unsigned char *x, int m, int *p) {
 /* Computing of the maximal suffix for >= */
 int maxSufTilde(unsigned char *x, int m, int *p) {
   int ms, j, k;
-  char a, b;
+  unsigned char a, b;
 
   ms = -1;
   j = 0;
