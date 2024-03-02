@@ -22,26 +22,36 @@
  * matching. Proceedings of the 19th International Symposium on Algorithms and
  * Computation, ISAAC 2008, Lecture Notes in Computer Science, vol.5369,
  * pp.496--506, Springer-Verlag, Berlin, Gold Coast, Australia, (2008).
+ *
+ * Note: Broken, false positives.
+ * Constraints: requires m<XSIZE
  */
 
 #include "include/define.h"
 #include "include/main.h"
-#define MAXWSIZE (XSIZE + WORD)
+
+// m + 31 really
+#define WSIZE_CUTOFF 63
+static unsigned long s_M[sizeof(unsigned long) * SIGMA * WSIZE_CUTOFF];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int i, j, k, count;
-  unsigned int wsize = WORD - 1 + m;
-  unsigned long *M =
-      (unsigned long *)malloc(sizeof(unsigned long) * SIGMA * MAXWSIZE);
+  const unsigned int wsize = WORD - 1 + m;
   unsigned long tmp, F;
   unsigned int ScanOrder[XSIZE];
   unsigned int MScanOrder[XSIZE];
   unsigned int *so = ScanOrder;
   unsigned int *mso = MScanOrder;
   unsigned int shift[SIGMA];
+  unsigned long *M;
+  // TODO search_large if m > XSIZE
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
+  if (wsize > WSIZE_CUTOFF)
+    M = (unsigned long *)malloc(sizeof(unsigned long) * SIGMA * wsize);
+  else
+    M = s_M;
   memset(M, 0xff, sizeof(unsigned long) * SIGMA * wsize);
   for (i = 0; i < WORD; i++) {
     tmp = 1U << i;
@@ -89,7 +99,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     F = M[MScanOrder[0] + y[i + ScanOrder[0]]] &
         M[MScanOrder[1] + y[i + ScanOrder[1]]];
   }
-  free(M);
+  if (wsize > WSIZE_CUTOFF)
+    free(M);
   END_SEARCHING
   return count;
 }
