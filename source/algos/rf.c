@@ -25,6 +25,11 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
+static int s_tlength[3 * M_CUTOFF * sizeof(int)];
+static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
+static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
+
 void buildSuffixAutomaton(unsigned char *x, int m, int *ttrans, int *tlength,
                           int *tsuffix, unsigned char *tterminal) {
   int i, art, init, last, p, q, r, counter;
@@ -76,17 +81,23 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, shift, period, init, state, count;
   int *ttrans, *tlength, *tsuffix;
   unsigned char *tterminal;
-  int mMinus1, nMinusm, size;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  mMinus1 = m - 1;
-  nMinusm = n - m;
-  size = 2 * m + 3;
-  ttrans = (int *)malloc(size * SIGMA * sizeof(int));
-  tlength = (int *)calloc(size, sizeof(int));
-  tsuffix = (int *)calloc(size, sizeof(int));
-  tterminal = (unsigned char *)calloc(size, sizeof(unsigned char));
+  const int mMinus1 = m - 1;
+  const int nMinusm = n - m;
+  const int size = 2 * m + 3;
+  if (m > M_CUTOFF) {
+    ttrans = (int *)malloc(size * SIGMA * sizeof(int));
+    tlength = (int *)calloc(size, sizeof(int));
+    tsuffix = (int *)calloc(size, sizeof(int));
+    tterminal = (unsigned char *)calloc(size, sizeof(unsigned char));
+  } else {
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+  }
   memset(ttrans, -1, (2 * m + 3) * SIGMA * sizeof(int));
   buildSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   init = 0;
@@ -117,10 +128,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
-  free(ttrans);
-  free(tlength);
-  free(tsuffix);
-  free(tterminal);
+  if (m > M_CUTOFF) {
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
+  }
   END_SEARCHING
   return count;
 }
