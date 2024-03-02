@@ -20,7 +20,7 @@
  * It includes corrections to the original implementations gently provided by
  * Jorma Tarhio and Jan Holub.
  *
- * This is so far the best, but x86_64 with sse4 only.
+ * This was the best without freeing the lists, but x86_64 with sse4 only.
  */
 
 #include "include/define.h"
@@ -337,8 +337,6 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
       count++;
     charPtr++;
   }
-  END_SEARCHING
-
   // free all sublists of flist's, and flist's itself
   for (unsigned i = 0; i < 2048; i++) {
     t = flist[i];
@@ -349,6 +347,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
       t = next;
     }
   }
+  END_SEARCHING
   return count;
 }
 

@@ -17,14 +17,17 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * Note: Broken!
+ * Constraints: requires m > ?, may access past the haystack.
  */
 
 #include "include/define.h"
 #include "include/log2.h"
 #include "include/main.h"
-#include <stdint.h>
+#include "include/search_small.h"
+
 #include <assert.h>
 #include <nmmintrin.h>
+#include <stdint.h>
 
 // BEWARE: code sometimes has access to load bytes after end of string.
 
@@ -186,21 +189,28 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   int mu, pi, count = 0;
   compute(x, m, &mu, &pi);
+  if (mu <= 0)
+    return search_small(x, m, y, n);
 
   // safety - remove?
   assert(mu > 0);
   assert(mu < pi && mu < m && pi > 0 && pi <= m);
 
-  // SSE instruction search anchor block after critical factorization; maximum
-  // length needle_length
+  // SSE instruction search anchor block after critical factorization;
   __m128i needle_reg;
-  if (mu < m - 8)
+  int needle_length = m - mu; // maximum length
+  if (needle_length > 16) {
     needle_reg = _mm_loadu_si128((__m128i *)&x[mu]);
-  else
-    needle_reg = _mm_loadu_si128((__m128i *)&x[m - 8]);
-  int needle_length = m - mu;
-  if (needle_length > 16)
     needle_length = 16;
+  } else {
+    needle_reg = _mm_loadu_si128((__m128i *)&x[m - 16]);
+    // mask out leading bytes
+#define CLR(M) (n > (M - 1)) ? 0xFF : (0xFF << (M - n))
+    __m128i mask = _mm_set_epi8(CLR(16), CLR(15), CLR(14), CLR(13), CLR(12),
+                                CLR(11), CLR(10), CLR(9), CLR(8), CLR(7),
+                                CLR(6), CLR(5), CLR(4), CLR(3), 0, 0);
+    needle_reg = _mm_and_si128(needle_reg, mask);
+  }
 
 loop: // optimize further !
   while (n >= m) {

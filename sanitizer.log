@@ -1,92 +1,340 @@
+source/algos/skip2.c:55:17: runtime error: index 1094 out of bounds for type '_cell *[1024]'
+source/algos/skip2.c:55:14: runtime error: load of address 0x7f5c17c0b2d0 with insufficient space for an object of type 'struct _cell *'
+0x7f5c17c0b2d0: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+=================================================================
+==2959556==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7f5c17c0b0a0 at pc 0x000000407742 bp 0x7ffd480308f0 sp 0x7ffd480308e8
+READ of size 8 at 0x7f5c17c0b0a0 thread T0
+    #0 0x407741 in search source/algos/skip2.c:55
+    #1 0x40182e in main source/algos/include/main.h:130
+    #2 0x7f5c1ac46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #3 0x7f5c1ac4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/skip2+0x401e84) (BuildId: f441203d4344372ded8d96a46c29db192b4c4fbf)
+
+Address 0x7f5c17c0b0a0 is located in stack of thread T0 at offset 8352 in frame
+    #0 0x40607f in search source/algos/skip2.c:31
+
+  This frame has 5 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 8352) 'z' (line 33) <== Memory access at offset 8352 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/skip2.c:55 in search
+Shadow bytes around the buggy address:
+  0x7f5c17c0ae00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0ae80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0af00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0af80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0b000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7f5c17c0b080: 00 00 00 00[f3]f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7f5c17c0b100: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7f5c17c0b180: f3 f3 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0b200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0b280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5c17c0b300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2959556==ABORTING
+source/algos/skip2.c:46:18: runtime error: index 1117 out of bounds for type '_cell *[1024]'
+source/algos/skip2.c:46:18: runtime error: load of address 0x7f7bfcc0b388 with insufficient space for an object of type 'struct _cell *'
+0x7f7bfcc0b388: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+source/algos/skip2.c:47:6: runtime error: index 1117 out of bounds for type '_cell *[1024]'
+source/algos/skip2.c:47:17: runtime error: store to address 0x7f7bfcc0b388 with insufficient space for an object of type 'struct _cell *'
+0x7f7bfcc0b388: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+source/algos/skip2.c:46:18: runtime error: index 1273 out of bounds for type '_cell *[1024]'
+source/algos/skip2.c:46:18: runtime error: load of address 0x7fdfa280b868 with insufficient space for an object of type 'struct _cell *'
+0x7fdfa280b868: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+source/algos/skip2.c:47:6: runtime error: index 1273 out of bounds for type '_cell *[1024]'
+source/algos/skip2.c:47:17: runtime error: store to address 0x7fdfa280b868 with insufficient space for an object of type 'struct _cell *'
+0x7fdfa280b868: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+=================================================================
+==2959565==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fdfa280b140 at pc 0x00000040752e bp 0x7ffd631c5190 sp 0x7ffd631c5188
+READ of size 8 at 0x7fdfa280b140 thread T0
+    #0 0x40752d in search source/algos/skip2.c:46
+    #1 0x40182e in main source/algos/include/main.h:130
+    #2 0x7fdfa5846149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #3 0x7fdfa584620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/skip2+0x401e84) (BuildId: f441203d4344372ded8d96a46c29db192b4c4fbf)
+
+Address 0x7fdfa280b140 is located in stack of thread T0 at offset 8512 in frame
+    #0 0x40607f in search source/algos/skip2.c:31
+
+  This frame has 5 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 8352) 'z' (line 33) <== Memory access at offset 8512 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/skip2.c:46 in search
+Shadow bytes around the buggy address:
+  0x7fdfa280ae80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280af00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280af80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b080: 00 00 00 00 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+=>0x7fdfa280b100: f3 f3 f3 f3 f3 f3 f3 f3[f3]f3 f3 f3 f3 f3 f3 f3
+  0x7fdfa280b180: f3 f3 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdfa280b380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2959565==ABORTING
+source/algos/skip4.c:46:18: runtime error: index 17872 out of bounds for type '_cell *[16380]'
+source/algos/skip4.c:46:18: runtime error: load of address 0x7ffee63ba770 with insufficient space for an object of type 'struct _cell *'
+0x7ffee63ba770: note: pointer points here
+<memory cannot be printed>
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2959610==ERROR: AddressSanitizer: SEGV on unknown address 0x7ffee63ba770 (pc 0x000000406488 bp 0x7ffee63b7a00 sp 0x7ffee63977a0 T0)
+==2959610==The signal is caused by a READ memory access.
+    #0 0x406488 in search source/algos/skip4.c:46
+    #1 0x40180e in main source/algos/include/main.h:130
+    #2 0x7f8cc1a46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #3 0x7f8cc1a4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x401e64 in _start (/home/rurban/Software/smart/bin/skip4+0x401e64) (BuildId: 5113f78fcae796bcca17f92c4cc00dd507e92b03)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/skip4.c:46 in search
+==2959610==ABORTING
+source/algos/skip4.c:46:18: runtime error: index 17456 out of bounds for type '_cell *[16380]'
+source/algos/skip4.c:46:18: runtime error: load of address 0x7ffd176ab330 with insufficient space for an object of type 'struct _cell *'
+0x7ffd176ab330: note: pointer points here
+ 6f 70 75 73  3d 30 31 3b 33 36 3a 2a  2e 73 70 78 3d 30 31 3b  33 36 3a 2a 2e 78 73 70  66 3d 30 31
+              ^ 
+source/algos/skip4.c:47:6: runtime error: index 17456 out of bounds for type '_cell *[16380]'
+source/algos/skip4.c:47:17: runtime error: store to address 0x7ffd176ab330 with insufficient space for an object of type 'struct _cell *'
+0x7ffd176ab330: note: pointer points here
+ 6f 70 75 73  3d 30 31 3b 33 36 3a 2a  2e 73 70 78 3d 30 31 3b  33 36 3a 2a 2e 78 73 70  66 3d 30 31
+              ^ 
 source/algos/aoso2.c:49:14: runtime error: left shift of 1 by 31 places cannot be represented in type 'int'
-ssecp: source/algos/ssecp.c:191: search: Assertion `mu > 0 && mu < pi' failed.
+source/algos/bsdm6.c:50:12: runtime error: index 9084 out of bounds for type 'unsigned int [8192]'
+source/algos/bsdm6.c:50:12: runtime error: load of address 0x7ffd895e2eb0 with insufficient space for an object of type 'unsigned int'
+0x7ffd895e2eb0: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+source/algos/bsdm6.c:60:8: runtime error: index 9084 out of bounds for type 'unsigned int [8192]'
+source/algos/bsdm6.c:60:12: runtime error: store to address 0x7ffd895e2eb0 with insufficient space for an object of type 'unsigned int'
+0x7ffd895e2eb0: note: pointer points here
+ 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00
+              ^ 
+=================================================================
+==2961261==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffd895e2118 at pc 0x00000040703b bp 0x7ffd895d9f60 sp 0x7ffd895d9f58
+READ of size 4 at 0x7ffd895e2118 thread T0
+    #0 0x40703a in search source/algos/bsdm6.c:50
+    #1 0x4017ee in main source/algos/include/main.h:130
+    #2 0x7f92b9246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #3 0x7f92b924620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x401e44 in _start (/home/rurban/Software/smart/bin/bsdm6+0x401e44) (BuildId: dcfb45496ed0a4a2329bb81837587cec602ba901)
+
+Address 0x7ffd895e2118 is located in stack of thread T0 at offset 33016 in frame
+    #0 0x4034ef in search source/algos/bsdm6.c:38
+
+  This frame has 6 object(s):
+    [32, 48) 'ts'
+    [64, 80) 'ts'
+    [96, 112) 'ts'
+    [128, 144) 'ts'
+    [160, 32928) 'occ' (line 45) <== Memory access at offset 33016 overflows this variable
+    [33184, 65952) 'pos' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow source/algos/bsdm6.c:50 in search
+Shadow bytes around the buggy address:
+  0x7ffd895e1e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e1f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e1f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e2000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e2080: 00 00 00 00 00 00 00 00 f2 f2 f2 f2 f2 f2 f2 f2
+=>0x7ffd895e2100: f2 f2 f2[f2]f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+  0x7ffd895e2180: f2 f2 f2 f2 f2 f2 f2 f2 00 00 00 00 00 00 00 00
+  0x7ffd895e2200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e2280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e2300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffd895e2380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2961261==ABORTING
+source/algos/bsdm6.c:50:12: runtime error: index 11059 out of bounds for type 'unsigned int [8192]'
+source/algos/bsdm6.c:50:12: runtime error: load of address 0x7ffe0ddde60c with insufficient space for an object of type 'unsigned int'
+0x7ffe0ddde60c: note: pointer points here
+  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+              ^ 
+source/algos/bsdm6.c:60:8: runtime error: index 11059 out of bounds for type 'unsigned int [8192]'
+source/algos/bsdm6.c:60:12: runtime error: store to address 0x7ffe0ddde60c with insufficient space for an object of type 'unsigned int'
+0x7ffe0ddde60c: note: pointer points here
+  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+              ^ 
+source/algos/bsdm6.c:72:8: runtime error: index 11059 out of bounds for type 'unsigned int [8192]'
+source/algos/bsdm6.c:72:12: runtime error: store to address 0x7ffe0dde670c with insufficient space for an object of type 'unsigned int'
+0x7ffe0dde670c: note: pointer points here
+<memory cannot be printed>
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==2912191==ERROR: AddressSanitizer: SEGV on unknown address 0x7fcfffec9fff (pc 0x000000405236 bp 0x7fcfffec9fff sp 0x7ffdd663fd70 T0)
-==2912191==The signal is caused by a READ memory access.
+==2961266==ERROR: AddressSanitizer: SEGV on unknown address 0x7ffe0dde670c (pc 0x00000040491f bp 0x7ffe0dde3b70 sp 0x7ffe0ddd37f0 T0)
+==2961266==The signal is caused by a WRITE memory access.
+    #0 0x40491f in search source/algos/bsdm6.c:72
+    #1 0x4017ee in main source/algos/include/main.h:130
+    #2 0x7f99ad646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #3 0x7f99ad64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x401e44 in _start (/home/rurban/Software/smart/bin/bsdm6+0x401e44) (BuildId: dcfb45496ed0a4a2329bb81837587cec602ba901)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV source/algos/bsdm6.c:72 in search
+==2961266==ABORTING
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2964065==ERROR: AddressSanitizer: SEGV on unknown address 0x7f2ebc5e7fff (pc 0x000000405236 bp 0x7f2ebc5e7fff sp 0x7fff0513da20 T0)
+==2964065==The signal is caused by a READ memory access.
     #0 0x405236 in search2 source/algos/epsm.c:118
-    #1 0x40d1c1 in search source/algos/epsm.c:359
+    #1 0x40d0a1 in search source/algos/epsm.c:358
     #2 0x402ade in main source/algos/include/main.h:130
-    #3 0x7fceff646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x7fceff64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: 2f636b96d71b50c79910bb8d0d81db6a64553071)
+    #3 0x7f2dbbc46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x7f2dbbc4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: a93da9d199080db4ac603f7bab59c66a38d17573)
 
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
-==2912191==ABORTING
+==2964065==ABORTING
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==2912196==ERROR: AddressSanitizer: SEGV on unknown address 0x7f058ef93fff (pc 0x000000405236 bp 0x7f058ef93fff sp 0x7fff9158d900 T0)
-==2912196==The signal is caused by a READ memory access.
+==2964074==ERROR: AddressSanitizer: SEGV on unknown address 0x7efecb384fff (pc 0x000000405236 bp 0x7efecb384fff sp 0x7ffc41264260 T0)
+==2964074==The signal is caused by a READ memory access.
     #0 0x405236 in search2 source/algos/epsm.c:118
-    #1 0x40d1c1 in search source/algos/epsm.c:359
+    #1 0x40d0a1 in search source/algos/epsm.c:358
     #2 0x402ade in main source/algos/include/main.h:130
-    #3 0x7f048e646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x7f048e64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: 2f636b96d71b50c79910bb8d0d81db6a64553071)
+    #3 0x7efdcaa46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x7efdcaa4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: a93da9d199080db4ac603f7bab59c66a38d17573)
 
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
-==2912196==ABORTING
+==2964074==ABORTING
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==2912199==ERROR: AddressSanitizer: SEGV on unknown address 0x7fa235ee0ffe (pc 0x00000040746c bp 0x7ffceb75f6b0 sp 0x7ffceb75f4d0 T0)
-==2912199==The signal is caused by a READ memory access.
+==2964077==ERROR: AddressSanitizer: SEGV on unknown address 0x7fb3e3449ffe (pc 0x00000040746c bp 0x7ffea8aaf150 sp 0x7ffea8aaef70 T0)
+==2964077==The signal is caused by a READ memory access.
     #0 0x40746c in search3 source/algos/epsm.c:164
-    #1 0x40d1e1 in search source/algos/epsm.c:361
+    #1 0x40d0c1 in search source/algos/epsm.c:360
     #2 0x402ade in main source/algos/include/main.h:130
-    #3 0x7fa135646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x7fa13564620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: 2f636b96d71b50c79910bb8d0d81db6a64553071)
+    #3 0x7fb2e2a46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x7fb2e2a4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: a93da9d199080db4ac603f7bab59c66a38d17573)
 
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:164 in search3
-==2912199==ABORTING
+==2964077==ABORTING
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==2912200==ERROR: AddressSanitizer: SEGV on unknown address 0x7ff20bc02ffe (pc 0x00000040746c bp 0x7fffe8b36cd0 sp 0x7fffe8b36af0 T0)
-==2912200==The signal is caused by a READ memory access.
+==2964078==ERROR: AddressSanitizer: SEGV on unknown address 0x7f084a36fffe (pc 0x00000040746c bp 0x7ffd0e7776b0 sp 0x7ffd0e7774d0 T0)
+==2964078==The signal is caused by a READ memory access.
     #0 0x40746c in search3 source/algos/epsm.c:164
-    #1 0x40d1e1 in search source/algos/epsm.c:361
+    #1 0x40d0c1 in search source/algos/epsm.c:360
     #2 0x402ade in main source/algos/include/main.h:130
-    #3 0x7ff10b246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x7ff10b24620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: 2f636b96d71b50c79910bb8d0d81db6a64553071)
+    #3 0x7f0749a46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x7f0749a4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: a93da9d199080db4ac603f7bab59c66a38d17573)
 
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:164 in search3
-==2912200==ABORTING
+==2964078==ABORTING
 AddressSanitizer:DEADLYSIGNAL
 =================================================================
-==2912201==ERROR: AddressSanitizer: SEGV on unknown address 0x7f94e99cbfff (pc 0x000000405236 bp 0x7f94e99cbfff sp 0x7ffce4077480 T0)
-==2912201==The signal is caused by a READ memory access.
+==2964079==ERROR: AddressSanitizer: SEGV on unknown address 0x7f03f7a54fff (pc 0x000000405236 bp 0x7f03f7a54fff sp 0x7ffd5fc69800 T0)
+==2964079==The signal is caused by a READ memory access.
     #0 0x405236 in search2 source/algos/epsm.c:118
-    #1 0x40d1c1 in search source/algos/epsm.c:359
+    #1 0x40d0a1 in search source/algos/epsm.c:358
     #2 0x402ade in main source/algos/include/main.h:130
-    #3 0x7f93e9046149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x7f93e904620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: 2f636b96d71b50c79910bb8d0d81db6a64553071)
+    #3 0x7f02f7046149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #4 0x7f02f704620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
+    #5 0x403134 in _start (/home/rurban/Software/smart/bin/epsm+0x403134) (BuildId: a93da9d199080db4ac603f7bab59c66a38d17573)
 
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV source/algos/epsm.c:118 in search2
-==2912201==ABORTING
-source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f1379aaa001 for type 'uint64_t', which requires 8 byte alignment
-0x7f1379aaa001: note: pointer points here
- 00 00 00  4c 02 0d 41 34 61 32 03  5a 06 6d 47 0e 73 53 35  17 44 1e 75 05 18 60 6c  35 77 30 1d 5b
+==2964079==ABORTING
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7feb0d0bb001 for type 'uint64_t', which requires 8 byte alignment
+0x7feb0d0bb001: note: pointer points here
+ 00 00 00  d1 75 06 27 1c 56 f9 5c  50 c3 2f 4d 72 72 63 c6  9b 96 ff bc e4 51 60 28  01 84 55 72 5f
               ^ 
-source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f36ae86a001 for type 'uint64_t', which requires 8 byte alignment
-0x7f36ae86a001: note: pointer points here
- 00 00 00  5c 57 00 7c 72 29 76 12  3e 37 41 47 4c 25 66 24  27 7b 02 41 70 4c 11 5c  46 7e 24 2f 1c
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7fd2cdf8f001 for type 'uint64_t', which requires 8 byte alignment
+0x7fd2cdf8f001: note: pointer points here
+ 00 00 00  fc 78 1e ca c9 d1 e8 dd  b3 54 64 07 24 b2 f7 8a  fe a2 d4 9c ae 46 3c 3d  0e 4e 2c 9b d2
               ^ 
-source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f56e40de001 for type 'uint64_t', which requires 8 byte alignment
-0x7f56e40de001: note: pointer points here
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f465df7b001 for type 'uint64_t', which requires 8 byte alignment
+0x7f465df7b001: note: pointer points here
  00 00 00  61 61 61 61 61 61 61 61  61 61 61 61 61 61 61 61  61 61 61 61 61 61 61 61  61 61 61 61 61
               ^ 
-source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7faa596d8001 for type 'uint64_t', which requires 8 byte alignment
-0x7faa596d8001: note: pointer points here
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f0ad029a001 for type 'uint64_t', which requires 8 byte alignment
+0x7f0ad029a001: note: pointer points here
  00 00 00  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61
               ^ 
-source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7fb9d4d96001 for type 'uint64_t', which requires 8 byte alignment
-0x7fb9d4d96001: note: pointer points here
+source/algos/epsm.c:258:11: runtime error: load of misaligned address 0x7f672c245001 for type 'uint64_t', which requires 8 byte alignment
+0x7f672c245001: note: pointer points here
  00 00 00  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61 62 61 62  61 62 61 62 61
               ^ 
