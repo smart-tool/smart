@@ -51,6 +51,7 @@ struct _cell {
 
 typedef struct _cell *List;
 
+ATTRIBUTE_MALLOC
 char *reverse(char *x, int m) {
   char *xR;
   int i;
@@ -61,6 +62,8 @@ char *reverse(char *x, int m) {
   xR[m] = '\0';
   return (xR);
 }
+
+ATTRIBUTE_MALLOC
 unsigned char *ureverse(unsigned char *x, int m) {
   unsigned char *xR;
   int i;

@@ -21,6 +21,12 @@
 #include <dirent.h>
 #include <ctype.h>
 
+#ifdef __GNUC__
+#define ATTRIBUTE_MALLOC __attribute__ ((malloc))
+#else
+#define ATTRIBUTE_MALLOC
+#endif
+
 int string2decimal(char *s) {
   int i;
   int decimal;
@@ -32,6 +38,7 @@ int string2decimal(char *s) {
   return decimal;
 }
 
+ATTRIBUTE_MALLOC
 char *printable(const char *s) {
   int n = strlen(s) - 1;
   unsigned sz = (n+1) * 4;
@@ -65,6 +72,7 @@ int isInt(char *s) {
   return 1;
 }
 
+ATTRIBUTE_MALLOC
 char *str2lower(const char *s) {
   int n = strlen(s) - 1;
   char* ret = calloc(n+1, 1);
@@ -78,6 +86,7 @@ char *str2lower(const char *s) {
   return ret;
 }
 
+ATTRIBUTE_MALLOC
 char *str2upper(const char *s) {
   int n = strlen(s) - 1;
   char* ret = calloc(n+1, 1);
