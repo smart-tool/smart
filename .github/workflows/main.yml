@@ -25,7 +25,7 @@ jobs:
     - run: |
         make SANITIZE=1 &&
         make -B SANITIZE=1 test && 
-        for t in `grep -v epsm good.lst`; do
+        for t in `cat asan.lst`; do
           ./test "$t"
         done
   windows:

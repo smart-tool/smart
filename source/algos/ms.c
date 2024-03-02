@@ -26,7 +26,7 @@
 
 typedef struct patternScanOrder {
   int loc;
-  char c;
+  unsigned char c;
 } pattern;
 
 int minShift[XSIZE];
