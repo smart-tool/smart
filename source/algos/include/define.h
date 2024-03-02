@@ -30,6 +30,7 @@
 #define HALFDEFINED -2
 #define WORD 32 // computer word size (in bit)
 #define OUTPUT(j) count++
+#define M_CUTOFF 32 // when to switch to malloc
 
 #ifdef __GNUC__
 # define ATTRIBUTE_MALLOC __attribute__ ((malloc))
