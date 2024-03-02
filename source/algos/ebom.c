@@ -21,10 +21,15 @@
  * Efficient Variants of the Backward-Oracle-Matching Algorithm.
  * Proceedings of the Prague Stringology Conference 2008, pp.146--160, Czech
  * Technical University in Prague, Czech Republic, (2008).
+ *
+ * Constraints: requires m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
+static int s_trans[M_CUTOFF + 2][SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE], FT[SIGMA][SIGMA];
@@ -32,13 +37,20 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, p, q = 0;
   int iMinus1, mMinus1, count;
   unsigned char c;
-  count = 0;
   if (m < 2)
-    return -1;
+    return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
-  for (i = 0; i <= m + 1; i++)
-    trans[i] = (int *)malloc(sizeof(int) * (SIGMA));
+  int allocated = 0;
+  count = 0;
+  if (m + 2 > M_CUTOFF) {
+    allocated = 1;
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+  } else {
+    for (i = 0; i <= m + 1; i++)
+      trans[i] = s_trans[i];
+  }
   for (i = 0; i <= m + 1; i++)
     for (j = 0; j < SIGMA; j++)
       trans[i][j] = UNDEFINED;
@@ -86,9 +98,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j = i + m;
   }
+  if (allocated) {
+    for (i = 0; i <= m + 1; i++)
+      free(trans[i]);
+  }
   END_SEARCHING
-
-  for (i = 0; i <= m + 1; i++)
-    free(trans[i]);
   return count;
 }
