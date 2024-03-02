@@ -17,6 +17,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run:  ./build.sh dotest && make check
+  linux-sanitizer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        make SANITIZE=1 &&
+        make -B SANITIZE=1 test && 
+        for t in `grep -v epsm good.lst`; do
+          ./test "$t"
+        done
   windows:
     runs-on: windows-latest
     timeout-minutes: 10
