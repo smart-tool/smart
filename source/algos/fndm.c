@@ -88,7 +88,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = neg(0);
   for (j = 0; j < 32; j++)
-    B[x[j]] = B[x[j]] & neg((1 << j));
+    B[x[j]] = B[x[j]] & neg((1U << j));
   NEG0 = neg(0);
   NEG0m1 = neg(0) << 31;
   END_PREPROCESSING

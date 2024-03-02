@@ -82,7 +82,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   preSA(x, m, S);
-  F = 1 << (m - 1);
+  F = 1U << (m - 1);
   END_PREPROCESSING
 
   /* Searching */

@@ -46,7 +46,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = 0;
   for (i = 0; i < m; i++)
-    B[x[m - i - 1]] |= (unsigned int)1 << (i + WORD - m);
+    B[x[m - i - 1]] |= 1U << (i + WORD - m);
   for (i = 0; i < SIGMA; i++)
     hbc[i] = 2 * m;
   for (i = 0; i < m; i++)
@@ -56,7 +56,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s = (unsigned int)(~0);
   for (i = m - 1; i >= 0; i--) {
     s &= B[x[i]];
-    if (s & ((unsigned int)1 << (WORD - 1))) {
+    if (s & (1U << (WORD - 1))) {
       if (i > 0)
         last = i;
     }
@@ -121,7 +121,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = 0;
   for (i = 0; i < m; i++)
-    B[x[m - i - 1]] |= (unsigned int)1 << (i + WORD - m);
+    B[x[m - i - 1]] |= 1U << (i + WORD - m);
   for (i = 0; i < SIGMA; i++)
     hbc[i] = 2 * m;
   for (i = 0; i < m; i++)
@@ -131,7 +131,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   s = (unsigned int)(~0);
   for (i = m - 1; i >= 0; i--) {
     s &= B[x[i]];
-    if (s & ((unsigned int)1 << (WORD - 1))) {
+    if (s & (1U << (WORD - 1))) {
       if (i > 0)
         last = i;
     }

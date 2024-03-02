@@ -45,7 +45,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = set;
   for (i = 0; i < m; ++i)
-    B[x[i]] |= (1 << (m - i));
+    B[x[i]] |= (1U << (m - i));
   END_PREPROCESSING
 
   BEGIN_SEARCHING
@@ -93,7 +93,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = set;
   for (i = 0; i < m; ++i)
-    B[x[i]] |= (1 << (m - i));
+    B[x[i]] |= (1U << (m - i));
   END_PREPROCESSING
 
   BEGIN_SEARCHING

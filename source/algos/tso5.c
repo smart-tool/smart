@@ -27,7 +27,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   for (j = 0; j < 256; B[j++] = ~(uint64_t)0)
     ;
   for (j = 0; j < m; ++j)
-    B[P[j]] &= ~((uint64_t)1 << j);
+    B[P[j]] &= ~((uint64_t)1U << j);
   for (j = 0; j < 256; j++)
     B1[j] = (B[j] & mask);
   for (PopCount[i = 0] = 0; ++i <= 65535;

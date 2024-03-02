@@ -64,12 +64,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       end++;
     }
     for (i = beg + 1; i < end; i++)
-      B[x[i - 1]][x[i]] |= 1 << k;
+      B[x[i - 1]][x[i]] |= 1U << k;
     if (end < m1) {
-      B[x[end - 1]][x[end]] |= 1 << k;
-      L[x[end - 1]] |= 1 << k;
+      B[x[end - 1]][x[end]] |= 1U << k;
+      L[x[end - 1]] |= 1U << k;
     } else {
-      M = 1 << k;
+      M = 1U << k;
       if (end > beg + 1) {
         L[x[end - 2]] |= 1L << k;
         M <<= 1;

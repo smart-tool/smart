@@ -31,7 +31,7 @@
 #define Q 3
 #define S 3
 
-#define ASIZE (1 << (Q * S))
+#define ASIZE (1U << (Q * S))
 #define AMASK (ASIZE - 1)
 #define BSIZE 262144 /* = 2**18 */
 
@@ -48,13 +48,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  for (i = 0; i < ASIZE; i++)
+  for (i = 0; i < (int)ASIZE; i++)
     B[i] = 0;
   ch = 0;
   for (i = m - 1; i >= 0; i--) {
     ch = ((ch << S) + x[i]) & mask;
     if (i < mq1)
-      B[ch] |= (1 << ((m - i) % Q));
+      B[ch] |= (1U << ((m - i) % Q));
   }
   END_PREPROCESSING
 

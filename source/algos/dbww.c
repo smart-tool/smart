@@ -47,7 +47,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     C[x[m - 1 - i]] |= M;
     M <<= 1;
   }
-  H = 1 << (m - 1);
+  H = 1U << (m - 1);
   M = (H << 16) | H;
   END_PREPROCESSING
 

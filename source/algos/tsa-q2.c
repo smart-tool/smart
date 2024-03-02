@@ -30,7 +30,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   // TODO use __builtin_popcount()
   memset(B, 0, 256 * 4);
   for (j = 0; j < m - Q + 1; ++j)
-    B[HS(P, j)] |= ((uint64_t)1 << (j));
+    B[HS(P, j)] |= ((uint64_t)1U << (j));
   // for (j=0; j<256; ++j) B1[j] = B[j]+1;
   for (PopCount[i = 0] = 0; ++i <= 65535;
        PopCount[i] = PopCount[i & (i - 1)] + 1)

@@ -48,7 +48,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
         k++;
     if (k == m)
       (*count)++;
-    D &= ~(1 << s);
+    D &= ~(1U << s);
   }
 }
 
@@ -73,8 +73,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   mq = m / q;
   h = mq;
   for (j = 0; j < q; ++j) {
-    masq |= (1 << h);
-    masq |= (1 << h);
+    masq |= (1U << h);
+    masq |= (1U << h);
     h += mq;
     ++h;
   }
@@ -83,12 +83,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   h = mm = 0;
   for (j = 0; j < q; ++j) {
     for (i = 0; i < mq; ++i) {
-      B[x[i * q + j]] &= ~(1 << h);
+      B[x[i * q + j]] &= ~(1U << h);
       ++h;
     }
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
-    mm |= (1 << (h - 1));
+    mm |= (1U << (h - 1));
     ++h;
     --h;
   }
@@ -170,7 +170,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n, int q) {
   h = mm = 0;
   for (j = 0; j < q; ++j) {
     for (i = 0; i < mq; ++i) {
-      B[x[i * q + j]] &= ~(1 << h);
+      B[x[i * q + j]] &= ~(1U << h);
       ++h;
     }
     mm |= (1U << (h - 1));

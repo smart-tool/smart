@@ -48,15 +48,15 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  S = ~((unsigned char)31 << m);
+  S = ~((unsigned char)31U << m);
   for (j = 0; j < SIGMA; ++j)
     B[j] = S;
   for (j = 0; j < m; ++j)
-    B[x[j]] &= ~((unsigned char)1 << j);
+    B[x[j]] &= ~(1U << j);
   for (i = 0; i < m; i++)
     y[n + i] = y[n + m + i] = x[i];
-  mm = (unsigned char)1 << (m + q - 2);
-  mask = ((unsigned char)1 << (m - 1)) - 1;
+  mm = 1U << (m + q - 2);
+  mask = (1U << (m - 1)) - 1;
   mq = m + q - 1;
   END_PREPROCESSING
 
@@ -113,13 +113,13 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  S = ~((unsigned char)31 << m);
+  S = ~((unsigned char)31U << m);
   for (j = 0; j < SIGMA; ++j)
     B[j] = S;
   for (j = 0; j < m; ++j)
-    B[x[j]] &= ~((unsigned char)1 << j);
-  mm = (unsigned char)1 << (m + q - 2);
-  mask = ((unsigned char)1 << (m - 1)) - 1;
+    B[x[j]] &= ~(1U << j);
+  mm = 1U << (m + q - 2);
+  mask = (1U << (m - 1)) - 1;
   mq = m + q - 1;
   END_PREPROCESSING
 

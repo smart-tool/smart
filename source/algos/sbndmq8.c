@@ -118,17 +118,17 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < SIGMA; i++)
     B[i] = 0;
   for (i = 1; i <= m; ++i)
-    B[x[m - i]] |= (1 << (i - 1));
+    B[x[m - i]] |= (1U << (i - 1));
 
   D = B[x[m - 2]];
   j = 1;
   shift = 0;
-  if (D & (1 << (m - 1)))
+  if (D & (1U << (m - 1)))
     shift = m - j;
   for (i = m - 3; i >= 0; i--) {
     D = (D << 1) & B[x[i]];
     j++;
-    if (D & (1 << (m - 1)))
+    if (D & (1U << (m - 1)))
       shift = m - j;
   }
   END_PREPROCESSING

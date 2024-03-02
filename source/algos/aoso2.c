@@ -46,7 +46,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
         k++;
     if (k == m)
       (*count)++;
-    D &= ~(1 << s);
+    D &= ~(1U << s);
   }
 }
 

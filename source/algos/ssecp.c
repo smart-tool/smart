@@ -43,7 +43,7 @@ int search_rawsse(unsigned char *x, int m, unsigned char *y, int n) {
   __m128i needle_reg = _mm_loadu_si128((__m128i *)x);
 
   int step = 16 - m + 1; // experiment with aligned text blocks: step = 8.
-  uint32_t result_mask = (1 << step) - 1;
+  uint32_t result_mask = (1U << step) - 1;
 
   int number_of_steps = (n + step - 16) / step;
   int steps_size = number_of_steps * step;
@@ -64,7 +64,7 @@ int search_rawsse(unsigned char *x, int m, unsigned char *y, int n) {
     __m128i mask_reg = _mm_cmpestrm(needle_reg, m, haystack_reg, n,
                                     _SIDD_UBYTE_OPS | _SIDD_CMP_EQUAL_ORDERED);
     step = n - m + 1;
-    result_mask = (1 << step) - 1;
+    result_mask = (1U << step) - 1;
     uint32_t mask = _mm_extract_epi32(mask_reg, 0);
     occurences += _mm_popcnt_u32(mask & result_mask);
   }
