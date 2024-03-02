@@ -1,6 +1,6 @@
 #!/bin/sh
-make clean
-make CFLAGS="-g -O3 -march=native -mtune=native -Wall -Wextra -fsanitize=address,undefined"
+make SANITIZE=1
+make -B SANITIZE=1 test
 for t in `cat algos.lst`
 do
     ./test "$t"

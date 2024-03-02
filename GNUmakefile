@@ -1,6 +1,7 @@
 CC      := gcc
 MACHINE := $(shell uname -m)
 ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
+BINDIR  = bin
 ifneq ($(ARCH),x86_64)
   CFLAGS  := -O3 -Wall
   NON_SSE = source/algos/epsm.c source/algos/ssecp.c source/algos/ssef.c
@@ -8,7 +9,8 @@ ifneq ($(ARCH),x86_64)
 else
   CFLAGS  := -O3 -march=native -mtune=native -Wall -Wfatal-errors
   ifeq ($(SANITIZE),1)
-    CFLAGS += -g -Wextra -fsanitize=address,undefined
+    BINDIR = bin/asan
+    CFLAGS += -g -Wextra -fsanitize=address,undefined -DBINDIR=\"$(BINDIR)\"
   endif
   ALGOSRC = $(wildcard source/algos/*.c)
 endif
@@ -17,7 +19,6 @@ ifneq ($(ARCH),$(MACHINE))
   CFLAGS += -DBINDIR=\"$(BINDIR)\"
   DRV = qemu-$(ARCH)
 else
-  BINDIR = bin
   DRV =
 endif
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
