@@ -36,7 +36,7 @@ void ft3PreBmGs(unsigned char *x, int m, int *bmGs, int *suff) {
   char c;
  
   mMinus1 = m-1;
-  g = mMinus1;
+  // g = mMinus1;
   c = x[mMinus1];
   /* looking for the end of the first run of c thus before suff[i] = 0 */
   for (i = m - 2; i >= 0 && x[i] == c; --i);
@@ -149,7 +149,7 @@ void preBmBc(unsigned char *x, int m, int bmBc[]) {
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int bcShift, i, j, shift, u, v, turboShift, count, bmGs[XSIZE], bmBc[SIGMA];
-  int suff[XSIZE];
+  int suff[XSIZE] = {0};
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
