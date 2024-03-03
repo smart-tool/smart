@@ -55,7 +55,11 @@ char *printable(const char *s) {
       snprintf(tmp, sizeof(tmp), "\\%03o", s[n]);
       if (strlen(ret) + n + 5 > sz) {
         sz = strlen(ret) + n + 5;
-        ret = realloc(ret, sz);
+        char *tmp = realloc(ret, sz);
+        if (tmp)
+          ret = tmp;
+        else
+          abort();
       }
       strncat(ret, tmp, sz);
     }
