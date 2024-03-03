@@ -23,6 +23,7 @@
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
+#include <assert.h>
 
 void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
   int a, b, i;
@@ -50,9 +51,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   unsigned char xr[XSIZE];
   unsigned char c, lastch, firstch;
+  assert(m < XSIZE);
   for (i = 0; i < m; i++)
     xr[i] = x[m - 1 - i];
-  xr[m] = '\0';
+  xr[m] = '\0'; // cppcheck-suppress arrayIndexOutOfBoundsCond
   count = 0;
   int mp1 = m + 1, mm1 = m - 1;
   TVSBSpreBrBc(x, m, BrBcR);
@@ -129,7 +131,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     s5 += BrBcR[y[s5 + m]][y[s5 + mp1]];
     s6 -= BrBcL[y[s6 - 1]][y[s6 - 2]];
   }
+  //y[n] = '\0';
   END_SEARCHING
-  y[n] = '\0';
   return count;
 }

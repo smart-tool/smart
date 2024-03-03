@@ -17,12 +17,13 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * Note: Flaky tests with m=32,n=64 (off-by-one count)
- * Constraints: requires n >= m + 2, and m>=2
+ * Constraints: requires n >= m + 2, and m>=2 and m<XSIZE
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
+#include <assert.h>
 
 void TVSBSpreBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
   int a, b, i;
@@ -50,9 +51,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned char c;
 
   BEGIN_PREPROCESSING
+  assert(m < XSIZE);
   for (i = 0; i < m; i++)
     xr[i] = x[m - 1 - i];
-  xr[m] = '\0';
+  xr[m] = '\0'; // cppcheck-suppress arrayIndexOutOfBoundsCond
   count = 0;
   int mPlus1 = m + 1;
   TVSBSpreBrBc(x, m, BrBcR);

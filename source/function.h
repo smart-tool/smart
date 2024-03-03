@@ -143,18 +143,18 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
         algo[len - 2] = '\0';
         int id = search_ALGO(ALGO_NAME, algo);
         if (id == -1) {
-          printf ("FAIL %s.c exists, but is missing in algorithms.h\n", algo);
-          /*
+          printf ("WARNING %s.c exists, but is missing in algorithms.h\n", algo);
+          /* add the missing algos:
           FILE *f = fopen("source/algorithms.h", "a");
           fseek(f, 0, SEEK_END);
           char *upname = str2upper(algo);
-          fprintf(f, "   [_%s] = {_%s, 1, \"%s\", \"\", 0},\n", upname, upname, algo);
+          fprintf(f, "   [_%s] = {_%s, 1, \"%s\", \"\", 0, 0},\n", upname, upname, algo);
           free(upname);
           fclose(f);
           */
         }
         else if (ALGOS[id].missing)
-          printf ("FAIL %s.c exists, but has a missing flag in algorithms.h\n", algo);
+          printf ("WARNING %s.c exists, but has a missing flag in algorithms.h\n", algo);
       }
     }
   }
