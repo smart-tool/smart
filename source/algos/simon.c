@@ -89,9 +89,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   ell = preSimon(x, m, L);
+  count = 0;
   END_PREPROCESSING
 
-  count = 0;
   /* Searching */
   BEGIN_SEARCHING
   for (state = -1, j = 0; j < n; ++j) {

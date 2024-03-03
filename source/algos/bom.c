@@ -30,6 +30,9 @@
 #include "include/main.h"
 #include "include/GRAPH.h"
 
+// TODO prove the bounded size (2)
+struct _cell s_cells[2 * M_CUTOFF];
+
 int getTransition(unsigned char *x, int p, List L[], unsigned char c) {
   List cell;
   if (p > 0 && x[p - 1] == c)
@@ -45,18 +48,22 @@ int getTransition(unsigned char *x, int p, List L[], unsigned char c) {
   }
 }
 
-void setTransition(int p, int q, List L[]) {
+void setTransition(int p, int q, List L[], const int m, const int j) {
   List cell;
-  cell = (List)malloc(sizeof(struct _cell));
-  if (cell == NULL)
-    error("BOM/setTransition");
+  if (m > M_CUTOFF) {
+    cell = (List)malloc(sizeof(struct _cell));
+    if (cell == NULL)
+      error("BOM/setTransition");
+  } else {
+    cell = &s_cells[j];
+  }
   cell->element = q;
   cell->next = L[p];
   L[p] = cell;
 }
 
 void oracle(unsigned char *x, int m, char T[], List L[]) {
-  int i, p, q = 0;
+  int i, j = 0, p, q = 0;
   int S[XSIZE + 1];
   char c;
   S[m] = m + 1;
@@ -64,7 +71,7 @@ void oracle(unsigned char *x, int m, char T[], List L[]) {
     c = x[i - 1];
     p = S[i];
     while (p <= m && (q = getTransition(x, p, L, c)) == UNDEFINED) {
-      setTransition(p, i - 1, L);
+      setTransition(p, i - 1, L, m, j++);
       p = S[p];
     }
     S[i - 1] = (p == m + 1 ? m : q);
@@ -110,13 +117,16 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
-  for (i = 0; i <= m; i++) {
-    if (L[i]) {
-      List t = L[i];
-      while (t) {
-        List next = t->next;
-        free(t);
-        t = next;
+
+  if (m > M_CUTOFF) {
+    for (i = 0; i <= m; i++) {
+      if (L[i]) {
+        List t = L[i];
+        while (t) {
+          List next = t->next;
+          free(t);
+          t = next;
+        }
       }
     }
   }
