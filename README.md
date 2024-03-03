@@ -16,6 +16,27 @@ The documentation about smart is available [here](https://www.dmi.unict.it/faro/
 ## How to compile it from source
 To compile the source just download (or clone) this repository and run the file build.sh from terminal (with **./build.sh**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into bin/).
 
+## Summary
+
+According to our experimental results in 2010 (until KBNDM), we conclude
+that the following algorithms are the most efficient in the following situations:
+
+– SA: very short patterns and very small alphabets.
+– TVSBS: very short patterns and small alphabets, and long patterns and large alphabets.
+– FJS: very short patterns and large and very large alphabets.
+– EBOM: short patterns and large and very large alphabets.
+– SBNDM-BMH and BMH-SBNDM: short patterns and very large alphabets.
+– HASHq: short and large patterns and small alphabets.
+– FSBNDM: long patterns and large and very larghe alphabets.
+– SBNDMq: long pattern and small alphabets.
+– LBNDM: very long patterns and very large alphabets.
+– SSEF: very long pattern
+
+- https://arxiv.org/pdf/1012.2547v1.pdf
+
+However tests were done with temp. buffers on the heap, not static stack buffers.
+And some implementation didn't free their temp. buffers.
+
 ## Reference
 
 [Stringology Conference article url](https://www.stringology.org/event/2016/p09.html)
