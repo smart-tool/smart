@@ -52,6 +52,7 @@ void buildSuffixAutomaton(unsigned char *x, int m, int *ttrans, int *tlength,
     else {
       r = newState();
       // copyVertex(r, getTarget(p, c));
+      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
       memcpy(ttrans + r * SIGMA, ttrans + getTarget(p, c) * SIGMA,
              SIGMA * sizeof(int));
       setSuffixLink(r, getSuffixLink(getTarget(p, c)));

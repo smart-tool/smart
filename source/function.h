@@ -30,6 +30,9 @@
 #define ATTRIBUTE_MALLOC
 #endif
 
+// strncat helper
+#define SZNCAT(x) sizeof(x) - strlen(x) - 1
+
 int string2decimal(char *s) {
   int i;
   int decimal;

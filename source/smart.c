@@ -119,15 +119,15 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   // obtains the input text
   int j, i = 0;
   char indexfilename[100];
-  strcpy(indexfilename, path);
-  strcat(indexfilename, "/index.txt");
+  strncpy(indexfilename, path, sizeof(indexfilename));
+  strncat(indexfilename, "/index.txt", sizeof(indexfilename) - strlen(indexfilename) - 1);
   FILE *index;
   if ((index = fopen(indexfilename, "r"))) {
     char c;
     while (i < TSIZE && (c = getc(index)) != EOF) {
       if (c == '#') {
         char filename[100];
-        strcpy(filename, path);
+        strncpy(filename, path, sizeof(filename));
         j = strlen(filename);
         filename[j++] = '/';
         while ((c = getc(index)) != '#')
@@ -190,6 +190,7 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
   int i, j, k;
   for (i = 0; i < numpatt; i++) {
     if (strcmp((char *)simplePattern, ""))
+      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
       strcpy((char *)setP[i], (char *)simplePattern);
     else {
       k = rand() % (n - m); // generates a number between 0 and n-m
@@ -246,7 +247,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 #else
     mkdir(logfile);
 #endif
-    strcat(logfile, "/errorlog.txt");
+    strncat(logfile, "/errorlog.txt", sizeof(logfile) - strlen(logfile) - 1);
     stream = freopen(logfile, "w", stderr); // redirect of stderr
   }
 
@@ -438,11 +439,13 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
           STD[algo][il] = sqrt(STD[algo][il]);
 
           if (total_occur > 0 || (total_occur >= 0 && SIMPLE)) {
+            /*
             int nchar = 15;
             if (dif)
               nchar += 20;
             if (std)
               nchar += 15;
+            */
             unsigned i;
             printf("\b\b\b\b\b\b\b.[OK]  ");
             if (pre)
@@ -500,7 +503,8 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   for (i = 0; i < VOLTE; i++)
     free(setP[i]);
   free(setP);
-
+  free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
+           preshmid);
   return 0;
 }
 
@@ -510,7 +514,7 @@ int FREQ[SIGMA]; // frequency of alphabet characters
 int main(int argc, const char *argv[]) {
   // mandatory parameters
   char *filename = (char *)malloc(sizeof(char) * (100));
-  strcpy(filename, "");
+  strncpy(filename, "", 100);
   // non mandatory parameters
   PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern legths
   int alpha = 256;             // size of the alphabet
@@ -541,17 +545,11 @@ int main(int argc, const char *argv[]) {
   /* processing of input parameters */
   if (argc == 1) {
     printf("No parameter given. Use -h for help.\n\n");
-    free(filename);
-    free(simplePattern);
-    free(simpleText);
-    return 0;
+    goto end;
   }
   if (!strcmp("-h", argv[1])) {
     printManual();
-    free(filename);
-    free(simplePattern);
-    free(simpleText);
-    return 0;
+    goto end;
   }
   int par = 1;
   while (par < argc) {
@@ -559,12 +557,12 @@ int main(int argc, const char *argv[]) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
       VOLTE = string2decimal(parameter);
     }
@@ -572,12 +570,12 @@ int main(int argc, const char *argv[]) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
       TSIZE = string2decimal(parameter);
       TSIZE *= MG;
@@ -586,12 +584,12 @@ int main(int argc, const char *argv[]) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
       limit = string2decimal(parameter);
     }
@@ -599,60 +597,62 @@ int main(int argc, const char *argv[]) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
-      strcat(filename, parameter);
+      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncat(filename, parameter, sizeof(filename) - strlen(filename) - 1);
     }
     if (par < argc && !strcmp("-plen", argv[par])) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       MINLEN = string2decimal(parameter);
 
       if (MINLEN < 1 || MINLEN > 4200) {
         printf("Error in input parameters. The minimum length is not a valid "
                "argument.\n\n");
-        return 0;
+        goto end;
       }
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       MAXLEN = string2decimal(parameter);
 
       if (MAXLEN < 1 || MINLEN > MAXLEN) {
         printf("Error in input parameters. The maximum length is not a valid "
                "argument.\n\n");
-        return 0;
+        goto end;
       }
     }
     if (par < argc && !strcmp("-simple", argv[par])) {
       par++;
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
+      strncpy(parameter, argv[par++], sizeof(parameter));
       strcpy((char *)simplePattern, parameter);
       if (strlen((char *)simplePattern) > 100) {
         printf("Error in input parameters. Max 100 chars for P parameter.\n\n");
-        return 0;
+        goto end;
       }
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
-        return 0;
+        goto end;
       }
-      strcpy(parameter, argv[par++]);
+      strncpy(parameter, argv[par++], sizeof(parameter));
       strcpy((char *)simpleText, parameter);
+      //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
       if (strlen((char *)simpleText) > 1000) {
         printf(
             "Error in input parameters. Max 1000 chars for T parameter.\n\n");
-        return 0;
+        goto end;
       }
       SIMPLE = 1;
     }
@@ -702,17 +702,17 @@ int main(int argc, const char *argv[]) {
         strcmp("-pset", argv[par]) != 0 && strcmp("-vshort", argv[par]) != 0 &&
         strcmp("-short", argv[par]) != 0) {
       printf("Error in input parameters. Use -h for help.\n\n");
-      return 0;
+      goto end;
     }
   }
   if (strcmp(filename, "") && SIMPLE) {
     printf("Error in input parameters. Both parameters -simple and -text "
            "defined.\n\n");
-    return 0;
+    goto end;
   }
   if (!strcmp(filename, "") && !SIMPLE) {
     printf("Error in input parameters. No filename given.\n\n");
-    return 0;
+    goto end;
   }
 
   // get information about the set of algorithms
@@ -729,15 +729,14 @@ int main(int argc, const char *argv[]) {
   } while (++try < 10 && tshmid < 0);
   if (tshmid < 0) {
     perror("shmget");
-    exit(1);
+    goto end_1;
   }
   if ((T = shmat(tshmid, NULL, 0)) == (unsigned char *)-1) {
     printf(
         "\nShared memory allocation failed!\nYou need at least 12Mb of shared "
         "memory\nPlease, change your system settings and try again.\n");
     perror("shmat");
-    shmctl(tshmid, IPC_RMID, 0);
-    exit(1);
+    goto end_1;
   }
 #endif
 
@@ -747,7 +746,7 @@ int main(int argc, const char *argv[]) {
     // experimental results on a single pattern and a single text
     n = strlen((char *)simpleText);
     int m = strlen((char *)simplePattern);
-    strcpy((char *)T, (char *)simpleText);
+    strncpy((char *)T, (char *)simpleText, n);
     alpha = 250;
     PATT_CUSTOM_SIZE[0] = m;
     PATT_CUSTOM_SIZE[1] = 0;
@@ -787,16 +786,14 @@ int main(int argc, const char *argv[]) {
       printf("\n\tTry to process archive (%d/%d) %s\n", k + 1, num_buffers,
              list_of_filenames[k]);
       char fullpath[100];
-      strcpy(fullpath, "data/");
-      strcat(fullpath, list_of_filenames[k]);
+      strncpy(fullpath, "data/", sizeof(fullpath));
+      strncat(fullpath, list_of_filenames[k], sizeof(fullpath) - strlen(fullpath) - 1);
       // initialize the frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
-        shmctl(tshmid, IPC_RMID, 0);
-        return 0;
+        goto end_shm;
       }
       if (!(alpha = getAlpha(list_of_filenames[k]))) {
-        shmctl(tshmid, IPC_RMID, 0);
-        return 0;
+        goto end_shm;
       }
       printf("\tText buffer of dimension %d byte\n", n);
 
@@ -825,14 +822,13 @@ int main(int argc, const char *argv[]) {
     printf("\tStarting experimental tests with code %s\n", expcode);
     for (unsigned sett = 0; sett < NumSetting; sett++) {
       char fullpath[100];
-      strcpy(fullpath, "data/");
-      strcat(fullpath, SETTING_BUFFER[sett]);
+      strncpy(fullpath, "data/", sizeof(fullpath));
+      strncat(fullpath, SETTING_BUFFER[sett], sizeof(fullpath) - strlen(fullpath) - 1);
       alpha = SETTING_ALPHA_SIZE[sett];
       printf("\n\tTry to process archive %s\n", SETTING_BUFFER[sett]);
       // initialize the frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
-        shmctl(tshmid, IPC_RMID, 0);
-        return 0;
+        goto end_shm;
       }
       printf("\tText buffer of dimension %d byte\n", n);
       time_t date_timer;
@@ -851,11 +847,23 @@ int main(int argc, const char *argv[]) {
   }
 
   // free shared memory
+ end_shm:
+  shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
 
   // free other allocated memory
+ end:
+  free(filename);
   free(simplePattern);
   free(simpleText);
+  return 0;
 
+ end_1:
+  shmdt(T);
+  shmctl(tshmid, IPC_RMID, 0);
+
+  free(filename);
+  free(simplePattern);
+  free(simpleText);
   return 0;
 }

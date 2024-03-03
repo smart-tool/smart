@@ -35,15 +35,15 @@ int main(int argc, char **argv) {
   char gcc[100] = "gcc source/algos/";
   char options[100] = " -O3";
 #ifndef _WIN32
-  strcat(options, " -Wall");
+  strncat(options, " -Wall", sizeof(options) - strlen(options) - 1);
 #endif
 #ifdef __x86_64__
-  strcat(options, " -march=native -mtune=native");
+  strncat(options, " -march=native -mtune=native", sizeof(options) - strlen(options) - 1);
 #endif
 
 #ifdef BINDIR
   strncpy(destdir, BINDIR, sizeof(destdir) - 2);
-  strncat(destdir, "/", sizeof(destdir) - 1);
+  strncat(destdir, "/", sizeof(destdir) - strlen(destdir) - 1);
 # ifndef _WIN32
   mkdir(destdir, 0775);
 # else
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
       doTest = 1;
     }
   }
-  strcat(options, " -lm");
+  strncat(options, " -lm", sizeof(options) - strlen(options) - 1);
 
   DIR *d;
   FILE *stream;
@@ -67,28 +67,28 @@ int main(int argc, char **argv) {
   d = opendir(destdir);
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strcpy(filename, dir->d_name);
+      strncpy(filename, dir->d_name, sizeof(filename));
       if (*filename && *filename == '.')
         continue;
       snprintf(command, sizeof(command)-1, "%s%s", destdir, filename);
       remove(command);
     }
+    closedir(d);
   }
-  closedir(d);
 
   // counting c files
   d = opendir("./source/algos");
-  int n_algo = 0;
+  int n_algo = 1;
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strcpy(filename, dir->d_name);
+      strncpy(filename, dir->d_name, sizeof(filename));
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
         n_algo++;
       }
     }
+    closedir(d);
   }
-  closedir(d);
 
   int current = 0;
   int compiling_error = 0, testing_error = 0;
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
   d = opendir("./source/algos");
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strcpy(filename, dir->d_name);
+      strncpy(filename, dir->d_name, sizeof(filename));
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.'
           && filename[0] != '.' && filename[1] != '#') {
@@ -135,8 +135,8 @@ int main(int argc, char **argv) {
             perror("snprintf");
             exit(1);
           }
-          strncpy(binary, destdir, sizeof(binary) - 1);
-          strncat(binary, filename, sizeof(binary) - 1);
+          strncpy(binary, destdir, sizeof(binary));
+          strncat(binary, filename, sizeof(binary) - strlen(binary) - 1);
           FILE *fp = fopen(binary, "r");
           if (fp) {
             int failed = 0;
@@ -168,8 +168,8 @@ int main(int argc, char **argv) {
         fclose(stream);
       }
     }
+    closedir(d);
   }
-  closedir(d);
   for (i = 0; i < 33; i++)
     printf("\b");
   printf("\tAll algorithms have been compiled and tested.......\n");

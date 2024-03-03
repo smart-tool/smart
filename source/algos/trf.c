@@ -69,7 +69,9 @@ void buildSuffixAutomaton4TRF(unsigned char *x, int m, int *ttrans,
     } else {
       r = newState();
       tmp = getTarget(p, c);
+      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
       memcpy(ttrans + r * SIGMA, ttrans + tmp * SIGMA, SIGMA * sizeof(int));
+      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
       memcpy(tshift + r * SIGMA, tshift + tmp * SIGMA, SIGMA * sizeof(int));
       setPosition(r, getPosition(tmp));
       setSuffixLink(r, getSuffixLink(tmp));

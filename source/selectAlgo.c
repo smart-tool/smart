@@ -85,10 +85,11 @@ int main(int argc, const char *argv[]) {
           printf("%s", ALGO_NAME[i]);
           if (desc)
             printf("\t\"%s\"", ALGOS[i].desc);
-          
-          strcpy(buf, "source/algos/");
-          strcat(buf, ALGO_NAME[i]);
-          strcat(buf, ".c");
+
+          //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+          strncpy(buf, "source/algos/", sizeof(buf));
+          strncat(buf, ALGO_NAME[i], SZNCAT(buf));
+          strncat(buf, ".c", SZNCAT(buf));
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
@@ -117,9 +118,9 @@ int main(int argc, const char *argv[]) {
           if (desc)
             printf("\t\"%s\"", ALGOS[i].desc);
 
-          strcpy(buf, "source/algos/");
-          strcat(buf, ALGO_NAME[i]);
-          strcat(buf, ".c");
+          strncpy(buf, "source/algos/", sizeof(buf));
+          strncat(buf, ALGO_NAME[i], SZNCAT(buf));
+          strncat(buf, ".c", SZNCAT(buf));
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
@@ -146,9 +147,9 @@ int main(int argc, const char *argv[]) {
         return 0;
       }
       char *algo = (char*)argv[par++];
-      strcpy(filename, algo);
+      strncpy(filename, algo, sizeof(filename));
       char path[50] = "bin/";
-      strcat(path, algo);
+      strncat(path, algo, SZNCAT(path));
       FILE *fp = fopen(path, "r");
       if (fp) {
         // the file exists
@@ -193,9 +194,9 @@ int main(int argc, const char *argv[]) {
       }
       char *algo = (char *)argv[par++];
 
-      strcpy(filename, algo);
+      strncpy(filename, algo, sizeof(filename));
       char path[50] = "bin/";
-      strcat(path, filename);
+      strncat(path, filename, SZNCAT(path));
       FILE *fp = fopen(path, "r");
       if (fp) {
         // the file exists
@@ -209,7 +210,8 @@ int main(int argc, const char *argv[]) {
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test %s -nv", algo);
+          snprintf(command, sizeof(command), "./test %s -nv", algo);
+          //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
           fflush(stdout);
           if (system(command)) {
             printf("\n%s failed!\n", command);

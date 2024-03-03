@@ -161,7 +161,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
       free(pT);
     }
     free_shm();
-    (*rip)++;
+    (*rip)++;  //NOLINT(clang-analyzer-unix.Malloc)
     return 0;
   } else {
     if (VERBOSE) {
@@ -172,7 +172,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
       free(pT);
     }
   }
-  (*rip)++;
+  (*rip)++;  //NOLINT(clang-analyzer-unix.Malloc)
   return 1;
 }
 
@@ -197,12 +197,12 @@ int main(int argc, char *argv[]) {
     return 0;
   }
   char algoname[100];
-  strcpy(algoname, argv[1]);
+  strncpy(algoname, argv[1], sizeof(algoname));
   char parameter[100];
   if (argc > 2)
-    strcpy(parameter, argv[2]);
+    strncpy(parameter, argv[2], sizeof(parameter));
   char filename[100] = BINDIR "/";
-  strcat(filename, algoname);
+  strncat(filename, algoname, sizeof(filename) - strlen(filename) - 1);
   FILE *fp = fopen(filename, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
   if (!fp) {
@@ -224,6 +224,7 @@ int main(int argc, char *argv[]) {
 
   // allocate space for text in shared memory
   unsigned long seed = time(NULL);
+  //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
 #ifdef DEBUG
   if (getenv("SEED"))
     sscanf(getenv("SEED"), "%lu", &seed);
@@ -553,6 +554,7 @@ int main(int argc, char *argv[]) {
                  prekey, alpha, parameter))
       exit(1);
   }
+  //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
   if (VERBOSE)
     printf("%s\ttested OK\n", algoname);

@@ -159,6 +159,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   BEGIN_SEARCHING
   count = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memcpy(y + n, x, m);
   shift = m - ell + 1;
   j = m - ell;

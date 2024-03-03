@@ -58,11 +58,12 @@ sanitizer.log: $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
 lint: cppcheck clang-tidy
 cppcheck:
 	cppcheck -j4 -D__linux__ .
-compile_commands.json: $(ALGOSRC) $(wildcard source/*.c)
+compile_commands.json: GNUmakefile
 	-+$(MAKE) clean
 	bear -- $(MAKE)
-clang-tidy: compile_commands.json
+clang-tidy.log: compile_commands.json $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
 	clang-tidy source/*.c source/algos/*.c | tee clang-tidy.log
+clang-tidy: clang-tidy.log
 
 CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \
   --div-by-zero-check --signed-overflow-check --unsigned-overflow-check   \

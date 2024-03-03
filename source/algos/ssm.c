@@ -85,6 +85,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   j = m - 1;
   jMax = Max - m + 1;
   xMax = x[Max];
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memcpy(y + n, x, m);
   while (j < n) {
     while (y[j + jMax] != xMax)
