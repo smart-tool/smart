@@ -23,7 +23,7 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA * sizeof(int)];
+static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, state, count;

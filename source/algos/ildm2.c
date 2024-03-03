@@ -38,12 +38,12 @@
 #define setSMA(p, c, q) ttransSMA[(p)*SIGMA + (c)] = (q)
 #define getSMA(p, c) ttransSMA[(p)*SIGMA + (c)]
 
-static unsigned char s_xR[(M_CUTOFF + 1) * sizeof(unsigned char)];
-static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
-static int s_tlength[3 * M_CUTOFF * sizeof(int)];
-static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
-static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
-static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA * sizeof(int)];
+static unsigned char s_xR[M_CUTOFF + 1];
+static int s_ttrans[3 * M_CUTOFF * SIGMA];
+static int s_tlength[3 * M_CUTOFF];
+static int s_tsuffix[3 * M_CUTOFF];
+static unsigned char s_tterminal[3 * M_CUTOFF];
+static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int k, i, R, L, count, l;

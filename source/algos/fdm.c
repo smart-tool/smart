@@ -25,10 +25,10 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
-static int s_tlength[3 * M_CUTOFF * sizeof(int)];
-static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
-static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
+static int s_ttrans[3 * M_CUTOFF * SIGMA];
+static int s_tlength[3 * M_CUTOFF];
+static int s_tsuffix[3 * M_CUTOFF];
+static unsigned char s_tterminal[3 * M_CUTOFF];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, init, ell, state, count;

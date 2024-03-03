@@ -38,15 +38,14 @@ struct _pair2 {
 };
 typedef struct _pair2 *Pair2;
 
-#define M_CUTOFF 32
-static int s_len[M_CUTOFF * sizeof(int)];
-static int s_link[M_CUTOFF * sizeof(int)];
-static int s_loc[M_CUTOFF * sizeof(int)];
-static int s_owner[M_CUTOFF * sizeof(int)];
-static int s_next[2 * M_CUTOFF * sizeof(int)];
-static int s_shift[2 * M_CUTOFF * sizeof(int)];
-static unsigned char s_c[M_CUTOFF * sizeof(char)];
-static struct _pair2 s_bcGsVal[M_CUTOFF * sizeof(struct _pair2)];
+static int s_len[M_CUTOFF];
+static int s_link[M_CUTOFF];
+static int s_loc[M_CUTOFF];
+static int s_owner[M_CUTOFF];
+static int s_next[2 * M_CUTOFF];
+static int s_shift[2 * M_CUTOFF];
+static unsigned char s_c[M_CUTOFF];
+static struct _pair2 s_bcGsVal[M_CUTOFF];
 
 void preBmBc_(unsigned char *x, int m, int *bmBc) {
   int i;

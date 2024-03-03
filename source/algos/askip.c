@@ -54,11 +54,12 @@ struct _automaton {
 typedef struct _automaton *Automaton;
 typedef int Node;
 
+// 2 + (2 * m - m/2 + 1) * m/2
 #define S_CUTOFF 32
-static int s_trans[S_CUTOFF * SIGMA * sizeof(int)];
-static int s_fail[S_CUTOFF * sizeof(int)];
-static char s_term[S_CUTOFF * sizeof(char)];
-static ListOfIntegers s_z[S_CUTOFF * sizeof(ListOfIntegers)];
+static int s_trans[S_CUTOFF * SIGMA];
+static int s_fail[S_CUTOFF];
+static char s_term[S_CUTOFF];
+static ListOfIntegers s_z[S_CUTOFF];
 
 void freeListOfIntegers(ListOfIntegers list) {
   ListOfIntegers old;
@@ -177,10 +178,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
             for (i = automaton->root; i < automaton->nodeCounter; ++i)
               freeListOfIntegers(z[i]);
             if (size > S_CUTOFF) {
-              free(automaton->trans);
-              free(automaton->term);
-              free(automaton->fail);
               free(z);
+              free(automaton->fail);
+              free(automaton->term);
+              free(automaton->trans);
             }
             //free(automaton);
             END_SEARCHING

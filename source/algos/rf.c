@@ -25,10 +25,11 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttrans[3 * M_CUTOFF * SIGMA * sizeof(int)];
-static int s_tlength[3 * M_CUTOFF * sizeof(int)];
-static int s_tsuffix[3 * M_CUTOFF * sizeof(int)];
-static unsigned char s_tterminal[3 * M_CUTOFF * sizeof(unsigned char)];
+#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
+static int s_ttrans[SIZE_CUTOFF * SIGMA];
+static int s_tlength[SIZE_CUTOFF];
+static int s_tsuffix[SIZE_CUTOFF];
+static unsigned char s_tterminal[SIZE_CUTOFF];
 
 void buildSuffixAutomaton(unsigned char *x, int m, int *ttrans, int *tlength,
                           int *tsuffix, unsigned char *tterminal) {
