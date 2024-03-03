@@ -76,22 +76,27 @@ enum algo_id {
   _SEBOM, // Simplified Extended Backward Oracle Matching
   _SFBOM, // Simplified Forward Backward Oracle Matching
   _SBDM,  // Succint Backward DAWG Matching
-  _SKIP2,
-  _SKIP3,
-  _SKIP4,
-  _SKIP5,
-  _SKIP6,
-  _SKIP7,
-  _SKIP8,
+  _BSOM,  // Backward Set Oracle Matching
+  _SKIP2, // Skip Search with lookahead
+  _SKIP3, // Skip Search with lookahead
+  _SKIP4, // Skip Search with lookahead
+  _SKIP5, // Skip Search with lookahead
+  _SKIP6, // Skip Search with lookahead
+  _SKIP7, // Skip Search with lookahead
+  _SKIP8, // Skip Search with lookahead
   // Algorithms based on bit-parallelism
   _SO,       // Shift-Or
   _SA,       // Shift-And
   _BNDM,     // BNDM for Long patterns
+  // BM_BNDM
+  // Turbo_BNDM
   _BNDML,    // BNDM for Long patterns
   _SBNDM,    // Simplified BNDM
   _TNDM,     // Two-Way Nondeterministic DAWG Matching
   _TNDMa,    // Two-Way Nondeterministic DAWG Matching (version 2)
   _LBNDM,    // Long patterns BNDM
+  // _HG     // BNDM with q-grams
+  // _BG     // BNDM with q-grams
   _SVM0,     // Shift Vector Matching (version 0)
   _SVM1,     // Shift Vector Matching (version 1)
   _SVM2,     // Shift Vector Matching (version 2)
@@ -110,6 +115,7 @@ enum algo_id {
   _AOSO6,    // Average Optimal Shift-Or (q=6)
   _BLIM,     // Bit-Parallel Length Invariant Matcher
   _FSBNDM,   // Forward SBNDM
+  // TODO HG, BG in Salmela et al. 2006 give Salmela et al. 2006
   _BNDMq2,   // BNDM with q-grams
   _BNDMq4,   // BNDM with q-grams
   _BNDMq6,   // BNDM with q-grams
@@ -128,26 +134,26 @@ enum algo_id {
   _KBNDM,    // Factorized BNDM
   
   // new algorithms, yet uncategorized
-  _BSDM,
-  _BSDM2,
-  _BSDM3,
-  _BSDM4,
-  _BSDM5,
-  _BSDM6,
-  _BSDM7,
-  _BSDM8,
-  _BXS,
-  _BXS1,
-  _BXS2,
-  _BXS3,
-  _BXS4,
-  _BXS6,
-  _BXS8,
-  _FS_W1,
-  _FS_W2,
-  _FS_W4,
-  _FS_W6,
-  _FS_W8,
+  _BSDM,     // Backward SNR DAWG Matching
+  _BSDM2,    // Backward SNR DAWG Matching (m>=2)
+  _BSDM3,    // Backward SNR DAWG Matching (m>=3)
+  _BSDM4,    // Backward SNR DAWG Matching (m>=4)
+  _BSDM5,    // Backward SNR DAWG Matching (m>=5)
+  _BSDM6,    // Backward SNR DAWG Matching (m>=6)
+  _BSDM7,    // Backward SNR DAWG Matching (m>=7)
+  _BSDM8,    // Backward SNR DAWG Matching (m>=8)
+  _BXS,      // BXS
+  _BXS1,     // BXS with q-grams limit
+  _BXS2,     // BXS with q-grams limit
+  _BXS3,     // BXS with q-grams limit
+  _BXS4,     // BXS with q-grams limit
+  _BXS6,     // BXS with q-grams limit
+  _BXS8,     // BXS with q-grams limit
+  _FS_W1,    // Multiple Sliding Windows
+  _FS_W2,    // Multiple Sliding Windows
+  _FS_W4,    // Multiple Sliding Windows
+  _FS_W6,    // Multiple Sliding Windows
+  _FS_W8,    // Multiple Sliding Windows
   _FSBNDM_W1,
   _FSBNDM_W2,
   _FSBNDM_W4,
@@ -167,36 +173,36 @@ enum algo_id {
   _FSBNDMQ82,
   _FSBNDMQ84,
   _FSBNDMQ86,
-  _IOM,
-  _JOM,
-  _LWFR2,
-  _LWFR3,
-  _LWFR4,
-  _LWFR5,
-  _LWFR6,
-  _LWFR7,
-  _LWFR8,
-  _QF23,
-  _QF24,
-  _QF26,
-  _QF28,
-  _QF33,
-  _QF34,
-  _QF36,
-  _QF42,
-  _QF43,
-  _QF44,
-  _QF62,
-  _QF63,
-  _QLQS,
+  _IOM,      // Improved Occurrence Heuristic
+  _JOM,      // Jumping Occurrence Matcher
+  _LWFR2,    // Weak Factor Recognizer, Linear Version
+  _LWFR3,    // Weak Factor Recognizer, Linear Version
+  _LWFR4,    // Weak Factor Recognizer, Linear Version
+  _LWFR5,    // Weak Factor Recognizer, Linear Version
+  _LWFR6,    // Weak Factor Recognizer, Linear Version
+  _LWFR7,    // Weak Factor Recognizer, Linear Version
+  _LWFR8,    // Weak Factor Recognizer, Linear Version
+  _QF23,     // Q-gram Filtering q=2 s=3
+  _QF24,     // Q-gram Filtering q=2 s=4
+  _QF26,     // Q-gram Filtering q=2 s=6
+  _QF28,     // Q-gram Filtering q=2 s=8
+  _QF33,     // Q-gram Filtering q=3 s=3
+  _QF34,     // Q-gram Filtering q=3 s=4
+  _QF36,     // Q-gram Filtering q=3 s=6
+  _QF42,     // Q-gram Filtering q=4 s=2
+  _QF43,     // Q-gram Filtering q=4 s=3
+  _QF44,     // Q-gram Filtering q=4 s=4
+  _QF62,     // Q-gram Filtering q=6 s=2
+  _QF63,     // Q-gram Filtering q=6 s=3
+  _QLQS,     // Quantum Leap Quick Search
   _SBNDM_W2,
   _SBNDM_W4,
   _SBNDM_W6,
   _SSM,
-  _TSA,
-  _TSA_Q2,
-  _TSO5,
-  _TUNEDBM,
+  _TSA,      // word-wise popcount
+  _TSA_Q2,   // word-wise popcount q=2
+  _TSO5,     // optimized word-wise popcount
+  _TUNEDBM,  // Tuned Boyer-Moore
   _TVSBS_W2,
   _TVSBS_W4,
   _TVSBS_W6,
@@ -216,6 +222,7 @@ enum algo_id {
   _WFRQ6,
   _WFRQ7,
   _WFRQ8,
+  _TWFR,    // Tuned Weak Factor Recognizer
   _TWFR2,
   _TWFR3,
   _TWFR4,
@@ -223,14 +230,13 @@ enum algo_id {
   _TWFR6,
   _TWFR7,
   _TWFR8,
-  _TWFRQ2,
+  _TWFRQ2,   // Tuned Weak Factor Recognizer qith q-grams
   _TWFRQ3,
   _TWFRQ4,
   _TWFRQ5,
   _TWFRQ6,
   _TWFRQ7,
   _TWFRQ8,
-  _TWFR,
   _WC,       // Tailed Substring algorithm
   _WOM,      // Worst Occurrence Matcher
   // state of the art:
@@ -323,6 +329,7 @@ const struct algo ALGOS[] = {
     [_SFBOM] = {_SFBOM, 1, "sfbom",
                 "Simplified Forward Backward Oracle Matching", 0, 0},
     [_SBDM] = {_SBDM, 0, "sbdm", "Succint Backward DAWG Matching", 0, 1},
+    [_BSOM] = {_BSOM, 0, "bsom", "Backward Set Oracle Matching", 0, 1},
     [_SKIP2] = {_SKIP2, 1, "skip2", "Skip Search with lookahead", 2, 0},
     [_SKIP3] = {_SKIP3, 1, "skip3", "Skip Search with lookahead", 3, 0},
     [_SKIP4] = {_SKIP4, 1, "skip4", "Skip Search with lookahead", 4, 0},
@@ -340,6 +347,8 @@ const struct algo ALGOS[] = {
     [_TNDMa] = {_TNDMa, 1, "tndma",
                 "Two-Way Nondeterministic DAWG Matching (version 2)", 0, 0},
     [_LBNDM] = {_LBNDM, 1, "lbndm", "long patterns bndm", 0, 0},
+    // hg BNDM with q-grams
+    // bg BNDM with q-grams, and parallel (superimposed) search
     [_SVM0] = {_SVM0, 1, "svm0", "shift vector matching (version 0)", 0, 0},
     [_SVM1] = {_SVM1, 1, "svm1", "shift vector matching (version 1)", 0, 0},
     [_SVM2] = {_SVM2, 1, "svm2", "shift vector matching (version 2)", 0, 0},

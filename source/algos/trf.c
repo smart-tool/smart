@@ -20,6 +20,7 @@
  * in M. Crochemore and A. Czumaj and L. Gcasieniec and S. Jarominek and T.
  * Lecroq and W. Plandowski and W. Rytter. Speeding up two string matching
  * algorithms. Algorithmica, vol.12, n.4/5, pp.247--267, (1994).
+ * https://www.cin.ufpe.br/~paguso/courses/if767/bib/Crochemore_1992.pdf
  */
 
 #include "include/define.h"

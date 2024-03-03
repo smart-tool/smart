@@ -20,6 +20,7 @@
  * in G. Navarro and M. Raffinot.
  * A Bit-parallel Approach to Suffix Automata: Fast Extended String Matching.
  * n.TR/DC--98--1, (1998).
+ * https://dcc.uchile.cl/TR/1998/TR_DCC-1998-004.pdf
  */
 
 #include "include/define.h"
