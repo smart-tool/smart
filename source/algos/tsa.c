@@ -17,8 +17,9 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
     return -1;
 
   BEGIN_PREPROCESSING
-  // TODO use __builtin_popcount()
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
+  // TODO use __builtin_popcount()
   for (j = 0; j < m; ++j)
     B[P[j]] |= ((uint64_t)1U << (j));
   for (PopCount[i = 0] = 0; ++i <= 65535;

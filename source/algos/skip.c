@@ -39,6 +39,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   if (m > M_CUTOFF)
     allocs = (List*)calloc(m, sizeof(List));
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, 0, SIGMA * sizeof(List));
   for (i = 0; i < m; ++i) {
     if (m > M_CUTOFF) {

@@ -22,6 +22,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   // memcpy(pat.pat+1, base, m);
 
   BEGIN_PREPROCESSING
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
   mask = ~(uint64_t)0 >> (64 - m);
   for (j = 0; j < 256; B[j++] = ~(uint64_t)0)

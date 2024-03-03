@@ -49,6 +49,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
 
   if (Plen < 32)
     return search_small(x, Plen, y, Tlen);
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(flist, 0, sizeof(LIST *) * 65536);
   //__m128i tmp128;
   TEXT T;

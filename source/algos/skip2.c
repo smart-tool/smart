@@ -51,6 +51,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   const int mq = m - Q + 1;
   if (m > M_CUTOFF)
     allocs = (List*)calloc(mq, sizeof(List));
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, 0, DSIGMA * sizeof(List));
   for (i = 0; i < mq; ++i) {
     if (m > M_CUTOFF) {

@@ -47,12 +47,14 @@ int preColussi(unsigned char *x, int m, int h[], int next[],
    } while (k <= m);
 
    /* Computation of kmin */
+   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
    memset(kmin, 0, m * sizeof(int));
    for (i = m; i >= 1; --i)
       if (hmax[i] < m)
          kmin[hmax[i]] = i;
 
    /* Computation of rmin */
+   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
    memset(rmin, 0, m * sizeof(int));
    for (i = m - 1; i >= 0; --i) {
       if (hmax[i + 1] == m)

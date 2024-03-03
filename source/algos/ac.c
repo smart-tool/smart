@@ -28,7 +28,7 @@
 void preKmp(unsigned char *x, int m, int kmpNext[]) {
   int i, j;
   i = 0;
-  j = kmpNext[0] = -1;
+  j = kmpNext[0] = UNDEFINED;
   while (i < m) {
     while (j > -1 && x[i] != x[j])
       j = kmpNext[j];
@@ -46,6 +46,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(kmpNext, -1, n);
   preKmp(x, m, kmpNext);
   for (ell = 1; ell < m && x[ell - 1] == x[ell]; ell++)
     ;

@@ -126,6 +126,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tposition = s_tposition;
     tterminal = s_tterminal;
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, size * SIGMA * sizeof(int));
   buildSuffixAutomaton4TRF(x, m, ttrans, tlength, tposition, tsuffix, tterminal,
                            tshift);

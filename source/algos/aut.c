@@ -34,6 +34,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
   else
     ttransSMA = s_ttransSMA;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   preSMA(x, m, ttransSMA);
   count = 0;

@@ -40,6 +40,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   preBmBc(x, m, bmBc);
   shift = bmBc[x[m - 1]];
   bmBc[x[m - 1]] = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(y + n, x[m - 1], m);
   END_PREPROCESSING
 

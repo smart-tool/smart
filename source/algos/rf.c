@@ -98,6 +98,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, (2 * m + 3) * SIGMA * sizeof(int));
   buildSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   init = 0;

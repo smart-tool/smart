@@ -71,7 +71,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   preMp((char*)x, m, mpNext);
   preKmp(x, m, kmpNext);
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, -1, SIGMA * sizeof(int));
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(list, -1, m * sizeof(int));
   z[x[0]] = 0;
   for (i = 1; i < m; ++i) {

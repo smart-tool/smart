@@ -68,6 +68,7 @@ void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
       i = m - 1;
   }
 
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(kmin, 0, m * sizeof(int));
   for (k = m; k > 0; --k)
     kmin[hmin[k]] = k;

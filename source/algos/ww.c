@@ -30,6 +30,7 @@
 void preSMARev(unsigned char *x, int m, int *ttransSMA) {
   int c, i, state, target, oldTarget;
 
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttransSMA, 0, SIGMA * sizeof(int));
   for (state = 0, i = m - 1; i >= 0; --i) {
     oldTarget = getSMA(state, x[i]);
@@ -68,9 +69,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tterminal = s_tterminal;
     ttransSMA = s_ttransSMA;
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   count = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   END_PREPROCESSING
 

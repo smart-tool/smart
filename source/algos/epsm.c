@@ -250,6 +250,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   mask = 2047;
 
   BEGIN_PREPROCESSING
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(flist, 0, sizeof(LIST *) * 2048);
 
   for (i = 1; (int)i < tmppatlen - 7; i++) {

@@ -39,6 +39,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   /* Left to right automaton */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, SIGMA * sizeof(int));
   s = 1;
   for (i = 0; i < m; ++i) {
@@ -48,6 +49,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s >>= 1;
 
   /* Right to left automaton */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(C, 0, SIGMA * sizeof(int));
   t = 1;
   for (i = m - 1; i >= 0; --i) {
@@ -120,6 +122,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   /* Left to right automaton */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, SIGMA * sizeof(int));
   s = 1;
   for (i = 0; i < m; ++i) {
@@ -129,6 +132,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   s >>= 1;
 
   /* Right to left automaton */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(C, 0, SIGMA * sizeof(int));
   t = 1;
   for (i = m - 1; i >= 0; --i) {

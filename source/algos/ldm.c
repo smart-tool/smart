@@ -64,8 +64,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tterminal = s_tterminal;
     ttransSMA = s_ttransSMA;
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   preSMA(x, m, ttransSMA);
   end = n / m;

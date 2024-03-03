@@ -103,7 +103,7 @@ void preBcGs_(unsigned char *x, int m, int *suff, struct _pair1 bcGsPtr[],
     loc = (int *)malloc(m * sizeof(int));
     next = (int *)malloc(2 * m * sizeof(int));
     shift = (int *)malloc(2 * m * sizeof(int));
-    c = (unsigned char *)malloc(m * sizeof(char));
+    c = (unsigned char *)malloc(m * sizeof(unsigned char));
   } else {
     link = s_link;
     loc = s_loc;
@@ -112,6 +112,7 @@ void preBcGs_(unsigned char *x, int m, int *suff, struct _pair1 bcGsPtr[],
     c = s_c;
   }
   f = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(link, -1, m * sizeof(int));
   for (i = 0; i < m - 1; ++i) {
     k = suff[i];
@@ -170,6 +171,7 @@ void preBcGs_(unsigned char *x, int m, int *suff, struct _pair1 bcGsPtr[],
 void preCLink(unsigned char *x, int m, int *clink) {
   int a, i, last[SIGMA];
 
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(last, -1, SIGMA * sizeof(int));
   for (i = 0; i < m; ++i) {
     a = x[i];
@@ -197,7 +199,7 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
     next = (int *)malloc(2 * m * sizeof(int));
     owner = (int *)malloc(m * sizeof(int));
     preLoc = (int *)malloc(m * sizeof(int));
-    c = (unsigned char *)malloc(m * sizeof(char));
+    c = (unsigned char *)malloc(m * sizeof(unsigned char));
   } else {
     len = s_len;
     link = s_link;
@@ -217,6 +219,7 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
     }
   }
   f = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(link, -1, m * sizeof(int));
   for (i = 0; i < m - 1; ++i) {
     k = suff[i];
@@ -228,6 +231,7 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
       ++f;
     }
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(cptr, -1, SIGMA * sizeof(int));
   f = m;
   for (i = m - 1; i > 0; --i) {
@@ -242,6 +246,7 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
       ell = next[ell];
     }
   }
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(owner, -1, m * sizeof(int));
   for (a = 0; a < SIGMA; ++a) {
     ell = cptr[a];

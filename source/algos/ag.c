@@ -74,6 +74,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   preBmGsAG(x, m, bmGs, suff);
   preBmBc(x, m, bmBc);
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(skip, 0, m * sizeof(int));
   END_PREPROCESSING
 
@@ -114,7 +115,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       shift = MAX(bmGs[i], bmBc[y[i + j]] - m + 1 + i);
     }
     j += shift;
+    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memmove(skip, skip + shift, (m - shift) * sizeof(int));
+    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memset(skip + m - shift, 0, shift * sizeof(int));
   }
   END_SEARCHING

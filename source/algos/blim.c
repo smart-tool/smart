@@ -51,6 +51,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     M = (unsigned long *)malloc(sizeof(unsigned long) * SIGMA * wsize);
   else
     M = s_M;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(M, 0xff, sizeof(unsigned long) * SIGMA * wsize);
   for (i = 0; i < WORD; i++) {
     tmp = 1U << i;

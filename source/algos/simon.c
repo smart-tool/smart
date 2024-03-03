@@ -62,6 +62,7 @@ int preSimon(unsigned char *x, int m, List L[]) {
   int i, j = 0, k, ell;
   List cell;
 
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(L, 0, m * sizeof(List));
   ell = -1;
   for (i = 1; i < m; ++i) {
