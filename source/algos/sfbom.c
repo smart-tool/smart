@@ -21,11 +21,11 @@
 #include "include/main.h"
 
 #define FT(i, j) LAMBDA[(i << 8) + j]
-static int s_trans[M_CUTOFF + 2][SIGMA];
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE], LAMBDA[SIGMA * SIGMA];
   int *trans[XSIZE];
+  int s_trans[M_CUTOFF + 2][SIGMA];
   int i, j, p, q = 0;
   int iMinus1, mMinus1, count;
   unsigned char c;

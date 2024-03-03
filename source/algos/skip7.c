@@ -39,11 +39,11 @@
       (x[i + 4] << 2) + (x[i + 5] << 1) + x[i + 6]
 #define Q 7
 
-struct _cell s_cells[M_CUTOFF];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h, k;
   List ptr, z[DSIGMA];
+  struct _cell s_cells[M_CUTOFF];
+
   if (m < Q)
     return search_small(x, m, y, n);
 

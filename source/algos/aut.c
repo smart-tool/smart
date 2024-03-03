@@ -23,12 +23,10 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, state, count;
   int *ttransSMA;
-  count = 0;
+  int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -38,6 +36,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     ttransSMA = s_ttransSMA;
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
   preSMA(x, m, ttransSMA);
+  count = 0;
   END_PREPROCESSING
 
   /* Searching */

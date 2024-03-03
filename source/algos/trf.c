@@ -26,15 +26,6 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
-static int s_mpNext[M_CUTOFF + 1];
-static int s_ttrans[SIZE_CUTOFF * SIGMA];
-static int s_tshift[SIZE_CUTOFF * SIGMA];
-static int s_tlength[SIZE_CUTOFF];
-static int s_tposition[SIZE_CUTOFF];
-static int s_tsuffix[SIZE_CUTOFF];
-static unsigned char s_tterminal[SIZE_CUTOFF];
-
 void preMpforTRF(unsigned char *x, int m, int mpNext[]) {
   int i, j;
   i = 0;
@@ -103,6 +94,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int period, i, j, shift, u, periodOfU, disp, init, count, state, mu, *mpNext;
   int *ttrans, *tlength, *tposition, *tsuffix, *tshift;
   unsigned char *tterminal;
+#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
+  int s_mpNext[M_CUTOFF + 1];
+  int s_ttrans[SIZE_CUTOFF * SIGMA];
+  int s_tshift[SIZE_CUTOFF * SIGMA];
+  int s_tlength[SIZE_CUTOFF];
+  int s_tposition[SIZE_CUTOFF];
+  int s_tsuffix[SIZE_CUTOFF];
+  unsigned char s_tterminal[SIZE_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

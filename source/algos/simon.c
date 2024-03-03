@@ -21,9 +21,6 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-// TODO prove the bounded size (2)
-struct _cell s_cells[2 * M_CUTOFF];
-
 int getTransitionSimon(unsigned char *x, int m, int p, List L[], char c) {
   List cell;
 
@@ -43,6 +40,8 @@ int getTransitionSimon(unsigned char *x, int m, int p, List L[], char c) {
 
 void setTransitionSimon(int p, int q, List L[], const int m, const int j) {
   List cell;
+  // TODO prove the bounded size (2)
+  struct _cell s_cells[2 * M_CUTOFF];
 
   if (m > M_CUTOFF) {
     cell = (List)malloc(sizeof(struct _cell));

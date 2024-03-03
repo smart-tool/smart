@@ -26,19 +26,18 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static unsigned char s_xR[M_CUTOFF + 1];
-static int s_ttrans[3 * M_CUTOFF * SIGMA];
-static int s_tlength[3 * M_CUTOFF];
-static int s_tsuffix[3 * M_CUTOFF];
-static unsigned char s_tterminal[3 * M_CUTOFF];
-static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int k, i, R, L, count, l;
   int *ttrans, *tlength, *tsuffix;
   int *ttransSMA;
   unsigned char *tterminal;
   unsigned char *xR;
+  unsigned char s_xR[M_CUTOFF + 1];
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  unsigned char s_tterminal[3 * M_CUTOFF];
+  int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -90,7 +89,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     k = k + m;
   }
-  END_SEARCHING
+
   if (m > M_CUTOFF) {
     free(ttransSMA);
     free(tterminal);
@@ -99,5 +98,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     free(ttrans);
     free(xR);
   }
+  END_SEARCHING
   return count;
 }

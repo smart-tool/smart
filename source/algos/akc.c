@@ -38,15 +38,6 @@ struct _pair2 {
 };
 typedef struct _pair2 *Pair2;
 
-static int s_len[M_CUTOFF];
-static int s_link[M_CUTOFF];
-static int s_loc[M_CUTOFF];
-static int s_owner[M_CUTOFF];
-static int s_next[2 * M_CUTOFF];
-static int s_shift[2 * M_CUTOFF];
-static unsigned char s_c[M_CUTOFF];
-static struct _pair2 s_bcGsVal[M_CUTOFF];
-
 void preBmBc_(unsigned char *x, int m, int *bmBc) {
   int i;
   for (i = 0; i < SIGMA; ++i)
@@ -101,6 +92,11 @@ void preBcGs_(unsigned char *x, int m, int *suff, struct _pair1 bcGsPtr[],
   int i, f, k, ell, *link, *loc, *next, *shift;
   int a;
   unsigned char *c;
+  int s_link[M_CUTOFF];
+  int s_loc[M_CUTOFF];
+  int s_next[2 * M_CUTOFF];
+  int s_shift[2 * M_CUTOFF];
+  unsigned char s_c[M_CUTOFF];
 
   if (m > M_CUTOFF) {
     link = (int *)malloc(m * sizeof(int));
@@ -186,6 +182,13 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
   int i, f, k, ell, cptr[SIGMA], *len, *link, *loc, *next, *owner, *preLoc;
   int a;
   unsigned char *c;
+  int s_len[M_CUTOFF];
+  int s_link[M_CUTOFF];
+  int s_loc[2 * M_CUTOFF];
+  int s_next[2 * M_CUTOFF];
+  int s_owner[M_CUTOFF];
+  int s_preLoc[M_CUTOFF];
+  unsigned char s_c[M_CUTOFF];
 
   if (m > M_CUTOFF) {
     len = (int *)malloc(m * sizeof(int));
@@ -198,10 +201,10 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
   } else {
     len = s_len;
     link = s_link;
-    loc = s_next; // 2x
-    next = s_shift; // 2x
+    loc = s_loc;
+    next = s_next;
     owner = s_owner;
-    preLoc = s_loc;
+    preLoc = s_preLoc;
     c = s_c;
   }
   ell = -1;
@@ -265,16 +268,18 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
 
 void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
   int i, j, k, p, *len, *loc, *next;
-  int z;
+  int s_len[M_CUTOFF];
+  int s_loc[M_CUTOFF];
+  int s_next[M_CUTOFF];
+  const int z = 2 * m;
 
-  z = 2 * m;
   if (m > M_CUTOFF) {
     len = (int *)malloc(m * sizeof(int));
     loc = (int *)malloc(m * sizeof(int));
     next = (int *)malloc(m * sizeof(int));
   } else {
     len = s_len;
-    loc = s_link;
+    loc = s_loc;
     next = s_next;
   }
   if (skip[ell] < m) {
@@ -328,9 +333,9 @@ void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
   }
  end:
   if (m > M_CUTOFF) {
-    free(len);
-    free(loc);
     free(next);
+    free(loc);
+    free(len);
   }
 }
 
@@ -356,10 +361,15 @@ int getBcGS(unsigned char a, int i, struct _pair1 bcGsPtr[], struct _pair2 bcGsV
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, ell, lsp, bmBc[SIGMA], *clink, *pref, *skip, *slink, *suff,
       count;
+  int M;
   struct _pair1 bcGsPtr[SIGMA];
   struct _pair2 *bcGsVal;
-  int M;
-  count = 0;
+  int s_suff[M_CUTOFF];
+  int s_pref[M_CUTOFF + 1];
+  int s_clink[M_CUTOFF];
+  int s_slink[M_CUTOFF];
+  int s_skip[2 * M_CUTOFF];
+  struct _pair2 s_bcGsVal[M_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -371,11 +381,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     skip = (int *)malloc(2 * m * sizeof(int));
     bcGsVal = (struct _pair2 *)malloc(m * sizeof(struct _pair2));
   } else {
-    suff = s_len;
-    pref = s_next;
-    clink = s_loc;
-    slink = s_owner;
-    skip = s_shift;
+    suff = s_suff;
+    pref = s_pref;
+    clink = s_clink;
+    slink = s_slink;
+    skip = s_skip;
     bcGsVal = (struct _pair2 *)&s_bcGsVal;
   }
   preBmBc_(x, m, bmBc);
@@ -385,6 +395,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   preBcGs_(x, m, suff, bcGsPtr, bcGsVal);
   preCLink(x, m, clink);
   preSLink(x, m, suff, pref, slink);
+  count = 0;
   END_PREPROCESSING
 
   /* Searching */

@@ -30,10 +30,6 @@
 #include "include/define.h"
 #include "include/main.h"
 
-// m + 31 really
-#define WSIZE_CUTOFF 63
-static unsigned long s_M[sizeof(unsigned long) * SIGMA * WSIZE_CUTOFF];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int i, j, k, count;
   const unsigned int wsize = WORD - 1 + m;
@@ -45,6 +41,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int shift[SIGMA];
   unsigned long *M;
   // TODO search_large if m > XSIZE
+  // m + 31 really
+#define WSIZE_CUTOFF 63
+  unsigned long s_M[SIGMA * WSIZE_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

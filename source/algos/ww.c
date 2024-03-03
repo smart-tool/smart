@@ -27,12 +27,6 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttrans[3 * M_CUTOFF * SIGMA];
-static int s_tlength[3 * M_CUTOFF];
-static int s_tsuffix[3 * M_CUTOFF];
-static int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
-static unsigned char s_tterminal[3 * M_CUTOFF];
-
 void preSMARev(unsigned char *x, int m, int *ttransSMA) {
   int c, i, state, target, oldTarget;
 
@@ -53,6 +47,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int *ttransSMA;
   unsigned char *tterminal;
   //unsigned char *xR;
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
+  unsigned char s_tterminal[3 * M_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

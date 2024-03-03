@@ -37,11 +37,11 @@
 #define HS(x, i) (x[i] << 4) + (x[i + 1] << 2) + x[i + 2]
 #define Q 3
 
-struct _cell s_cells[M_CUTOFF];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h;
   List ptr, z[DSIGMA];
+  struct _cell s_cells[M_CUTOFF];
+
   if (m < Q)
     return search_small(x, m, y, n);
 

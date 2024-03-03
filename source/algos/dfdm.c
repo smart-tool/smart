@@ -26,15 +26,14 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-static int s_ttrans[3 * M_CUTOFF * SIGMA];
-static int s_tlength[3 * M_CUTOFF];
-static int s_tsuffix[3 * M_CUTOFF];
-static unsigned char s_tterminal[3 * M_CUTOFF];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int j, init, ell, state, count;
   int *ttrans, *tlength, *tsuffix;
   unsigned char *tterminal;
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  unsigned char s_tterminal[3 * M_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -77,11 +76,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (ell == m)
       OUTPUT(j - m + 1);
   }
+
   if (m > M_CUTOFF) {
-    free(ttrans);
-    free(tlength);
-    free(tsuffix);
     free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
   }
   END_SEARCHING
   return count;

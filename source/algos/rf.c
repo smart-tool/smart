@@ -25,12 +25,6 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
-static int s_ttrans[SIZE_CUTOFF * SIGMA];
-static int s_tlength[SIZE_CUTOFF];
-static int s_tsuffix[SIZE_CUTOFF];
-static unsigned char s_tterminal[SIZE_CUTOFF];
-
 void buildSuffixAutomaton(unsigned char *x, int m, int *ttrans, int *tlength,
                           int *tsuffix, unsigned char *tterminal) {
   int i, art, init, last, p, q, r, counter;
@@ -82,6 +76,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, shift, period, init, state, count;
   int *ttrans, *tlength, *tsuffix;
   unsigned char *tterminal;
+#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
+  int s_ttrans[SIZE_CUTOFF * SIGMA];
+  int s_tlength[SIZE_CUTOFF];
+  int s_tsuffix[SIZE_CUTOFF];
+  unsigned char s_tterminal[SIZE_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

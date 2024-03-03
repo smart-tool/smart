@@ -27,14 +27,13 @@
 #include "include/main.h"
 #include <assert.h>
 
-static int s_trans[M_CUTOFF + 2][SIGMA];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE];
   int *trans[XSIZE];
   int i, j, p, q = 0;
   int iMinus1, mMinus1, nMinusm, count;
   int allocated = 0;
+  int s_trans[M_CUTOFF + 2][SIGMA];
 
   BEGIN_PREPROCESSING
   unsigned char c;

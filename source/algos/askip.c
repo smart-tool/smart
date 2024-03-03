@@ -54,13 +54,6 @@ struct _automaton {
 typedef struct _automaton *Automaton;
 typedef int Node;
 
-// 2 + (2 * m - m/2 + 1) * m/2
-#define S_CUTOFF 32
-static int s_trans[S_CUTOFF * SIGMA];
-static int s_fail[S_CUTOFF];
-static char s_term[S_CUTOFF];
-static ListOfIntegers s_z[S_CUTOFF];
-
 void freeListOfIntegers(ListOfIntegers list) {
   ListOfIntegers old;
   old = list;
@@ -103,6 +96,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, ell, pos, shift, q, count;
   ListOfIntegers cell, *z;
   Node art, root, node, childNode;
+  // 2 + (2 * m - m/2 + 1) * m/2
+#define S_CUTOFF 32
+  int s_trans[S_CUTOFF * SIGMA];
+  int s_fail[S_CUTOFF];
+  char s_term[S_CUTOFF];
+  ListOfIntegers s_z[S_CUTOFF];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

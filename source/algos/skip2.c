@@ -38,16 +38,16 @@
 #define HS(x, i) (x[i] << 2U) + x[i + 1]
 #define Q 2
 
-struct _cell s_cells[M_CUTOFF];
-
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, count, h, k;
   List ptr, z[DSIGMA];
-  List *allocs = NULL;
+  struct _cell s_cells[M_CUTOFF];
+
   if (m < Q)
     return search_small(x, m, y, n);
 
   BEGIN_PREPROCESSING
+  List *allocs = NULL;
   const int mq = m - Q + 1;
   if (m > M_CUTOFF)
     allocs = (List*)calloc(mq, sizeof(List));
