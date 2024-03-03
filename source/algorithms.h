@@ -240,6 +240,8 @@ enum algo_id {
   _WC,       // Tailed Substring algorithm
   _WOM,      // Worst Occurrence Matcher
   // state of the art:
+  _FT3,      // Parallel Boyer-Moore with goodsuff, Lecroq 2024
+  _HPBM,     // HP Parallel Boyer-Moore, Jeong et al 2015
   _SSECP,    // SSE Crochemore-Perrin
   _EPSM,     // SSE4 Exact Packed String Matching
 } ALGO_POS;
@@ -494,6 +496,8 @@ const struct algo ALGOS[] = {
     [_WC] = {_WC, 1, "wc", "Tailed Substring algorithm", 0, 0},
     [_WOM] = {_WOM, 1, "wom", "Worst Occurrence Matcher", 0, 0},
     // state of the art:
+    [_FT3] = {_FT3, 1, "ft3", "Parallel Boyer-Moore with goodsuff", 0, 0}, // Lecroq 2015
+    [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, 1},
     [_SSECP] = {_SSECP, 0, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
     [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
 };
