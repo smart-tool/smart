@@ -147,7 +147,7 @@ int main(int argc, const char *argv[]) {
         return 0;
       }
       char *algo = (char*)argv[par++];
-      strncpy(filename, algo, sizeof(filename));
+      strncpy(filename, algo, sizeof(filename)-1);
       char path[50] = "bin/";
       strncat(path, algo, SZNCAT(path));
       FILE *fp = fopen(path, "r");
@@ -194,7 +194,7 @@ int main(int argc, const char *argv[]) {
       }
       char *algo = (char *)argv[par++];
 
-      strncpy(filename, algo, sizeof(filename));
+      strncpy(filename, algo, sizeof(filename)-1);
       char path[50] = "bin/";
       strncat(path, filename, SZNCAT(path));
       FILE *fp = fopen(path, "r");

@@ -68,6 +68,7 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, sizeof(filename));
+      filename[sizeof(filename)-1] = '\0';
       if (*filename && *filename == '.')
         continue;
       snprintf(command, sizeof(command)-1, "%s%s", destdir, filename);
@@ -82,6 +83,7 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, sizeof(filename));
+      filename[sizeof(filename)-1] = '\0';
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
         n_algo++;
@@ -97,6 +99,7 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, sizeof(filename));
+      filename[sizeof(filename)-1] = '\0';
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.'
           && filename[0] != '.' && filename[1] != '#') {

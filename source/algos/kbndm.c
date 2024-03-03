@@ -26,7 +26,9 @@
 #include "include/define.h"
 #include "include/main.h"
 
-#define CHAR_BIT 8
+#ifndef CHAR_BIT
+# define CHAR_BIT 8
+#endif
 #define WORD_TYPE unsigned int
 #define WORD_BITS (sizeof(WORD_TYPE) * CHAR_BIT)
 

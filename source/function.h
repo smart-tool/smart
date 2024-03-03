@@ -32,6 +32,7 @@
 
 // strncat helper
 #define SZNCAT(x) sizeof(x) - strlen(x) - 1
+#define SZNCPY(x) sizeof(x) - 1
 
 int string2decimal(char *s) {
   int i;

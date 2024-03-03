@@ -119,15 +119,15 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   // obtains the input text
   int j, i = 0;
   char indexfilename[100];
-  strncpy(indexfilename, path, sizeof(indexfilename));
-  strncat(indexfilename, "/index.txt", sizeof(indexfilename) - strlen(indexfilename) - 1);
+  strncpy(indexfilename, path, SZNCPY(indexfilename));
+  strncat(indexfilename, "/index.txt", SZNCAT(indexfilename));
   FILE *index;
   if ((index = fopen(indexfilename, "r"))) {
     char c;
     while (i < TSIZE && (c = getc(index)) != EOF) {
       if (c == '#') {
         char filename[100];
-        strncpy(filename, path, sizeof(filename));
+        strncpy(filename, path, sizeof(filename)-1);
         j = strlen(filename);
         filename[j++] = '/';
         while ((c = getc(index)) != '#')
@@ -227,7 +227,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
                 unsigned char *simplePattern, int std, int limit,
                 char *time_format) {
   // performs experiments on a text
-  int m, occur, total_occur, try;
+  int m, occur, total_occur;
   unsigned int i, j, k, il, algo;
   double TIME[NumAlgo][NumPatt], PRE_TIME[NumAlgo][NumPatt],
       BEST[NumAlgo][NumPatt], WORST[NumAlgo][NumPatt], STD[NumAlgo][NumPatt],
@@ -247,7 +247,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 #else
     mkdir(logfile);
 #endif
-    strncat(logfile, "/errorlog.txt", sizeof(logfile) - strlen(logfile) - 1);
+    strncat(logfile, "/errorlog.txt", SZNCAT(logfile));
     stream = freopen(logfile, "w", stderr); // redirect of stderr
   }
 
@@ -259,7 +259,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 #ifndef _WIN32
   key_t ekey;
   int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
-  try = 0;
+  int try = 0;
   do {
     ekey = rand() % 1000;
     eshmid = shmget(ekey, 8, IPC_CREAT | 0666);
@@ -503,8 +503,10 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   for (i = 0; i < VOLTE; i++)
     free(setP[i]);
   free(setP);
+#ifndef _WIN32
   free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
            preshmid);
+#endif
   return 0;
 }
 
@@ -513,8 +515,7 @@ int FREQ[SIGMA]; // frequency of alphabet characters
 
 int main(int argc, const char *argv[]) {
   // mandatory parameters
-  char *filename = (char *)malloc(sizeof(char) * (100));
-  strncpy(filename, "", 100);
+  char filename[100] = {0};
   // non mandatory parameters
   PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern legths
   int alpha = 256;             // size of the alphabet
@@ -530,13 +531,11 @@ int main(int argc, const char *argv[]) {
   int php = 0;     // set to 1 for printing results in php format
   int std = 0;     // set to 1 for printing the standard deviation value
   int limit = 300; // set to 300 running time bound
-  unsigned char *simplePattern = (unsigned char *)malloc(
-      sizeof(unsigned char) * (100)); // used for the simple run of SMART
-  unsigned char *simpleText = (unsigned char *)malloc(
-      sizeof(unsigned char) * (1000)); // used for the simple run of SMART
+  unsigned char simplePattern[100]; // used for the simple run of SMART
+  unsigned char simpleText[1000]; // used for the simple run of SMART
   /* useful variables */
-  unsigned char *T;   // text and pattern
-  int n, tshmid, try; // length of the text
+  unsigned char *T = NULL;   // text and pattern
+  int n, tshmid = 0; // length of the text
   //FILE *ip;           // file pointer for input text
   char parameter[1000];
 
@@ -559,7 +558,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
@@ -572,7 +571,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
@@ -586,7 +585,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
       if (!isInt(parameter)) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
@@ -599,8 +598,8 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
-      strncat(filename, parameter, sizeof(filename) - strlen(filename) - 1);
+      strncpy(parameter, argv[par++], sizeof(parameter)-1);
+      strncat(filename, parameter, SZNCAT(filename));
     }
     if (par < argc && !strcmp("-plen", argv[par])) {
       par++;
@@ -608,7 +607,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
       MINLEN = string2decimal(parameter);
 
       if (MINLEN < 1 || MINLEN > 4200) {
@@ -620,7 +619,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
       MAXLEN = string2decimal(parameter);
 
       if (MAXLEN < 1 || MINLEN > MAXLEN) {
@@ -635,25 +634,23 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
-      strncpy(parameter, argv[par++], sizeof(parameter));
-      strcpy((char *)simplePattern, parameter);
-      if (strlen((char *)simplePattern) > 100) {
+      if (strlen(argv[par]) >= 100) {
         printf("Error in input parameters. Max 100 chars for P parameter.\n\n");
         goto end;
       }
+      //xxNOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
+      strncpy((char *)simplePattern, argv[par++], SZNCPY(simplePattern));
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter));
-      strcpy((char *)simpleText, parameter);
-      //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
-      if (strlen((char *)simpleText) > 1000) {
+      if (strlen(argv[par]) >= 1000) {
         printf(
             "Error in input parameters. Max 1000 chars for T parameter.\n\n");
         goto end;
       }
+      //xxNOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
+      strncpy((char*)simpleText, argv[par++], SZNCPY(simpleText));
       SIMPLE = 1;
     }
     if (par < argc && !strcmp("-occ", argv[par])) {
@@ -718,11 +715,11 @@ int main(int argc, const char *argv[]) {
   // get information about the set of algorithms
   getAlgo(ALGO_NAME, EXECUTE);
 
+  key_t tkey = 0;
+#ifndef _WIN32
   // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
-  key_t tkey = 0;
-#ifndef _WIN32  
-  try = 0;
+  int try = 0;
   do {
     tkey = rand() % 1000;
     tshmid = shmget(tkey, size, IPC_CREAT | 0666);
@@ -746,7 +743,11 @@ int main(int argc, const char *argv[]) {
     // experimental results on a single pattern and a single text
     n = strlen((char *)simpleText);
     int m = strlen((char *)simplePattern);
-    strncpy((char *)T, (char *)simpleText, n);
+#ifdef _WIN32
+    T = malloc(n + 1);
+#endif
+    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
+    strcpy((char *)T, (char *)simpleText);
     alpha = 250;
     PATT_CUSTOM_SIZE[0] = m;
     PATT_CUSTOM_SIZE[1] = 0;
@@ -786,8 +787,8 @@ int main(int argc, const char *argv[]) {
       printf("\n\tTry to process archive (%d/%d) %s\n", k + 1, num_buffers,
              list_of_filenames[k]);
       char fullpath[100];
-      strncpy(fullpath, "data/", sizeof(fullpath));
-      strncat(fullpath, list_of_filenames[k], sizeof(fullpath) - strlen(fullpath) - 1);
+      strncpy(fullpath, "data/", SZNCPY(fullpath));
+      strncat(fullpath, list_of_filenames[k], SZNCAT(fullpath));
       // initialize the frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
         goto end_shm;
@@ -822,8 +823,8 @@ int main(int argc, const char *argv[]) {
     printf("\tStarting experimental tests with code %s\n", expcode);
     for (unsigned sett = 0; sett < NumSetting; sett++) {
       char fullpath[100];
-      strncpy(fullpath, "data/", sizeof(fullpath));
-      strncat(fullpath, SETTING_BUFFER[sett], sizeof(fullpath) - strlen(fullpath) - 1);
+      strncpy(fullpath, "data/", SZNCPY(fullpath));
+      strncat(fullpath, SETTING_BUFFER[sett], SZNCAT(fullpath));
       alpha = SETTING_ALPHA_SIZE[sett];
       printf("\n\tTry to process archive %s\n", SETTING_BUFFER[sett]);
       // initialize the frequency vector
@@ -848,22 +849,18 @@ int main(int argc, const char *argv[]) {
 
   // free shared memory
  end_shm:
+#ifndef _WIN32
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
-
+#endif
   // free other allocated memory
  end:
-  free(filename);
-  free(simplePattern);
-  free(simpleText);
   return 0;
 
+#ifndef _WIN32
  end_1:
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
-
-  free(filename);
-  free(simplePattern);
-  free(simpleText);
-  return 0;
+  return 1;
+#endif
 }

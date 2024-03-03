@@ -196,13 +196,13 @@ int main(int argc, char *argv[]) {
     printManual();
     return 0;
   }
-  char algoname[100];
-  strncpy(algoname, argv[1], sizeof(algoname));
+  char algoname[50];
+  strncpy(algoname, argv[1], SZNCPY(algoname));
   char parameter[100];
   if (argc > 2)
-    strncpy(parameter, argv[2], sizeof(parameter));
+    strncpy(parameter, argv[2], SZNCPY(parameter));
   char filename[100] = BINDIR "/";
-  strncat(filename, algoname, sizeof(filename) - strlen(filename) - 1);
+  strncat(filename, algoname, SZNCAT(filename));
   FILE *fp = fopen(filename, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
   if (!fp) {

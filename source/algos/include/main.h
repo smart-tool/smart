@@ -100,20 +100,23 @@ int main(int argc, char *argv[]) {
 #endif
   int m, n;
   if (!strcmp("shared", argv[1])) {
+#ifndef HAVE_SHM
     if (argc < 7) {
+#endif
       printf("error in input parameter\nfive parameters needed when used with "
              "shared memory\n");
       return 1;
+#ifndef HAVE_SHM
     }
-    int pshmid, tshmid, eshmid, preshmid;
+#endif
+#ifdef HAVE_SHM
     key_t pkey = atoi(argv[2]); // segment name for the pattern
     m = atoi(argv[3]);          // segment size for the pattern
     key_t tkey = atoi(argv[4]); // segment name for the text
     n = atoi(argv[5]);          // segment size for the text
     key_t ekey = atoi(argv[7]); // segment name for the running time
-    key_t prekey =
-        atoi(argv[8]); // segment name for the preprocessing running time
-#ifdef HAVE_SHM
+    key_t prekey = atoi(argv[8]); // preprocessing running time
+    int pshmid, tshmid, eshmid, preshmid;
     /* Locate the pattern. */
     if ((pshmid = shmget(pkey, m, 0666)) < 0) {
       perror("shmget");
@@ -175,8 +178,8 @@ int main(int argc, char *argv[]) {
       return 1;
     }
     *result = count;
-#endif
     return 0;
+#endif
   } else {
 
 #ifdef CBMC
