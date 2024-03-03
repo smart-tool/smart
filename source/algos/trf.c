@@ -26,6 +26,15 @@
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
+#define SIZE_CUTOFF (2 * M_CUTOFF + 3)
+static int s_mpNext[M_CUTOFF + 1];
+static int s_ttrans[SIZE_CUTOFF * SIGMA];
+static int s_tshift[SIZE_CUTOFF * SIGMA];
+static int s_tlength[SIZE_CUTOFF];
+static int s_tposition[SIZE_CUTOFF];
+static int s_tsuffix[SIZE_CUTOFF];
+static unsigned char s_tterminal[SIZE_CUTOFF];
+
 void preMpforTRF(unsigned char *x, int m, int mpNext[]) {
   int i, j;
   i = 0;
@@ -40,12 +49,12 @@ void preMpforTRF(unsigned char *x, int m, int mpNext[]) {
 void buildSuffixAutomaton4TRF(unsigned char *x, int m, int *ttrans,
                               int *tlength, int *tposition, int *tsuffix,
                               unsigned char *tterminal, int *tshift) {
-  int i, art, init, last, p, q, r, counter, tmp;
+  int i, last, p, q, r, tmp;
   unsigned char c;
+  const int init = 0;
+  const int art = 1;
+  int counter = 2;
 
-  init = 0;
-  art = 1;
-  counter = 2;
   setSuffixLink(init, art);
   last = init;
   for (i = m - 1; i >= 0; --i) {
@@ -63,9 +72,9 @@ void buildSuffixAutomaton4TRF(unsigned char *x, int m, int *ttrans,
       setTarget(init, c, q);
       setShift(init, c, getPosition(q) - getPosition(init) - 1);
       setSuffixLink(q, init);
-    } else if (getLength(p) + 1 == getLength(getTarget(p, c)))
+    } else if (getLength(p) + 1 == getLength(getTarget(p, c))) {
       setSuffixLink(q, getTarget(p, c));
-    else {
+    } else {
       r = newState();
       tmp = getTarget(p, c);
       memcpy(ttrans + r * SIGMA, ttrans + tmp * SIGMA, SIGMA * sizeof(int));
@@ -94,21 +103,30 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int period, i, j, shift, u, periodOfU, disp, init, count, state, mu, *mpNext;
   int *ttrans, *tlength, *tposition, *tsuffix, *tshift;
   unsigned char *tterminal;
-  int mMinus1, nMinusm, size;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  nMinusm = n - m;
-  mMinus1 = m - 1;
-  size = 2 * m + 3;
-  mpNext = (int *)malloc((m + 1) * sizeof(int));
-  ttrans = (int *)malloc(size * SIGMA * sizeof(int));
-  tshift = (int *)malloc(size * SIGMA * sizeof(int));
-  tlength = (int *)calloc(size, sizeof(int));
-  tposition = (int *)calloc(size, sizeof(int));
-  tsuffix = (int *)calloc(size, sizeof(int));
-  tterminal = (unsigned char *)calloc(size, sizeof(unsigned char));
-  memset(ttrans, -1, (2 * m + 3) * SIGMA * sizeof(int));
+  const int nMinusm = n - m;
+  const int mMinus1 = m - 1;
+  const int size = 2 * m + 3;
+  if (m > M_CUTOFF) {
+    mpNext = (int *)malloc((m + 1) * sizeof(int));
+    ttrans = (int *)malloc(size * SIGMA * sizeof(int));
+    tshift = (int *)malloc(size * SIGMA * sizeof(int));
+    tlength = (int *)calloc(size, sizeof(int));
+    tposition = (int *)calloc(size, sizeof(int));
+    tsuffix = (int *)calloc(size, sizeof(int));
+    tterminal = (unsigned char *)calloc(size, sizeof(unsigned char));
+  } else {
+    mpNext = s_mpNext;
+    ttrans = s_ttrans;
+    tshift = s_tshift;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tposition = s_tposition;
+    tterminal = s_tterminal;
+  }
+  memset(ttrans, -1, size * SIGMA * sizeof(int));
   buildSuffixAutomaton4TRF(x, m, ttrans, tlength, tposition, tsuffix, tterminal,
                            tshift);
   init = 0;
@@ -116,11 +134,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   period = m - mpNext[m];
   i = 0;
   shift = m;
+  count = 0;
   END_PREPROCESSING
 
   /* Searching */
   BEGIN_SEARCHING
-  count = 0;
   if (strncmp((char*)x, (char*)y, m) == 0)
     OUTPUT(0);
   j = 1;
@@ -169,13 +187,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
-  free(mpNext);
-  free(ttrans);
-  free(tshift);
-  free(tlength);
-  free(tposition);
-  free(tsuffix);
-  free(tterminal);
+  if (m > M_CUTOFF) {
+    free(tterminal);
+    free(tsuffix);
+    free(tposition);
+    free(tlength);
+    free(ttrans);
+    free(mpNext);
+  }
   END_SEARCHING
   return count;
 }
