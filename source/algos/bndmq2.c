@@ -21,6 +21,7 @@
  * Tuning BNDM with q-Grams.
  * Proceedings of the Workshop on Algorithm Engineering and Experiments, ALENEX
  * 2009, pp.29--37, SIAM, New York, New York, USA, (2009).
+ * https://users.aalto.fi/~tarhio/papers/ale.pdf
  *
  * Constraints: requires m>=2
  */
