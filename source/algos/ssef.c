@@ -42,10 +42,13 @@ typedef struct list {
 } LIST;
 
 int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
+  unsigned char s_f[M_CUTOFF];
+  LIST *flist[65536];
+  // TODO Plen flist sublists
+  LIST *t;
+
   if (Plen < 32)
     return search_small(x, Plen, y, Tlen);
-  LIST *flist[65536];
-  LIST *t;
   memset(flist, 0, sizeof(LIST *) * 65536);
   //__m128i tmp128;
   TEXT T;
@@ -59,7 +62,11 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   __m128i *ptr16;
   __m128i *lastchunk = &T.data16[Tlen / 16];
   unsigned int filter;
-  unsigned char *f = malloc(Plen);
+  unsigned char *f;
+  if (Plen > M_CUTOFF)
+    f = malloc(Plen);
+  else
+    f = s_f;
 
   last = (Plen / 16) - 1;
   for (i = 0; i < (unsigned)Plen; i++) {
@@ -88,7 +95,8 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
       t->pos = i;
     }
   }
-  free(f);
+  if (Plen > M_CUTOFF)
+    free(f);
   END_PREPROCESSING
 
   BEGIN_SEARCHING
@@ -109,7 +117,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
     }
     ptr16 += last;
   }
-  // free all sublists of flist's, and flist's itself
+  // free all flist's
   for (unsigned i = 0; i < 65536; i++) {
     t = flist[i];
     while (t) {
