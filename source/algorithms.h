@@ -53,6 +53,8 @@ enum algo_id {
   _HASH3,   // Wu-Manber for Single Pattern Matching (q=3)
   _HASH5,   // Wu-Manber for Single Pattern Matching (q=5)
   _HASH8,   // Wu-Manber for Single Pattern Matching (q=8)
+  //_SM,    // Wu-Manber
+  //_SWM,   // Simplified Wu-Manber
   _TSW,     // Two-Sliding-Window
   _BMH2,    // Boyer-Moore-Horspool with q-grams (missing)
   _BMH4,    // Boyer-Moore-Horspool with q-grams (missing)
@@ -86,6 +88,7 @@ enum algo_id {
   _SKIP8, // Skip Search with lookahead
   // Algorithms based on bit-parallelism
   _SO,       // Shift-Or
+  // _SOG,    // Parallel Shift-Or
   _SA,       // Shift-And
   _BNDM,     // BNDM for Long patterns
   // BM_BNDM
@@ -303,6 +306,10 @@ const struct algo ALGOS[] = {
                 "Wu-Manber for Single Pattern Matching (q=5)", 0, 0},
     [_HASH8] = {_HASH8, 1, "hash8",
                 "Wu-Manber for Single Pattern Matching (q=8)", 0, 0},
+    //[_WM] = {_WM, 0, "wm", "Wu-Manber", 0, 1},
+    // S. Wu and U. Manber, Agrep - A Fast Approximate Pattern-Matching Tool, In Proceedings of USENIX Technical Conference,(1992), pp. 153–162
+    //[_SWM] = {_SWM, 0, "swm", "Simplified Wu-Manber", 0, 1},
+    //L. Vespa and N. Weng, SWM: Simplified Wu-Manber for GPU-based Deep Packet Inspection, in Proceedings of the 2012 International Conference on Security and Management, 2012.
     [_TSW] = {_TSW, 1, "tsw", "Two-Sliding-Window", 0, 0},
     [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)",
                2, 1},
@@ -341,6 +348,7 @@ const struct algo ALGOS[] = {
     [_SKIP8] = {_SKIP8, 1, "skip8", "Skip Search with lookahead", 8, 0},
     // Algorithms based on bit-parallelism
     [_SO] = {_SO, 1, "so", "Shift-Or", 0, 0},
+    //[_SOG] = {_SOG, 1, "sog", "Parallel Shift-Or", 0, 1},
     [_SA] = {_SA, 1, "sa", "Shift-And", 0, 0},
     [_BNDM] = {_BNDM, 1, "bndm", "BNDM for Long patterns", 0, 0},
     [_BNDML] = {_BNDML, 1, "bndml", "BNDM for Long patterns", 0, 0},
@@ -350,7 +358,7 @@ const struct algo ALGOS[] = {
                 "Two-Way Nondeterministic DAWG Matching (version 2)", 0, 0},
     [_LBNDM] = {_LBNDM, 1, "lbndm", "long patterns bndm", 0, 0},
     // hg BNDM with q-grams
-    // bg BNDM with q-grams, and parallel (superimposed) search
+    // bg BNDM with q-grams, and parallel search
     [_SVM0] = {_SVM0, 1, "svm0", "shift vector matching (version 0)", 0, 0},
     [_SVM1] = {_SVM1, 1, "svm1", "shift vector matching (version 1)", 0, 0},
     [_SVM2] = {_SVM2, 1, "svm2", "shift vector matching (version 2)", 0, 0},
