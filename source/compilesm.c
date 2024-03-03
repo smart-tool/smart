@@ -23,6 +23,10 @@
 #include <string.h>
 #include <sys/stat.h>
 
+// strncat helpers
+#define SZNCAT(x) sizeof(x) - strlen(x) - 1
+#define SZNCPY(x) sizeof(x) - 1
+
 /*
  * This program compiles all c programs of string matching algorithms
  * It is called by build.sh script, when compiling SMART
@@ -30,20 +34,20 @@
 
 int main(int argc, char **argv) {
   int i;
-  char filename[100], command[512], binary[100];
+  char filename[300], command[512], binary[100];
   char destdir[100] = "bin/";
   char gcc[100] = "gcc source/algos/";
   char options[100] = " -O3";
 #ifndef _WIN32
-  strncat(options, " -Wall", sizeof(options) - strlen(options) - 1);
+  strncat(options, " -Wall", SZNCAT(options));
 #endif
 #ifdef __x86_64__
-  strncat(options, " -march=native -mtune=native", sizeof(options) - strlen(options) - 1);
+  strncat(options, " -march=native -mtune=native", SZNCAT(options));
 #endif
 
 #ifdef BINDIR
   strncpy(destdir, BINDIR, sizeof(destdir) - 2);
-  strncat(destdir, "/", sizeof(destdir) - strlen(destdir) - 1);
+  strncat(destdir, "/", SZNCAT(destdir));
 # ifndef _WIN32
   mkdir(destdir, 0775);
 # else
@@ -57,7 +61,7 @@ int main(int argc, char **argv) {
       doTest = 1;
     }
   }
-  strncat(options, " -lm", sizeof(options) - strlen(options) - 1);
+  strncat(options, " -lm", SZNCAT(options));
 
   DIR *d;
   FILE *stream;
@@ -67,7 +71,7 @@ int main(int argc, char **argv) {
   d = opendir(destdir);
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strncpy(filename, dir->d_name, sizeof(filename));
+      strncpy(filename, dir->d_name, SZNCPY(filename));
       filename[sizeof(filename)-1] = '\0';
       if (*filename && *filename == '.')
         continue;
@@ -82,7 +86,7 @@ int main(int argc, char **argv) {
   int n_algo = 1;
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strncpy(filename, dir->d_name, sizeof(filename));
+      strncpy(filename, dir->d_name, SZNCPY(filename));
       filename[sizeof(filename)-1] = '\0';
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
@@ -98,7 +102,7 @@ int main(int argc, char **argv) {
   d = opendir("./source/algos");
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      strncpy(filename, dir->d_name, sizeof(filename));
+      strncpy(filename, dir->d_name, SZNCPY(filename));
       filename[sizeof(filename)-1] = '\0';
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.'
@@ -138,8 +142,8 @@ int main(int argc, char **argv) {
             perror("snprintf");
             exit(1);
           }
-          strncpy(binary, destdir, sizeof(binary));
-          strncat(binary, filename, sizeof(binary) - strlen(binary) - 1);
+          strncpy(binary, destdir, SZNCPY(binary));
+          strncat(binary, filename, SZNCAT(binary));
           FILE *fp = fopen(binary, "r");
           if (fp) {
             int failed = 0;
