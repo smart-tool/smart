@@ -191,12 +191,12 @@ int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {
   i = j = k = 0;
   int m = strlen(filename);
   while (i < m) {
-    while (filename[i] != '-' && i < m) {
+    while (i < m && filename[i] != '-') {
       list_of_filenames[k][j++] = filename[i];
       i++;
     }
     list_of_filenames[k][j] = '\0';
-    if (filename[i] == '-') {
+    if (i < m && filename[i] == '-') {
       k++;
       j = 0;
       i++;

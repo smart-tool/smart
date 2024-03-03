@@ -370,7 +370,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
         printf("\tExperimental results on %s: %s\n", filename, code);
       else
         printf("\tExperimental results on %s\n", T);
-      printf("\tSearching for a set of %d patterns with length %d\n", VOLTE, m);
+      printf("\tSearching for a set of %u patterns with length %d\n", VOLTE, m);
       printf("\tTesting %d algorithms\n", num_running);
       printf("\n");
 
@@ -469,7 +469,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
                 printf(" ");
             }
             if (occ)
-              printf("\tocc \%d", total_occur / VOLTE);
+              printf("\tocc \%u", total_occur / VOLTE);
             printf("\n");
           } else if (total_occur == 0)
             printf("\b\b\b\b\b\b\b\b.[ERROR] \n");

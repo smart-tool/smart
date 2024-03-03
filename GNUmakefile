@@ -57,7 +57,7 @@ sanitizer.log: $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
 	./sanitizer.sh 2>sanitizer.log
 lint: cppcheck clang-tidy
 cppcheck:
-	cppcheck -j4 -D__linux__ .
+	cppcheck -j4 -D__linux__ --enable=warning,portability --inline-suppr source/
 compile_commands.json: GNUmakefile
 	-+$(MAKE) clean
 	bear -- $(MAKE)

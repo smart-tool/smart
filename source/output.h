@@ -76,7 +76,7 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "\t\"PATT\" => array(");
   for (il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
-      fprintf(fp, "\"%d\", ", PATT_SIZE[il]);
+      fprintf(fp, "\"%u\", ", PATT_SIZE[il]);
     }
   fprintf(fp, "),\n");
   for (algo = 0; algo < NumAlgo; algo++) {
@@ -207,7 +207,7 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   fprintf(fp, "|}\n\\hline\n");
   fprintf(fp, "$m$");
   for (j = start; j < end; j++)
-    fprintf(fp, " & $%d$", PATT_SIZE[j]);
+    fprintf(fp, " & $%u$", PATT_SIZE[j]);
   fprintf(fp, "\\\\\n");
   for (algo = 0; algo < NumAlgo; algo++) {
     if (EXECUTE[algo]) {
@@ -319,7 +319,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
           "<div class=\"chart_container_small\"><div class=\"chart_title\">%s "
           "algorithm</div>\n", upname);
   fprintf(fp,
-          "<div><canvas class=\"exp_chart_small\" id=\"cvs%d\" width=\"460\" "
+          "<div><canvas class=\"exp_chart_small\" id=\"cvs%u\" width=\"460\" "
           "height=\"250\">[No canvas support]</canvas>",
           algo);
   fprintf(fp,
@@ -386,7 +386,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   fprintf(fp, "];\n");
 
   fprintf(fp, "var line3 = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+            id: 'cvs%u',\n\
             data: [bound1, bound2],\n\
             options: {\n\
                 noxaxis: true,\n\
@@ -408,7 +408,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
           algo, ymax);
 
   fprintf(fp, "var line2 = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+            id: 'cvs%u',\n\
             data: [std1, std2],\n\
             options: {\n\
                 noxaxis: true,\n\
@@ -430,7 +430,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
           algo, ymax);
 
   fprintf(fp, "var line = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+            id: 'cvs%u',\n\
             data: data,\n\
             options: {\n\
             	textFont: 'Yantramanav',\n\
@@ -452,7 +452,7 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
           algo, ymax);
   for (unsigned int il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
-      fprintf(fp, "'%d',", PATT_SIZE[il]);
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
   fprintf(fp, "],\n");
   fprintf(fp, "colors: ['#000000'],\n");
   fprintf(fp, "} }).draw();");
@@ -523,7 +523,7 @@ void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
           code);
   for (il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
-      fprintf(fp, "'%d',", PATT_SIZE[il]);
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
   fprintf(fp, "],\n");
   fprintf(fp, "colors: [");
   for (i = 0; i < num_colors; i++)
@@ -613,7 +613,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
   fprintf(fp, "<tr><td class=\"length\"></td>");
   for (il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
-      fprintf(fp, "<td class=\"length\">%d</td>", PATT_SIZE[il]);
+      fprintf(fp, "<td class=\"length\">%u</td>", PATT_SIZE[il]);
     }
   fprintf(fp, "<tr>");
   const char *preVisible = pre ? "block" : "none";
@@ -786,7 +786,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
           ymax);
   for (il = 0; il < NumPatt; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
-      fprintf(fp, "'%d',", PATT_SIZE[il]);
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
   fprintf(fp, "],\n");
   fprintf(fp, "colors: [");
   for (i = 0; i < num_colors; i++)
@@ -859,7 +859,7 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
   fprintf(fp, "document.write(\"<tr><td></td>\");\n");
   for (i = 0; PATT_SIZE[i] > 0; i++)
     if (PATT_SIZE[i] >= MINLEN && PATT_SIZE[i] <= MAXLEN)
-      fprintf(fp, "document.write(\"<td><b>%d</b></td>\");\n", PATT_SIZE[i]);
+      fprintf(fp, "document.write(\"<td><b>%u</b></td>\");\n", PATT_SIZE[i]);
   fprintf(fp, "document.write(\"</tr>\");\n");
   fprintf(fp, "\
 		\t\tvar best=xmlDoc.getElementsByTagName(\"BEST\");\n\
