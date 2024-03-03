@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run:  ./build.sh dotest && make check
-  linux-sanitizer:
+  sanitizer:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -28,6 +28,14 @@ jobs:
         for t in `cat asan.lst`; do
           ./test "$t"
         done
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        sudo apt-get -y install cppcheck clang-tidy bear
+    - run: make lint
   windows:
     runs-on: windows-latest
     timeout-minutes: 10
