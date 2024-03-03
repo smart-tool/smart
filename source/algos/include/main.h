@@ -101,14 +101,13 @@ int main(int argc, char *argv[]) {
   int m, n;
   if (!strcmp("shared", argv[1])) {
 #ifndef HAVE_SHM
-    if (argc < 7) {
+    return 1;
 #endif
+    if (argc < 7) {
       printf("error in input parameter\nfive parameters needed when used with "
              "shared memory\n");
       return 1;
-#ifndef HAVE_SHM
     }
-#endif
 #ifdef HAVE_SHM
     key_t pkey = atoi(argv[2]); // segment name for the pattern
     m = atoi(argv[3]);          // segment size for the pattern
