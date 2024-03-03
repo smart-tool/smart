@@ -21,6 +21,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef CBMC
+# undef HAVE_SHM
+#endif
 #ifdef HAVE_SHM
 # include <sys/ipc.h>
 # include <sys/shm.h>
@@ -33,7 +36,7 @@
 
 double *run_time = NULL, // searching time
     *pre_time = NULL;    // preprocessing time
-#ifndef __AVR__
+#if !defined __AVR__ && !defined CBMC
 #define BEGIN_PREPROCESSING                                                    \
   {                                                                            \
     timer_start(_timer);                                                       \
@@ -61,21 +64,40 @@ double *run_time = NULL, // searching time
 
 /* global variables used for computing preprocessing and searching times */
 clock_t start, end;
-TIMER *_timer;
-#else // AVR
+#else // AVR || CBMC
 #define BEGIN_PREPROCESSING
 #define BEGIN_SEARCHING
 #define END_PREPROCESSING
 #define END_SEARCHING
 #endif
+TIMER *_timer;
 
 int search(unsigned char *p, int m, unsigned char *t, int n);
+
+#ifdef CBMC
+/* the brute force algorithm used for comparing occurrences */
+int bf_search(unsigned char *x, int m, unsigned char *y, int n) {
+  int i, count, j;
+
+  /* Searching */
+  count = 0;
+  for (j = 0; j <= n - m; ++j) {
+    for (i = 0; i < m && x[i] == y[i + j]; ++i)
+      ;
+    if (i >= m)
+      count++;
+  }
+  return count;
+}
+#endif
 
 int main(int argc, char *argv[]) {
 #ifndef __AVR__
   _timer = (TIMER *)malloc(sizeof(TIMER));
 #endif
+#ifndef CBMC
   unsigned char *p = NULL, *t = NULL;
+#endif
   int m, n;
   if (!strcmp("shared", argv[1])) {
     if (argc < 7) {
@@ -132,7 +154,6 @@ int main(int argc, char *argv[]) {
       perror("shmat");
       return 1;
     }
-#endif
 
     // timer_start(_timer);
     // start = clock();
@@ -144,7 +165,6 @@ int main(int argc, char *argv[]) {
     int rshmid, *result;
     key_t rkey = atoi(argv[6]); // segment name for the occurrences
                                 //  Locate the int value.
-#ifdef HAVE_SHM
     if ((rshmid = shmget(rkey, 4, 0666)) < 0) {
       perror("shmget");
       return 1;
@@ -158,6 +178,29 @@ int main(int argc, char *argv[]) {
 #endif
     return 0;
   } else {
+
+#ifdef CBMC
+# define RANDCH(c) c = nondet_uint() % 256
+    m = nondet_uint() % 34;
+    n = nondet_uint() % 36;
+    unsigned char P[m+1];
+    unsigned char T[n+1];
+    _CPROVER_assume(m > 0);
+    _CPROVER_assume(m > 1);
+    _CPROVER_assume(m < 34);
+    _CPROVER_assume(n < 36);
+    //_CPROVER_assume(m < n);
+    for (int i=0; i<m; i++)
+      RANDCH(P[i]);
+    P[m] = '\0';
+    for (int i=0; i<n; i++)
+      RANDCH(T[i]);
+    T[n] = '\0';
+    int occ = search(P, m, T, n);
+    _CPROVER_assert(bf_search(P, m, T, n) == occ);
+
+#else
+
     if (argc < 5) {
       printf("error in input parameter\nfour parameters needed in standard "
              "mode\n");
@@ -183,5 +226,6 @@ int main(int argc, char *argv[]) {
     free (t);
     printf("found %d occurrences\n", occ);
     return 0;
+#endif
   }
 }

@@ -38,7 +38,7 @@ $(BINDIR)/%: source/algos/%.c source/algos/include/*.h
 select: source/selectAlgo.c
 	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: check clean all lint fmt cppcheck clang-tidy
+.PHONY: check clean all lint verify fmt cppcheck clang-tidy
 check: all
 	-cp source/algorithms.lst source/algorithms.lst.bak
 	$(DRV) ./select -all
@@ -63,6 +63,17 @@ compile_commands.json: $(ALGOSRC) $(wildcard source/*.c)
 	bear -- $(MAKE)
 clang-tidy: compile_commands.json
 	clang-tidy source/*.c source/algos/*.c | tee clang-tidy.log
+
+CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \
+  --div-by-zero-check --signed-overflow-check --unsigned-overflow-check   \
+  --pointer-overflow-check --conversion-check --undefined-shift-check     \
+  --float-overflow-check --nan-check --enum-range-check
+  # cbmc 5.12.1: --pointer-primitive-check
+verify:
+	for c in $(ALGOSRC); do \
+	  echo cbmc -DCBMC --depth 1024 $(CBMC_CHECKS) $$c; \
+	  cbmc -DCBMC --depth 1024 $(CBMC_CHECKS) $$c; \
+	done
 fmt:
 	clang-format -i `find source -name \*.c -o -name \*.h`
 clean:
