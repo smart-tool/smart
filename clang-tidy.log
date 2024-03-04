@@ -106,65 +106,65 @@ source/algos/ag.c:112:13: note: Assigned value is garbage or undefined
 source/algos/akc.c:305:14: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
   305 |       len[p] = skip[j];
       |              ^
-source/algos/akc.c:381:7: note: Assuming 'm' is <= M_CUTOFF
-  381 |   if (m > M_CUTOFF) {
+source/algos/akc.c:382:7: note: Assuming 'm' is <= M_CUTOFF
+  382 |   if (m > M_CUTOFF) {
       |       ^~~~~~~~~~~~
-source/algos/akc.c:381:3: note: Taking false branch
-  381 |   if (m > M_CUTOFF) {
+source/algos/akc.c:382:3: note: Taking false branch
+  382 |   if (m > M_CUTOFF) {
       |   ^
-source/algos/akc.c:404:3: note: Assuming 'pre_time' is null
-  404 |   END_PREPROCESSING
+source/algos/akc.c:405:3: note: Assuming 'pre_time' is null
+  405 |   END_PREPROCESSING
       |   ^
 source/algos/include/main.h:54:9: note: expanded from macro 'END_PREPROCESSING'
    54 |     if (pre_time)                                                              \
       |         ^~~~~~~~
-source/algos/akc.c:404:3: note: Taking false branch
-  404 |   END_PREPROCESSING
+source/algos/akc.c:405:3: note: Taking false branch
+  405 |   END_PREPROCESSING
       |   ^
 source/algos/include/main.h:54:5: note: expanded from macro 'END_PREPROCESSING'
    54 |     if (pre_time)                                                              \
       |     ^
-source/algos/akc.c:412:10: note: Assuming the condition is true
-  412 |   while (j <= n - m) {
+source/algos/akc.c:413:10: note: Assuming the condition is true
+  413 |   while (j <= n - m) {
       |          ^~~~~~~~~~
-source/algos/akc.c:412:3: note: Loop condition is true.  Entering loop body
-  412 |   while (j <= n - m) {
+source/algos/akc.c:413:3: note: Loop condition is true.  Entering loop body
+  413 |   while (j <= n - m) {
       |   ^
-source/algos/akc.c:416:5: note: Loop condition is true.  Entering loop body
-  416 |     while (i >= 0) {
+source/algos/akc.c:417:5: note: Loop condition is true.  Entering loop body
+  417 |     while (i >= 0) {
       |     ^
-source/algos/akc.c:417:11: note: 'k' is not equal to 0
-  417 |       if (k == 0) {
+source/algos/akc.c:418:11: note: 'k' is not equal to 0
+  418 |       if (k == 0) {
       |           ^
-source/algos/akc.c:417:7: note: Taking false branch
-  417 |       if (k == 0) {
+source/algos/akc.c:418:7: note: Taking false branch
+  418 |       if (k == 0) {
       |       ^
-source/algos/akc.c:425:11: note: Assuming the condition is false
-  425 |       if (x[i] == y[i + j]) {
+source/algos/akc.c:426:11: note: Assuming the condition is false
+  426 |       if (x[i] == y[i + j]) {
       |           ^~~~~~~~~~~~~~~~
-source/algos/akc.c:425:7: note: Taking false branch
-  425 |       if (x[i] == y[i + j]) {
+source/algos/akc.c:426:7: note: Taking false branch
+  426 |       if (x[i] == y[i + j]) {
       |       ^
-source/algos/akc.c:429:9: note:  Execution continues on line 431
-  429 |         break;
+source/algos/akc.c:430:9: note:  Execution continues on line 432
+  430 |         break;
       |         ^
-source/algos/akc.c:431:9: note: 'i' is >= 0
-  431 |     if (i < 0) {
+source/algos/akc.c:432:9: note: 'i' is >= 0
+  432 |     if (i < 0) {
       |         ^
-source/algos/akc.c:431:5: note: Taking false branch
-  431 |     if (i < 0) {
+source/algos/akc.c:432:5: note: Taking false branch
+  432 |     if (i < 0) {
       |     ^
-source/algos/akc.c:437:19: note: '?' condition is false
-  437 |       skip[ell] = MAX(0, k - 1);
+source/algos/akc.c:438:19: note: '?' condition is false
+  438 |       skip[ell] = MAX(0, k - 1);
       |                   ^
 source/algos/akc.c:29:20: note: expanded from macro 'MAX'
    29 | #define MAX(a, b) ((a) > (b) ? (a) : (b))
       |                    ^
-source/algos/akc.c:441:7: note: Taking true branch
-  441 |       if (i == m - 1) {
+source/algos/akc.c:442:7: note: Taking true branch
+  442 |       if (i == m - 1) {
       |       ^
-source/algos/akc.c:449:7: note: Calling 'validateShift'
-  449 |       validateShift(m, clink, slink, ell, skip);
+source/algos/akc.c:450:7: note: Calling 'validateShift'
+  450 |       validateShift(m, clink, slink, ell, skip);
       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/akc.c:281:7: note: 'm' is <= M_CUTOFF
   281 |   if (m > M_CUTOFF) {
@@ -199,68 +199,68 @@ source/algos/akc.c:303:7: note: The value 3 is assigned to 'j'
 source/algos/akc.c:305:14: note: Assigned value is garbage or undefined
   305 |       len[p] = skip[j];
       |              ^ ~~~~~~~
-source/algos/akc.c:438:23: warning: The result of the '' expression is undefined [clang-analyzer-core.UndefinedBinaryOperatorResult]
-  438 |       ell = (ell + 1) % M;
+source/algos/akc.c:439:23: warning: The result of the '' expression is undefined [clang-analyzer-core.UndefinedBinaryOperatorResult]
+  439 |       ell = (ell + 1) % M;
       |             ~~~~~~~~~~^~~
-source/algos/akc.c:381:7: note: Assuming 'm' is <= M_CUTOFF
-  381 |   if (m > M_CUTOFF) {
+source/algos/akc.c:382:7: note: Assuming 'm' is <= M_CUTOFF
+  382 |   if (m > M_CUTOFF) {
       |       ^~~~~~~~~~~~
-source/algos/akc.c:381:3: note: Taking false branch
-  381 |   if (m > M_CUTOFF) {
+source/algos/akc.c:382:3: note: Taking false branch
+  382 |   if (m > M_CUTOFF) {
       |   ^
-source/algos/akc.c:404:3: note: Assuming 'pre_time' is null
-  404 |   END_PREPROCESSING
+source/algos/akc.c:405:3: note: Assuming 'pre_time' is null
+  405 |   END_PREPROCESSING
       |   ^
 source/algos/include/main.h:54:9: note: expanded from macro 'END_PREPROCESSING'
    54 |     if (pre_time)                                                              \
       |         ^~~~~~~~
-source/algos/akc.c:404:3: note: Taking false branch
-  404 |   END_PREPROCESSING
+source/algos/akc.c:405:3: note: Taking false branch
+  405 |   END_PREPROCESSING
       |   ^
 source/algos/include/main.h:54:5: note: expanded from macro 'END_PREPROCESSING'
    54 |     if (pre_time)                                                              \
       |     ^
-source/algos/akc.c:412:10: note: Assuming the condition is true
-  412 |   while (j <= n - m) {
+source/algos/akc.c:413:10: note: Assuming the condition is true
+  413 |   while (j <= n - m) {
       |          ^~~~~~~~~~
-source/algos/akc.c:412:3: note: Loop condition is true.  Entering loop body
-  412 |   while (j <= n - m) {
+source/algos/akc.c:413:3: note: Loop condition is true.  Entering loop body
+  413 |   while (j <= n - m) {
       |   ^
-source/algos/akc.c:416:12: note: Assuming 'i' is >= 0
-  416 |     while (i >= 0) {
+source/algos/akc.c:417:12: note: Assuming 'i' is >= 0
+  417 |     while (i >= 0) {
       |            ^~~~~~
-source/algos/akc.c:416:5: note: Loop condition is true.  Entering loop body
-  416 |     while (i >= 0) {
+source/algos/akc.c:417:5: note: Loop condition is true.  Entering loop body
+  417 |     while (i >= 0) {
       |     ^
-source/algos/akc.c:417:11: note: 'k' is not equal to 0
-  417 |       if (k == 0) {
+source/algos/akc.c:418:11: note: 'k' is not equal to 0
+  418 |       if (k == 0) {
       |           ^
-source/algos/akc.c:417:7: note: Taking false branch
-  417 |       if (k == 0) {
+source/algos/akc.c:418:7: note: Taking false branch
+  418 |       if (k == 0) {
       |       ^
-source/algos/akc.c:425:11: note: Assuming the condition is false
-  425 |       if (x[i] == y[i + j]) {
+source/algos/akc.c:426:11: note: Assuming the condition is false
+  426 |       if (x[i] == y[i + j]) {
       |           ^~~~~~~~~~~~~~~~
-source/algos/akc.c:425:7: note: Taking false branch
-  425 |       if (x[i] == y[i + j]) {
+source/algos/akc.c:426:7: note: Taking false branch
+  426 |       if (x[i] == y[i + j]) {
       |       ^
-source/algos/akc.c:429:9: note:  Execution continues on line 431
-  429 |         break;
+source/algos/akc.c:430:9: note:  Execution continues on line 432
+  430 |         break;
       |         ^
-source/algos/akc.c:431:9: note: 'i' is >= 0
-  431 |     if (i < 0) {
+source/algos/akc.c:432:9: note: 'i' is >= 0
+  432 |     if (i < 0) {
       |         ^
-source/algos/akc.c:431:5: note: Taking false branch
-  431 |     if (i < 0) {
+source/algos/akc.c:432:5: note: Taking false branch
+  432 |     if (i < 0) {
       |     ^
-source/algos/akc.c:437:19: note: '?' condition is false
-  437 |       skip[ell] = MAX(0, k - 1);
+source/algos/akc.c:438:19: note: '?' condition is false
+  438 |       skip[ell] = MAX(0, k - 1);
       |                   ^
 source/algos/akc.c:29:20: note: expanded from macro 'MAX'
    29 | #define MAX(a, b) ((a) > (b) ? (a) : (b))
       |                    ^
-source/algos/akc.c:438:23: note: The result of the '' expression is undefined
-  438 |       ell = (ell + 1) % M;
+source/algos/akc.c:439:23: note: The result of the '' expression is undefined
+  439 |       ell = (ell + 1) % M;
       |             ~~~~~~~~~~^~~
 source/algos/askip.c:72:14: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
    72 |   cell->next = z[node];
@@ -1039,23 +1039,23 @@ source/algos/fs-w6.c:110:3: warning: Value stored to 's5' is never read [clang-a
 source/algos/fs-w6.c:110:3: note: Value stored to 's5' is never read
   110 |   s5 = 2 * q;
       |   ^    ~~~~~
-source/algos/fs-w8.c:104:3: warning: Value stored to 's3' is never read [clang-analyzer-deadcode.DeadStores]
-  104 |   s3 = q;
+source/algos/fs-w8.c:105:3: warning: Value stored to 's3' is never read [clang-analyzer-deadcode.DeadStores]
+  105 |   s3 = q;
       |   ^    ~
-source/algos/fs-w8.c:104:3: note: Value stored to 's3' is never read
-  104 |   s3 = q;
+source/algos/fs-w8.c:105:3: note: Value stored to 's3' is never read
+  105 |   s3 = q;
       |   ^    ~
-source/algos/fs-w8.c:106:3: warning: Value stored to 's5' is never read [clang-analyzer-deadcode.DeadStores]
-  106 |   s5 = 2 * q;
+source/algos/fs-w8.c:107:3: warning: Value stored to 's5' is never read [clang-analyzer-deadcode.DeadStores]
+  107 |   s5 = 2 * q;
       |   ^    ~~~~~
-source/algos/fs-w8.c:106:3: note: Value stored to 's5' is never read
-  106 |   s5 = 2 * q;
+source/algos/fs-w8.c:107:3: note: Value stored to 's5' is never read
+  107 |   s5 = 2 * q;
       |   ^    ~~~~~
-source/algos/fs-w8.c:108:3: warning: Value stored to 's7' is never read [clang-analyzer-deadcode.DeadStores]
-  108 |   s7 = 3 * q;
+source/algos/fs-w8.c:109:3: warning: Value stored to 's7' is never read [clang-analyzer-deadcode.DeadStores]
+  109 |   s7 = 3 * q;
       |   ^    ~~~~~
-source/algos/fs-w8.c:108:3: note: Value stored to 's7' is never read
-  108 |   s7 = 3 * q;
+source/algos/fs-w8.c:109:3: note: Value stored to 's7' is never read
+  109 |   s7 = 3 * q;
       |   ^    ~~~~~
 source/algos/fsbndm-w8.c:89:3: warning: Value stored to 's3' is never read [clang-analyzer-deadcode.DeadStores]
    89 |   s3 = q;
@@ -1075,285 +1075,285 @@ source/algos/fsbndm-w8.c:93:3: warning: Value stored to 's7' is never read [clan
 source/algos/fsbndm-w8.c:93:3: note: Value stored to 's7' is never read
    93 |   s7 = 3 * q;
       |   ^    ~~~~~
-source/algos/gg.c:60:23: warning: The left operand of '==' is a garbage value due to array index out of bounds [clang-analyzer-core.UndefinedBinaryOperatorResult]
-   60 |       if (hmax[i + 1] == m)
-      |                       ^
-source/algos/gg.c:109:17: note: Assuming the condition is false
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:59:21: warning: The left operand of '==' is a garbage value due to array index out of bounds [clang-analyzer-core.UndefinedBinaryOperatorResult]
+   59 |     if (hmax[i + 1] == m)
+      |                     ^
+source/algos/gg.c:108:17: note: Assuming the condition is false
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
       |                 ^~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:109:3: note: Loop condition is false. Execution continues on line 111
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:108:3: note: Loop condition is false. Execution continues on line 110
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
       |   ^
-source/algos/gg.c:111:7: note: Assuming the condition is false
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:110:7: note: Assuming the condition is false
+  110 |   if (ell == m - 1) {
       |       ^~~~~~~~~~~~
-source/algos/gg.c:111:3: note: Taking false branch
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:110:3: note: Taking false branch
+  110 |   if (ell == m - 1) {
       |   ^
-source/algos/gg.c:127:8: note: Calling 'preColussi'
-  127 |   nd = preColussi(x, m, h, next, shift);
+source/algos/gg.c:126:8: note: Calling 'preColussi'
+  126 |   nd = preColussi(x, m, h, next, shift);
       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:36:14: note: Assuming the condition is false
-   36 |       while (x[i] == x[i - k])
-      |              ^~~~~~~~~~~~~~~~
-source/algos/gg.c:36:7: note: Loop condition is false. Execution continues on line 38
-   36 |       while (x[i] == x[i - k])
-      |       ^
-source/algos/gg.c:40:7: note: Loop condition is false. Execution continues on line 44
-   40 |       while (hmax[q - k] + k < i) {
-      |       ^
-source/algos/gg.c:45:7: note: Taking true branch
-   45 |       if (k == i + 1)
-      |       ^
-source/algos/gg.c:47:13: note: Assuming 'k' is > 'm'
-   47 |    } while (k <= m);
-      |             ^~~~~~
-source/algos/gg.c:35:4: note: Loop condition is false.  Exiting loop
-   35 |    do {
-      |    ^
-source/algos/gg.c:52:16: note: 'i' is < 1
-   52 |    for (i = m; i >= 1; --i)
-      |                ^
-source/algos/gg.c:52:4: note: Loop condition is false. Execution continues on line 58
-   52 |    for (i = m; i >= 1; --i)
-      |    ^
-source/algos/gg.c:59:20: note: Assuming 'i' is >= 0
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |                    ^~~~~~
-source/algos/gg.c:59:4: note: Loop condition is true.  Entering loop body
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |    ^
-source/algos/gg.c:60:23: note: The left operand of '==' is a garbage value due to array index out of bounds
-   60 |       if (hmax[i + 1] == m)
-      |           ~~~~~~~~~~~ ^
-source/algos/gg.c:97:15: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
-   97 |       next[i] = nhd0[m - rmin[h[i]]];
+source/algos/gg.c:35:12: note: Assuming the condition is false
+   35 |     while (x[i] == x[i - k])
+      |            ^~~~~~~~~~~~~~~~
+source/algos/gg.c:35:5: note: Loop condition is false. Execution continues on line 37
+   35 |     while (x[i] == x[i - k])
+      |     ^
+source/algos/gg.c:39:5: note: Loop condition is false. Execution continues on line 43
+   39 |     while (hmax[q - k] + k < i) {
+      |     ^
+source/algos/gg.c:44:5: note: Taking true branch
+   44 |     if (k == i + 1)
+      |     ^
+source/algos/gg.c:46:12: note: Assuming 'k' is > 'm'
+   46 |   } while (k <= m);
+      |            ^~~~~~
+source/algos/gg.c:34:3: note: Loop condition is false.  Exiting loop
+   34 |   do {
+      |   ^
+source/algos/gg.c:51:15: note: 'i' is < 1
+   51 |   for (i = m; i >= 1; --i)
       |               ^
-source/algos/gg.c:109:17: note: Assuming the condition is true
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
-      |                 ^~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:109:3: note: Loop condition is true.  Entering loop body
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:51:3: note: Loop condition is false. Execution continues on line 57
+   51 |   for (i = m; i >= 1; --i)
       |   ^
-source/algos/gg.c:109:17: note: Assuming the condition is false
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
-      |                 ^~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:109:3: note: Loop condition is false. Execution continues on line 111
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:58:19: note: Assuming 'i' is >= 0
+   58 |   for (i = m - 1; i >= 0; --i) {
+      |                   ^~~~~~
+source/algos/gg.c:58:3: note: Loop condition is true.  Entering loop body
+   58 |   for (i = m - 1; i >= 0; --i) {
       |   ^
-source/algos/gg.c:111:7: note: Assuming the condition is false
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:59:21: note: The left operand of '==' is a garbage value due to array index out of bounds
+   59 |     if (hmax[i + 1] == m)
+      |         ~~~~~~~~~~~ ^
+source/algos/gg.c:96:13: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
+   96 |     next[i] = nhd0[m - rmin[h[i]]];
+      |             ^
+source/algos/gg.c:108:17: note: Assuming the condition is true
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |                 ^~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:108:3: note: Loop condition is true.  Entering loop body
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |   ^
+source/algos/gg.c:108:17: note: Assuming the condition is false
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |                 ^~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:108:3: note: Loop condition is false. Execution continues on line 110
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |   ^
+source/algos/gg.c:110:7: note: Assuming the condition is false
+  110 |   if (ell == m - 1) {
       |       ^~~~~~~~~~~~
-source/algos/gg.c:111:3: note: Taking false branch
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:110:3: note: Taking false branch
+  110 |   if (ell == m - 1) {
       |   ^
-source/algos/gg.c:127:8: note: Calling 'preColussi'
-  127 |   nd = preColussi(x, m, h, next, shift);
+source/algos/gg.c:126:8: note: Calling 'preColussi'
+  126 |   nd = preColussi(x, m, h, next, shift);
       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:36:14: note: Assuming the condition is true
-   36 |       while (x[i] == x[i - k])
-      |              ^~~~~~~~~~~~~~~~
-source/algos/gg.c:36:7: note: Loop condition is true.  Entering loop body
-   36 |       while (x[i] == x[i - k])
-      |       ^
-source/algos/gg.c:36:14: note: Assuming the condition is false
-   36 |       while (x[i] == x[i - k])
-      |              ^~~~~~~~~~~~~~~~
-source/algos/gg.c:36:7: note: Loop condition is false. Execution continues on line 38
-   36 |       while (x[i] == x[i - k])
-      |       ^
-source/algos/gg.c:40:7: note: Loop condition is false. Execution continues on line 44
-   40 |       while (hmax[q - k] + k < i) {
-      |       ^
-source/algos/gg.c:45:7: note: Taking false branch
-   45 |       if (k == i + 1)
-      |       ^
-source/algos/gg.c:47:13: note: Assuming 'k' is > 'm'
-   47 |    } while (k <= m);
-      |             ^~~~~~
-source/algos/gg.c:35:4: note: Loop condition is false.  Exiting loop
-   35 |    do {
-      |    ^
-source/algos/gg.c:52:16: note: Assuming 'i' is >= 1
-   52 |    for (i = m; i >= 1; --i)
-      |                ^~~~~~
-source/algos/gg.c:52:4: note: Loop condition is true.  Entering loop body
-   52 |    for (i = m; i >= 1; --i)
-      |    ^
-source/algos/gg.c:53:7: note: Taking false branch
-   53 |       if (hmax[i] < m)
-      |       ^
-source/algos/gg.c:52:4: note: Loop condition is false. Execution continues on line 58
-   52 |    for (i = m; i >= 1; --i)
-      |    ^
-source/algos/gg.c:59:4: note: Loop condition is true.  Entering loop body
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |    ^
-source/algos/gg.c:60:7: note: Taking false branch
-   60 |       if (hmax[i + 1] == m)
-      |       ^
-source/algos/gg.c:62:11: note: Assuming the condition is true
-   62 |       if (kmin[i] == 0)
-      |           ^~~~~~~~~~~~
-source/algos/gg.c:62:7: note: Taking true branch
-   62 |       if (kmin[i] == 0)
-      |       ^
-source/algos/gg.c:59:4: note: Loop condition is false. Execution continues on line 69
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |    ^
-source/algos/gg.c:71:4: note: Loop condition is true.  Entering loop body
-   71 |    for (i = 0; i < m; ++i)
-      |    ^
-source/algos/gg.c:72:7: note: Taking true branch
-   72 |       if (kmin[i] == 0)
-      |       ^
-source/algos/gg.c:71:4: note: Loop condition is false. Execution continues on line 76
-   71 |    for (i = 0; i < m; ++i)
-      |    ^
-source/algos/gg.c:79:4: note: Loop condition is false. Execution continues on line 81
-   79 |    for (i = 0; i <= nd; ++i)
-      |    ^
-source/algos/gg.c:81:4: note: Loop condition is true.  Entering loop body
-   81 |    for (i = nd + 1; i < m; ++i)
-      |    ^
-source/algos/gg.c:81:4: note: Loop condition is false. Execution continues on line 83
-source/algos/gg.c:87:4: note: Loop condition is true.  Entering loop body
-   87 |    for (i = 0; i < m; ++i) {
-      |    ^
-source/algos/gg.c:89:7: note: Taking false branch
-   89 |       if (kmin[i] > 0)
-      |       ^
-source/algos/gg.c:87:4: note: Loop condition is false. Execution continues on line 94
-   87 |    for (i = 0; i < m; ++i) {
-      |    ^
-source/algos/gg.c:94:4: note: Loop condition is false. Execution continues on line 96
-   94 |    for (i = 0; i <= nd; ++i)
-      |    ^
-source/algos/gg.c:96:4: note: Loop condition is true.  Entering loop body
-   96 |    for (i = nd + 1; i < m; ++i)
-      |    ^
-source/algos/gg.c:97:15: note: Assigned value is garbage or undefined
-   97 |       next[i] = nhd0[m - rmin[h[i]]];
-      |               ^ ~~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:98:12: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
-   98 |    next[m] = nhd0[m - rmin[h[m - 1]]];
-      |            ^
-source/algos/gg.c:109:17: note: Assuming the condition is true
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
-      |                 ^~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:109:3: note: Loop condition is true.  Entering loop body
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:35:12: note: Assuming the condition is true
+   35 |     while (x[i] == x[i - k])
+      |            ^~~~~~~~~~~~~~~~
+source/algos/gg.c:35:5: note: Loop condition is true.  Entering loop body
+   35 |     while (x[i] == x[i - k])
+      |     ^
+source/algos/gg.c:35:12: note: Assuming the condition is false
+   35 |     while (x[i] == x[i - k])
+      |            ^~~~~~~~~~~~~~~~
+source/algos/gg.c:35:5: note: Loop condition is false. Execution continues on line 37
+   35 |     while (x[i] == x[i - k])
+      |     ^
+source/algos/gg.c:39:5: note: Loop condition is false. Execution continues on line 43
+   39 |     while (hmax[q - k] + k < i) {
+      |     ^
+source/algos/gg.c:44:5: note: Taking false branch
+   44 |     if (k == i + 1)
+      |     ^
+source/algos/gg.c:46:12: note: Assuming 'k' is > 'm'
+   46 |   } while (k <= m);
+      |            ^~~~~~
+source/algos/gg.c:34:3: note: Loop condition is false.  Exiting loop
+   34 |   do {
       |   ^
-source/algos/gg.c:109:17: note: Assuming the condition is false
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
-      |                 ^~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:109:3: note: Loop condition is false. Execution continues on line 111
-  109 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+source/algos/gg.c:51:15: note: Assuming 'i' is >= 1
+   51 |   for (i = m; i >= 1; --i)
+      |               ^~~~~~
+source/algos/gg.c:51:3: note: Loop condition is true.  Entering loop body
+   51 |   for (i = m; i >= 1; --i)
       |   ^
-source/algos/gg.c:111:7: note: Assuming the condition is false
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:52:5: note: Taking false branch
+   52 |     if (hmax[i] < m)
+      |     ^
+source/algos/gg.c:51:3: note: Loop condition is false. Execution continues on line 57
+   51 |   for (i = m; i >= 1; --i)
+      |   ^
+source/algos/gg.c:58:3: note: Loop condition is true.  Entering loop body
+   58 |   for (i = m - 1; i >= 0; --i) {
+      |   ^
+source/algos/gg.c:59:5: note: Taking false branch
+   59 |     if (hmax[i + 1] == m)
+      |     ^
+source/algos/gg.c:61:9: note: Assuming the condition is true
+   61 |     if (kmin[i] == 0)
+      |         ^~~~~~~~~~~~
+source/algos/gg.c:61:5: note: Taking true branch
+   61 |     if (kmin[i] == 0)
+      |     ^
+source/algos/gg.c:58:3: note: Loop condition is false. Execution continues on line 68
+   58 |   for (i = m - 1; i >= 0; --i) {
+      |   ^
+source/algos/gg.c:70:3: note: Loop condition is true.  Entering loop body
+   70 |   for (i = 0; i < m; ++i)
+      |   ^
+source/algos/gg.c:71:5: note: Taking true branch
+   71 |     if (kmin[i] == 0)
+      |     ^
+source/algos/gg.c:70:3: note: Loop condition is false. Execution continues on line 75
+   70 |   for (i = 0; i < m; ++i)
+      |   ^
+source/algos/gg.c:78:3: note: Loop condition is false. Execution continues on line 80
+   78 |   for (i = 0; i <= nd; ++i)
+      |   ^
+source/algos/gg.c:80:3: note: Loop condition is true.  Entering loop body
+   80 |   for (i = nd + 1; i < m; ++i)
+      |   ^
+source/algos/gg.c:80:3: note: Loop condition is false. Execution continues on line 82
+source/algos/gg.c:86:3: note: Loop condition is true.  Entering loop body
+   86 |   for (i = 0; i < m; ++i) {
+      |   ^
+source/algos/gg.c:88:5: note: Taking false branch
+   88 |     if (kmin[i] > 0)
+      |     ^
+source/algos/gg.c:86:3: note: Loop condition is false. Execution continues on line 93
+   86 |   for (i = 0; i < m; ++i) {
+      |   ^
+source/algos/gg.c:93:3: note: Loop condition is false. Execution continues on line 95
+   93 |   for (i = 0; i <= nd; ++i)
+      |   ^
+source/algos/gg.c:95:3: note: Loop condition is true.  Entering loop body
+   95 |   for (i = nd + 1; i < m; ++i)
+      |   ^
+source/algos/gg.c:96:13: note: Assigned value is garbage or undefined
+   96 |     next[i] = nhd0[m - rmin[h[i]]];
+      |             ^ ~~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:97:11: warning: Assigned value is garbage or undefined [clang-analyzer-core.uninitialized.Assign]
+   97 |   next[m] = nhd0[m - rmin[h[m - 1]]];
+      |           ^
+source/algos/gg.c:108:17: note: Assuming the condition is true
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |                 ^~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:108:3: note: Loop condition is true.  Entering loop body
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |   ^
+source/algos/gg.c:108:17: note: Assuming the condition is false
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |                 ^~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:108:3: note: Loop condition is false. Execution continues on line 110
+  108 |   for (ell = 0; x[ell] == x[ell + 1]; ell++)
+      |   ^
+source/algos/gg.c:110:7: note: Assuming the condition is false
+  110 |   if (ell == m - 1) {
       |       ^~~~~~~~~~~~
-source/algos/gg.c:111:3: note: Taking false branch
-  111 |   if (ell == m - 1) {
+source/algos/gg.c:110:3: note: Taking false branch
+  110 |   if (ell == m - 1) {
       |   ^
-source/algos/gg.c:127:8: note: Calling 'preColussi'
-  127 |   nd = preColussi(x, m, h, next, shift);
+source/algos/gg.c:126:8: note: Calling 'preColussi'
+  126 |   nd = preColussi(x, m, h, next, shift);
       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:36:14: note: Assuming the condition is true
-   36 |       while (x[i] == x[i - k])
-      |              ^~~~~~~~~~~~~~~~
-source/algos/gg.c:36:7: note: Loop condition is true.  Entering loop body
-   36 |       while (x[i] == x[i - k])
-      |       ^
-source/algos/gg.c:36:14: note: Assuming the condition is false
-   36 |       while (x[i] == x[i - k])
-      |              ^~~~~~~~~~~~~~~~
-source/algos/gg.c:36:7: note: Loop condition is false. Execution continues on line 38
-   36 |       while (x[i] == x[i - k])
-      |       ^
-source/algos/gg.c:40:7: note: Loop condition is false. Execution continues on line 44
-   40 |       while (hmax[q - k] + k < i) {
-      |       ^
-source/algos/gg.c:45:7: note: Taking false branch
-   45 |       if (k == i + 1)
-      |       ^
-source/algos/gg.c:47:13: note: Assuming 'k' is > 'm'
-   47 |    } while (k <= m);
-      |             ^~~~~~
-source/algos/gg.c:35:4: note: Loop condition is false.  Exiting loop
-   35 |    do {
-      |    ^
-source/algos/gg.c:52:16: note: Assuming 'i' is >= 1
-   52 |    for (i = m; i >= 1; --i)
-      |                ^~~~~~
-source/algos/gg.c:52:4: note: Loop condition is true.  Entering loop body
-   52 |    for (i = m; i >= 1; --i)
-      |    ^
-source/algos/gg.c:53:7: note: Taking false branch
-   53 |       if (hmax[i] < m)
-      |       ^
-source/algos/gg.c:52:4: note: Loop condition is false. Execution continues on line 58
-   52 |    for (i = m; i >= 1; --i)
-      |    ^
-source/algos/gg.c:59:4: note: Loop condition is true.  Entering loop body
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |    ^
-source/algos/gg.c:60:7: note: Taking false branch
-   60 |       if (hmax[i + 1] == m)
-      |       ^
-source/algos/gg.c:62:11: note: Assuming the condition is false
-   62 |       if (kmin[i] == 0)
-      |           ^~~~~~~~~~~~
-source/algos/gg.c:62:7: note: Taking false branch
-   62 |       if (kmin[i] == 0)
-      |       ^
-source/algos/gg.c:59:4: note: Loop condition is false. Execution continues on line 69
-   59 |    for (i = m - 1; i >= 0; --i) {
-      |    ^
-source/algos/gg.c:71:4: note: Loop condition is true.  Entering loop body
-   71 |    for (i = 0; i < m; ++i)
-      |    ^
-source/algos/gg.c:72:7: note: Taking false branch
-   72 |       if (kmin[i] == 0)
-      |       ^
-source/algos/gg.c:71:4: note: Loop condition is false. Execution continues on line 76
-   71 |    for (i = 0; i < m; ++i)
-      |    ^
-source/algos/gg.c:79:4: note: Loop condition is true.  Entering loop body
-   79 |    for (i = 0; i <= nd; ++i)
-      |    ^
-source/algos/gg.c:79:4: note: Loop condition is false. Execution continues on line 81
-source/algos/gg.c:81:4: note: Loop condition is false. Execution continues on line 83
-   81 |    for (i = nd + 1; i < m; ++i)
-      |    ^
-source/algos/gg.c:87:4: note: Loop condition is true.  Entering loop body
-   87 |    for (i = 0; i < m; ++i) {
-      |    ^
-source/algos/gg.c:89:11: note: Assuming the condition is false
-   89 |       if (kmin[i] > 0)
-      |           ^~~~~~~~~~~
-source/algos/gg.c:89:7: note: Taking false branch
-   89 |       if (kmin[i] > 0)
-      |       ^
-source/algos/gg.c:87:4: note: Loop condition is false. Execution continues on line 94
-   87 |    for (i = 0; i < m; ++i) {
-      |    ^
-source/algos/gg.c:94:4: note: Loop condition is true.  Entering loop body
-   94 |    for (i = 0; i <= nd; ++i)
-      |    ^
-source/algos/gg.c:94:4: note: Loop condition is false. Execution continues on line 96
-source/algos/gg.c:96:4: note: Loop condition is false. Execution continues on line 98
-   96 |    for (i = nd + 1; i < m; ++i)
-      |    ^
-source/algos/gg.c:98:12: note: Assigned value is garbage or undefined
-   98 |    next[m] = nhd0[m - rmin[h[m - 1]]];
-      |            ^ ~~~~~~~~~~~~~~~~~~~~~~~~
-source/algos/gg.c:148:11: warning: Value stored to 'heavy' is never read [clang-analyzer-deadcode.DeadStores]
-  148 |           heavy = 0;
-      |           ^       ~
-source/algos/gg.c:148:11: note: Value stored to 'heavy' is never read
-  148 |           heavy = 0;
-      |           ^       ~
+source/algos/gg.c:35:12: note: Assuming the condition is true
+   35 |     while (x[i] == x[i - k])
+      |            ^~~~~~~~~~~~~~~~
+source/algos/gg.c:35:5: note: Loop condition is true.  Entering loop body
+   35 |     while (x[i] == x[i - k])
+      |     ^
+source/algos/gg.c:35:12: note: Assuming the condition is false
+   35 |     while (x[i] == x[i - k])
+      |            ^~~~~~~~~~~~~~~~
+source/algos/gg.c:35:5: note: Loop condition is false. Execution continues on line 37
+   35 |     while (x[i] == x[i - k])
+      |     ^
+source/algos/gg.c:39:5: note: Loop condition is false. Execution continues on line 43
+   39 |     while (hmax[q - k] + k < i) {
+      |     ^
+source/algos/gg.c:44:5: note: Taking false branch
+   44 |     if (k == i + 1)
+      |     ^
+source/algos/gg.c:46:12: note: Assuming 'k' is > 'm'
+   46 |   } while (k <= m);
+      |            ^~~~~~
+source/algos/gg.c:34:3: note: Loop condition is false.  Exiting loop
+   34 |   do {
+      |   ^
+source/algos/gg.c:51:15: note: Assuming 'i' is >= 1
+   51 |   for (i = m; i >= 1; --i)
+      |               ^~~~~~
+source/algos/gg.c:51:3: note: Loop condition is true.  Entering loop body
+   51 |   for (i = m; i >= 1; --i)
+      |   ^
+source/algos/gg.c:52:5: note: Taking false branch
+   52 |     if (hmax[i] < m)
+      |     ^
+source/algos/gg.c:51:3: note: Loop condition is false. Execution continues on line 57
+   51 |   for (i = m; i >= 1; --i)
+      |   ^
+source/algos/gg.c:58:3: note: Loop condition is true.  Entering loop body
+   58 |   for (i = m - 1; i >= 0; --i) {
+      |   ^
+source/algos/gg.c:59:5: note: Taking false branch
+   59 |     if (hmax[i + 1] == m)
+      |     ^
+source/algos/gg.c:61:9: note: Assuming the condition is false
+   61 |     if (kmin[i] == 0)
+      |         ^~~~~~~~~~~~
+source/algos/gg.c:61:5: note: Taking false branch
+   61 |     if (kmin[i] == 0)
+      |     ^
+source/algos/gg.c:58:3: note: Loop condition is false. Execution continues on line 68
+   58 |   for (i = m - 1; i >= 0; --i) {
+      |   ^
+source/algos/gg.c:70:3: note: Loop condition is true.  Entering loop body
+   70 |   for (i = 0; i < m; ++i)
+      |   ^
+source/algos/gg.c:71:5: note: Taking false branch
+   71 |     if (kmin[i] == 0)
+      |     ^
+source/algos/gg.c:70:3: note: Loop condition is false. Execution continues on line 75
+   70 |   for (i = 0; i < m; ++i)
+      |   ^
+source/algos/gg.c:78:3: note: Loop condition is true.  Entering loop body
+   78 |   for (i = 0; i <= nd; ++i)
+      |   ^
+source/algos/gg.c:78:3: note: Loop condition is false. Execution continues on line 80
+source/algos/gg.c:80:3: note: Loop condition is false. Execution continues on line 82
+   80 |   for (i = nd + 1; i < m; ++i)
+      |   ^
+source/algos/gg.c:86:3: note: Loop condition is true.  Entering loop body
+   86 |   for (i = 0; i < m; ++i) {
+      |   ^
+source/algos/gg.c:88:9: note: Assuming the condition is false
+   88 |     if (kmin[i] > 0)
+      |         ^~~~~~~~~~~
+source/algos/gg.c:88:5: note: Taking false branch
+   88 |     if (kmin[i] > 0)
+      |     ^
+source/algos/gg.c:86:3: note: Loop condition is false. Execution continues on line 93
+   86 |   for (i = 0; i < m; ++i) {
+      |   ^
+source/algos/gg.c:93:3: note: Loop condition is true.  Entering loop body
+   93 |   for (i = 0; i <= nd; ++i)
+      |   ^
+source/algos/gg.c:93:3: note: Loop condition is false. Execution continues on line 95
+source/algos/gg.c:95:3: note: Loop condition is false. Execution continues on line 97
+   95 |   for (i = nd + 1; i < m; ++i)
+      |   ^
+source/algos/gg.c:97:11: note: Assigned value is garbage or undefined
+   97 |   next[m] = nhd0[m - rmin[h[m - 1]]];
+      |           ^ ~~~~~~~~~~~~~~~~~~~~~~~~
+source/algos/gg.c:147:7: warning: Value stored to 'heavy' is never read [clang-analyzer-deadcode.DeadStores]
+  147 |       heavy = 0;
+      |       ^       ~
+source/algos/gg.c:147:7: note: Value stored to 'heavy' is never read
+  147 |       heavy = 0;
+      |       ^       ~
 source/algos/ildm1.c:45:27: warning: Result of 'malloc' is converted to a pointer of type 'unsigned char', which is incompatible with sizeof operand type 'char' [clang-analyzer-unix.MallocSizeof]
    45 |     xR = (unsigned char *)malloc(sizeof(char) * (m + 1));
       |           ~~~~~~~~~~~~~~~ ^~~~~~ ~~~~~~~~~~~~
@@ -1457,8 +1457,8 @@ source/algos/kmpskip.c:138:24: warning: The right operand of '-' is a garbage va
   138 |         kmpStart += (k - mpNext[k]);
       |                        ^ ~~~~~~~~~
 source/algos/kmpskip.c:72:3: note: Calling 'preMp'
-   72 |   preMp((char*)x, m, mpNext);
-      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   72 |   preMp((char *)x, m, mpNext);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/kmpskip.c:51:10: note: Assuming 'i' is >= 'm'
    51 |   while (i < m) {
       |          ^~~~~
@@ -1466,8 +1466,8 @@ source/algos/kmpskip.c:51:3: note: Loop condition is false. Execution continues 
    51 |   while (i < m) {
       |   ^
 source/algos/kmpskip.c:72:3: note: Returning from 'preMp'
-   72 |   preMp((char*)x, m, mpNext);
-      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   72 |   preMp((char *)x, m, mpNext);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/kmpskip.c:73:3: note: Calling 'preKmp'
    73 |   preKmp(x, m, kmpNext);
       |   ^~~~~~~~~~~~~~~~~~~~~
@@ -1527,8 +1527,8 @@ source/algos/kmpskip.c:101:5: note: Taking true branch
   101 |     if (start > wall)
       |     ^
 source/algos/kmpskip.c:103:9: note: Calling 'attempt'
-  103 |     k = attempt((char*)y, (char*)x, m, start, wall);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  103 |     k = attempt((char *)y, (char *)x, m, start, wall);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/kmpskip.c:60:3: note: The value 0 is assigned to 'k'
    60 |   k = wall - start;
       |   ^~~~~~~~~~~~~~~~
@@ -1542,11 +1542,11 @@ source/algos/kmpskip.c:63:3: note: Returning zero (loaded from 'k')
    63 |   return (k);
       |   ^~~~~~~~~~
 source/algos/kmpskip.c:103:9: note: Returning from 'attempt'
-  103 |     k = attempt((char*)y, (char*)x, m, start, wall);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  103 |     k = attempt((char *)y, (char *)x, m, start, wall);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/kmpskip.c:103:5: note: The value 0 is assigned to 'k'
-  103 |     k = attempt((char*)y, (char*)x, m, start, wall);
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  103 |     k = attempt((char *)y, (char *)x, m, start, wall);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 source/algos/kmpskip.c:105:9: note: Assuming 'k' is not equal to 'm'
   105 |     if (k == m) {
       |         ^~~~~~

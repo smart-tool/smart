@@ -162,7 +162,7 @@ int main(int argc, const char *argv[]) {
           printf("\tTesting the algorithm for correctness....");
           fflush(stdout);
           // testing correctness of the algorithm
-          sprintf(command, "./test %s -nv", algo);
+          snprintf(command, sizeof(command), "./test %s -nv", algo);
           fflush(stdout);
           if (system(command)) {
             printf("\n%s failed!\n", command);

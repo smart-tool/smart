@@ -66,7 +66,7 @@ compile_commands.json: GNUmakefile
 	-+$(MAKE) clean
 	bear -- $(MAKE)
 clang-tidy.log: compile_commands.json $(ALLSRC)
-	clang-tidy source/*.c source/algos/*.c | tee clang-tidy.log
+	clang-tidy source/*.c source/algos/*.c | sed -e"s,$$PWD/,," | tee clang-tidy.log
 clang-tidy: clang-tidy.log
 
 CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \

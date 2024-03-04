@@ -27,6 +27,8 @@
 #define SZNCAT(x) sizeof(x) - strlen(x) - 1
 #define SZNCPY(x) sizeof(x) - 1
 
+//NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+
 /*
  * This program compiles all c programs of string matching algorithms
  * It is called by build.sh script, when compiling SMART
@@ -185,3 +187,5 @@ int main(int argc, char **argv) {
     printf("\tTesting errors ...................................[%.3d]\n\n",
            testing_error);
 }
+
+//NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)

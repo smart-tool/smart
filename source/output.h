@@ -17,6 +17,10 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
 char colors[100][8];
 unsigned int num_colors = 100U;
 

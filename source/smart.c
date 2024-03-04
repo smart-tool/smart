@@ -49,6 +49,8 @@ unsigned int MINLEN = 1,
 #define BINDIR "bin"
 #endif
 
+//NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+
 void printManual() {
   if (system("./logo"))
     exit(1);
@@ -638,7 +640,6 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Max 100 chars for P parameter.\n\n");
         goto end;
       }
-      //xxNOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
       strncpy((char *)simplePattern, argv[par++], SZNCPY(simplePattern));
       if (par >= argc) {
         printf("Error in input parameters. Use -h for help.\n\n");
@@ -649,7 +650,6 @@ int main(int argc, const char *argv[]) {
             "Error in input parameters. Max 1000 chars for T parameter.\n\n");
         goto end;
       }
-      //xxNOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
       strncpy((char *)simpleText, argv[par++], SZNCPY(simpleText));
       SIMPLE = 1;
     }
@@ -863,3 +863,5 @@ end_1:
   return 1;
 #endif
 }
+
+//NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)

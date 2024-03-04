@@ -53,6 +53,8 @@ unsigned char *T, *P;
 double *e_time, *pre_time;
 int *count;
 
+//NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+
 /* the brute force algorithm used for comparing occurrences */
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, count, j;
@@ -565,3 +567,5 @@ int main(int argc, char *argv[]) {
   free_shm();
   return 0;
 }
+
+//NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
