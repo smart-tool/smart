@@ -50,8 +50,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   while (j <= n - m) {
     if (j + 1 < n && x[1] != y[j + 1]) {
       j += k;
-    }
-    else {
+    } else {
       if (x[0] == y[j] && memcmp(x + 2, y + j + 2, m - 2) == 0)
         OUTPUT(j);
       j += ell;

@@ -69,7 +69,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  preMp((char*)x, m, mpNext);
+  preMp((char *)x, m, mpNext);
   preKmp(x, m, kmpNext);
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, -1, SIGMA * sizeof(int));
@@ -100,7 +100,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   while (start <= n - m) {
     if (start > wall)
       wall = start;
-    k = attempt((char*)y, (char*)x, m, start, wall);
+    k = attempt((char *)y, (char *)x, m, start, wall);
     wall = start + k;
     if (k == m) {
       OUTPUT(start);

@@ -106,7 +106,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   }
   if (m > M_CUTOFF) {
     //unsigned cells = 0;
-    for (unsigned i=0; i<XSIZE; i++) {
+    for (unsigned i = 0; i < XSIZE; i++) {
       if (L[i]) {
         List t = L[i];
         while (t) {

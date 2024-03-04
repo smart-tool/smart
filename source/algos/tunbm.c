@@ -53,15 +53,18 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   count = 0;
   j = 0;
   while (j < n) {
-    k = bmBc[y[j + m -1]];
-    while (k !=  0) {
-      j += k; k = bmBc[y[j + m -1]];
-      j += k; k = bmBc[y[j + m -1]];
-      j += k; k = bmBc[y[j + m -1]];
+    k = bmBc[y[j + m - 1]];
+    while (k != 0) {
+      j += k;
+      k = bmBc[y[j + m - 1]];
+      j += k;
+      k = bmBc[y[j + m - 1]];
+      j += k;
+      k = bmBc[y[j + m - 1]];
     }
     if (memcmp(x, y + j, m - 1) == 0 && j < n)
       OUTPUT(j);
-    j += shift;                          /* shift */
+    j += shift; /* shift */
   }
   END_SEARCHING
   return count;

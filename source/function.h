@@ -25,7 +25,7 @@
 #include <ctype.h>
 
 #ifdef __GNUC__
-#define ATTRIBUTE_MALLOC __attribute__ ((malloc))
+#define ATTRIBUTE_MALLOC __attribute__((malloc))
 #else
 #define ATTRIBUTE_MALLOC
 #endif
@@ -48,10 +48,10 @@ int string2decimal(char *s) {
 ATTRIBUTE_MALLOC
 char *printable(const char *s) {
   int n = strlen(s) - 1;
-  unsigned sz = (n+1) * 4;
-  char* ret = calloc(sz, 1);
+  unsigned sz = (n + 1) * 4;
+  char *ret = calloc(sz, 1);
   while (n >= 0) {
-    if (!isgraph(s[n]) || s[n] == '\'' || s[n] == ' '|| s[n] == '"') {
+    if (!isgraph(s[n]) || s[n] == '\'' || s[n] == ' ' || s[n] == '"') {
       char tmp[5];
       snprintf(tmp, sizeof(tmp), "\\%03o", s[n]);
       if (strlen(ret) + n + 5 > sz) {
@@ -63,8 +63,7 @@ char *printable(const char *s) {
           abort();
       }
       strncat(ret, tmp, sz);
-    }
-    else {
+    } else {
       char tmp[4];
       snprintf(tmp, 4, "%c", s[n]);
       strcat(ret, tmp);
@@ -86,7 +85,7 @@ int isInt(char *s) {
 ATTRIBUTE_MALLOC
 char *str2lower(const char *s) {
   int n = strlen(s) - 1;
-  char* ret = calloc(n+1, 1);
+  char *ret = calloc(n + 1, 1);
   while (n >= 0) {
     if (s[n] >= 'A' && s[n] <= 'Z')
       ret[n] = s[n] - 'A' + 'a';
@@ -100,7 +99,7 @@ char *str2lower(const char *s) {
 ATTRIBUTE_MALLOC
 char *str2upper(const char *s) {
   int n = strlen(s) - 1;
-  char* ret = calloc(n+1, 1);
+  char *ret = calloc(n + 1, 1);
   while (n >= 0) {
     if (s[n] >= 'a' && s[n] <= 'z')
       ret[n] = s[n] - 'a' + 'A';
@@ -127,7 +126,7 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   DIR *d;
   struct dirent *dir;
 
-  for (unsigned int id=0; id<ARRAY_SIZE(ALGOS); id++) {
+  for (unsigned int id = 0; id < ARRAY_SIZE(ALGOS); id++) {
     EXECUTE[id] = ALGOS[id].execute;
     ALGO_NAME[id] = ALGOS[id].name;
     ALGO_DESCRIPTION[id] = ALGOS[id].desc;
@@ -143,7 +142,7 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
         algo[len - 2] = '\0';
         int id = search_ALGO(ALGO_NAME, algo);
         if (id == -1) {
-          printf ("WARNING %s.c exists, but is missing in algorithms.h\n", algo);
+          printf("WARNING %s.c exists, but is missing in algorithms.h\n", algo);
           /* add the missing algos:
           FILE *f = fopen("source/algorithms.h", "a");
           fseek(f, 0, SEEK_END);
@@ -152,9 +151,10 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
           free(upname);
           fclose(f);
           */
-        }
-        else if (ALGOS[id].missing)
-          printf ("WARNING %s.c exists, but has a missing flag in algorithms.h\n", algo);
+        } else if (ALGOS[id].missing)
+          printf(
+              "WARNING %s.c exists, but has a missing flag in algorithms.h\n",
+              algo);
       }
     }
   }

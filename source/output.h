@@ -221,7 +221,7 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
             fprintf(fp, " & %.2f", TIME[algo][il]);
         }
       fprintf(fp, "\\\\\n");
-      free (upname);
+      free(upname);
     }
   }
   fprintf(fp, "\\hline\n\\end{tabular}");
@@ -317,7 +317,8 @@ void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
 
   fprintf(fp,
           "<div class=\"chart_container_small\"><div class=\"chart_title\">%s "
-          "algorithm</div>\n", upname);
+          "algorithm</div>\n",
+          upname);
   fprintf(fp,
           "<div><canvas class=\"exp_chart_small\" id=\"cvs%u\" width=\"460\" "
           "height=\"250\">[No canvas support]</canvas>",
@@ -622,8 +623,7 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
     if (EXECUTE[algo]) {
       char *upname = str2upper(ALGO_NAME[algo]);
       fprintf(fp, "<tr>\n");
-      fprintf(fp, "<td class=\"algo\"><b>%s</b></td>\n",
-              upname);
+      fprintf(fp, "<td class=\"algo\"><b>%s</b></td>\n", upname);
       for (il = 0; il < NumPatt; il++)
         if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
           int best = 0;

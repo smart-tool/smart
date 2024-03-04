@@ -22,15 +22,15 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef CBMC
-# undef HAVE_SHM
+#undef HAVE_SHM
 #endif
 #ifdef HAVE_SHM
-# include <sys/ipc.h>
-# include <sys/shm.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-# define key_t int
-# define shmctl(a,b,c)
+#define key_t int
+#define shmctl(a, b, c)
 #endif
 #include <sys/types.h>
 
@@ -109,11 +109,11 @@ int main(int argc, char *argv[]) {
       return 1;
     }
 #ifdef HAVE_SHM
-    key_t pkey = atoi(argv[2]); // segment name for the pattern
-    m = atoi(argv[3]);          // segment size for the pattern
-    key_t tkey = atoi(argv[4]); // segment name for the text
-    n = atoi(argv[5]);          // segment size for the text
-    key_t ekey = atoi(argv[7]); // segment name for the running time
+    key_t pkey = atoi(argv[2]);   // segment name for the pattern
+    m = atoi(argv[3]);            // segment size for the pattern
+    key_t tkey = atoi(argv[4]);   // segment name for the text
+    n = atoi(argv[5]);            // segment size for the text
+    key_t ekey = atoi(argv[7]);   // segment name for the running time
     key_t prekey = atoi(argv[8]); // preprocessing running time
     int pshmid, tshmid, eshmid, preshmid;
     /* Locate the pattern. */
@@ -182,20 +182,20 @@ int main(int argc, char *argv[]) {
   } else {
 
 #ifdef CBMC
-# define RANDCH(c) c = nondet_uint() % 256
+#define RANDCH(c) c = nondet_uint() % 256
     m = nondet_uint() % 34;
     n = nondet_uint() % 36;
-    unsigned char P[m+1];
-    unsigned char T[n+1];
+    unsigned char P[m + 1];
+    unsigned char T[n + 1];
     _CPROVER_assume(m > 0);
     _CPROVER_assume(m > 1);
     _CPROVER_assume(m < 34);
     _CPROVER_assume(n < 36);
     //_CPROVER_assume(m < n);
-    for (int i=0; i<m; i++)
+    for (int i = 0; i < m; i++)
       RANDCH(P[i]);
     P[m] = '\0';
-    for (int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
       RANDCH(T[i]);
     T[n] = '\0';
     int occ = search(P, m, T, n);
@@ -213,19 +213,21 @@ int main(int argc, char *argv[]) {
     // for SSE code, esp. ssecp for int128 mu
 #define PAD_16(x) (((x) + 15) & ~15)
     p = (unsigned char *)calloc(PAD_16(lp + 1), 1);
-    strcpy((char*)p, argv[1]);
+    strcpy((char *)p, argv[1]);
     m = atoi(argv[2]);
     // boyer-moore requires space at the end of t. (tunbm)
     t = (unsigned char *)calloc(PAD_16(lt + m + 1), 1);
-    strcpy((char*)t, argv[3]);
+    strcpy((char *)t, argv[3]);
     n = atoi(argv[4]);
     if (m > (int)lp)
-      fprintf(stderr, "Invalid 2nd arg m=%d, should be <= %u\n", m, (unsigned)lp);
+      fprintf(stderr, "Invalid 2nd arg m=%d, should be <= %u\n", m,
+              (unsigned)lp);
     if (n > (int)lt)
-      fprintf(stderr, "Invalid 4nd arg n=%d, should be <= %u\n", n, (unsigned)lt);
+      fprintf(stderr, "Invalid 4nd arg n=%d, should be <= %u\n", n,
+              (unsigned)lt);
     int occ = search(p, m, t, n);
-    free (p);
-    free (t);
+    free(p);
+    free(t);
     printf("found %d occurrences\n", occ);
     return 0;
 #endif

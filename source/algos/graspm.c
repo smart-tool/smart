@@ -84,10 +84,10 @@ int search(unsigned char *p, int m, unsigned char *t, int n) {
     j += m;
   }
   /* Freeing */
-  for (unsigned i=0; i<SIGMA; i++) {
+  for (unsigned i = 0; i < SIGMA; i++) {
     if (z[i]) {
       pos = z[i];
-      while(pos) {
+      while (pos) {
         GList *next = pos->next;
         free(pos);
         pos = next;

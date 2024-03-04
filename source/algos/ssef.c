@@ -122,7 +122,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   for (unsigned i = 0; i < 65536; i++) {
     t = flist[i];
     while (t) {
-      LIST* next = t->next;
+      LIST *next = t->next;
       free(t);
       flist[i] = NULL;
       t = next;

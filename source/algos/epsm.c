@@ -342,7 +342,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   for (unsigned i = 0; i < 2048; i++) {
     t = flist[i];
     while (t) {
-      LIST* next = t->next;
+      LIST *next = t->next;
       free(t);
       flist[i] = NULL;
       t = next;

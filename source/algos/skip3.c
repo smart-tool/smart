@@ -51,15 +51,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   memset(z, 0, DSIGMA * sizeof(List));
   const int mq = m - Q + 1;
   if (m > M_CUTOFF)
-    allocs = (List*)calloc(mq, sizeof(List));
+    allocs = (List *)calloc(mq, sizeof(List));
   for (i = 0; i < mq; ++i) {
     if (m > M_CUTOFF) {
       ptr = (List)malloc(sizeof(struct _cell));
       if (ptr == NULL)
         error("SKIP");
       allocs[i] = ptr;
-    }
-    else
+    } else
       ptr = &s_cells[i];
     ptr->element = i;
     ptr->next = z[HS(x, i)];

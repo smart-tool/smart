@@ -26,7 +26,7 @@
 #include "include/main.h"
 
 int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
-  int i, k, nd, r=0, q, s;
+  int i, k, nd, r = 0, q, s;
   int hmax[XSIZE], kmin[XSIZE], nhd0[XSIZE], rmin[XSIZE];
 
   /* Computation of hmax */

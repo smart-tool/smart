@@ -336,7 +336,7 @@ void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
         skip[ell] = m - 1 - slink[m - skip[ell] - 1];
     }
   }
- end:
+end:
   if (m > M_CUTOFF) {
     free(next);
     free(loc);
@@ -344,7 +344,8 @@ void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
   }
 }
 
-int getBcGS(unsigned char a, int i, struct _pair1 bcGsPtr[], struct _pair2 bcGsVal[]) {
+int getBcGS(unsigned char a, int i, struct _pair1 bcGsPtr[],
+            struct _pair2 bcGsVal[]) {
   int left, medium, right;
 
   left = bcGsPtr[a].ptr;

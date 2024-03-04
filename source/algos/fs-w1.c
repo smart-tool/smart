@@ -68,8 +68,7 @@ void Pre_GS(unsigned char *x, int m, int bm_gs[]) {
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, j, s1, k, count, hbcr[SIGMA], gsR[XSIZE],
-      gsL[XSIZE];
+  int i, j, s1, k, count, hbcr[SIGMA], gsR[XSIZE], gsL[XSIZE];
   unsigned char Pr[XSIZE];
 
   /* prprocessing */

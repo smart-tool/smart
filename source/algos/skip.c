@@ -38,7 +38,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   BEGIN_PREPROCESSING
   if (m > M_CUTOFF)
-    allocs = (List*)calloc(m, sizeof(List));
+    allocs = (List *)calloc(m, sizeof(List));
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, 0, SIGMA * sizeof(List));
   for (i = 0; i < m; ++i) {
@@ -47,8 +47,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       if (ptr == NULL)
         error("SKIP");
       allocs[i] = ptr;
-    }
-    else
+    } else
       ptr = &s_cells[i];
     ptr->element = i;
     ptr->next = z[x[i]];

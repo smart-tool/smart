@@ -94,7 +94,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     pos = s1;
     while ((d = (d + d) &
-            (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] | W[y[s4 + 1]]))) {
+                (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] | W[y[s4 + 1]]))) {
       --s1;
       ++s2;
       --s3;

@@ -27,7 +27,7 @@
 #include "include/main.h"
 
 #ifndef CHAR_BIT
-# define CHAR_BIT 8
+#define CHAR_BIT 8
 #endif
 #define WORD_TYPE unsigned int
 #define WORD_BITS (sizeof(WORD_TYPE) * CHAR_BIT)
@@ -95,7 +95,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       k++;
       if (D & M) {
         if (k == m1) {
-          if (!strncmp((char*)x + m1, (char*)y + j + 1, m - m1)) {
+          if (!strncmp((char *)x + m1, (char *)y + j + 1, m - m1)) {
             count++;
           }
           break;

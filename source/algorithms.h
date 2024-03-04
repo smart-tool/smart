@@ -258,7 +258,7 @@ struct algo {
 
 // Note: This part may be edited by select
 const struct algo ALGOS[] = {
-  // clang-format off
+    // clang-format off
   // Comparison based Algorithms
   [_BF] = {_BF, 1, "bf", "Brute Force", 0, 0},
   [_MP] = {_MP, 1, "mp", "Morris-Pratt", 0, 0},
@@ -514,7 +514,7 @@ const struct algo ALGOS[] = {
   [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, 1},
   [_SSECP] = {_SSECP, 0, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
   [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
-  // clang-format on
+    // clang-format on
 };
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))

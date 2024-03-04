@@ -142,7 +142,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Searching */
   BEGIN_SEARCHING
-  if (strncmp((char*)x, (char*)y, m) == 0)
+  if (strncmp((char *)x, (char *)y, m) == 0)
     OUTPUT(0);
   j = 1;
   while (j <= nMinusm) {

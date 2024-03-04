@@ -27,19 +27,19 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef HAVE_SHM
-# include <sys/ipc.h>
-# include <sys/shm.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-# define key_t int
-# define shmctl(a,b,c)
+#define key_t int
+#define shmctl(a, b, c)
 #endif
 #include <sys/types.h>
 #include <time.h>
 #include <ctype.h>
 
 #ifndef BINDIR
-# define BINDIR "bin"
+#define BINDIR "bin"
 #endif
 
 #define SIGMA 256
@@ -77,21 +77,17 @@ void printManual() {
   printf("\n\n");
 }
 
-
 int execute(
 #ifndef HAVE_SHM
-            char *algoname, unsigned char *P, int m, unsigned char *T, int n,
-            int *count
+    char *algoname, unsigned char *P, int m, unsigned char *T, int n, int *count
 #else
-            char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-            key_t ekey, key_t prekey, int *count, int alpha
+    char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
+    key_t ekey, key_t prekey, int *count, int alpha
 #endif
-            )
-{
+) {
   char command[100];
 #ifndef HAVE_SHM
-  sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname,
-          P, m, T, n);
+  sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname, P, m, T, n);
 #else
   (void)alpha;
   sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR, algoname,
@@ -130,8 +126,8 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   char *pP = NULL;
   char *pT = NULL;
   if (VERBOSE) {
-    pP = printable((char*)P);
-    pT = printable((char*)T);
+    pP = printable((char *)P);
+    pT = printable((char *)T);
 #ifdef DEBUG
     printf("\t%d bin/%s %s %d %s %d ", *rip, algoname, pP, m, pT, n);
 #endif
@@ -139,9 +135,15 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
   int occur1 = search(P, m, T, n);
 #ifndef HAVE_SHM
   int occur2 = execute(algoname, P, m, T, n, count);
-  (void)pkey; (void)tkey; (void)rkey; (void)ekey; (void)prekey; (void)tkey;
-#else  
-  int occur2 = execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
+  (void)pkey;
+  (void)tkey;
+  (void)rkey;
+  (void)ekey;
+  (void)prekey;
+  (void)tkey;
+#else
+  int occur2 =
+      execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
 #endif
   (void)parameter;
 
@@ -161,7 +163,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
       free(pT);
     }
     free_shm();
-    (*rip)++;  //NOLINT(clang-analyzer-unix.Malloc)
+    (*rip)++; //NOLINT(clang-analyzer-unix.Malloc)
     return 0;
   } else {
     if (VERBOSE) {
@@ -172,18 +174,17 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
       free(pT);
     }
   }
-  (*rip)++;  //NOLINT(clang-analyzer-unix.Malloc)
+  (*rip)++; //NOLINT(clang-analyzer-unix.Malloc)
   return 1;
 }
 
 #ifdef PRETTY_RANDCH
-#define RANDCH(c)            \
-  do {                       \
-    c = (rand() % 74) + '0'; \
+#define RANDCH(c)                                                              \
+  do {                                                                         \
+    c = (rand() % 74) + '0';                                                   \
   } while (!isalnum(c))
 #else
-#define RANDCH(c)            \
-  c = rand() % 256
+#define RANDCH(c) c = rand() % 256
 #endif
 
 int main(int argc, char *argv[]) {
@@ -212,7 +213,8 @@ int main(int argc, char *argv[]) {
   }
   fclose(fp);
   if (id < 0) {
-    printf("\n\tWARNING: unregistered algo %s\nDon't known which minlen tests to skip\n",
+    printf("\n\tWARNING: unregistered algo %s\nDon't known which minlen tests "
+           "to skip\n",
            algoname);
     minlen = 0;
   } else {
@@ -326,7 +328,7 @@ int main(int argc, char *argv[]) {
   }
 #else
   int *count;
-  key_t  pkey, tkey, rkey, ekey, prekey;
+  key_t pkey, tkey, rkey, ekey, prekey;
 #endif
 
   // begin testing
@@ -377,7 +379,7 @@ int main(int argc, char *argv[]) {
                  prekey, alpha, parameter))
       exit(1);
   }
-    
+
   // 3) search for "aaaaaaaaaa" in "aaaaaaaaaa"
   strcpy((char *)P, "aaaaaaaaaa");
   strcpy((char *)T, "aaaaaaaaaa");
@@ -411,7 +413,7 @@ int main(int argc, char *argv[]) {
                  prekey, alpha, parameter))
       exit(1);
   }
-    
+
   // 7) search for "aba" in "ababababab"
   if (!minlen || minlen < 3) {
     strcpy((char *)P, "aba");
@@ -497,7 +499,7 @@ int main(int argc, char *argv[]) {
   if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
                prekey, alpha, parameter))
     exit(1);
-  
+
   // 16) search for a*32 in a*64
   for (h = 0; h < 64; h++)
     T[h] = 'a';

@@ -90,8 +90,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   while (s1 <= s2 || s3 <= s4 || s5 <= s6 || s7 <= s8) {
     i = 0;
     c = x[0];
-    while (c == y[s1 + i] || c == y[s2 + i] || c == y[s3 + i] || c == y[s4 + i] ||
-           c == y[s5 + i] || c == y[s6 + i] || c == y[s7 + i] || c == y[s8 + i])
+    while (c == y[s1 + i] || c == y[s2 + i] || c == y[s3 + i] ||
+           c == y[s4 + i] || c == y[s5 + i] || c == y[s6 + i] ||
+           c == y[s7 + i] || c == y[s8 + i])
       c = x[++i];
     if (i >= m) {
       if (s1 < l2 && !memcmp(x, y + s1, m)) {

@@ -26,8 +26,8 @@
 
 void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
            int rcGs[]) {
-  int a, i, j, k, q, r = 0, s, hmin[XSIZE], kmin[XSIZE], link[XSIZE], locc[SIGMA],
-      rmin[XSIZE];
+  int a, i, j, k, q, r = 0, s, hmin[XSIZE], kmin[XSIZE], link[XSIZE],
+                     locc[SIGMA], rmin[XSIZE];
 
   for (a = 0; a < SIGMA; ++a)
     locc[a] = -1;

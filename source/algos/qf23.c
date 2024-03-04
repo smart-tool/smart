@@ -50,7 +50,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-    for (i = 0; i < (int)ASIZE; i++)
+  for (i = 0; i < (int)ASIZE; i++)
     B[i] = 0;
   ch = 0;
   for (i = m - 1; i >= 0; i--) {

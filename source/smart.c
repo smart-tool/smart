@@ -32,12 +32,12 @@ unsigned int MINLEN = 1,
 #include <stdlib.h>
 #include <string.h>
 #ifndef _WIN32
-# include <sys/ipc.h>
-# include <sys/shm.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-# define key_t int
-# define shmctl(a,b,c)
+#define key_t int
+#define shmctl(a, b, c)
 #endif
 #include <sys/stat.h>
 #include <time.h>
@@ -46,7 +46,7 @@ unsigned int MINLEN = 1,
 #include "timer.h"
 
 #ifndef BINDIR
-# define BINDIR "bin"
+#define BINDIR "bin"
 #endif
 
 void printManual() {
@@ -127,7 +127,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     while (i < TSIZE && (c = getc(index)) != EOF) {
       if (c == '#') {
         char filename[100];
-        strncpy(filename, path, sizeof(filename)-1);
+        strncpy(filename, path, sizeof(filename) - 1);
         j = strlen(filename);
         filename[j++] = '/';
         while ((c = getc(index)) != '#')
@@ -165,15 +165,16 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   return i;
 }
 
-int execute(int algo, key_t pkey, int m, key_t tkey, int n,
-            key_t rkey, key_t ekey, key_t prekey,
-            int *count, int alpha) {
+int execute(int algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
+            key_t ekey, key_t prekey, int *count, int alpha) {
   char command[100];
   (void)alpha;
 #ifdef _WIN32
-  (void)rkey; (void)ekey; (void)prekey;
-  sprintf(command, "./%s/%s %d %d %d %d", BINDIR, ALGO_NAME[algo],
-          pkey, m, tkey, n);
+  (void)rkey;
+  (void)ekey;
+  (void)prekey;
+  sprintf(command, "./%s/%s %d %d %d %d", BINDIR, ALGO_NAME[algo], pkey, m,
+          tkey, n);
 #else
   sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR,
           ALGO_NAME[algo], pkey, m, tkey, n, rkey, ekey, prekey);
@@ -222,8 +223,8 @@ void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
 /********************************************************/
 
 int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
-                int *FREQ, unsigned VOLTE, int occ, int pre, int dif, char *code,
-                int tshmid, int txt, int tex, int php,
+                int *FREQ, unsigned VOLTE, int occ, int pre, int dif,
+                char *code, int tshmid, int txt, int tex, int php,
                 unsigned char *simplePattern, int std, int limit,
                 char *time_format) {
   // performs experiments on a text
@@ -532,10 +533,10 @@ int main(int argc, const char *argv[]) {
   int std = 0;     // set to 1 for printing the standard deviation value
   int limit = 300; // set to 300 running time bound
   unsigned char simplePattern[100]; // used for the simple run of SMART
-  unsigned char simpleText[1000]; // used for the simple run of SMART
+  unsigned char simpleText[1000];   // used for the simple run of SMART
   /* useful variables */
-  unsigned char *T = NULL;   // text and pattern
-  int n, tshmid = 0; // length of the text
+  unsigned char *T = NULL; // text and pattern
+  int n, tshmid = 0;       // length of the text
   //FILE *ip;           // file pointer for input text
   char parameter[1000];
 
@@ -598,7 +599,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter)-1);
+      strncpy(parameter, argv[par++], sizeof(parameter) - 1);
       strncat(filename, parameter, SZNCAT(filename));
     }
     if (par < argc && !strcmp("-plen", argv[par])) {
@@ -650,7 +651,7 @@ int main(int argc, const char *argv[]) {
         goto end;
       }
       //xxNOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
-      strncpy((char*)simpleText, argv[par++], SZNCPY(simpleText));
+      strncpy((char *)simpleText, argv[par++], SZNCPY(simpleText));
       SIMPLE = 1;
     }
     if (par < argc && !strcmp("-occ", argv[par])) {
@@ -848,17 +849,17 @@ int main(int argc, const char *argv[]) {
   }
 
   // free shared memory
- end_shm:
+end_shm:
 #ifndef _WIN32
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
 #endif
   // free other allocated memory
- end:
+end:
   return 0;
 
 #ifndef _WIN32
- end_1:
+end_1:
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
   return 1;

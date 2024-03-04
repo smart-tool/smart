@@ -93,14 +93,14 @@ int main(int argc, const char *argv[]) {
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
-          else if (res && !ALGOS[i].missing) { // not there and not marked as missing
-            printf("\tFAIL missing %s\n", buf); ret++;
-          }
-          else if (!res && ALGOS[i].missing) { // there and marked as missing
+          else if (res &&
+                   !ALGOS[i].missing) { // not there and not marked as missing
+            printf("\tFAIL missing %s\n", buf);
+            ret++;
+          } else if (!res && ALGOS[i].missing) { // there and marked as missing
             printf("\tFAIL exist %s, but marked as missing\n", buf);
             ret++;
-          }
-          else
+          } else
             printf("\n");
         }
       return ret;
@@ -124,15 +124,14 @@ int main(int argc, const char *argv[]) {
           int res = stat(buf, &st);
           if (res && ALGOS[i].missing) // not there, and marked as missing
             printf("\t(missing %s)\n", buf);
-          else if (res && !ALGOS[i].missing) { // not there and not marked as missing
+          else if (res &&
+                   !ALGOS[i].missing) { // not there and not marked as missing
             printf("\tFAIL missing %s\n", buf);
             ret++;
-          }
-          else if (!res && ALGOS[i].missing) { // there and marked as missing
+          } else if (!res && ALGOS[i].missing) { // there and marked as missing
             printf("\tFAIL exist %s, but marked as missing\n", buf);
             ret++;
-          }
-          else
+          } else
             printf("\n");
         }
       printf("\n");
@@ -146,8 +145,8 @@ int main(int argc, const char *argv[]) {
         free(execute);
         return 0;
       }
-      char *algo = (char*)argv[par++];
-      strncpy(filename, algo, sizeof(filename)-1);
+      char *algo = (char *)argv[par++];
+      strncpy(filename, algo, sizeof(filename) - 1);
       char path[50] = "bin/";
       strncat(path, algo, SZNCAT(path));
       FILE *fp = fopen(path, "r");
@@ -194,7 +193,7 @@ int main(int argc, const char *argv[]) {
       }
       char *algo = (char *)argv[par++];
 
-      strncpy(filename, algo, sizeof(filename)-1);
+      strncpy(filename, algo, sizeof(filename) - 1);
       char path[50] = "bin/";
       strncat(path, filename, SZNCAT(path));
       FILE *fp = fopen(path, "r");

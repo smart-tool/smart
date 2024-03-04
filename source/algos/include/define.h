@@ -33,11 +33,11 @@
 #define M_CUTOFF 32 // when to switch to malloc
 
 #ifdef __GNUC__
-# define ATTRIBUTE_MALLOC __attribute__ ((malloc))
+#define ATTRIBUTE_MALLOC __attribute__((malloc))
 #else
-# define ATTRIBUTE_MALLOC
+#define ATTRIBUTE_MALLOC
 #endif
 
 #if !(defined(_WIN32) || defined(__AVR__))
-# define HAVE_SHM
+#define HAVE_SHM
 #endif

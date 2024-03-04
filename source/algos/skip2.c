@@ -50,7 +50,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   List *allocs = NULL;
   const int mq = m - Q + 1;
   if (m > M_CUTOFF)
-    allocs = (List*)calloc(mq, sizeof(List));
+    allocs = (List *)calloc(mq, sizeof(List));
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(z, 0, DSIGMA * sizeof(List));
   for (i = 0; i < mq; ++i) {
@@ -59,8 +59,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       if (ptr == NULL)
         error("SKIP");
       allocs[i] = ptr;
-    }
-    else
+    } else
       ptr = &s_cells[i];
     ptr->element = i;
     assert(HS(x, i) < DSIGMA);

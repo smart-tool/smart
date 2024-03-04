@@ -25,79 +25,78 @@
 #include "include/define.h"
 #include "include/main.h"
 
-int preColussi(unsigned char *x, int m, int h[], int next[],
-               int shift[]) {
-   int i, k, nd, q, r=0, s;
-   int hmax[XSIZE], kmin[XSIZE], nhd0[XSIZE], rmin[XSIZE];
+int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
+  int i, k, nd, q, r = 0, s;
+  int hmax[XSIZE], kmin[XSIZE], nhd0[XSIZE], rmin[XSIZE];
 
-   /* Computation of hmax */
-   i = k = 1;
-   do {
-      while (x[i] == x[i - k])
-         i++;
-      hmax[k] = i;
-      q = k + 1;
-      while (hmax[q - k] + k < i) {
-         hmax[q] = hmax[q - k] + k;
-         q++;
-      }
-      k = q;
-      if (k == i + 1)
-         i = k;
-   } while (k <= m);
+  /* Computation of hmax */
+  i = k = 1;
+  do {
+    while (x[i] == x[i - k])
+      i++;
+    hmax[k] = i;
+    q = k + 1;
+    while (hmax[q - k] + k < i) {
+      hmax[q] = hmax[q - k] + k;
+      q++;
+    }
+    k = q;
+    if (k == i + 1)
+      i = k;
+  } while (k <= m);
 
-   /* Computation of kmin */
-   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-   memset(kmin, 0, m * sizeof(int));
-   for (i = m; i >= 1; --i)
-      if (hmax[i] < m)
-         kmin[hmax[i]] = i;
+  /* Computation of kmin */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(kmin, 0, m * sizeof(int));
+  for (i = m; i >= 1; --i)
+    if (hmax[i] < m)
+      kmin[hmax[i]] = i;
 
-   /* Computation of rmin */
-   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-   memset(rmin, 0, m * sizeof(int));
-   for (i = m - 1; i >= 0; --i) {
-      if (hmax[i + 1] == m)
-         r = i + 1;
-      if (kmin[i] == 0)
-         rmin[i] = r;
-      else
-         rmin[i] = 0;
-   }
+  /* Computation of rmin */
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(rmin, 0, m * sizeof(int));
+  for (i = m - 1; i >= 0; --i) {
+    if (hmax[i + 1] == m)
+      r = i + 1;
+    if (kmin[i] == 0)
+      rmin[i] = r;
+    else
+      rmin[i] = 0;
+  }
 
-   /* Computation of h */
-   s = -1;
-   r = m;
-   for (i = 0; i < m; ++i)
-      if (kmin[i] == 0)
-         h[--r] = i;
-      else
-         h[++s] = i;
-   nd = s;
- 
-   /* Computation of shift */
-   for (i = 0; i <= nd; ++i)
-      shift[i] = kmin[h[i]];
-   for (i = nd + 1; i < m; ++i)
-      shift[i] = rmin[h[i]];
-   shift[m] = rmin[0];
+  /* Computation of h */
+  s = -1;
+  r = m;
+  for (i = 0; i < m; ++i)
+    if (kmin[i] == 0)
+      h[--r] = i;
+    else
+      h[++s] = i;
+  nd = s;
 
-   /* Computation of nhd0 */
-   s = 0;
-   for (i = 0; i < m; ++i) {
-      nhd0[i] = s;
-      if (kmin[i] > 0)
-         ++s;
-   }
+  /* Computation of shift */
+  for (i = 0; i <= nd; ++i)
+    shift[i] = kmin[h[i]];
+  for (i = nd + 1; i < m; ++i)
+    shift[i] = rmin[h[i]];
+  shift[m] = rmin[0];
 
-   /* Computation of next */
-   for (i = 0; i <= nd; ++i)
-      next[i] = nhd0[h[i] - kmin[h[i]]];
-   for (i = nd + 1; i < m; ++i)
-      next[i] = nhd0[m - rmin[h[i]]];
-   next[m] = nhd0[m - rmin[h[m - 1]]];
+  /* Computation of nhd0 */
+  s = 0;
+  for (i = 0; i < m; ++i) {
+    nhd0[i] = s;
+    if (kmin[i] > 0)
+      ++s;
+  }
 
-   return(nd);
+  /* Computation of next */
+  for (i = 0; i <= nd; ++i)
+    next[i] = nhd0[h[i] - kmin[h[i]]];
+  for (i = nd + 1; i < m; ++i)
+    next[i] = nhd0[m - rmin[h[i]]];
+  next[m] = nhd0[m - rmin[h[m - 1]]];
+
+  return (nd);
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -132,33 +131,33 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   i = j = heavy = 0;
   last = -1;
   while (j <= n - m) {
-      if (heavy && i == 0) {
-          k = last - j + 1;
-          while (x[0] == y[j + k])
-              k++;
-          if (k <= ell || x[ell + 1] != y[j + k]) {
-              i = 0;
-              j += (k + 1);
-              last = j - 1;
-          } else {
-              i = 1;
-              last = j + k;
-              j = last - (ell + 1);
-          }
-          heavy = 0;
+    if (heavy && i == 0) {
+      k = last - j + 1;
+      while (x[0] == y[j + k])
+        k++;
+      if (k <= ell || x[ell + 1] != y[j + k]) {
+        i = 0;
+        j += (k + 1);
+        last = j - 1;
       } else {
-          while (i < m && last < j + h[i] && x[h[i]] == y[j + h[i]])
-              ++i;
-          if (i >= m || last >= j + h[i]) {
-              OUTPUT(j);
-              i = m;
-          }
-          if (i > nd)
-              last = j + m - 1;
-          j += shift[i];
-          i = next[i];
+        i = 1;
+        last = j + k;
+        j = last - (ell + 1);
       }
-      heavy = (j > last ? 0 : 1);
+      heavy = 0;
+    } else {
+      while (i < m && last < j + h[i] && x[h[i]] == y[j + h[i]])
+        ++i;
+      if (i >= m || last >= j + h[i]) {
+        OUTPUT(j);
+        i = m;
+      }
+      if (i > nd)
+        last = j + m - 1;
+      j += shift[i];
+      i = next[i];
+    }
+    heavy = (j > last ? 0 : 1);
   }
   END_SEARCHING
   return count;

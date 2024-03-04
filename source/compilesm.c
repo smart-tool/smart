@@ -48,13 +48,13 @@ int main(int argc, char **argv) {
 #ifdef BINDIR
   strncpy(destdir, BINDIR, sizeof(destdir) - 2);
   strncat(destdir, "/", SZNCAT(destdir));
-# ifndef _WIN32
+#ifndef _WIN32
   mkdir(destdir, 0775);
-# else
+#else
   mkdir(destdir);
-# endif
 #endif
-  
+#endif
+
   int doTest = 0;
   if (argc > 1) {
     if (!strcmp(argv[1], "dotest")) {
@@ -72,10 +72,10 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, SZNCPY(filename));
-      filename[sizeof(filename)-1] = '\0';
+      filename[sizeof(filename) - 1] = '\0';
       if (*filename && *filename == '.')
         continue;
-      snprintf(command, sizeof(command)-1, "%s%s", destdir, filename);
+      snprintf(command, sizeof(command) - 1, "%s%s", destdir, filename);
       remove(command);
     }
     closedir(d);
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, SZNCPY(filename));
-      filename[sizeof(filename)-1] = '\0';
+      filename[sizeof(filename) - 1] = '\0';
       int len = strlen(filename);
       if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.') {
         n_algo++;
@@ -103,23 +103,22 @@ int main(int argc, char **argv) {
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, SZNCPY(filename));
-      filename[sizeof(filename)-1] = '\0';
+      filename[sizeof(filename) - 1] = '\0';
       int len = strlen(filename);
-      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.'
-          && filename[0] != '.' && filename[1] != '#') {
+      if (len > 2 && filename[len - 1] == 'c' && filename[len - 2] == '.' &&
+          filename[0] != '.' && filename[1] != '#') {
         filename[len - 2] = '\0';
         current++;
 #if !defined __x86_64__ || !defined __SSE__
         // skip SSE specific algos
-        if (!strcmp(filename, "epsm") ||
-            !strcmp(filename, "ssecp") ||
+        if (!strcmp(filename, "epsm") || !strcmp(filename, "ssecp") ||
             !strcmp(filename, "ssef")) {
           printf("\tSkipped %s.c", filename);
           continue;
         }
 #endif
         // compile
-        snprintf(command, sizeof(command)-1, "%s%s.c%s -o %s%s", gcc,
+        snprintf(command, sizeof(command) - 1, "%s%s.c%s -o %s%s", gcc,
                  filename, options, destdir, filename);
         if (doTest)
           printf("\tCompiling and testing %s.c", filename);
@@ -151,7 +150,7 @@ int main(int argc, char **argv) {
             fflush(stdout);
             if (doTest) {
               // testing correctness of the algorithm
-              snprintf(command, sizeof(command)-1, "./test %s -nv", filename);
+              snprintf(command, sizeof(command) - 1, "./test %s -nv", filename);
               // printf("\b\b\b\b\b[000%]");
               fflush(stdout);
               if (system(command)) {
