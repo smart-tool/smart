@@ -1,5 +1,6 @@
 CC      := gcc
 MACHINE := $(shell uname -m)
+# fixme: detect mingw
 ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
 BINDIR  = bin
 ifneq ($(ARCH),x86_64)
@@ -21,6 +22,7 @@ ifneq ($(ARCH),$(MACHINE))
 else
   DRV =
 endif
+ALLSRC  = $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h) $(wildcard source/algos/include/*.h)
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
 HELPERS = smart show select test textgen compilesm
 TESTS := $(shell shuf -n 6 good.lst)
@@ -30,10 +32,10 @@ endif
 
 all: $(BINS) $(HELPERS)
 
-$(BINDIR)/%: source/algos/%.c source/algos/include/*.h
+$(BINDIR)/%: source/algos/%.c $(wildcard source/algos/include/*.h)
 	@test -d $(BINDIR) || mkdir $(BINDIR)
 	$(CC) $(CFLAGS) $< -o $@
-./%: source/%.c source/*.h
+./%: source/%.c $(wildcard source/*.h)
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
 select: source/selectAlgo.c
 	$(CC) $(CFLAGS) $< -o $@
@@ -52,7 +54,7 @@ check: all
 	for t in $(TESTS); do echo $$t; ./test $$t; done
 	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
-sanitizer.log: $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
+sanitizer.log: $(ALLSRC)
 	-rm -f sanitizer.log 2>/dev/null
 	./sanitizer.sh 2>sanitizer.log
 lint: cppcheck clang-tidy
@@ -63,7 +65,7 @@ cppcheck:
 compile_commands.json: GNUmakefile
 	-+$(MAKE) clean
 	bear -- $(MAKE)
-clang-tidy.log: compile_commands.json $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h)
+clang-tidy.log: compile_commands.json $(ALLSRC)
 	clang-tidy source/*.c source/algos/*.c | tee clang-tidy.log
 clang-tidy: clang-tidy.log
 
@@ -81,6 +83,6 @@ fmt:
 	clang-format -i `find source -name \*.c -o -name \*.h`
 clean:
 	-rm -f $(BINS) $(HELPERS) 2>/dev/null
-TAGS: $(ALGOS)
+TAGS: $(ALLSRC)
 	-rm -f TAGS 2>/dev/null
 	find . \( -name \*.c -o -name \*.h \) -exec etags -a --language=c \{\} \;
