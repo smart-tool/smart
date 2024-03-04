@@ -127,7 +127,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     while (i < TSIZE && (c = getc(index)) != EOF) {
       if (c == '#') {
         char filename[100];
-        strncpy(filename, path, sizeof(filename) - 1);
+        strncpy(filename, path, SZNCPY(filename));
         j = strlen(filename);
         filename[j++] = '/';
         while ((c = getc(index)) != '#')
@@ -599,8 +599,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      strncpy(parameter, argv[par++], sizeof(parameter) - 1);
-      strncat(filename, parameter, SZNCAT(filename));
+      strncat(filename, argv[par++], SZNCAT(filename));
     }
     if (par < argc && !strcmp("-plen", argv[par])) {
       par++;
@@ -788,8 +787,7 @@ int main(int argc, const char *argv[]) {
       printf("\n\tTry to process archive (%d/%d) %s\n", k + 1, num_buffers,
              list_of_filenames[k]);
       char fullpath[100];
-      strncpy(fullpath, "data/", SZNCPY(fullpath));
-      strncat(fullpath, list_of_filenames[k], SZNCAT(fullpath));
+      snprintf(fullpath, sizeof(fullpath), "data/%s", list_of_filenames[k]);
       // initialize the frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
         goto end_shm;
