@@ -756,7 +756,7 @@ int main(int argc, const char *argv[]) {
     printf("\n\tText of %d chars : %s\n", n, T);
     printf("\tPattern of %d chars : %s\n", m, simplePattern);
     srand(time(NULL));
-    char expcode[100];
+    char expcode[32];
     generateCode(expcode);
 
     time_t date_timer;
@@ -779,7 +779,7 @@ int main(int argc, const char *argv[]) {
     int num_buffers = split_filelist(filename, list_of_filenames);
 
     srand(time(NULL));
-    char expcode[100];
+    char expcode[32];
     generateCode(expcode);
     printf("\tStarting experimental tests with code %s\n", expcode);
 
@@ -817,7 +817,7 @@ int main(int argc, const char *argv[]) {
     char list_of_filenames[NumSetting][50];
     int num_buffers = split_filelist(filename, list_of_filenames);
     srand(time(NULL));
-    char expcode[100];
+    char expcode[32];
     generateCode(expcode);
     printf("\tStarting experimental tests with code %s\n", expcode);
     for (unsigned sett = 0; sett < NumSetting; sett++) {
