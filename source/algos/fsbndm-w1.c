@@ -25,8 +25,8 @@
 
  We also request that use of this software be cited in publications as
 
- Simone Faro ad Thierry Lecroq,
- "Multiple Sliding Windows Algorithms for Searching Texts on Large Alphabets"
+ Simone Faro and Thierry Lecroq,
+ "A multiple sliding windows approach to speed up string matching algorithms"
  SEA 2012 - 11th International Symposium on Experimental Algorithms
 
  THIS SOFTWARE IS PROVIDED BY THE ORIGINAL AUTHOR ``AS IS'' AND  ANY
@@ -41,6 +41,7 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
+ * Good for m>=16 and m<128
  * Constraints: inexact for m>31
  */
 

@@ -16,7 +16,7 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * This is an implementation of the Forward Semplified BNDM algorithm
+ * This is an implementation of the Forward Simplified BNDM algorithm
  * in S. Faro and T. Lecroq.
  * Efficient Variants of the Backward-Oracle-Matching Algorithm.
  * Proceedings of the Prague Stringology Conference 2008, pp.146--160, Czech
