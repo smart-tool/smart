@@ -486,11 +486,11 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   if (!SIMPLE) {
     fclose(stream);
     printf("\tOUTPUT RUNNING TIMES %s\n", code);
-    if (txt)
-      outputTXT(TIME, alpha, filename, code, time_format);
     outputXML(TIME, alpha, filename, code);
     outputHTML2(PRE_TIME, TIME, BEST, WORST, STD, pre, dif, alpha, n, VOLTE,
                 filename, code, time_format);
+    if (txt)
+      outputTXT(TIME, alpha, filename, code, time_format);
     if (tex)
       outputLatex(TIME, alpha, filename, code, time_format);
     if (php)

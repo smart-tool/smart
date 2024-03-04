@@ -60,16 +60,12 @@ int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
   FILE *fp;
   char outname[100];
   (void)alpha;
-  // printing results in txt format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
+  // printing results in PHP format
+  snprintf(outname, sizeof(outname), "results/%s/%s.php", expcode, filename);
   // mkdir(outname,S_IROTH);
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".php");
-  printf("\tSaving data on %s/%s.php\n", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.txt\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   fprintf(fp, "<?\n$%s = array(\n", filename);
@@ -138,16 +134,11 @@ int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   char outname[100];
   (void)alpha;
   (void)time_format;
-  // printing results in txt format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
-  // mkdir(outname,S_IROTH);
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".txt");
-  printf("\tSaving data on %s/%s.txt\n", expcode, filename);
+  // printing results in txt format. dir already exists
+  snprintf(outname, sizeof(outname), "results/%s/%s.txt", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.txt\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   for (algo = 0; algo < NumAlgo; algo++) {
@@ -184,15 +175,10 @@ int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
   (void)alpha;
   (void)time_format;
   // printing results in latex format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
-  // mkdir(outname,S_IROTH);
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".tex");
-  printf("\tSaving data on %s/%s.tex\n", expcode, filename);
+  snprintf(outname, sizeof(outname), "results/%s/%s.tex", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.txt\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   unsigned int start = 0;
@@ -246,19 +232,16 @@ int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
       BEST[il] = best;
     }
   // printing results in xml format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
 #ifndef _WIN32
   mkdir(outname, S_IROTH);
 #else
   mkdir(outname);
 #endif
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".xml");
-  printf("\tSaving data on %s/%s.xml\n", expcode, filename);
+  snprintf(outname, sizeof(outname), "results/%s/%s.xml", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.xml\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   fprintf(fp, "<RESULTS>\n\t<CODE>%s</CODE>\n\t<TEXT>%s</TEXT>\n", expcode,
@@ -559,20 +542,17 @@ int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
         }
     }
 
-  // printing results in html format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
+  // printing results in html2 format
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
 #ifndef _WIN32
   mkdir(outname, S_IROTH);
 #else
   mkdir(outname);
 #endif
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".html");
-  printf("\tSaving data on %s/%s.html\n", expcode, filename);
+  snprintf(outname, sizeof(outname), "results/%s/%s.html", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.html\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   fprintf(fp, "<!DOCTYPE html><html><head>");
@@ -819,19 +799,16 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
   (void)pre;
 
   // printing results in html format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
 #ifndef _WIN32
   mkdir(outname, S_IROTH);
 #else
   mkdir(outname);
 #endif
-  strcat(outname, "/");
-  strcat(outname, filename);
-  strcat(outname, ".html");
-  printf("\tSaving data on %s/%s.html\n", expcode, filename);
+  snprintf(outname, sizeof(outname), "results/%s/%s.html", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
-    printf("\tError in writing file %s/%s.html\n", expcode, filename);
+    printf("\tError in writing file %s\n", outname);
     return 0;
   }
   fprintf(fp, "<html>\n\
@@ -897,15 +874,14 @@ int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers,
   FILE *fp;
   char outname[100];
   // printing results in html format
-  strcpy(outname, "results/");
-  strcat(outname, expcode);
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
 #ifndef _WIN32
   mkdir(outname, S_IROTH);
 #else
   mkdir(outname);
 #endif
-  strcat(outname, "/index.html");
-  printf("\tWriting %s/index.html\n", expcode);
+  strncat(outname, "/index.html", SZNCAT(outname));
+  printf("\tWriting %s\n", outname);
   if (!(fp = fopen(outname, "w"))) {
     printf("\tError in writing file %s/index.html\n", expcode);
     return 0;
