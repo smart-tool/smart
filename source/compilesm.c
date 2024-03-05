@@ -36,7 +36,7 @@
 
 int main(int argc, char **argv) {
   int i;
-  char filename[300], command[512], binary[100];
+  char filename[300], command[1024], binary[100];
   char destdir[100] = "bin/";
   char gcc[100] = "gcc source/algos/";
   char options[100] = " -O3";

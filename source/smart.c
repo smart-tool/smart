@@ -786,7 +786,7 @@ int main(int argc, const char *argv[]) {
     for (int k = 0; k < num_buffers; k++) {
       printf("\n\tTry to process archive (%d/%d) %s\n", k + 1, num_buffers,
              list_of_filenames[k]);
-      char fullpath[100];
+      char fullpath[800];
       snprintf(fullpath, sizeof(fullpath), "data/%s", list_of_filenames[k]);
       // initialize the frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
