@@ -101,7 +101,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     k = k + m - R;
   }
-  END_SEARCHING
+
   if (m > M_CUTOFF) {
     free(ttransSMA);
     free(tterminal);
@@ -110,5 +110,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     free(ttrans);
     free(xR);
   }
+  END_SEARCHING
   return count;
 }

@@ -190,6 +190,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     j += shift;
   }
+
   if (m > M_CUTOFF) {
     free(tterminal);
     free(tsuffix);

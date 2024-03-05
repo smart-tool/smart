@@ -73,7 +73,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     while (i < m && x[i] == y[s + i])
       i++;
     if (i >= m)
-      count++;
+      OUTPUT(s);
     s += (i - kmp[i]);
   }
   END_SEARCHING

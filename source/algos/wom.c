@@ -80,7 +80,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
     while (i < m && P[i] == T[s + i])
       i++;
     if (i == m)
-      count++;
+      OUTPUT(s);
     s += wo[T[s + q]];
   }
   END_SEARCHING

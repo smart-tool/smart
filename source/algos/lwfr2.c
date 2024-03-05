@@ -117,7 +117,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           tp++;
         }
         if (st == plen && lf <= n - plen)
-          count++;
+          OUTPUT(lf);
         st = kmpNext[st];
         if (st < 0) {
           st++;

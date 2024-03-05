@@ -79,11 +79,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       --i;
     }
     if (i < 0) {
-      count++;
+      OUTPUT(j);
       ++j;
     }
     j += (i + 1);
   }
+
+  /* Freeing */
   if (allocated) {
     for (i = 0; i <= m + 1; i++)
       free(trans[i]);

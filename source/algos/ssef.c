@@ -41,14 +41,14 @@ typedef struct list {
   int pos;
 } LIST;
 
-int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
+int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned char s_f[M_CUTOFF];
   LIST *flist[65536];
-  // TODO Plen flist sublists
+  // TODO m flist sublists
   LIST *t;
 
-  if (Plen < 32)
-    return search_small(x, Plen, y, Tlen);
+  if (m < 32)
+    return search_small(x, m, y, n);
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(flist, 0, sizeof(LIST *) * 65536);
   //__m128i tmp128;
@@ -61,16 +61,16 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
   unsigned int count = 0;
   unsigned int i, last, j;
   __m128i *ptr16;
-  __m128i *lastchunk = &T.data16[Tlen / 16];
+  __m128i *lastchunk = &T.data16[n / 16];
   unsigned int filter;
   unsigned char *f;
-  if (Plen > M_CUTOFF)
-    f = malloc(Plen);
+  if (m > M_CUTOFF)
+    f = malloc(m);
   else
     f = s_f;
 
-  last = (Plen / 16) - 1;
-  for (i = 0; i < (unsigned)Plen; i++) {
+  last = (m / 16) - 1;
+  for (i = 0; i < (unsigned)m; i++) {
     f[i] = (x[i] & 0x80) >> 7;
   }
   count = 15;
@@ -96,7 +96,7 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
       t->pos = i;
     }
   }
-  if (Plen > M_CUTOFF)
+  if (m > M_CUTOFF)
     free(f);
   END_PREPROCESSING
 
@@ -111,13 +111,14 @@ int search(unsigned char *x, int Plen, unsigned char *y, int Tlen) {
       i = ((ptr16 - &T.data16[0]) - last) * 16;
       t = flist[filter];
       while (t) {
-        if (memcmp(x, &T.data[i + t->pos], Plen) == 0)
-          count++;
+        if (memcmp(x, &T.data[i + t->pos], m) == 0)
+          OUTPUT(i + t->pos);
         t = t->next;
       }
     }
     ptr16 += last;
   }
+
   // free all flist's
   for (unsigned i = 0; i < 65536; i++) {
     t = flist[i];

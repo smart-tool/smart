@@ -74,10 +74,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         //k = 0;
         h = j - ptr->element;
         if (!memcmp(x, y + h, m))
-          count++;
+          OUTPUT(h);
       }
     }
   }
+
   /* Freeing */
   if (m > M_CUTOFF) {
     for (i = 0; i < mq; ++i) {

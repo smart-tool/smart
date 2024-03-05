@@ -62,7 +62,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     while (i < m && x[v[i]] == y[s + v[i]])
       i++;
     if (i == m)
-      count++;
+      OUTPUT(s);
     s += hbc[y[s + m - 1]];
   }
   END_SEARCHING

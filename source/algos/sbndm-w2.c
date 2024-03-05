@@ -99,12 +99,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (i < plen && x[i] == y[s1 + i])
         i++;
       if (i == plen && s1 + m1 < s2)
-        count++;
+        OUTPUT(s1);
       i = 0;
       while (i < plen && x[i] == y[s2 - m1 + i])
         i++;
       if (i == plen && s1 + m1 <= s2)
-        count++;
+        OUTPUT(s1);
     }
     s1 += m;
     s2 -= m;

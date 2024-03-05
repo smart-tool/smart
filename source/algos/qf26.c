@@ -81,7 +81,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           j = n - m;
         for (; k <= j; k++) {
           if (memcmp(y + k, x, m) == 0)
-            count++;
+            OUTPUT(k);
         }
       }
     }

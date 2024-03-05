@@ -64,31 +64,25 @@ int FindBadPos(unsigned char *P, int m) {
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
   int i, s, count, bc[SIGMA], pos;
+
   BEGIN_PREPROCESSING
   pos = FindBadPos(P, m);
   PreBadPosBC(P, /*m,*/ bc, pos);
-
   for (i = 0; i < m; i++)
     T[n + i] = P[i];
   END_PREPROCESSING
+
   BEGIN_SEARCHING
   s = 0;
-
   count = 0;
-
   while (s <= n - m) {
-
     i = 0;
-
     while (i < m && P[i] == T[s + i])
       i++;
-
     if (i == m)
-      count++;
-
+      OUTPUT(s);
     s += bc[T[s + pos]];
   }
-
   END_SEARCHING
   return count;
 }

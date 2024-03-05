@@ -85,7 +85,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     for (j = s - 1, k = m - 1; k > 0 && x[k - 1] == y[j]; k--, j--)
       ;
     if (!k && s < n)
-      count++;
+      OUTPUT(j + 1);
     s += gs[k][y[s + 1]];
   }
   END_SEARCHING

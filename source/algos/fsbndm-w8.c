@@ -157,14 +157,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         i++;
       if (i == plen && j < l2) {
         l1 = j;
-        count++;
+        OUTPUT(l1);
       }
       i = 0;
       while (i < plen && x[i] == y[s2 + i])
         i++;
       if (i == plen && s2 > l1) {
         l2 = s2;
-        count++;
+        OUTPUT(l2);
       }
       i = 0;
       j = s3 - mm1;
@@ -172,14 +172,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         i++;
       if (i == plen && j < l4) {
         l3 = j;
-        count++;
+        OUTPUT(l3);
       }
       i = 0;
       while (i < plen && x[i] == y[s4 + i])
         i++;
       if (i == plen && s4 > l3) {
         l4 = s4;
-        count++;
+        OUTPUT(l4);
       }
       i = 0;
       j = s5 - mm1;
@@ -187,14 +187,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         i++;
       if (i == plen && j < l6) {
         l5 = j;
-        count++;
+        OUTPUT(l5);
       }
       i = 0;
       while (i < plen && x[i] == y[s6 + i])
         i++;
       if (i == plen && s6 > l5) {
         l6 = s6;
-        count++;
+        OUTPUT(l6);
       }
       i = 0;
       j = s7 - mm1;
@@ -202,14 +202,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         i++;
       if (i == plen && j < l8) {
         l7 = j;
-        count++;
+        OUTPUT(l7);
       }
       i = 0;
       while (i < plen && x[i] == y[s8 + i])
         i++;
       if (i == plen && s8 > l7) {
         l8 = s8;
-        count++;
+        OUTPUT(l8);
       }
       ++s1;
       --s2;

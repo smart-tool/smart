@@ -111,7 +111,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   count = 0;
   while (s <= n - m) {
     if (!memcmp(P, T + s, m))
-      count++;
+      OUTPUT(s);
     s += jbc[T[s + i]][T[s + i + j]];
   }
   END_SEARCHING

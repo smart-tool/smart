@@ -61,12 +61,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     for (i = 0; i < m && x[i] == y[j + i]; i++)
       ;
     if (i >= m && j <= a)
-      count++;
+      OUTPUT(j);
 
     for (b = 0; b < m && x[b] == y[a + b]; b++)
       ;
     if (b >= m && j < a)
-      count++;
+      OUTPUT(a);
 
     j += brBc_left[y[j + m]][y[j + m + 1]];
     a -= brBc_right[y[a - 1]][y[a - 2]];

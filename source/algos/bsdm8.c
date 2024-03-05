@@ -94,7 +94,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       if (k == len) {
         if (!memcmp(x, y + j - offset, m))
           if (j - offset <= n - m)
-            count++;
+            OUTPUT(j - offset);
       } else
         j -= k;
     }

@@ -95,7 +95,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     c = y[j];
     if (D & M) {
       if (!strncmp((char *)x + m1, (char *)y + j + 1, m - m1)) {
-        count++;
+        OUTPUT(j + 1);
       }
     }
   }

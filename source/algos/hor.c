@@ -47,7 +47,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
     while (i < m && P[i] == T[s + i])
       i++;
     if (i == m)
-      count++;
+      OUTPUT(s);
     s += hbc[T[s + m - 1]];
   }
   END_SEARCHING

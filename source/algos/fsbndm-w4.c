@@ -110,23 +110,23 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s1 <= s2 + mm1)
-        count++;
+        OUTPUT(j);
       i = 0;
       while (i < plen && x[i] == y[s2 + i])
         i++;
       if (i == plen && s1 < s2 + mm1)
-        count++;
+        OUTPUT(s2);
       i = 0;
       j = s3 - mm1;
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s3 <= s4 + mm1)
-        count++;
+        OUTPUT(j);
       i = 0;
       while (i < plen && x[i] == y[s4 + i])
         i++;
       if (i == plen && s3 < s4 + mm1)
-        count++;
+        OUTPUT(s4);
       ++s1;
       --s2;
       ++s3;

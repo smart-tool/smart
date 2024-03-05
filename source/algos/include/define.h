@@ -29,7 +29,21 @@
 #define UNDEFINED -1
 #define HALFDEFINED -2
 #define WORD 32 // computer word size (in bit)
+#ifdef DEBUG
+#define OUTPUT(j)                                                              \
+  {                                                                            \
+      fprintf(stderr, "found at y[%d] %.*s line:%u\n", j, m, &y[j], __LINE__); \
+    count++;                                                                   \
+  }
+#define OUTPUTP(j)                                                             \
+  {                                                                            \
+    fprintf(stderr, "found at y[%d]\n", j);                                    \
+    (*count)++;                                                                \
+  }
+#else
 #define OUTPUT(j) count++
+#define OUTPUTP(j) (*count)++
+#endif
 #define M_CUTOFF 32 // when to switch to malloc
 
 #ifdef __GNUC__

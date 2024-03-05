@@ -139,7 +139,7 @@ void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
       while (k < p_len && x[k] == y[i + k])
         k++;
     if (k == p_len)
-      (*count)++;
+      OUTPUTP(i);
     D &= ~(1U << s);
   }
 }

@@ -114,32 +114,32 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (i < plen && x[i] == y[s1 + i])
         i++;
       if (i == plen && s1 + m1 < s2)
-        count++;
+        OUTPUT(s1);
       i = 0;
       while (i < plen && x[i] == y[s2 - m1 + i])
         i++;
       if (i == plen && s1 + m1 <= s2)
-        count++;
+        OUTPUT(s1);
       i = 0;
       while (i < plen && x[i] == y[s3 + i])
         i++;
       if (i == plen && s3 + m1 < s4)
-        count++;
+        OUTPUT(s3);
       i = 0;
       while (i < plen && x[i] == y[s4 - m1 + i])
         i++;
       if (i == plen && s3 + m1 <= s4)
-        count++;
+        OUTPUT(s3);
       i = 0;
       while (i < plen && x[i] == y[s5 + i])
         i++;
       if (i == plen && s5 + m1 < s6)
-        count++;
+        OUTPUT(s5);
       i = 0;
       while (i < plen && x[i] == y[s6 - m1 + i])
         i++;
       if (i == plen && s5 + m1 <= s6)
-        count++;
+        OUTPUT(s5);
     }
     s1 += m;
     s2 -= m;

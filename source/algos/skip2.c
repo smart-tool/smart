@@ -79,10 +79,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         while (k < m && x[k] == y[h + k])
           k++;
         if (k >= m)
-          count++;
+          OUTPUT(h);
       }
     }
   }
+
   /* Freeing */
   if (m > M_CUTOFF) {
     for (i = 0; i < mq; ++i) {

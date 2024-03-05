@@ -77,12 +77,13 @@ int search(unsigned char *p, int m, unsigned char *t, int n) {
         while (i < m && p[i] == t[first + i])
           i++;
         if (i == m && first <= n - m)
-          count++;
+          OUTPUT(first);
         pos = pos->next;
       }
     }
     j += m;
   }
+
   /* Freeing */
   for (unsigned i = 0; i < SIGMA; i++) {
     if (z[i]) {

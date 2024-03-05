@@ -93,7 +93,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       ;
     if (k == 0) {
       if (s < n)
-        count++;
+        OUTPUT(j + 1);
       s += first;
     } else
       s += gs[k][y[j]];

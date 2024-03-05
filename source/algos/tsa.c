@@ -37,6 +37,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
                             ((B[T[i + j]] >> j) | ((~(uint64_t)0) << (m - j)))))
       j++;
 
+    // TODO: OUTPUT
     count += PopCount[D & 0xffff];
     if (sizeof(D) > 2) {
       count += PopCount[(D >> 16) & 0xffff];

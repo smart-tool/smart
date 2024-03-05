@@ -47,6 +47,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
                          (~(uint64_t)0)))
         j++;
       if (D != ~(uint64_t)0) {
+        // TODO: OUTPUT
         count += PopCount[(~D) & 0xffff];
         if (sizeof(D) > 2) {
           count += PopCount[((~D) >> 16) & 0xffff];

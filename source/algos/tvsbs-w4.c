@@ -84,19 +84,19 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           lastch == y[s3 + mm1] || lastch == y[s4 + mm1]) {
         if (s1 < l2 && !memcmp(x, y + s1, m)) {
           l1 = s1;
-          count++;
+          OUTPUT(l1);
         }
         if (s2 > l1 && !memcmp(x, y + s2, m)) {
           l2 = s2;
-          count++;
+          OUTPUT(l2);
         }
         if (s3 < l4 && !memcmp(x, y + s3, m)) {
           l3 = s3;
-          count++;
+          OUTPUT(l3);
         }
         if (s4 > l3 && !memcmp(x, y + s4, m)) {
           l4 = s4;
-          count++;
+          OUTPUT(l4);
         }
       }
     }

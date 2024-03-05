@@ -59,7 +59,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         while (k < m && x[k] == y[first + k])
           k++;
         if (k == m && i < n)
-          count++;
+          OUTPUT(first);
       }
       i = i + 1;
       D = (D << 1) | B[y[i]];

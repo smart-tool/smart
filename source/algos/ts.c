@@ -67,7 +67,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (j < m && x[j] == y[s + j])
         j++;
       if (j == m)
-        count++;
+        OUTPUT(s);
       s += dim;
     }
   }

@@ -109,7 +109,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
       while (j >= 0 && P[j] == T[k + j])
         j--;
       if (j < 0)
-        count++;
+        OUTPUT(k);
       s1 += gsR[j + 1];
     }
     while ((k = hbcr[T[s1]])) {

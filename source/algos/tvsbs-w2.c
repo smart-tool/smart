@@ -65,12 +65,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         while (i < m && x[i] == y[s1 + i])
           i++;
         if (i == m)
-          count++;
+          OUTPUT(s1);
         i = 0;
         while (i < m && x[i] == y[s2 + i])
           i++;
         if (i == m && s1 < s2)
-          count++;
+          OUTPUT(s2);
       }
     }
     s1 += BrBcR[y[s1 + m]][y[s1 + mp1]];

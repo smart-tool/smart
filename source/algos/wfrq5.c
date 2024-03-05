@@ -100,7 +100,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   count = 0;
   if (!memcmp(x, y, plen))
-    count++;
+    OUTPUT(0);
   j = m;
   while (j < n) {
     h = HASH(j);
@@ -114,7 +114,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (k < plen && x[k] == y[i + k])
         k++;
       if (k == plen && i <= n - plen)
-        count++;
+        OUTPUT(i);
     }
     j += m - Q + 1;
   }

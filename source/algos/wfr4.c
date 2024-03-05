@@ -23,7 +23,7 @@
  *  Proceedings of the Pague Stringology Conference 2017: pp.42-50
  *
  * PREPROCESSING:
- * An hash value is computed for all factors of the pattern with
+ * A hash value is computed for all factors of the pattern with
  * length in [1..16] the computed hash value is always a number in
  * [0...256*256] if w is a factor of x, and hash(w) is its hash value,
  * than F[hash(w)]=TRUE, otherwise F[hash(w)]=FALSE
@@ -87,7 +87,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Searching */
   count = 0;
   if (!memcmp(x, y, plen))
-    count++;
+    OUTPUT(0);
   j = m;
   while (j < n) {
     h = HASH(j);
@@ -101,7 +101,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (k < plen && x[k] == y[i + k])
         k++;
       if (k == plen && i <= n - plen)
-        count++;
+        OUTPUT(i);
     }
     j += m - Q + 1;
   }

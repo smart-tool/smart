@@ -27,7 +27,7 @@
 #include "include/define.h"
 #include "include/main.h"
 
-int verify(unsigned char *y, int left, unsigned char *x, int m, int k) {
+int verify(unsigned char *y, int left, unsigned char *x, int m, int k, int pos) {
   int j, i;
   int count = 0;
   for (j = 0; j < k; j++) {
@@ -37,7 +37,7 @@ int verify(unsigned char *y, int left, unsigned char *x, int m, int k) {
     while (i < m && y[i] == x[i])
       i++;
     if (i >= m)
-      count++;
+      OUTPUT(pos);
     y++;
   }
   return count;
@@ -76,7 +76,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       D = (D << 1) & B[y[j + l]];
       if (D & M) {
         if (l < k + rmd) {
-          count += verify(y + j, n - j, x, m, k);
+          count += verify(y + j, n - j, x, m, k, j);
           break;
         }
         last = l - (k + rmd) + 1;

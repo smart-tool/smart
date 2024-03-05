@@ -142,7 +142,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         j--;
       if (j < 0 && k1 < l2) {
         l1 = k1;
-        count++;
+        OUTPUT(l1);
       }
       s1 += gsR[j + 1];
     }
@@ -152,7 +152,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         i++;
       if (i == m && s2 > l1) {
         l2 = k2;
-        count++;
+        OUTPUT(l2);
       }
       s2 -= gsL[m - i];
     }
@@ -163,7 +163,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         j--;
       if (j < 0 && k3 < l4) {
         l3 = k3;
-        count++;
+        OUTPUT(l3);
       }
       s3 += gsR[j + 1];
     }
@@ -173,7 +173,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         i++;
       if (i == m && s4 > l3) {
         l4 = k4;
-        count++;
+        OUTPUT(l4);
       }
       s4 -= gsL[m - i];
     }
@@ -184,7 +184,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         j--;
       if (j < 0 && k5 < l6) {
         l5 = k5;
-        count++;
+        OUTPUT(l5);
       }
       s5 += gsR[j + 1];
     }
@@ -194,7 +194,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         i++;
       if (i == m && s6 > l5) {
         l6 = k6;
-        count++;
+        OUTPUT(l6);
       }
       s6 -= gsL[m - i];
     }
@@ -205,7 +205,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         j--;
       if (j < 0 && k7 < l8) {
         l7 = k7;
-        count++;
+        OUTPUT(l7);
       }
       s7 += gsR[j + 1];
     }
@@ -215,7 +215,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
         i++;
       if (i == m && s8 > l7) {
         l8 = k8;
-        count++;
+        OUTPUT(l8);
       }
       s8 -= gsL[m - i];
     }

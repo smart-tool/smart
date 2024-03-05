@@ -45,7 +45,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
       while (k < m && x[k] == y[i + k])
         k++;
     if (k == m)
-      (*count)++;
+      OUTPUTP(i);
     D &= ~(1U << s);
   }
 }
@@ -73,11 +73,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     mm |= (1U << (h - 1));
   }
+  count = 0;
   END_PREPROCESSING
 
   BEGIN_SEARCHING
   /* Searching */
-  count = 0;
   D = ~0;
   j = 0;
   while (j < n) {

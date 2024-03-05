@@ -57,7 +57,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
     while (k < m && P[k] == T[i + k])
       k++;
     if (k == m)
-      count++;
+      OUTPUT(i);
     i += (qsf[T[i + m]] > z - qsb[T[i + z - 1]] ? z : qsf[T[i + m]]);
   }
   END_SEARCHING

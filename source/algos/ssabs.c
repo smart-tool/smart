@@ -15,6 +15,11 @@
  *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
+ *
+ * The Sheik-Sumit-Anindya-Balakrishnan-Sekar Algorithm.
+ * A FAST Pattern Matching Algorithm. S. S. Sheik, Sumit K. Aggarwal,
+ * Anindya Poddar, N. Balakrishnan and K. Sekar.
+ * J. Chem. Inf. Comput. Sci. 2004, 44, 1251-1256
  */
 
 #include "include/define.h"
@@ -28,12 +33,12 @@ void preQsBc(unsigned char *P, int m, int qbc[]) {
     qbc[P[i]] = m - i;
 }
 
-////////////Searching Phase///////////////////////////////////////
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int count, i, j = 0;
   int qsBc[SIGMA];
   unsigned char firstCh, lastCh;
   count = 0;
+
   BEGIN_PREPROCESSING
   preQsBc(x, m, qsBc);
   firstCh = x[0];
@@ -41,6 +46,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < m; i++)
     y[n + i] = lastCh;
   END_PREPROCESSING
+
   BEGIN_SEARCHING
   while (j <= n - m) {
     // Stage 1
@@ -49,7 +55,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       for (i = m - 2; i > 0 && x[i] == y[j + i]; i--)
         ;
       if (i <= 0)
-        count++;
+        OUTPUT(j);
     }
     // Stage 3
     j += qsBc[y[j + m]];

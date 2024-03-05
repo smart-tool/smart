@@ -93,8 +93,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     while ((p = trans[p][y[i]]) != UNDEFINED)
       i--;
     if (i < j - mMinus1 && j < n) {
-      count++;
       i++;
+      OUTPUT(i);
     }
     j = i + m;
   }

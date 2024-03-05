@@ -62,7 +62,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         if (i >= 0)
           last = i + 1;
         else
-          count++;
+          OUTPUT(j);
       }
       D <<= 1;
     }

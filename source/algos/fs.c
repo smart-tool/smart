@@ -67,7 +67,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_SEARCHING
   count = 0;
   if (!memcmp(x, y, m))
-    count++;
+    OUTPUT(0);
   s = m;
   while (s < n) {
     while ((k = bc[y[s]]))
@@ -76,7 +76,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     while (j <= m && x[m - j] == y[s - j + 1])
       j++;
     if (j > m && s < n)
-      count++;
+      OUTPUT(s - m + 1);
     s += gs[m - j + 1];
   }
   END_SEARCHING

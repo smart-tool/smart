@@ -68,7 +68,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int mMinus1 = m - 1;
 
   BEGIN_PREPROCESSING
-  /* Preprocessing */
   preprocessing(x, m, F);
   for (i = 0; i < m; i++)
     y[n + i] = x[i];
@@ -90,7 +89,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       while (k < m && x[k] == y[i + k])
         k++;
       if (k == m && j <= n - m)
-        count++;
+        OUTPUT(i);
     }
     j += m;
   }

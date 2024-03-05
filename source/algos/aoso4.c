@@ -43,7 +43,7 @@ void verify(unsigned char *y, int j, int n, unsigned char *x, int m, int q,
       while (k < m && x[k] == y[i + k])
         k++;
     if (k == m)
-      (*count)++;
+      OUTPUTP(i);
     D &= ~(1U << s);
   }
 }

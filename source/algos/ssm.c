@@ -97,8 +97,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       q--;
 
     if ((q < 0) && (j < n)) {
-      count++;
       q++;
+      OUTPUT(Pos);
     }
 
     if (q >= 0)

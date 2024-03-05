@@ -59,7 +59,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       for (i = m - 2; i > 0 && x[i] == y[j + i]; i--)
         ;
       if (i <= 0)
-        count++;
+        OUTPUT(j);
     }
     j += BrBc[y[j + m]][y[j + m + 1]];
   }

@@ -79,7 +79,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < m; i++)
     y[n + i] = x[i];
   if (!memcmp(x, y, m))
-    count++;
+    OUTPUT(0);
   j = m;
   mMinus1 = m - 1;
   while (j < n) {
@@ -90,8 +90,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     while ((p = trans[p][y[i]]) != UNDEFINED)
       i--;
     if (i < j - mMinus1 && j < n) {
-      count++;
       i++;
+      OUTPUT(i);
     }
     j = i + m;
   }
