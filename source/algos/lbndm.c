@@ -30,6 +30,7 @@
 int verify(unsigned char *y, int left, unsigned char *x, int m, int k, int pos) {
   int j, i;
   int count = 0;
+  (void)pos; // if the OUTPUT macro is empty
   for (j = 0; j < k; j++) {
     if (m + j > left)
       break;
