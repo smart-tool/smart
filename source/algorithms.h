@@ -240,6 +240,7 @@ enum algo_id {
   _TWFRQ8,
   _WC,  // Tailed Substring algorithm
   _WOM, // Worst Occurrence Matcher
+  _DOUBLEHASH, // 2019 http://www.cs.csi.cuny.edu/~zhangx/papers/P_2019_LISAT_Bicer_Zhang.pdf
   // state of the art:
   _FT3,   // Parallel Boyer-Moore with goodsuff, Lecroq 2024
   _HPBM,  // HP Parallel Boyer-Moore, Jeong et al 2015
@@ -509,6 +510,7 @@ const struct algo ALGOS[] = {
   [_TWFRQ8] = {_TWFRQ8, 1, "twfrq8", "Tuned Weak Factor Recognizer with q-grams", 8, 0},
   [_WC] = {_WC, 1, "wc", "Tailed Substring algorithm", 0, 0},
   [_WOM] = {_WOM, 1, "wom", "Worst Occurrence Matcher", 0, 0},
+  [_DOUBLEHASH] = {_DOUBLEHASH, 1, "doublehash", "Double-Hash hybrid", 0, 0},
   // state of the art:
   [_FT3] = {_FT3, 1, "ft3", "Parallel Boyer-Moore with goodsuff", 0, 0}, // Lecroq 2015
   [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, 1},
