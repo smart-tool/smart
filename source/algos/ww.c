@@ -68,6 +68,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
     ttransSMA = s_ttransSMA;
+    memset(tlength, 0, 3 * m * sizeof(int));
+    memset(tsuffix, 0, 3 * m * sizeof(int));
+    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
   }
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));

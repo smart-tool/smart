@@ -66,6 +66,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
     ttransSMA = s_ttransSMA;
+    memset(tlength, 0, 3 * m * sizeof(int));
+    memset(tsuffix, 0, 3 * m * sizeof(int));
+    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
   }
   for (i = 0; i < m; i++)
     xR[i] = x[m - i - 1];
