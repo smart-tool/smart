@@ -43,6 +43,7 @@
  *
  * Note: Broken!
  * Constraints: requires n>=6
+ * Constraints: needs m space at the end of T
  */
 
 #include "include/define.h"

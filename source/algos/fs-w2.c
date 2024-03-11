@@ -41,8 +41,8 @@
   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   SUCH DAMAGE.
 
-  Note: Broken! Off-by-one
-*/
+ * Note: Broken! Off-by-one
+ */
 
 #include "include/define.h"
 #include "include/main.h"
@@ -75,7 +75,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   unsigned char Pr[XSIZE];
 
   BEGIN_PREPROCESSING
-  /* prprocessing */
+  /* preprocessing */
   for (i = 0; i < SIGMA; i++)
     hbcr[i] = m;
   for (i = 0; i < m; i++)
@@ -93,6 +93,8 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   Pre_GS(Pr, m, gsL);
 
   //unsigned char lastch = P[m - 1], firstch = P[0];
+  //for (i = 0; i < m; i++)
+  //  T[n + i] = P[i];
   int mm1 = m - 1;
   END_PREPROCESSING
 

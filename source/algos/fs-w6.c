@@ -42,6 +42,7 @@
  SUCH DAMAGE.
  *
  * Constraints: requires n>=8
+ * Constraints: needs m space at the end of T
  */
 
 #include "include/define.h"
