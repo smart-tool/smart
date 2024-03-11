@@ -36,6 +36,14 @@ jobs:
     - run: |
         sudo apt-get -y install cppcheck clang-tidy bear
     - run: make lint
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        sudo apt-get -y install cbmc
+    - run: make verify
   windows:
     runs-on: windows-latest
     timeout-minutes: 10

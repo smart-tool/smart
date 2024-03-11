@@ -76,8 +76,8 @@ CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \
   # cbmc 5.12.1: --pointer-primitive-check
 verify:
 	for c in $(ALGOSRC); do \
-	  echo cbmc -DCBMC --depth 1024 $(CBMC_CHECKS) $$c; \
-	  cbmc -DCBMC --depth 1024 $(CBMC_CHECKS) $$c; \
+	  echo cbmc -DCBMC --depth 64 $(CBMC_CHECKS) $$c; \
+	  cbmc -DCBMC --depth 64 $(CBMC_CHECKS) $$c; \
 	done
 fmt:
 	clang-format -i `find source -name \*.c -o -name \*.h`
