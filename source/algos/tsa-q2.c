@@ -16,7 +16,9 @@
 
 // searching
 int search(unsigned char *P, int m, unsigned char *T, int n) {
+#ifndef HAVE_POPCOUNT
   unsigned char PopCount[65536];
+#endif
   int j, i;
   uint64_t D;
   uint64_t B[512];
@@ -29,13 +31,14 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
-  // TODO use __builtin_popcount()
   for (j = 0; j < m - Q + 1; ++j)
     B[HS(P, j)] |= ((uint64_t)1U << (j));
   // for (j=0; j<256; ++j) B1[j] = B[j]+1;
+#ifndef HAVE_POPCOUNT
   for (PopCount[i = 0] = 0; ++i <= 65535;
        PopCount[i] = PopCount[i & (i - 1)] + 1)
     ;
+#endif
   int count = 0;
   END_PREPROCESSING
 
@@ -50,15 +53,19 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
       j++;
 
     // TODO: OUTPUT
-    count += PopCount[D & 0xffff];
+#ifdef HAVE_POPCOUNT64
+    count += POPCOUNT64(D);
+#else
+    count += POPCOUNT16(D & 0xffff);
     if (sizeof(D) > 2) {
-      count += PopCount[(D >> 16) & 0xffff];
+      count += POPCOUNT16((D >> 16) & 0xffff);
       if (sizeof(D) > 4) {
-        count += PopCount[(D >> 32) & 0xffff];
+        count += POPCOUNT16((D >> 32) & 0xffff);
         if (sizeof(D) > 6)
-          count += PopCount[(D >> 48) & 0xffff];
+          count += POPCOUNT16((D >> 48) & 0xffff);
       }
     }
+#endif
   }
   END_SEARCHING
   return (count);

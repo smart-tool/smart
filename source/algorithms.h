@@ -240,7 +240,7 @@ enum algo_id {
   _TWFRQ8,
   _WC,  // Tailed Substring algorithm
   _WOM, // Worst Occurrence Matcher
-  _DOUBLEHASH, // 2019 http://www.cs.csi.cuny.edu/~zhangx/papers/P_2019_LISAT_Bicer_Zhang.pdf
+  _DOUBLEHASH, // Bicer-Zhang 2019
   // state of the art:
   _FT3,   // Parallel Boyer-Moore with goodsuff, Lecroq 2024
   _HPBM,  // HP Parallel Boyer-Moore, Jeong et al 2015
