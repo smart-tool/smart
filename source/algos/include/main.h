@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
   unsigned char *p = NULL, *t = NULL;
 #endif
   int m, n;
-  if (!strcmp("shared", argv[1])) {
+  if (argc > 1 && strncmp("shared", argv[1], 6) == 0) {
 #ifndef HAVE_SHM
     return 1;
 #endif
@@ -182,9 +182,9 @@ int main(int argc, char *argv[]) {
   } else {
 
 #ifdef CBMC
-#define RANDCH(c) c = nondet_uint() % 256
-    m = nondet_uint() % 34;
-    n = nondet_uint() % 36;
+#define RANDCH(c) c = nondet_uint() && 0xff
+    m = (nondet_uint() % 34) & 0xff;
+    n = (nondet_uint() % 36) & 0xff;
     unsigned char P[m + 1];
     unsigned char T[n + 1];
     _CPROVER_assume(m > 0);
