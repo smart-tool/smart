@@ -1,7 +1,7 @@
 #ifndef _ALGORITHMS_H
 #define _ALGORITHMS_H
 
-#ifdef __x64_86__
+#ifdef __x86_64__
 #define X64_ONLY 1
 #else
 #define X64_ONLY 0
