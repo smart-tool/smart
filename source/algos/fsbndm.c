@@ -21,8 +21,6 @@
  * Efficient Variants of the Backward-Oracle-Matching Algorithm.
  * Proceedings of the Prague Stringology Conference 2008, pp.146--160, Czech
  * Technical University in Prague, Czech Republic, (2008).
- *
- * Note: Broken m>31 search_large()
  */
 
 #include "include/define.h"
@@ -98,7 +96,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
   BEGIN_SEARCHING
   /* Searching */
-  if (!memcmp(x, y, m))
+  if (memcmp(x, y, p_len) == 0)
     OUTPUT(0);
   j = m;
   while (j < n) {
