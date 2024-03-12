@@ -214,3 +214,7 @@ doublehash
 ft3
 ssecp
 epsm
+libc
+libc1
+musl
+musl1

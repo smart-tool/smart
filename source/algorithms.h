@@ -246,6 +246,10 @@ enum algo_id {
   _HPBM,  // HP Parallel Boyer-Moore, Jeong et al 2015
   _SSECP, // SSE Crochemore-Perrin
   _EPSM,  // SSE4 Exact Packed String Matching
+  _LIBC,  // strstr
+  _LIBC1, // memmem
+  _MUSL,  // musl strstr
+  _MUSL1, // musl memmem
 } ALGO_POS;
 
 struct algo {
@@ -520,6 +524,10 @@ const struct algo ALGOS[] = {
   [_HPBM] = {_HPBM, FAIL, "hpbm", "Parallel Boyer-Moore", 0, MISSING},
   [_SSECP] = {_SSECP, FAIL, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
   [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
+  [_LIBC] = {_LIBC, OK, "libc", "strstr", 0, 0},
+  [_LIBC1] = {_LIBC1, OK, "libc1", "memmem", 0, 0},
+  [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0},
+  [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},
     // clang-format on
 };
 

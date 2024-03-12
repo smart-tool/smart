@@ -264,3 +264,7 @@ The signal is caused by a READ memory access.
     #1 0x55b00e35ee63 in search source/algos/epsm.c:361
     source/algos/epsm.c:259:11: runtime error: load of misaligned address 0x7fb0ae93d001 for type 'uint64_t', which requires 8 byte alignmen
     ...
+./test libc OK
+./test libc1 OK
+./test musl OK
+./test musl1 OK
