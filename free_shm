@@ -1,5 +1,5 @@
 #!/bin/sh
-for s in `ipcs -m | grep "$USER"| cut -c12-19`
+for s in `ipcs -m | grep "$USER"| perl -alne'print $F[1]'`
 do
     ipcrm -m $s 
 done
