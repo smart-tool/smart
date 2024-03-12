@@ -3,7 +3,8 @@
 ./test kmp OK
 ./test bm OK
 ./test hor OK
-./test gs OK
+./test gs
+       gs.c:96: newP1: Assertion `s + p1 + q1 <= m' failed
 ./test ag OK
 ./test kr OK
 ./test zt OK
@@ -15,9 +16,7 @@
 ./test tunbm
 	ERROR: test failed on case n.2 ("aa" in "aaaaaaaaaaaa")
 	found 10 occ instead of 9
-./test nsn
-	ERROR: test failed on case n.1 ("a" in "aaaaaaaaaa")
-	found 0 occ instead of 10
+./test nsn OK
 ./test tbm OK
 ./test colussi OK
 ./test smith OK
@@ -47,7 +46,9 @@
 ./test aut OK
 ./test rf OK
 ./test trf OK
-./test simon OK
+./test simon
+       ERROR: test failed on case n.11
+       bin/simon N}\377\377 4 \377U7\377\377w\377*\377\004\040t\377\377\377\004\377\377v\377\377\377\377o\377\377`P\377\037\3778\377\377\377`\377\377\012\031e1\377\377\377\377\3773\017\377\006(\001\377\017g\377A\377\377U\377ni\377\377V\377\377\377I\3779\377\015\377\377\377-\377\377\007\031\377\002\377\377w\377\377\030\377\377\377\023\006N}\377\377 100 	found 0 occ instead of 1
 ./test fdm OK
 ./test bom OK
 ./test bom2 OK
@@ -97,10 +98,10 @@
 ./test aoso2 OK
 ./test aoso4 OK
 ./test aoso6 OK
-./test blim OK
-./test fsbndm
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-	found 1 occ instead of 0
+./test blim
+       ERROR: test failed on case n.3
+       bin/blim b 1 aaaaaaaaaa 10 	found 9 occ instead of 0
+./test fsbndm OK
 ./test bndmq2 OK
 ./test bndmq4 OK
 ./test bndmq6 OK
@@ -159,18 +160,14 @@
 ./test fsbndmq43
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
 	found 1 occ instead of 0
-./test fsbndmq61
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-	found 1 occ instead of 0
+./test fsbndmq61 OK
 ./test fsbndmq62
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
 	found 1 occ instead of 0
 ./test fsbndmq64
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
 	found 1 occ instead of 0
-./test fsbndmq81
-	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
-	found 1 occ instead of 0
+./test fsbndmq81 OK
 ./test fsbndmq82
 	ERROR: test failed on case n.18 ("abababababababababababababababababababac" in "abababababababababababababababababababababababababababababababab")
 	found 1 occ instead of 0
@@ -206,7 +203,9 @@
 ./test sbndm-w4 OK
 ./test sbndm-w6 OK
 ./test ssm OK
-./test tsa OK
+./test tsa
+       ERROR: test failed on case n.11
+       bin/tsa \015\377rF 4 \377w\007\377\377z\377\377\377\377\377\377\377\377\377\377\015a2\377\377\377l\377\031I[\377\017\377\377\005\377\377%\377\377\377\377\047\377\377(\023\3771s\377\377\377\030+\177#4G:\377\004\012\377@\377\023\377&\377p\031\005\377\377)\377\377?\377\377q{\032\377\3777\377wC0\004\377*\377J\3777\377\015\377rF 100 	found 9 occ instead of 1
 ./test tsa-q2
 	ERROR: test failed on case n.2 ("aa" in "aaaaaaaaaa")
 	found 5 occ instead of 9
@@ -257,5 +256,10 @@ f      ound 32 occ instead of 33
 ./test ssecp
 	ERROR: test failed on case n.14 ("8eiszLz[7'r.[${73g o7UHJYTa+vpg~L" in "8eiszLz[7'r.[${73g o7UHJYTa+vpg~L%>LCp|z#cp[dI0Eu=^")
 	found 2 occ instead of 1
-
-./test epsm OK
+./test epsm
+       SEGV on unknown address 0x7f4a83542ffe (pc 0x55b00e358fea bp 0x000000000000 sp 0x7fff18c1fc30 T0)
+The signal is caused by a READ memory access.
+    #0 0x55b00e358fea in search3 source/algos/epsm.c:164
+    #1 0x55b00e35ee63 in search source/algos/epsm.c:361
+    source/algos/epsm.c:259:11: runtime error: load of misaligned address 0x7fb0ae93d001 for type 'uint64_t', which requires 8 byte alignmen
+    ...
