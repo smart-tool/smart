@@ -11,6 +11,7 @@ tw
 om
 ms
 qs
+nsn
 tbm
 colussi
 smith
@@ -43,6 +44,7 @@ trf
 fdm
 bom
 bom2
+dfdm
 ww
 ildm1
 ildm2
@@ -79,6 +81,7 @@ faoso4
 aoso2
 aoso4
 aoso6
+fsbndm
 bndmq2
 bndmq4
 bndmq6
@@ -150,7 +153,6 @@ sbndm-w2
 sbndm-w4
 sbndm-w6
 ssm
-tsa
 tso5
 tunedbm
 tvsbs-w2
@@ -186,5 +188,6 @@ wfrq6
 wfrq7
 wfrq8
 wom
+doublehash
 ft3
 epsm

@@ -253,6 +253,7 @@ f      ound 32 occ instead of 33
 ./test wfrq8 OK
 ./test wfr OK
 ./test wom OK
+./test doublehash OK
 ./test ssecp
 	ERROR: test failed on case n.14 ("8eiszLz[7'r.[${73g o7UHJYTa+vpg~L" in "8eiszLz[7'r.[${73g o7UHJYTa+vpg~L%>LCp|z#cp[dI0Eu=^")
 	found 2 occ instead of 1
