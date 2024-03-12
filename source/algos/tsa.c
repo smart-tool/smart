@@ -1,3 +1,6 @@
+// Note: Does not support OUTPUT with the found pos yet, only the count
+// Constraints: requires m<=64
+
 #include "include/define.h"
 #include "include/main.h"
 
@@ -22,9 +25,8 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
-  // TODO use __builtin_popcount()
   for (j = 0; j < m; ++j)
-    B[P[j]] |= ((uint64_t)1U << (j));
+    B[P[j]] |= (UINT64_C(1) << j);
 #ifndef HAVE_POPCOUNT
   for (PopCount[i = 0] = 0; ++i <= 65535;
        PopCount[i] = PopCount[i & (i - 1)] + 1)

@@ -1,3 +1,7 @@
+// Note: Does not support OUTPUT with the found pos yet, only the count
+// Note: Broken!
+// Constraints: requires m>=2 and m<=64
+
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
@@ -7,9 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Note: Broken!
-// Constraints: requires m>=2 and m<=64
 
 #define Q 2
 #define HS(x, i) (x[i] << 1) + x[i + 1]
@@ -32,7 +33,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
   for (j = 0; j < m - Q + 1; ++j)
-    B[HS(P, j)] |= ((uint64_t)1U << (j));
+    B[HS(P, j)] |= (UINT64_C(1) << (j));
   // for (j=0; j<256; ++j) B1[j] = B[j]+1;
 #ifndef HAVE_POPCOUNT
   for (PopCount[i = 0] = 0; ++i <= 65535;
