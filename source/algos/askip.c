@@ -57,7 +57,7 @@ typedef int Node;
 void freeListOfIntegers(ListOfIntegers list) {
   ListOfIntegers old;
   old = list;
-  while (list != NULL) {
+  while (list) {
     list = list->next;
     free(old);
     old = list;
@@ -121,6 +121,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     automaton->term = s_term;
     automaton->fail = s_fail;
     z = s_z;
+    memset(s_trans, 0, size * SIGMA * sizeof(int));
+    memset(s_term, 0, size);
+    memset(s_fail, 0, size * sizeof(int));
+    memset(s_z, 0, size * sizeof(ListOfIntegers));
   }
   automaton->nodeCounter = 0;
 
