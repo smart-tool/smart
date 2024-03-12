@@ -19,6 +19,9 @@
  * This is an implementation of the recursive Galil Seiferas algorithm
  * in GALIL Z., SEIFERAS J., 1983, Time-space optimal string matching,
  * Journal of Computer and System Science 26(3):280-294.
+ *
+ * TODO: sometimes tripping over
+ *       gs.c:96: newP1: Assertion `s + p1 + q1 <= m' failed
  */
 
 #include "include/define.h"
