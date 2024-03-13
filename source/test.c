@@ -153,12 +153,12 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
     if (VERBOSE) {
       printf("%s\tERROR: test failed on case n.%d\n"
 #ifndef DEBUG
-             "\tbin/%s %s %d %s %d "
+             "\t%s/%s %s %d %s %d "
 #endif
              "\tfound %d occ instead of %d\n\n",
              algoname, *rip,
 #ifndef DEBUG
-             algoname, pP, m, pT, n,
+             BINDIR, algoname, pP, m, pT, n,
 #endif
              occur2, occur1);
       free(pP);

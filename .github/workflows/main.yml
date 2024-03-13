@@ -24,9 +24,8 @@ jobs:
     - uses: actions/checkout@v4
     - run: |
         make SANITIZE=1 &&
-        make -B SANITIZE=1 test && 
         for t in `cat asan.lst`; do
-          ./test "$t"
+          ./test-asan "$t"
         done
   lint:
     runs-on: ubuntu-latest
