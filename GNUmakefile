@@ -4,7 +4,7 @@ MACHINE := $(shell uname -m)
 ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
 BINDIR  = bin
 ifneq ($(ARCH),x86_64)
-  CFLAGS  := -O3 -Wall
+  CFLAGS  := -O3 -Wall -DNDEBUG
   NON_SSE = source/algos/epsm.c source/algos/ssecp.c source/algos/ssef.c
   ALGOSRC = $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
 else
@@ -12,6 +12,8 @@ else
   ifeq ($(SANITIZE),1)
     BINDIR = bin/asan
     CFLAGS += -g -Wextra -fsanitize=address,undefined -DBINDIR=\"$(BINDIR)\"
+  else
+    CFLAGS += -DNDEBUG
   endif
   ALGOSRC = $(wildcard source/algos/*.c)
 endif

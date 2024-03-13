@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
   char filename[300], command[1024], binary[100];
   char destdir[100] = "bin/";
   char gcc[100] = "gcc source/algos/";
-  char options[100] = " -O3";
+  char options[100] = " -O3 -DNDEBUG";
 #ifndef _WIN32
   strncat(options, " -Wall", SZNCAT(options));
 #endif
