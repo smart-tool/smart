@@ -140,6 +140,8 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
       int len = strlen(algo);
       if (algo[len - 1] == 'c' && algo[len - 2] == '.') {
         algo[len - 2] = '\0';
+        if (algo[0] == '.' && algo[1] == '#') // skip temp. emacs buffers
+          continue;
         int id = search_ALGO(ALGO_NAME, algo);
         if (id == -1) {
           printf("WARNING %s.c exists, but is missing in algorithms.h\n", algo);
