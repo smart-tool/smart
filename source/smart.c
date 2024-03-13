@@ -163,7 +163,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
       maxcode = T[j];
   }
   printf("\tAlphabet of %d characters.\n", nalpha);
-  printf("\tGreater chararacter has code %d.\n", maxcode);
+  printf("\tGreatest chararacter has code %d.\n", maxcode);
   return i;
 }
 
@@ -189,7 +189,7 @@ int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
 }
 
 void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
-                         int numpatt, unsigned char *simplePattern) {
+                         int numpatt, unsigned char *simplePattern, int alpha) {
   int i, j, k;
   for (i = 0; i < numpatt; i++) {
     if (strcmp((char *)simplePattern, ""))
@@ -367,7 +367,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   for (il = 0; PATT_SIZE[il] > 0; il++)
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
       m = PATT_SIZE[il];
-      setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern);
+      setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
       printf("\n");
       printTopEdge(60);
       if (!SIMPLE)
@@ -499,17 +499,16 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
     if (php)
       outputPHP(TIME, BEST, WORST, STD, alpha, filename, code, dif, std);
   }
-  // free shared memory
-  shmctl(pshmid, IPC_RMID, 0);
-  shmctl(rshmid, IPC_RMID, 0);
-
   // free memory allocated for patterns
   for (i = 0; i < VOLTE; i++)
     free(setP[i]);
   free(setP);
 #ifndef _WIN32
+  // free shared memory
   free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
            preshmid);
+#else
+  free(T);
 #endif
   return 0;
 }
@@ -518,29 +517,28 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 int FREQ[SIGMA]; // frequency of alphabet characters
 
 int main(int argc, const char *argv[]) {
-  // mandatory parameters
+  // mandatory parameters:
   char filename[100] = {0};
-  // non mandatory parameters
-  PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern legths
-  int alpha = 256;             // size of the alphabet
+  // optional parameters:
+  PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern lengths
+  int alpha = 256;             // size of the alphabet, -alpha
   int VOLTE = 500;             // number of runs for each pattern length
   int TSIZE = 1048576;
-  int SIMPLE =
-      0; // set to 1 if we run a single search with custom pattern and text
-  int occ = 0;     // set to 1 for printing number of occurrences
-  int pre = 0;     // set to 1 for separating preprocessing and running times
-  int dif = 0;     // set to 1 for printing the best and the worst running time
-  int txt = 0;     // set to 1 for printing results in txt format
-  int tex = 0;     // set to 1 for printing results in latex format
-  int php = 0;     // set to 1 for printing results in php format
-  int std = 0;     // set to 1 for printing the standard deviation value
-  int limit = 300; // set to 300 running time bound
+  int SIMPLE = 0;  // for single search with custom pattern and text
+  int occ = 0;     // for printing number of occurrences
+  int pre = 0;     // for separating preprocessing and running times
+  int dif = 0;     // for printing the best and the worst running time
+  int txt = 0;     // for printing results in txt format
+  int tex = 0;     // for printing results in latex format
+  int php = 0;     // for printing results in php format
+  int std = 0;     // for printing the standard deviation value
+  int limit = 300; // running time bound
   unsigned char simplePattern[100]; // used for the simple run of SMART
   unsigned char simpleText[1000];   // used for the simple run of SMART
   /* useful variables */
   unsigned char *T = NULL; // text and pattern
-  int n, tshmid = 0;       // length of the text
-  //FILE *ip;           // file pointer for input text
+  int n;           // length of the text
+  int tshmid = 0;
   char parameter[1000];
 
   srand(time(NULL));
@@ -568,6 +566,23 @@ int main(int argc, const char *argv[]) {
         goto end;
       }
       VOLTE = string2decimal(parameter);
+    }
+    if (par < argc && !strcmp("-alpha", argv[par])) {
+      par++;
+      if (par >= argc) {
+        printf("Error in input parameters. Use -h for help.\n\n");
+        goto end;
+      }
+      strncpy(parameter, argv[par++], SZNCPY(parameter));
+      if (!isInt(parameter)) {
+        printf("Error in input parameters. Use -h for help.\n\n");
+        goto end;
+      }
+      alpha = string2decimal(parameter);
+      if (alpha > 255 || alpha <= 0) {
+        printf("Error in alpha input parameter. 0 > alpha < 256.\n\n");
+        goto end;
+      }
     }
     if (par < argc && !strcmp("-tsize", argv[par])) {
       par++;
@@ -745,17 +760,18 @@ int main(int argc, const char *argv[]) {
     n = strlen((char *)simpleText);
     int m = strlen((char *)simplePattern);
 #ifdef _WIN32
-    T = malloc(n + 1);
+    T = malloc(n + 10);
 #endif
     //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
     strcpy((char *)T, (char *)simpleText);
-    alpha = 250;
+    //alpha = 250;
     PATT_CUSTOM_SIZE[0] = m;
     PATT_CUSTOM_SIZE[1] = 0;
     PATT_SIZE = PATT_CUSTOM_SIZE;
-    // if ( !(alpha = getAlpha(filename)) ) return 0;
+    if (!(alpha = getAlpha(filename)))
+      goto end_shm;
     printf("\n\tText of %d chars : %s\n", n, T);
-    printf("\tPattern of %d chars : %s\n", m, simplePattern);
+    printf("\tPattern of %d chars : %s, alpha = %d\n", m, simplePattern, alpha);
     srand(time(NULL));
     char expcode[32];
     generateCode(expcode);
