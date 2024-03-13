@@ -24,7 +24,11 @@ else
 endif
 ALLSRC  = $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h) $(wildcard source/algos/include/*.h)
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
-HELPERS = smart show select test textgen compilesm
+ifeq ($(SANITIZE),1)
+  HELPERS = smart-asan test-asan compilesm-asan show select textgen
+else
+  HELPERS = smart show select test textgen compilesm
+endif
 TESTS := $(shell shuf -n 6 good.lst)
 ifeq ($(TESTS),)
   TESTS = bm mp kmp tbm bom so
@@ -35,6 +39,8 @@ all: $(BINS) $(HELPERS)
 $(BINDIR)/%: source/algos/%.c $(wildcard source/algos/include/*.h)
 	@test -d $(BINDIR) || mkdir $(BINDIR)
 	$(CC) $(CFLAGS) $< -o $@
+./%-asan: source/%.c $(wildcard source/*.h)
+	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
 ./%: source/%.c $(wildcard source/*.h)
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
 select: source/selectAlgo.c
