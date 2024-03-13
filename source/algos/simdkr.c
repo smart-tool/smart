@@ -42,11 +42,15 @@
 
 static FORCE_INLINE int
 avx2_strstr_generic(const unsigned char *s, int n, const unsigned char *needle, int m) {
+  BEGIN_PREPROCESSING
   int count = 0;
   assert(m > 1);
   assert(n > 0);
   const __m256i first = _mm256_set1_epi8(needle[0]);
   const __m256i last = _mm256_set1_epi8(needle[m - 1]);
+  END_PREPROCESSING
+
+  BEGIN_SEARCHING
   for (int i = 0; i < n; i += 64) {
 
     const __m256i block_first1 = _mm256_loadu_si256((const __m256i *)(s + i));
@@ -78,6 +82,7 @@ avx2_strstr_generic(const unsigned char *s, int n, const unsigned char *needle, 
       mask = mask & (mask - 1); // clear_leftmost_set
     }
   }
+  END_SEARCHING
   return -1;
 }
 
@@ -95,13 +100,16 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 static FORCE_INLINE int
 sse2_strstr_generic(const unsigned char *s, int n,
                     const unsigned char *needle, int m) {
+  BEGIN_PREPROCESSING
   int count = 0;
   assert(m > 1);
   assert(n > 0);
 
   const __m128i first = _mm_set1_epi8(needle[0]); // first byte, extended to 16
   const __m128i last = _mm_set1_epi8(needle[m - 1]); // last byte, extended to 16
+  END_PREPROCESSING
 
+  BEGIN_SEARCHING
   for (int i = 0; i < n; i += 16) {
     // first byte (extended)
     const __m128i block_first = _mm_loadu_si128((const __m128i *)(s + i));
@@ -122,6 +130,7 @@ sse2_strstr_generic(const unsigned char *s, int n,
       mask = mask & (mask - 1); // clear_leftmost_set
     }
   }
+  END_SEARCHING
   return -1;
 }
 
@@ -136,6 +145,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 static size_t sse4_strstr_size_min4(const unsigned char *needle, int m,
                                     const unsigned char *s, int text_size) {
+  BEGIN_PREPROCESSING
   int count = 0;
   assert(m > 4);
   assert(text_size > 0);
@@ -143,6 +153,9 @@ static size_t sse4_strstr_size_min4(const unsigned char *needle, int m,
   size_t n = (size_t)text_size;
   const __m128i prefix = _mm_loadu_si128((const __m128i *)needle);
   const __m128i zeros = _mm_setzero_si128();
+  END_PREPROCESSING
+
+  BEGIN_SEARCHING
   for (size_t i = 0; i < n; i += 8) {
     const __m128i data = _mm_loadu_si128((const __m128i *)(s + i));
     const __m128i result = _mm_mpsadbw_epu8(data, prefix, 0);
@@ -157,6 +170,7 @@ static size_t sse4_strstr_size_min4(const unsigned char *needle, int m,
       mask = mask & (mask - 1); // clear_leftmost_set
     }
   }
+  END_SEARCHING
   return -1;
 }
 
@@ -174,6 +188,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 static FORCE_INLINE int
 neon_strstr_generic(const unsigned char *needle, int m,
                     const unsigned char *s, int n) {
+  BEGIN_PREPROCESSING
   int count = 0;
   assert(m > 1);
   assert(n > 0);
@@ -186,7 +201,9 @@ neon_strstr_generic(const unsigned char *needle, int m,
     uint8_t tmp[8];
     uint32_t word[2];
   };
+  END_PREPROCESSING
 
+  BEGIN_SEARCHING
   for (int i = 0; i < n; i += 16) {
 
     const uint8x16_t block_first = vld1q_u8(s + i);
@@ -220,6 +237,7 @@ neon_strstr_generic(const unsigned char *needle, int m,
       }
     }
   }
+  END_SEARCHING
   return -1;
 }
 
