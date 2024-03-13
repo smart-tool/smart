@@ -111,10 +111,16 @@ int main(int argc, char **argv) {
           filename[0] != '.' && filename[1] != '#') {
         filename[len - 2] = '\0';
         current++;
-#if !defined __x86_64__ || !defined __SSE__
+#if !(defined __x86_64__ && defined __SSE__)
         // skip SSE specific algos
         if (!strcmp(filename, "epsm") || !strcmp(filename, "ssecp") ||
             !strcmp(filename, "ssef")) {
+          printf("\tSkipped %s.c", filename);
+          continue;
+        }
+#endif
+#if !defined __SSE2__ && !defined __ARM_NEON__
+        if (!strcmp(filename, "simdkr")) {
           printf("\tSkipped %s.c", filename);
           continue;
         }

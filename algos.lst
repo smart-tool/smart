@@ -218,4 +218,4 @@ libc
 libc1
 musl
 musl1
-ssekr
+simdkr
