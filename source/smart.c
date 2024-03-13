@@ -167,7 +167,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   return i;
 }
 
-int execute(int algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
+int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
             key_t ekey, key_t prekey, int *count, int alpha) {
   char command[100];
   (void)alpha;
@@ -231,7 +231,8 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
                 char *time_format) {
   // performs experiments on a text
   int m, occur, total_occur;
-  unsigned int i, j, k, il, algo;
+  unsigned int i, j, k, il;
+  enum algo_id algo;
   double TIME[NumAlgo][NumPatt], PRE_TIME[NumAlgo][NumPatt],
       BEST[NumAlgo][NumPatt], WORST[NumAlgo][NumPatt], STD[NumAlgo][NumPatt],
       STDTIME[5000];
@@ -379,7 +380,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 
       int current_running = 0;
       for (algo = 0; algo < NumAlgo; algo++)
-        if (EXECUTE[algo] && (!ALGOS[i].minlen || m >= ALGOS[i].minlen)) {
+        if (EXECUTE[algo] && (!ALGOS[algo].minlen || m >= ALGOS[algo].minlen)) {
           char *upname = str2upper(ALGO_NAME[algo]);
           char data[30];
           current_running++;
