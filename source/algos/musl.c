@@ -2,25 +2,15 @@
  * SMART: string matching algorithms research tool.
  * Copyright (C) 2012  Simone Faro and Thierry Lecroq
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
- * download the tool at: http://www.dmi.unict.it/~faro/smart/
- *
+ * The musl strstr implementation is licensed under
+ * the standard MIT license.
+ * Copyright © 2005-2020 Rich Felker, et al.
  */
 
 #include "include/define.h"
 #include "include/main.h"
 
+#include <stddef.h>
 #include <stdint.h>
 
 static char *twobyte_strstr(const unsigned char *h, const unsigned char *n) {
@@ -127,13 +117,13 @@ static char *twoway_strstr(const unsigned char *h, const unsigned char *n) {
   /* Search loop */
   for (;;) {
     /* Update incremental end-of-haystack pointer */
-    if (z - h < (intptr_t)l) {
+    if (z - h < (ptrdiff_t)l) {
       /* Fast estimate for MAX(l,63) */
       size_t grow = l | 63;
       const unsigned char *z2 = memchr(z, 0, grow);
       if (z2) {
         z = z2;
-        if (z - h < (intptr_t)l)
+        if (z - h < (ptrdiff_t)l)
           return 0;
       } else
         z += grow;
