@@ -41,9 +41,8 @@
 #define FORCE_INLINE inline __attribute__((always_inline))
 
 static FORCE_INLINE int
-avx2_strstr_generic(const unsigned char *needle, int m,
-                    const unsigned char *s, int n) {
-
+avx2_strstr_generic(const unsigned char *s, int n, const unsigned char *needle, int m) {
+  int count = 0;
   assert(m > 1);
   assert(n > 0);
   const __m256i first = _mm256_set1_epi8(needle[0]);
@@ -74,7 +73,7 @@ avx2_strstr_generic(const unsigned char *needle, int m,
     while (mask != 0) {
       const int bitpos = __builtin_ctzll(mask);
       if (memcmp(s + i + bitpos + 1, needle + 1, m - 2) == 0) {
-        return i + bitpos;
+        OUTPUT(i + bitpos);
       }
       mask = mask & (mask - 1); // clear_leftmost_set
     }
@@ -83,7 +82,7 @@ avx2_strstr_generic(const unsigned char *needle, int m,
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  return avx2_strstr_generic(x, m, y, n);
+  return avx2_strstr_generic(y, n, x, m);
 }
 
 #elif defined __SSE2__
@@ -94,28 +93,31 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 #define FORCE_INLINE inline __attribute__((always_inline))
 
 static FORCE_INLINE int
-sse2_strstr_generic(const unsigned char *needle, int m,
-                    const unsigned char *s, int n) {
+sse2_strstr_generic(const unsigned char *s, int n,
+                    const unsigned char *needle, int m) {
+  int count = 0;
   assert(m > 1);
   assert(n > 0);
 
-  const __m128i first = _mm_set1_epi8(needle[0]);
-  const __m128i last = _mm_set1_epi8(needle[m - 1]);
+  const __m128i first = _mm_set1_epi8(needle[0]); // first byte, extended to 16
+  const __m128i last = _mm_set1_epi8(needle[m - 1]); // last byte, extended to 16
 
   for (int i = 0; i < n; i += 16) {
+    // first byte (extended)
     const __m128i block_first = _mm_loadu_si128((const __m128i *)(s + i));
-    const __m128i block_last =
-        _mm_loadu_si128((const __m128i *)(s + i + m - 1));
-
+    // last byte
+    const __m128i block_last = _mm_loadu_si128((const __m128i *)(s + i + m - 1));
+    // compare packed 8-bit integers for equality.
     const __m128i eq_first = _mm_cmpeq_epi8(first, block_first);
     const __m128i eq_last = _mm_cmpeq_epi8(last, block_last);
+    // mask from the most significant bit of each 8-bit element
     uint16_t mask = _mm_movemask_epi8(_mm_and_si128(eq_first, eq_last));
 
     while (mask != 0) {
       const uint16_t bitpos = __builtin_ctz(mask);
       // the first byte and last byte already match
       if (memcmp(s + i + bitpos + 1, needle + 1, m - 2) == 0) {
-        return i + bitpos;
+        OUTPUT(i + bitpos);
       }
       mask = mask & (mask - 1); // clear_leftmost_set
     }
@@ -123,30 +125,35 @@ sse2_strstr_generic(const unsigned char *needle, int m,
   return -1;
 }
 
-#if 0
+int search(unsigned char *x, int m, unsigned char *y, int n) {
+  return sse2_strstr_generic(y, n, x, m);
+}
+
+#elif 0
 /* A Karp-Rabin string search with 8 MPSADBW (Manhattan distances) between
  * given 4-byte sub-vector from one register and eight subsequent 4-byte
  * sub-vector from second register.
  */
-static size_t sse4_strstr_size4(const unsigned char *needle, int m,
-                                const unsigned char *s, int text_size) {
-    assert(m > 4);
-    assert(text_size > 0);
-    size_t needle_size = (size_t)m;
-    size_t n = (size_t)text_size;
-    const __m128i prefix = _mm_loadu_si128((const __m128i *)needle);
-    const __m128i zeros = _mm_setzero_si128();
-    for (size_t i = 0; i < n; i += 8) {
-      const __m128i data = _mm_loadu_si128((const __m128i *)(s + i));
-      const __m128i result = _mm_mpsadbw_epu8(data, prefix, 0);
-      const __m128i cmp = _mm_cmpeq_epi16(result, zeros);
-      unsigned mask = _mm_movemask_epi8(cmp) & 0x5555;
+static size_t sse4_strstr_size_min4(const unsigned char *needle, int m,
+                                    const unsigned char *s, int text_size) {
+  int count = 0;
+  assert(m > 4);
+  assert(text_size > 0);
+  size_t needle_size = (size_t)m;
+  size_t n = (size_t)text_size;
+  const __m128i prefix = _mm_loadu_si128((const __m128i *)needle);
+  const __m128i zeros = _mm_setzero_si128();
+  for (size_t i = 0; i < n; i += 8) {
+    const __m128i data = _mm_loadu_si128((const __m128i *)(s + i));
+    const __m128i result = _mm_mpsadbw_epu8(data, prefix, 0);
+    const __m128i cmp = _mm_cmpeq_epi16(result, zeros);
+    unsigned mask = _mm_movemask_epi8(cmp) & 0x5555;
 
-      while (mask != 0) {
-        const auto bitpos = __builtin_ctz(mask) / 2;
-        if (memcmp(s + i + bitpos + 4, needle + 4, needle_size - 4) == 0) {
-          OUTPUT(i + bitpos);
-        }
+    while (mask != 0) {
+      const auto bitpos = __builtin_ctz(mask) / 2;
+      if (memcmp(s + i + bitpos + 4, needle + 4, needle_size - 4) == 0) {
+        OUTPUT(i + bitpos);
+      }
       mask = mask & (mask - 1); // clear_leftmost_set
     }
   }
@@ -154,7 +161,7 @@ static size_t sse4_strstr_size4(const unsigned char *needle, int m,
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  return sse2_strstr_generic(x, m, y, n);
+  return sse4_strstr_size_min4(x, m, y, n);
 }
 
 #elif defined __ARM_NEON
@@ -167,7 +174,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 static FORCE_INLINE int
 neon_strstr_generic(const unsigned char *needle, int m,
                     const unsigned char *s, int n) {
-
+  int count = 0;
   assert(m > 1);
   assert(n > 0);
 
@@ -183,7 +190,7 @@ neon_strstr_generic(const unsigned char *needle, int m,
   for (int i = 0; i < n; i += 16) {
 
     const uint8x16_t block_first = vld1q_u8(s + i);
-    const uint8x16_t block_last = vld1q_u8(s + i + k - 1);
+    const uint8x16_t block_last = vld1q_u8(s + i + m - 1);
 
     const uint8x16_t eq_first = vceqq_u8(first, block_first);
     const uint8x16_t eq_last = vceqq_u8(last, block_last);
@@ -200,7 +207,7 @@ neon_strstr_generic(const unsigned char *needle, int m,
     for (int j = 0; j < 8; j++) {
       if (tmp[j] & 0x0f) {
         if (memcmp(s + i + j + 1, needle + 1, m - 2) == 0) {
-          return i + j;
+          OUTPUT(i + j);
         }
       }
     }
@@ -208,7 +215,7 @@ neon_strstr_generic(const unsigned char *needle, int m,
     for (int j = 0; j < 8; j++) {
       if (tmp[j] & 0xf0) {
         if (memcmp(s + i + j + 1 + 8, needle + 1, k - 2) == 0) {
-          return i + j + 8;
+          OUTPUT(i + j + 8);
         }
       }
     }
@@ -219,7 +226,5 @@ neon_strstr_generic(const unsigned char *needle, int m,
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   return neon_strstr_generic(x, m, y, n);
 }
-
-#endif
 
 #endif

@@ -529,7 +529,7 @@ const struct algo ALGOS[] = {
   [_LIBC1] = {_LIBC1, OK, "libc1", "memmem", 0, 0},
   [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0},
   [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},
-  [_SIMDKR] = {_SIMDKR, FAIL, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
+  [_SIMDKR] = {_SIMDKR, OK, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
     // clang-format on
 };
 
