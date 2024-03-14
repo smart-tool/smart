@@ -167,26 +167,26 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   return i;
 }
 
-int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-            key_t ekey, key_t prekey, int *count, int alpha) {
-  char command[100];
-  (void)alpha;
 #ifdef _WIN32
-  (void)rkey;
-  (void)ekey;
-  (void)prekey;
-  sprintf(command, "./%s/%s %d %d %d %d", BINDIR, ALGO_NAME[algo], pkey, m,
-          tkey, n);
+int execute(enum algo_id algo, unsigned char *P, int m, unsigned char *T, int n) {
+  char command[100];
+  snprintf(command, sizeof(command), "./%s/%s %s %d %s %d", BINDIR, ALGO_NAME[algo], P, m,
+          T, n);
+  return 0;
+}
 #else
-  sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR,
+int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
+            key_t ekey, key_t prekey, int *count) {
+  char command[100];
+  snprintf(command, sizeof(command), "./%s/%s shared %d %d %d %d %d %d %d", BINDIR,
           ALGO_NAME[algo], pkey, m, tkey, n, rkey, ekey, prekey);
-#endif
   int res = system(command);
   if (!res)
     return (*count);
   else
     return -1;
 }
+#endif
 
 void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
                          int numpatt, unsigned char *simplePattern, int alpha) {
@@ -410,9 +410,11 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
             fflush(stdout);
 
             (*e_time) = (*pre_time) = 0.0;
-            occur = execute(algo, pkey, m, tkey, n, rkey, ekey, prekey, count,
-                            alpha);
-
+#ifdef _WIN32
+            occur = execute(algo, P, m, T, n);
+#else
+            occur = execute(algo, pkey, m, tkey, n, rkey, ekey, prekey, count);
+#endif
             if (!pre)
               (*e_time) += (*pre_time);
             STDTIME[k] = (*e_time);
