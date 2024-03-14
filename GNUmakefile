@@ -29,11 +29,13 @@ BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
 ifeq ($(SANITIZE),1)
   TESTBIN = test-asan
   SMARTBIN = smart-asan
-  HELPERS = $(SMARTBIN) $(TESTBIN) compilesm-asan show select textgen
+  SELECTBIN = select-asan
+  HELPERS = $(SMARTBIN) $(TESTBIN) $(SELECTBIN) compilesm-asan show textgen
 else
   TESTBIN = test
   SMARTBIN = smart
-  HELPERS = $(SMARTBIN) $(TESTBIN) show select textgen compilesm
+  SELECTBIN = select
+  HELPERS = $(SMARTBIN) $(TESTBIN) $(SELECTBIN) compilesm show textgen
 endif
 TESTS := $(shell shuf -n 6 good.lst)
 ifeq ($(TESTS),)
@@ -49,22 +51,22 @@ $(BINDIR)/%: source/algos/%.c $(wildcard source/algos/include/*.h)
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
 ./%: source/%.c $(wildcard source/*.h)
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
-select: source/selectAlgo.c
+$(SELECTBIN): source/selectAlgo.c
 	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: check clean all lint verify fmt cppcheck clang-tidy
 check: all
 	-cp source/algorithms.lst source/algorithms.lst.bak
-	$(DRV) ./select -all
-	$(DRV) ./select -which | grep br
+	$(DRV) ./$(SELECTBIN) -all
+	$(DRV) ./$(SELECTBIN) -which | grep br
 	-cp $(BINDIR)/br $(BINDIR)/br1
-	$(DRV) ./select -add br1
+	$(DRV) ./$(SELECTBIN) -add br1
 	-rm $(BINDIR)/br1
-	$(DRV) ./select -none $(TESTS)
+	$(DRV) ./$(SELECTBIN) -none $(TESTS)
 	$(DRV) ./$(SMARTBIN) -text rand32 -plen 2 4
 	$(DRV) ./$(SMARTBIN) -simple abab chbjhxsscsjndwkjnjdnwelabakdlkewdkklewlkdewlkdnewknabdewab
 	for t in $(TESTS); do echo $$t; ./$(TESTBIN) $$t; done
-	$(DRV) ./select -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
+	$(DRV) ./$(SELECTBIN) -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv source/algorithms.lst.bak source/algorithms.lst
 sanitizer.log: $(ALLSRC)
 	-rm -f sanitizer.log 2>/dev/null
