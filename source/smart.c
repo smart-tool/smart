@@ -191,12 +191,14 @@ int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
 void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
                          int numpatt, unsigned char *simplePattern, int alpha) {
   int i, j, k;
+  (void)alpha;
   for (i = 0; i < numpatt; i++) {
     if (strcmp((char *)simplePattern, ""))
       //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
       strcpy((char *)setP[i], (char *)simplePattern);
     else {
       k = rand() % (n - m); // generates a number between 0 and n-m
+      // TODO: observe alpha
       for (j = 0; j < m; j++)
         setP[i][j] = T[k + j]; // creates the pattern
       setP[i][j] = '\0';
@@ -209,12 +211,14 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
 void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
               double *pre_time, int tshmid, int pshmid, int rshmid, int eshmid,
               int preshmid) {
-  shmdt(T);
+  (void)T;
+  (void)tshmid;
+  // T is shared with test, only free'd at the very end
+  //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(P);
   shmdt(count);
   shmdt(e_time);
   shmdt(pre_time);
-  shmctl(tshmid, IPC_RMID, 0);
   shmctl(pshmid, IPC_RMID, 0);
   shmctl(rshmid, IPC_RMID, 0);
   shmctl(eshmid, IPC_RMID, 0);
@@ -508,7 +512,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
            preshmid);
 #else
-  free(T);
+  //free(T);
 #endif
   return 0;
 }
@@ -751,6 +755,7 @@ int main(int argc, const char *argv[]) {
     perror("shmat");
     goto end_1;
   }
+  //fprintf(stderr, "shmget+shmat T %p\n", T);
 #endif
 
   if (SIMPLE) {
@@ -866,8 +871,11 @@ int main(int argc, const char *argv[]) {
   // free shared memory
 end_shm:
 #ifndef _WIN32
+  //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
+#else
+  free(T);
 #endif
   // free other allocated memory
 end:
@@ -875,6 +883,7 @@ end:
 
 #ifndef _WIN32
 end_1:
+  //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
   shmctl(tshmid, IPC_RMID, 0);
   return 1;

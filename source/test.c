@@ -107,12 +107,11 @@ int FREQ[SIGMA];
 
 void free_shm() {
 #ifdef HAVE_SHM
-  shmdt(T);
+  // T is shared with smart
   shmdt(P);
   shmdt(count);
   shmdt(e_time);
   shmdt(pre_time);
-  shmctl(tshmid, IPC_RMID, 0);
   shmctl(pshmid, IPC_RMID, 0);
   shmctl(rshmid, IPC_RMID, 0);
   shmctl(eshmid, IPC_RMID, 0);
