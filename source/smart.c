@@ -117,6 +117,11 @@ void generateCode(char *code) {
   sprintf(code, "EXP%u", t);
 }
 
+static int u8_cmp(const void* a, const void* b) {
+  return *(uint8_t*)a < *(uint8_t*)b ? -1 :
+    *(uint8_t*)a > *(uint8_t*)b ? 1 : 0;
+}
+
 int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   // obtains the input text
   int j, i = 0;
@@ -153,17 +158,34 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
   // compute the frequency of characters and the dimension of the alphabet
   int nalpha = 0;
   int maxcode = 0;
+  int mincode = 255;
+  int maxfreq = 0;
+  int median = 0;
+  unsigned char *sorted;
   for (j = 0; j < SIGMA; j++)
     FREQ[j] = 0;
   for (j = 0; j < i; j++) {
-    if (FREQ[T[j]] == 0)
+    unsigned char c = T[j];
+    if (FREQ[c] == 0)
       nalpha++;
-    FREQ[T[j]]++;
-    if (maxcode < T[j])
-      maxcode = T[j];
+    FREQ[c]++;
+    if (maxcode < c)
+      maxcode = c;
+    if (mincode > c)
+      mincode = c;
   }
-  printf("\tAlphabet of %d characters.\n", nalpha);
-  printf("\tGreatest chararacter has code %d.\n", maxcode);
+  for (j = 0; j < SIGMA; j++)
+    if (maxfreq < FREQ[j])
+      maxfreq = j;
+  median = (i % 2) ? (i+1)/2 : i/2;
+  sorted = malloc(i);
+  memcpy(sorted, T, i);
+  qsort(sorted, i, 1, u8_cmp);
+  printf("\t%d characters [%d-%d], median: %d, alpha: %d, highest freq: %d\n",
+         i, mincode, maxcode,
+         i % 2 ? sorted[median] : (sorted[median] + sorted[(i + 2)/2]) / 2,
+         nalpha, maxfreq);
+  free(sorted);
   return i;
 }
 
@@ -819,7 +841,6 @@ int main(int argc, const char *argv[]) {
       if (!(alpha = getAlpha(list_of_filenames[k]))) {
         goto end_shm;
       }
-      printf("\tText buffer of dimension %d byte\n", n);
 
       time_t date_timer;
       char time_format[26];
