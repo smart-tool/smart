@@ -63,7 +63,7 @@ check: all
 	$(DRV) ./$(SELECTBIN) -add br1
 	-rm $(BINDIR)/br1
 	$(DRV) ./$(SELECTBIN) -none $(TESTS)
-	$(DRV) ./$(SMARTBIN) -text rand4-rand32 -plen 2 4
+	$(DRV) ./$(SMARTBIN) -text rand4:rand32 -plen 2 4
 	$(DRV) ./$(SMARTBIN) -simple abab chbjhxsscsjndwkjnjdnwelabakdlkewdkklewlkdewlkdnewknabdewab
 	for t in $(TESTS); do echo $$t; ./$(TESTBIN) $$t; done
 	$(DRV) ./$(SELECTBIN) -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp

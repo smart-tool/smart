@@ -63,7 +63,7 @@ void printManual() {
          "used for experimental results (default 1Mb)\n");
   printf("\t-plen L U     test only patterns with a length between L and U "
          "(included).\n");
-  printf("\t-text F       performs experimental results using text buffer F "
+  printf("\t-text F[:F...] performs experimental results using text buffer(s) F "
          "(mandatory unless you use the -simple parameter)\n");
   printf("\t              Use option \"all\" to performe experimental results "
          "using all text buffers.\n");

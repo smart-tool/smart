@@ -188,17 +188,18 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   fclose(fp);
 }
 
+#define SPLITCHAR ':'
 int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {
   int i, j, k;
   i = j = k = 0;
   int m = strlen(filename);
   while (i < m) {
-    while (i < m && filename[i] != '-') {
+    while (i < m && filename[i] != SPLITCHAR) {
       list_of_filenames[k][j++] = filename[i];
       i++;
     }
     list_of_filenames[k][j] = '\0';
-    if (i < m && filename[i] == '-') {
+    if (i < m && filename[i] == SPLITCHAR) {
       k++;
       j = 0;
       i++;
