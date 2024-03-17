@@ -6,9 +6,10 @@
 /test
 /textgen
 /compilesm-asan
+/select-asan
 /smart-asan
 /test-asan
-source/algorithms.lst
+algorithms.lst
 /data/rand128/rand128.txt
 /data/rand16/rand16.txt
 /data/rand2/rand2.txt

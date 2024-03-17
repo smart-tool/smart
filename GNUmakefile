@@ -67,7 +67,7 @@ check: all
 	$(DRV) ./$(SMARTBIN) -simple abab chbjhxsscsjndwkjnjdnwelabakdlkewdkklewlkdewlkdnewknabdewab
 	for t in $(TESTS); do echo $$t; ./$(TESTBIN) $$t; done
 	$(DRV) ./$(SELECTBIN) -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
-	-mv source/algorithms.lst.bak source/algorithms.lst
+	-mv algorithms.lst.bak algorithms.lst
 sanitizer.log: $(ALLSRC)
 	-rm -f sanitizer.log 2>/dev/null
 	./sanitizer.sh 2>sanitizer.log
