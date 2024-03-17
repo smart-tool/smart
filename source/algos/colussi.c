@@ -27,7 +27,7 @@
 
 int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
   int i, k, nd, r = 0, q, s;
-  int hmax[XSIZE], kmin[XSIZE], nhd0[XSIZE], rmin[XSIZE];
+  int hmax[XSIZE] = {0}, kmin[XSIZE], nhd0[XSIZE] = {0}, rmin[XSIZE];
 
   /* Computation of hmax */
   i = k = 1;

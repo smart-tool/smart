@@ -53,6 +53,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = m; i > 0; --i) {
     iMinus1 = i - 1;
     c = x[iMinus1];
+    //NOLINTNEXTLINE(clang-analyzer-core.NullDereference)
     trans[i][c] = iMinus1;
     p = S[i];
     while (p <= m && (q = trans[p][c]) == UNDEFINED) {

@@ -73,7 +73,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < (unsigned)m; i++) {
     f[i] = (x[i] & 0x80) >> 7;
   }
-  count = 15;
+  //count = 15;
 
   for (i = 0; i < last * 16; i++) {
     j = last * 16 - i;

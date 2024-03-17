@@ -42,7 +42,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   if (m > M_CUTOFF) {
-    xR = (unsigned char *)malloc(sizeof(char) * (m + 1));
+    xR = (unsigned char *)malloc(sizeof(unsigned char) * (m + 1));
     ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
     tlength = (int *)calloc(3 * m, sizeof(int));
     tsuffix = (int *)calloc(3 * m, sizeof(int));
@@ -55,6 +55,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
     ttransSMA = s_ttransSMA;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memset(tlength, 0, 3 * m * sizeof(int));
     memset(tsuffix, 0, 3 * m * sizeof(int));
     memset(tterminal, 0, 3 * m * sizeof(unsigned char));
@@ -62,12 +63,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = 0; i < m; i++)
     xR[i] = x[m - i - 1];
   xR[m] = '\0';
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
 
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   preSMA(x, m, ttransSMA);
   END_PREPROCESSING
 

@@ -29,11 +29,11 @@
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int S[XSIZE];
-  int *trans[XSIZE];
+  int *trans[XSIZE] = {0};
   int i, j, p, q = 0;
   int iMinus1, mMinus1, nMinusm, count;
   int allocated = 0;
-  int s_trans[M_CUTOFF + 2][SIGMA];
+  int s_trans[M_CUTOFF + 2][SIGMA] = {0};
 
   BEGIN_PREPROCESSING
   unsigned char c;
@@ -41,7 +41,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (m + 2 > M_CUTOFF) {
     allocated = 1;
     for (i = 0; i <= m + 1; i++)
-      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+      trans[i] = (int *)malloc(SIGMA * sizeof(int));
   } else {
     for (i = 0; i <= m + 1; i++)
       trans[i] = s_trans[i];
@@ -55,6 +55,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (i = m; i > 0; --i) {
     iMinus1 = i - 1;
     c = x[iMinus1];
+    //NOLINTNEXTLINE(clang-analyzer-core.NullDereference)
     trans[i][c] = iMinus1;
     p = S[i];
     while (p <= m && (q = trans[p][c]) == UNDEFINED) {
@@ -74,6 +75,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     i = mMinus1;
     p = m;
     assert(i + j < n);
+    //NOLINTNEXTLINE(clang-analyzer-core.NullDereference)
     while (i + j >= 0 && (q = trans[p][y[i + j]]) != UNDEFINED) {
       p = q;
       --i;

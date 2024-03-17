@@ -31,9 +31,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int *ttrans, *tlength, *tsuffix;
   unsigned char *tterminal;
   int s_ttrans[3 * M_CUTOFF * SIGMA];
-  int s_tlength[3 * M_CUTOFF];
-  int s_tsuffix[3 * M_CUTOFF];
-  unsigned char s_tterminal[3 * M_CUTOFF];
+  int s_tlength[3 * M_CUTOFF] = {0};
+  int s_tsuffix[3 * M_CUTOFF] = {0};
+  unsigned char s_tterminal[3 * M_CUTOFF] = {0};
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -47,9 +47,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tlength = s_tlength;
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
-    memset(tlength, 0, 3 * m * sizeof(int));
-    memset(tsuffix, 0, 3 * m * sizeof(int));
-    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
   }
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));

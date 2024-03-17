@@ -35,7 +35,7 @@ void preMp(unsigned char *x, int m, int mpNext[]) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, mpNext[XSIZE], count;
+  int i, j, mpNext[XSIZE] = {0}, count;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

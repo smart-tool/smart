@@ -46,12 +46,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tlength = s_tlength;
     tsuffix = s_tsuffix;
     tterminal = s_tterminal;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memset(tlength, 0, 3 * m * sizeof(int));
     memset(tsuffix, 0, 3 * m * sizeof(int));
     memset(tterminal, 0, 3 * m * sizeof(unsigned char));
   }
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
   init = 0;
   count = 0;

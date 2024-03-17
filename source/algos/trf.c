@@ -127,19 +127,20 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     tsuffix = s_tsuffix;
     tposition = s_tposition;
     tterminal = s_tterminal;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memset(tlength, 0, size * sizeof(int));
     memset(tposition, 0, size * sizeof(int));
     memset(tsuffix, 0, size * sizeof(int));
     memset(tterminal, 0, size * sizeof(unsigned char));
   }
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(ttrans, -1, size * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   buildSuffixAutomaton4TRF(x, m, ttrans, tlength, tposition, tsuffix, tterminal,
                            tshift);
   init = 0;
   preMpforTRF(x, m, mpNext);
   period = m - mpNext[m];
-  i = 0;
+  //i = 0;
   shift = m;
   count = 0;
   END_PREPROCESSING

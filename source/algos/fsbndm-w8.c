@@ -86,11 +86,11 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     count++;
   s1 = m;
   s2 = q - m;
-  s3 = q;
+  //s3 = q;
   s4 = 2 * q - m;
-  s5 = 2 * q;
+  //s5 = 2 * q;
   s6 = 3 * q - m;
-  s7 = 3 * q;
+  //s7 = 3 * q;
   s8 = n - plen;
   if (s2 <= s1 - mm1)
     s2 = s1 - mm1 + 1;

@@ -29,6 +29,7 @@
 #define UNDEFINED -1
 #define HALFDEFINED -2
 #define WORD 32 // computer word size (in bit)
+
 #ifdef DEBUG
 #define OUTPUT(j)                                                              \
   {                                                                            \

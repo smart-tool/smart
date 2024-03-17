@@ -41,7 +41,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (m + 2 > M_CUTOFF) {
     allocated = 1;
     for (i = 0; i <= m + 1; i++)
-      trans[i] = (int *)malloc(sizeof(int) * SIGMA);
+      trans[i] = (int *)malloc(SIGMA * sizeof(int));
   } else {
     for (i = 0; i <= m + 1; i++)
       trans[i] = s_trans[i];

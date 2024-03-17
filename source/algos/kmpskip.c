@@ -65,7 +65,7 @@ int attempt(char *y, char *x, int m, int start, int wall) {
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, kmpStart, per, start, wall, count;
-  int kmpNext[XSIZE], list[XSIZE], mpNext[XSIZE], z[SIGMA];
+  int kmpNext[XSIZE], list[XSIZE], mpNext[XSIZE] = {0}, z[SIGMA];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -87,7 +87,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   count = 0;
   wall = 0;
   per = m - kmpNext[m];
-  i = j = -1;
+  j = -1;
   do {
     j += m;
   } while (j < n && z[y[j]] < 0);

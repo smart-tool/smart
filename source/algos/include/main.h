@@ -34,8 +34,8 @@
 #endif
 #include <sys/types.h>
 
-double *run_time = NULL, // searching time
-    *pre_time = NULL;    // preprocessing time
+double *run_time,    // searching time
+       *pre_time;    // preprocessing time
 #if !defined __AVR__ && !defined CBMC
 #define BEGIN_PREPROCESSING                                                    \
   {                                                                            \
@@ -51,15 +51,13 @@ double *run_time = NULL, // searching time
   {                                                                            \
     timer_stop(_timer);                                                        \
     end = clock();                                                             \
-    if (pre_time)                                                              \
-      (*pre_time) = timer_elapsed(_timer) * 1000;                              \
+    (*pre_time) = timer_elapsed(_timer) * 1000;                                \
   }
 #define END_SEARCHING                                                          \
   {                                                                            \
     timer_stop(_timer);                                                        \
     end = clock();                                                             \
-    if (run_time)                                                              \
-      (*run_time) = timer_elapsed(_timer) * 1000;                              \
+    (*run_time) = timer_elapsed(_timer) * 1000;                                \
   }
 
 /* global variables used for computing preprocessing and searching times */
@@ -225,7 +223,13 @@ int main(int argc, char *argv[]) {
     if (n > (int)lt)
       fprintf(stderr, "Invalid 4nd arg n=%d, should be <= %u\n", n,
               (unsigned)lt);
+    pre_time = calloc(1, sizeof(double));
+    run_time = calloc(1, sizeof(double));
+
     int occ = search(p, m, t, n);
+
+    free(run_time);
+    free(pre_time);
     free(p);
     free(t);
     printf("found %d occurrences\n", occ);

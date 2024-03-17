@@ -27,7 +27,7 @@
 
 int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
   int i, k, nd, q, r = 0, s;
-  int hmax[XSIZE], kmin[XSIZE], nhd0[XSIZE], rmin[XSIZE];
+  int hmax[XSIZE] = {0}, kmin[XSIZE], nhd0[XSIZE] = {0}, rmin[XSIZE];
 
   /* Computation of hmax */
   i = k = 1;
@@ -131,7 +131,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   i = j = heavy = 0;
   last = -1;
   while (j <= n - m) {
-    if (heavy && i == 0) {
+    if (heavy && !i) {
       k = last - j + 1;
       while (x[0] == y[j + k])
         k++;
@@ -144,6 +144,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         last = j + k;
         j = last - (ell + 1);
       }
+      //NOLINTNEXTLINE(clang-analyzer-deadcode.DeadStores)
       heavy = 0;
     } else {
       while (i < m && last < j + h[i] && x[h[i]] == y[j + h[i]])

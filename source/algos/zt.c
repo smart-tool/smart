@@ -74,7 +74,7 @@ void preZtBc(unsigned char *x, int m, int ztBc[SIGMA][SIGMA]) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, ztBc[SIGMA][SIGMA], bmGs[XSIZE], count;
+  int i, j, ztBc[SIGMA][SIGMA], bmGs[XSIZE] = {0}, count;
 
   /* Preprocessing */
   BEGIN_PREPROCESSING

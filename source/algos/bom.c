@@ -90,10 +90,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   BEGIN_PREPROCESSING
   /* Preprocessing */
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(L, 0, (m + 1) * sizeof(List));
-  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(T, FALSE, (m + 1) * sizeof(char));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   oracle(x, m, T, L);
   END_PREPROCESSING
 

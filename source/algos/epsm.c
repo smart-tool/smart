@@ -254,6 +254,7 @@ int search16(unsigned char *pattern, int patlen, unsigned char *x,
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(flist, 0, sizeof(LIST *) * 2048);
 
+  //NOLINTNEXTLINE(clang-analyzer-unix.Malloc)
   for (i = 1; (int)i < tmppatlen - 7; i++) {
     // FIXME: unaligned access, wordwise stepper please
     ptr64 = (uint64_t *)(&pattern[i]);

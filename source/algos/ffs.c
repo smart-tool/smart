@@ -29,7 +29,7 @@
 void Forward_Suffix_Function(unsigned char *x, int m, int bm_gs[XSIZE][SIGMA],
                              int alpha) {
   int init;
-  int i, j, last, suffix_len, temx[XSIZE];
+  int i, j, last, suffix_len, temx[XSIZE] = {0};
   init = 0;
   for (i = 0; i < m; i++)
     for (j = init; j < init + alpha; j++)

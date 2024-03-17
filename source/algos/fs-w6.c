@@ -106,9 +106,9 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   const int q = n / 3;
   s1 = mm1;
   s2 = q - m;
-  s3 = q;
+  //s3 = q;
   s4 = (2 * q) - m;
-  s5 = 2 * q;
+  //s5 = 2 * q;
   s6 = n - m;
   if (s2 == s1 - mm1)
     s2++;

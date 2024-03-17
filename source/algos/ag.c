@@ -68,7 +68,7 @@ void preBmGsAG(unsigned char *x, int m, int bmGs[], int suff[]) {
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, s, shift, count;
-  int bmGs[XSIZE], skip[XSIZE], suff[XSIZE], bmBc[SIGMA];
+  int bmGs[XSIZE] = {0}, skip[XSIZE], suff[XSIZE], bmBc[SIGMA];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -115,10 +115,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       shift = MAX(bmGs[i], bmBc[y[i + j]] - m + 1 + i);
     }
     j += shift;
-    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memmove(skip, skip + shift, (m - shift) * sizeof(int));
-    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     memset(skip + m - shift, 0, shift * sizeof(int));
+    //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   }
   END_SEARCHING
   return count;

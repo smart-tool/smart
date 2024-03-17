@@ -273,15 +273,15 @@ void preSLink(unsigned char *x, int m, int *suff, int *pref, int *slink) {
 
 void validateShift(int m, int *clink, int *slink, int ell, int *skip) {
   int i, j, k, p, *len, *loc, *next;
-  int s_len[M_CUTOFF];
-  int s_loc[M_CUTOFF];
-  int s_next[M_CUTOFF];
+  int s_len[M_CUTOFF] = {0};
+  int s_loc[M_CUTOFF] = {0};
+  int s_next[M_CUTOFF] = {0};
   const int z = 2 * m;
 
   if (m > M_CUTOFF) {
-    len = (int *)malloc(m * sizeof(int));
-    loc = (int *)malloc(m * sizeof(int));
-    next = (int *)malloc(m * sizeof(int));
+    len = (int *)calloc(m, sizeof(int));
+    loc = (int *)calloc(m, sizeof(int));
+    next = (int *)calloc(m, sizeof(int));
   } else {
     len = s_len;
     loc = s_loc;
@@ -367,14 +367,14 @@ int getBcGS(unsigned char a, int i, struct _pair1 bcGsPtr[],
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, k, ell, lsp, bmBc[SIGMA], *clink, *pref, *skip, *slink, *suff,
       count;
-  int M;
+  const int M = 2 * m;
   struct _pair1 bcGsPtr[SIGMA];
   struct _pair2 *bcGsVal;
   int s_suff[M_CUTOFF];
   int s_pref[M_CUTOFF + 1];
   int s_clink[M_CUTOFF];
   int s_slink[M_CUTOFF];
-  int s_skip[2 * M_CUTOFF];
+  int s_skip[2 * M_CUTOFF] = {0};
   struct _pair2 s_bcGsVal[M_CUTOFF];
 
   /* Preprocessing */
@@ -382,9 +382,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   if (m > M_CUTOFF) {
     suff = (int *)malloc(m * sizeof(int));
     pref = (int *)malloc((m + 1) * sizeof(int));
-    clink = (int *)malloc(m * sizeof(int));
+    clink = (int *)calloc(m, sizeof(int));
     slink = (int *)malloc(m * sizeof(int));
-    skip = (int *)malloc(2 * m * sizeof(int));
+    skip = (int *)calloc(2 * m, sizeof(int));
     bcGsVal = (struct _pair2 *)malloc(m * sizeof(struct _pair2));
   } else {
     suff = s_suff;
@@ -392,6 +392,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     clink = s_clink;
     slink = s_slink;
     skip = s_skip;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+    memset(clink, 0, m * sizeof(int));
+    memset(skip, 0, 2 * m * sizeof(int));
+    //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
     bcGsVal = (struct _pair2 *)&s_bcGsVal;
   }
   preBmBc_(x, m, bmBc);
@@ -409,7 +413,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   j = 0;
   ell = 0;
   skip[0] = m;
-  M = 2 * m;
+  //M = 2 * m;
   while (j <= n - m) {
     //h = j;
     i = m - 1;
@@ -432,10 +436,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (i < 0) {
       OUTPUT(j);
       skip[ell] = m - lsp;
+      //NOLINTNEXTLINE(clang-analyzer-core.UndefinedBinaryOperatorResult)
       ell = (ell + 1) % M;
       skip[ell] = lsp;
     } else {
       skip[ell] = MAX(0, k - 1);
+      //NOLINTNEXTLINE(clang-analyzer-core.UndefinedBinaryOperatorResult)
       ell = (ell + 1) % M;
       skip[ell] = m - i;
       ell = (ell + 1) % M;

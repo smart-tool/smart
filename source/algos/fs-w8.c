@@ -104,11 +104,11 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   int q = n / 4;
   s1 = mm1;
   s2 = q - m;
-  s3 = q;
+  //s3 = q;
   s4 = (2 * q) - m;
-  s5 = 2 * q;
+  //s5 = 2 * q;
   s6 = (3 * q) - m;
-  s7 = 3 * q;
+  //s7 = 3 * q;
   s8 = n - m;
   if (s2 == s1 - mm1)
     s2++;

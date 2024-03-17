@@ -64,6 +64,7 @@ void freeListOfIntegers(ListOfIntegers list) {
   }
 }
 
+//NOLINTBEGIN(clang-analyzer-unix.Malloc)
 void setZ(ListOfIntegers *z, int node, int position) {
   ListOfIntegers cell;
 
@@ -98,10 +99,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   Node art, root, node, childNode;
   // 2 + (2 * m - m/2 + 1) * m/2
 #define S_CUTOFF 32
-  int s_trans[S_CUTOFF * SIGMA];
-  int s_fail[S_CUTOFF];
-  char s_term[S_CUTOFF];
-  ListOfIntegers s_z[S_CUTOFF];
+  int s_trans[S_CUTOFF * SIGMA] = {0};
+  int s_fail[S_CUTOFF] = {0};
+  char s_term[S_CUTOFF] = {0};
+  ListOfIntegers s_z[S_CUTOFF] = {0};
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
@@ -121,10 +122,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     automaton->term = s_term;
     automaton->fail = s_fail;
     z = s_z;
-    memset(s_trans, 0, size * SIGMA * sizeof(int));
-    memset(s_term, 0, size);
-    memset(s_fail, 0, size * sizeof(int));
-    memset(s_z, 0, size * sizeof(ListOfIntegers));
   }
   automaton->nodeCounter = 0;
 
@@ -196,3 +193,4 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     j += shift;
   }
 }
+//NOLINTEND(clang-analyzer-unix.Malloc)

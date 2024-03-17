@@ -68,7 +68,7 @@ void preBmGs(unsigned char *x, int m, int bmGs[]) {
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int bcShift, i, j, shift, u, v, turboShift, count, bmGs[XSIZE], bmBc[SIGMA];
+  int bcShift, i, j, shift, u, v, turboShift, count, bmGs[XSIZE] = {0}, bmBc[SIGMA];
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
