@@ -287,7 +287,7 @@ const struct algo ALGOS[] = {
   [_TunBM] = {_TunBM, FAIL, "tunbm", "Tuned Boyer-Moore", 0, 0},
   [_NSN] = {_NSN, OK, "nsn", "not so naive", 2, 0},
   [_TBM] = {_TBM, OK, "tbm", "Turbo Boyer-Moore", 0, 0},
-  [_Colussi] = {_Colussi, FAIL, "colussi", "Colussi", 0, 0},
+  [_Colussi] = {_Colussi, OK, "colussi", "Colussi", 0, 0},
   [_Smith] = {_Smith, OK, "smith", "Smith", 0, 0},
   [_GG] = {_GG, OK, "gg", "Galil-Giancarlo", 0, 0},
   [_Raita] = {_Raita, OK, "raita", "Raita", 0, 0},
@@ -306,20 +306,20 @@ const struct algo ALGOS[] = {
   [_TVSBS] = {_TVSBS, OK, "tvsbs", "Thathoo-Virmani-Sai-Balakrishnan-Sekar", 0, 0},
   [_PBMH] = {_PBMH, OK, "pbmh", "Boyer-Moore-Horspool using Probabilities", 0, 0},
   [_FJS] = {_FJS, OK, "fjs", "Franek-Jennings-Smyth", 0, 0},
-  [_BLOCK] = {_BLOCK, FAIL, "block", "2-Block Boyer-Moore", 0, MISSING},
+  [_BLOCK] = {_BLOCK, 0, "block", "2-Block Boyer-Moore", 0, MISSING},
   [_HASH3] = {_HASH3, OK, "hash3", "Wu-Manber for Single Pattern Matching (q=3)", 0, 0},
   [_HASH5] = {_HASH5, OK, "hash5", "Wu-Manber for Single Pattern Matching (q=5)", 0, 0},
   [_HASH8] = {_HASH8, OK, "hash8", "Wu-Manber for Single Pattern Matching (q=8)", 0, 0},
-  //[_WM] = {_WM, FAIL, "wm", "Wu-Manber", 0, MISSING},
+  //[_WM] = {_WM, 0, "wm", "Wu-Manber", 0, MISSING},
   // S. Wu and U. Manber, Agrep - A Fast Approximate Pattern-Matching Tool, In
   // Proceedings of USENIX Technical Conference,(1992), pp. 153–162
-  //[_SWM] = {_SWM, FAIL, "swm", "Simplified Wu-Manber", 0, MISSING},
+  //[_SWM] = {_SWM, 0, "swm", "Simplified Wu-Manber", 0, MISSING},
   // L. Vespa and N. Weng, SWM: Simplified Wu-Manber for GPU-based Deep Packet
   // Inspection, in Proceedings of the 2012 International Conference on
   // Security and Management, 2012.
   [_TSW] = {_TSW, OK, "tsw", "Two-Sliding-Window", 0, 0},
-  [_BMH2] = {_BMH2, FAIL, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)", 2, MISSING},
-  [_BMH4] = {_BMH4, FAIL, "bmh4", "Boyer-Moore-Horspool with q-grams (BMH4)", 4, MISSING},
+  [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)", 2, MISSING},
+  [_BMH4] = {_BMH4, 0, "bmh4", "Boyer-Moore-Horspool with q-grams (BMH4)", 4, MISSING},
   [_GRASPm] = {_GRASPm, OK, "graspm", "Genomic Rapid Algorithm for String Pattern-match", 0, 0},
   [_SSEF] = {_SSEF, X64_ONLY, "ssef", "SSEF (K=7)", 32, 0},
   // Algorithms based on automata
@@ -339,8 +339,8 @@ const struct algo ALGOS[] = {
   [_FBOM] = {_FBOM, OK, "fbom", "Forward Backward Oracle Matching", 0, 0},
   [_SEBOM] = {_SEBOM, OK, "sebom", "Simplified Extended Backward Oracle Matching", 0, 0},
   [_SFBOM] = {_SFBOM, OK, "sfbom", "Simplified Forward Backward Oracle Matching", 0, 0},
-  [_SBDM] = {_SBDM, FAIL, "sbdm", "Succint Backward DAWG Matching", 0, MISSING},
-  [_BSOM] = {_BSOM, FAIL, "bsom", "Backward Set Oracle Matching", 0, MISSING},
+  [_SBDM] = {_SBDM, 0, "sbdm", "Succint Backward DAWG Matching", 0, MISSING},
+  [_BSOM] = {_BSOM, 0, "bsom", "Backward Set Oracle Matching", 0, MISSING},
   [_SKIP2] = {_SKIP2, OK, "skip2", "Skip Search with lookahead", 2, 0},
   [_SKIP3] = {_SKIP3, OK, "skip3", "Skip Search with lookahead", 3, 0},
   [_SKIP4] = {_SKIP4, OK, "skip4", "Skip Search with lookahead", 4, 0},
@@ -479,7 +479,7 @@ const struct algo ALGOS[] = {
   [_SBNDM_W4] = {_SBNDM_W4, OK, "sbndm-w4", "SBNDM with lookahead", 0, 0}, // inexact >32
   [_SBNDM_W6] = {_SBNDM_W6, OK, "sbndm-w6", "SBNDM with lookahead", 0, 0}, // inexact >32
   [_SSM] = {_SSM, OK, "ssm", "SSM", 0, 0},
-  [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64
+  [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64. flapping
   [_TSA_Q2] = {_TSA_Q2, FAIL, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
   [_TSO5] = {_TSO5, OK, "tso5", "optimized word-wise popcount", 0, 0}, // max: 64
   [_TUNEDBM] = {_TUNEDBM, OK, "tunedbm", "Tuned Boyer-Moore", 0, 0},
@@ -522,13 +522,13 @@ const struct algo ALGOS[] = {
   [_DOUBLEHASH] = {_DOUBLEHASH, OK, "doublehash", "Double-Hash hybrid", 0, 0},
   // state of the art:
   [_FT3] = {_FT3, OK, "ft3", "Parallel Boyer-Moore with goodsuff", 0, 0}, // Lecroq 2015
-  [_HPBM] = {_HPBM, FAIL, "hpbm", "Parallel Boyer-Moore", 0, MISSING},
+  [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, MISSING},
   [_SSECP] = {_SSECP, FAIL, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
   [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
-  [_LIBC] = {_LIBC, OK, "libc", "strstr", 0, 0},
+  [_LIBC] = {_LIBC, OK, "libc", "strstr", 0, 0}, // no \0
   [_LIBC1] = {_LIBC1, OK, "libc1", "memmem", 0, 0},
-  [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0},
-  [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},
+  [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0}, // no \0
+  [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0}, // flapping
   [_SIMDKR] = {_SIMDKR, OK, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
     // clang-format on
 };
