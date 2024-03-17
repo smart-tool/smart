@@ -31,7 +31,7 @@
 #include "include/main.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int i, j, k, count;
+  int i, j, k, count;
   const unsigned int wsize = WORD - 1 + m;
   unsigned long tmp, F;
   unsigned int ScanOrder[XSIZE];
@@ -55,7 +55,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   memset(M, 0xff, sizeof(unsigned long) * SIGMA * wsize);
   for (i = 0; i < WORD; i++) {
     tmp = 1U << i;
-    for (j = 0; j < (unsigned)m; j++) {
+    for (j = 0; j < m; j++) {
       for (k = 0; k < SIGMA; k++)
         M[((i + j) * SIGMA) + k] &= ~tmp;
       M[x[j] + ((i + j) * SIGMA)] |= tmp;
@@ -64,7 +64,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   for (i = 0; i < SIGMA; i++)
     shift[i] = wsize + 1;
-  for (i = 0; i < (unsigned)m; i++)
+  for (i = 0; i < m; i++)
     shift[x[i]] = wsize - i;
 
   for (i = m - 1; i != 0; i--) {
@@ -85,14 +85,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   i = 0;
   F = M[MScanOrder[0] + y[i + ScanOrder[0]]] &
       M[MScanOrder[1] + y[i + ScanOrder[1]]];
-  while (i < (unsigned)n) {
+  while (i < n) {
     for (j = 2; F && j < wsize; j++) {
       F &= M[MScanOrder[j] + y[i + ScanOrder[j]]];
     }
     if (F) {
       for (j = 0; j < WORD; j++)
         if (F & (1U << j))
-          if ((int)(i + j) <= n - m)
+          if (i + j <= n - m)
             OUTPUT(i + j);
     }
     i += shift[y[i + wsize]];
