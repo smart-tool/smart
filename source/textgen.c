@@ -32,8 +32,6 @@ int main(void) {
   unsigned char c;
 
   for (int sigma = 2; sigma <= 256; sigma *= 2) {
-    printf("\tGenerating random text over %.3d chars ...........[000%%]",
-           sigma);
     switch (sigma) {
     case 2:
       stream = fopen("data/rand2/rand2.txt", "w");
@@ -64,8 +62,14 @@ int main(void) {
       fprintf(stderr, "Invalid sigma %d\n", sigma);
       exit(1);
     }
+    printf("\tGenerating random text over %.3d chars ...........[000%%]",
+           sigma);
     for (int i = 0; i < 5000000; i++) {
       c = rand() % sigma;
+      if (sigma < 250)
+        c += '0';
+      else
+        c += 5;
       fputc(c, stream);
       if (i % 1000 == 0)
         printf("\b\b\b\b\b\b[%.3d%%]", i * 100 / 5000000);

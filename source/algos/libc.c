@@ -16,6 +16,7 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
+ * Constraints: no NUL values in pattern and text allowed.
  */
 
 #include "include/define.h"

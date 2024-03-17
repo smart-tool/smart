@@ -160,6 +160,8 @@ static char *twoway_memmem(const unsigned char *h, const unsigned char *z,
 static void *musl_memmem(const void *h0, size_t k, const void *n0, size_t l) {
   const unsigned char *h = h0, *n = n0;
 
+  BEGIN_PREPROCESSING
+  END_PREPROCESSING
   /* Return immediately on empty needle */
   if (!l)
     return (void *)h;

@@ -5,6 +5,8 @@
  * The musl strstr implementation is licensed under
  * the standard MIT license.
  * Copyright © 2005-2020 Rich Felker, et al.
+ *
+ * Constraints: no NUL values in pattern and text allowed.
  */
 
 #include "include/define.h"
