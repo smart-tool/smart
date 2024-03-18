@@ -560,7 +560,7 @@ int main(int argc, char *argv[]) {
   //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
   if (VERBOSE)
-    printf("%s\ttested OK\n", algoname);
+    printf("%-12stested OK\n", algoname);
 
   // free shared memory
   free_shm();
