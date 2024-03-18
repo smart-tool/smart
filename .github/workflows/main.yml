@@ -79,7 +79,17 @@ jobs:
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
-    - run:  ./build.sh dotest && make check
+    - run: |
+        sudo sysctl -w kern.sysv.shmmax=16777216
+        sudo sysctl -w kern.sysv.shmmni=128
+        sudo sysctl -w kern.sysv.shmseg=32
+        sudo sysctl -w kern.sysv.shmall=4096
+    - name: ./build.sh dotest && make check
+      run: |
+        ./build.sh dotest
+        ./free_shm
+        make check
+        ./free_shm
   aarch64:
     runs-on: ubuntu-latest
     timeout-minutes: 30
