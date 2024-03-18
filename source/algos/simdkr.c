@@ -83,7 +83,7 @@ avx2_strstr_generic(const unsigned char *s, int n, const unsigned char *needle, 
     }
   }
   END_SEARCHING
-  return -1;
+  return count;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -131,7 +131,7 @@ sse2_strstr_generic(const unsigned char *s, int n,
     }
   }
   END_SEARCHING
-  return -1;
+  return count;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -171,7 +171,7 @@ static size_t sse4_strstr_size_min4(const unsigned char *needle, int m,
     }
   }
   END_SEARCHING
-  return -1;
+  return count;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -238,7 +238,7 @@ neon_strstr_generic(const unsigned char *needle, int m,
     }
   }
   END_SEARCHING
-  return -1;
+  return count;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {

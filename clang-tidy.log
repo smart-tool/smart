@@ -61,6 +61,3 @@ source/algos/sfbom.c:51:3: note: Loop condition is true.  Entering loop body
 source/algos/sfbom.c:54:17: note: Array access results in an undefined pointer dereference
    54 |     trans[i][c] = iMinus1;
       |     ~~~~~~~~~~~~^~~~~~~~~
-source/algos/simdkr.c:46:7: warning: variable 'count' set but not used [clang-diagnostic-unused-but-set-variable]
-   46 |   int count = 0;
-      |       ^
