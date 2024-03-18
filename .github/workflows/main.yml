@@ -26,10 +26,10 @@ jobs:
       run: |
         # https://github.com/actions/runner-images/issues/9491
         sudo sysctl vm.mmap_rnd_bits=28
-    - name: make SANITIZE=1 && test-asan `cat asan.lst`
+    - name: make SANITIZE=1 && test-asan `grep -v '^#' asan.lst`
       run: |
         make CC=clang SANITIZE=1 &&
-        for t in `cat asan.lst`; do
+        for t in `grep -v '^#' asan.lst`; do
           ./test-asan "$t"
         done
   lint:

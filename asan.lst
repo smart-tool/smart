@@ -37,7 +37,7 @@ hash5
 hash8
 tsw
 graspm
-ssef
+#ssef
 aut
 rf
 trf
@@ -83,7 +83,7 @@ aoso4
 aoso6
 fsbndm
 bndmq2
-bndmq4
+#bndmq4
 bndmq6
 sbndmq2
 sbndmq4
@@ -103,7 +103,7 @@ bsdm2
 bsdm3
 bsdm4
 bsdm5
-bsdm6
+#bsdm6
 bsdm7
 bsdm8
 bxs
@@ -191,7 +191,7 @@ wom
 doublehash
 ft3
 libc
-libc1
+#libc1
 musl
-musl1
-simdkr
+#musl1
+#simdkr
