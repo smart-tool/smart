@@ -36,6 +36,8 @@
 
 double *run_time,    // searching time
        *pre_time;    // preprocessing time
+double m_run_time, m_pre_time;
+
 #if !defined __AVR__ && !defined CBMC
 #define BEGIN_PREPROCESSING                                                    \
   {                                                                            \
@@ -211,10 +213,12 @@ int main(int argc, char *argv[]) {
     // for SSE code, esp. ssecp for int128 mu
 #define PAD_16(x) (((x) + 15) & ~15)
     p = (unsigned char *)calloc(PAD_16(lp + 1), 1);
+    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
     strcpy((char *)p, argv[1]);
     m = atoi(argv[2]);
     // boyer-moore requires space at the end of t. (tunbm)
     t = (unsigned char *)calloc(PAD_16(lt + m + 1), 1);
+    //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
     strcpy((char *)t, argv[3]);
     n = atoi(argv[4]);
     if (m > (int)lp)
@@ -223,16 +227,15 @@ int main(int argc, char *argv[]) {
     if (n > (int)lt)
       fprintf(stderr, "Invalid 4nd arg n=%d, should be <= %u\n", n,
               (unsigned)lt);
-    pre_time = calloc(1, sizeof(double));
-    run_time = calloc(1, sizeof(double));
+    pre_time = &m_pre_time;
+    run_time = &m_run_time;
 
     int occ = search(p, m, t, n);
 
-    free(run_time);
-    free(pre_time);
+    printf("pre_time: %f\nrun_time: %f\n", *pre_time, *run_time);
+    printf("found %d occurrences\n", occ);
     free(p);
     free(t);
-    printf("found %d occurrences\n", occ);
     return 0;
 #endif
   }
