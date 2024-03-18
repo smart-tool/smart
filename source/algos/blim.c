@@ -69,7 +69,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   for (i = m - 1; i != 0; i--) {
     k = i;
-    while (k < wsize) {
+    while (k < (int)wsize) {
       *so = k;
       *mso = SIGMA * k;
       so++;
@@ -86,7 +86,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   F = M[MScanOrder[0] + y[i + ScanOrder[0]]] &
       M[MScanOrder[1] + y[i + ScanOrder[1]]];
   while (i < n) {
-    for (j = 2; F && j < wsize; j++) {
+    for (j = 2; F && j < (int)wsize; j++) {
       F &= M[MScanOrder[j] + y[i + ScanOrder[j]]];
     }
     if (F) {
