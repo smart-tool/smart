@@ -22,14 +22,16 @@ jobs:
     timeout-minutes: 15
     steps:
     - uses: actions/checkout@v4
+    - name: Fix kernel mmap rnd bits for -fsanitize=address
+      run: |
+        # https://github.com/actions/runner-images/issues/9491
+        sudo sysctl vm.mmap_rnd_bits=28
     - name: make SANITIZE=1 && test-asan `cat asan.lst`
       run: |
         make CC=clang SANITIZE=1 &&
         for t in `cat asan.lst`; do
           ./test-asan "$t"
         done
-      # always fails with new image update
-      continue-on-error: true
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 15
