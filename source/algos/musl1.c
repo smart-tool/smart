@@ -196,7 +196,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned char *p;
   while ((p = musl_memmem((char *)y, n, (char *)x, m))) {
     OUTPUT(p - orig_y);
-    n -= p - y;
+    n -= (p + 1) - y;
     y = p + 1; // can be optimized
   }
   END_SEARCHING

@@ -31,9 +31,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_SEARCHING
   int count = 0;
   unsigned char *p;
-  while ((p = memmem((char *)y, n, (char *)x, m))) {
+  while ((p = memmem((char *)y, (size_t)n, (char *)x, (size_t)m))) {
     OUTPUT(p - orig_y);
-    n -= p - y;
+    n -= (p + 1) - y;
     y = p + 1; // can be optimized
   }
   END_SEARCHING
