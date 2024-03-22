@@ -46,16 +46,18 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_large.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
   int i, j, s1, s2, s3, s4, pos, mm1, count;
 
-  BEGIN_PREPROCESSING
-  /* Preprocessing */
   int plen = m;
   if (m > 31)
-    m = 31;
+    //m = 31;
+    return search_large(x, m, y, n);;
+  BEGIN_PREPROCESSING
+  /* Preprocessing */
   count = 0;
   mm1 = m - 1;
   //mp1 = m + 1;

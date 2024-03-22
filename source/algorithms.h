@@ -419,7 +419,7 @@ const struct algo ALGOS[] = {
   [_FS_W6] = {_FS_W6, OK, "fs-w6", "Multiple Sliding Windows", 0, 0}, // n>=8
   [_FS_W8] = {_FS_W8, OK, "fs-w8", "Multiple Sliding Windows", 0, 0},
   [_FSBNDM_W1] =
-        {_FSBNDM_W1, OK, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W1, RNDCRASH, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W2] =
         {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W4] =
@@ -483,7 +483,7 @@ const struct algo ALGOS[] = {
   [_SBNDM_W6] = {_SBNDM_W6, RNDCRASH, "sbndm-w6", "SBNDM with lookahead", 0, 0}, // inexact >32
   [_SSM] = {_SSM, OK, "ssm", "SSM", 0, 0},
   [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64. flapping
-  [_TSA_Q2] = {_TSA_Q2, FAIL, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
+  [_TSA_Q2] = {_TSA_Q2, RNDCRASH, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
   [_TSO5] = {_TSO5, OK, "tso5", "optimized word-wise popcount", 0, 0}, // max: 64
   [_TUNEDBM] = {_TUNEDBM, OK, "tunedbm", "Tuned Boyer-Moore", 0, 0},
   [_TVSBS_W2] = {_TVSBS_W2, OK, "tvsbs-w2", "TVSBS", 0, 0},

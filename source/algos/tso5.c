@@ -1,6 +1,7 @@
 // optimized word-wise popcount
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_large.h"
 
 #include <inttypes.h>
 #include <stdint.h>
@@ -20,7 +21,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   uint64_t B[256], B1[256];
 
   if (m > 64)
-    return -1;
+    return search_large(P, m, T, n);;
   // memcpy(pat.pat+1, base, m);
 
   BEGIN_PREPROCESSING

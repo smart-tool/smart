@@ -5,6 +5,7 @@
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
+#include "include/search_large.h"
 
 #include <inttypes.h>
 #include <stdint.h>
@@ -25,7 +26,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   uint64_t B[512];
 
   if (m > 64)
-    return -1;
+    return search_large(P, m, T, n);
   if (m < 2)
     return search_small(P, m, T, n);
 

@@ -408,12 +408,12 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
       for (algo = 0; algo < NumAlgo; algo++)
         if (EXECUTE[algo] && (!ALGOS[algo].minlen || m >= ALGOS[algo].minlen)) {
           char *upname = str2upper(ALGO_NAME[algo]);
-          char data[30];
+          char data[64];
           current_running++;
           if (!SIMPLE)
             fprintf(stream, "%s - %s - %d\n", ALGO_NAME[algo], filename, m);
-          sprintf(data, "\t - [%d/%d] %s ", current_running, num_running,
-                  upname);
+          snprintf(data, sizeof(data), "\t - [%d/%d] %s ", current_running,
+                   num_running, upname);
           printf("%s", data);
           fflush(stdout);
           for (i = 0; i < 35 - strlen(data); i++)

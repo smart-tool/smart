@@ -46,14 +46,15 @@
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_large.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA];
   unsigned int s, f, d;
   int i, s1, s2, s3, s4, first, count;
-  int plen = m;
+  //int plen = m;
   if (m > 32)
-    m = 32;
+    return search_large(x, m, y, n);;
   int m1 = m - 1;
   //int mp1 = m + 1;
 
@@ -103,24 +104,24 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       s3++;
       s4--;
       i = 0;
-      while (i < plen && x[i] == y[s1 + i])
+      while (i < m && x[i] == y[s1 + i])
         i++;
-      if (i == plen && s1 + m1 < s2)
+      if (i == m && s1 + m1 < s2)
         OUTPUT(s1);
       i = 0;
-      while (i < plen && x[i] == y[s2 - m1 + i])
+      while (i < m && x[i] == y[s2 - m1 + i])
         i++;
-      if (i == plen && s1 + m1 <= s2)
+      if (i == m && s1 + m1 <= s2)
         OUTPUT(s1);
       i = 0;
-      while (i < plen && x[i] == y[s3 + i])
+      while (i < m && x[i] == y[s3 + i])
         i++;
-      if (i == plen && s3 + m1 < s4)
+      if (i == m && s3 + m1 < s4)
         OUTPUT(s3);
       i = 0;
-      while (i < plen && x[i] == y[s4 - m1 + i])
+      while (i < m && x[i] == y[s4 - m1 + i])
         i++;
-      if (i == plen && s3 + m1 <= s4)
+      if (i == m && s3 + m1 <= s4)
         OUTPUT(s3);
     }
     s1 += m;

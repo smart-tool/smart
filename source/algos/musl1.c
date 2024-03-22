@@ -190,8 +190,8 @@ static void *musl_memmem(const void *h0, size_t k, const void *n0, size_t l) {
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   //const unsigned char *orig_y = y;
 
-  /* Searching */
   BEGIN_SEARCHING
+  /* Searching */
   int count = 0;
   unsigned char *p;
   while ((p = musl_memmem((char *)y, n, (char *)x, m))) {

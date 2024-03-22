@@ -28,6 +28,8 @@
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
+#include "include/search_large.h"
+
 #define Q 2
 #define F 1
 
@@ -39,7 +41,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int plen = m;
   int larger = m + F > WORD ? 1 : 0;
   if (larger)
-    m = WORD - F;
+    //m = WORD - F;
+    return search_large(x, m, y, n);;
 
   BEGIN_PREPROCESSING
   /* Preprocessing */
