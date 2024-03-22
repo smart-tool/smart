@@ -22,7 +22,8 @@
  * International Symposium on Experimental Algorithms (SEA 2010)
  * Q is the dimension of q-grams
  *
- * Constraints: requires m>=2. inexact m>32
+ * Constraints: requires m>2. inexact m>32
+ * Note: Original crashed with m=2: bin/asan/bxs2 aa 2 aa 2
  */
 
 #include "include/define.h"
@@ -31,9 +32,9 @@
 #define Q 2
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, set;
+  unsigned int B[SIGMA] = {0}, D, set;
   int i, j, first, k, count;
-  if (m < Q)
+  if (m <= Q)
     return search_small(x, m, y, n);
   int len = m;
   if (m > WORD)
@@ -47,8 +48,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   count = 0;
   set = 1;
-  for (i = 0; i < SIGMA; i++)
-    B[i] = 0;
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= set;
     set <<= 1;

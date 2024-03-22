@@ -20,18 +20,22 @@
  * in Branislav Durian1, Hannu Peltola, Leena Salmela and Jorma Tarhio2
  * Bit-Parallel Search Algorithms for Long Patterns
  * International Symposium on Experimental Algorithms (SEA 2010)
+ * BXS: "BNDMq with eXtended Shift"
  * Q is the dimension of q-grams
+ *
+ * Note: Original crashed with m=2: bin/asan/bxs aa 2 aa 2
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 #define Q 1
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  unsigned int B[SIGMA], D, set;
+  unsigned int B[SIGMA] = {0}, D, set;
   int i, j, first, k, count;
-  if (m < Q)
-    return -1;
+  if (m <= 2)
+    return search_small(x, m, y, n);
   int len = m;
   if (m > WORD)
     m = WORD;
@@ -43,8 +47,6 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   BEGIN_PREPROCESSING
   count = 0;
   set = 1;
-  for (i = 0; i < SIGMA; i++)
-    B[i] = 0;
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= set;
     set <<= 1;

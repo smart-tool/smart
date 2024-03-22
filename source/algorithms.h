@@ -278,7 +278,7 @@ const struct algo ALGOS[] = {
   [_GS] = {_GS, FAIL, "gs", "Galil Seiferas", 0, 0},
   [_AG] = {_AG, OK, "ag", "Apostolico-Giancarlo", 0, 0},
   [_KR] = {_KR, OK, "kr", "Karp-Rabin", 0, 0},
-  [_ZT] = {_ZT, OK, "zt", "Zhu-Takaoka", 0, 0},
+  [_ZT] = {_ZT, OK, "zt", "Zhu-Takaoka", 0, 0}, //m>=2
   [_AC] = {_AC, OK, "ac", "Apostolico-Crochemore", 0, 0},
   [_TW] = {_TW, OK, "tw", "Two-Way", 0, 0},
   [_OM] = {_OM, OK, "om", "Optimal Mismatch", 0, 0},
@@ -403,7 +403,7 @@ const struct algo ALGOS[] = {
   [_BSDM6] = {_BSDM6, OK, "bsdm6", "Backward SNR DAWG Matching (m>=6)", 6, 0},
   [_BSDM7] = {_BSDM7, OK, "bsdm7", "Backward SNR DAWG Matching (m>=7)", 7, 0},
   [_BSDM8] = {_BSDM8, OK, "bsdm8", "Backward SNR DAWG Matching (m>=8)", 8, 0},
-  [_BXS] = {_BXS, OK, "bxs", "BXS", 0, 0}, // inexact>32
+  [_BXS] = {_BXS, OK, "bxs", "BNDMq with eXtended Shift", 0, 0}, // inexact>32, m>=2
   [_BXS1] = {_BXS1, OK, "bxs1", "BXS with q-grams limit", 1, 0},
   [_BXS2] = {_BXS2, OK, "bxs2", "BXS with q-grams limit", 2, 0},
   [_BXS3] = {_BXS3, OK, "bxs3", "BXS with q-grams limit", 3, 0},
