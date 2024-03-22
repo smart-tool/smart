@@ -593,7 +593,7 @@ int main(int argc, const char *argv[]) {
     PATT_CUSTOM_SIZE[1] = 0;
     PATT_SIZE = PATT_CUSTOM_SIZE;
     
-    textStats(T, n, FREQ, TSIZE);
+    textStats(T, n, FREQ);
     srand(time(NULL));
     char expcode[32];
     generateCode(expcode);

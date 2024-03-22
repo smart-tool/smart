@@ -47,6 +47,7 @@ struct shmids {
   key_t tkey, ekey, prekey, pkey, rkey;
 } shmids;
 
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 // strncat helper
 #define SZNCAT(x) sizeof(x) - strlen(x) - 1
 #define SZNCPY(x) sizeof(x) - 1
@@ -234,7 +235,7 @@ static int u8_cmp(const void* a, const void* b) {
 }
 
 // display the frequency of characters and the dimension of the alphabet
-void textStats(unsigned char *T, int n, int FREQ[SIGMA], int TSIZE) {
+void textStats(unsigned char *T, int n, int FREQ[SIGMA]) {
   int j;
   int nalpha = 0;
   int maxcode = 0;
@@ -304,7 +305,7 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
     printf("\tError in loading text buffer. No index file exists.\n");
   T[i] = '\0';
   // compute the frequency of characters and the dimension of the alphabet
-  textStats(T, i, FREQ, TSIZE);
+  textStats(T, i, FREQ);
   return i;
 }
 

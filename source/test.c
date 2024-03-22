@@ -206,7 +206,7 @@ int main(int argc, char *argv[]) {
 #else
   T = malloc(TSIZE + 1);
 #endif
-  char text[100];
+  char text[100] = {0};
   if (argc > argn) { // text=%s
     strncpy(text, argv[argn], SZNCPY(text));
     if (strcmp(text, "all") == 0) {
@@ -246,7 +246,7 @@ int main(int argc, char *argv[]) {
   srand(seed);
 #ifdef HAVE_SHM
   // allocate in shared memory
-  P = shmalloc(m, &shmids.p, &shmids.pkey);  // pattern
+  P = shmalloc(MAX(m, XSIZE), &shmids.p, &shmids.pkey);  // pattern
   e_time = shmalloc(sizeof(double), &shmids.e, &shmids.ekey); // running time
   pre_time = shmalloc(sizeof(double), &shmids.pre, &shmids.prekey); // preprocessing
   count = shmalloc(sizeof(int), &shmids.r, &shmids.rkey); // number of occurrences
@@ -480,10 +480,29 @@ int main(int argc, char *argv[]) {
   if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, verbose, alpha))
     goto free_shm1;
 
-  // TODO same as smart:
-  //setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
-  
-  
+  if (*text) {
+    // now do the same as smart
+    int VOLTE = 500;
+    unsigned char **setP =
+      (unsigned char **)malloc(sizeof(unsigned char *) * VOLTE);
+    for (int i = 0; i < VOLTE; i++)
+      setP[i] = (unsigned char *)malloc(sizeof(unsigned char) * (XSIZE + 1));
+    // for all m or just one?
+    setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"", alpha);
+    if (VERBOSE)
+      printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
+    for (int k = 1; k <= VOLTE; k++) {
+      int j;
+      for (j = 0; j < m; j++)
+        P[j] = setP[k - 1][j];
+      P[j] = '\0'; // creates the pattern
+      if (!attempt(&rip, count, P, m, T, n, algoname, verbose, alpha))
+        goto free_shm1;
+    }
+    for (int i = 0; i < VOLTE; i++)
+      free(setP[i]);
+    free(setP);
+  }
   //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
   if (VERBOSE)

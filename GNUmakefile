@@ -68,7 +68,8 @@ check: all
 	$(DRV) ./$(SELECTBIN) -none $(TESTS)
 	$(DRV) ./$(SMARTBIN) -text rand4:rand32 -plen 2 4
 	$(DRV) ./$(SMARTBIN) -simple abab chbjhxsscsjndwkjnjdnwelabakdlkewdkklewlkdewlkdnewknabdewab
-	for t in $(TESTS); do echo $$t; ./$(TESTBIN) $$t; done
+	for t in $(TESTS); do echo $$t; $(DRV) ./$(TESTBIN) $$t; done
+	for t in $(TESTS); do echo $$t rand2 2; $(DRV) ./$(TESTBIN) $$t rand2 2; done
 	$(DRV) ./$(SELECTBIN) -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv algorithms.lst.bak algorithms.lst
 lint: cppcheck clang-tidy sanitizer.log
