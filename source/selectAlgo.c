@@ -39,9 +39,9 @@ void printManual() {
   printf("\t-which          shows the list of all selected algorithms\n");
   printf("\tALGO            selects/deselects the algorithm ALGO (ex. select "
          "bf)\n");
-  printf("\t-all            selects all algorithms\n");
+  printf("\t-all            selects all existing algorithms\n");
   printf("\t-none           deselects all algorithms\n");
-  // printf("\t-group A-B-C:D  group a list of algorithms (separated by a -) in
+  // printf("\t-group A:B:C:D  group a list of algorithms (separated by a :) in
   // a single algorithm named D\n");
   printf("\t-add ALGO       add the new alorithm ALGO to the set\n");
   printf("\t                the executable file of the new algorithm must be "
@@ -255,7 +255,7 @@ int main(int argc, const char *argv[]) {
     if (par < argc && !strcmp("-all", argv[par])) {
       par++;
       for (i = 0; i < NumAlgo; i++)
-        if (ALGO_NAME[i])
+        if (ALGO_NAME[i] && !ALGOS[i].missing)
           execute[i] = 1;
       continue;
     }
@@ -275,7 +275,7 @@ int main(int argc, const char *argv[]) {
   // store only the changes from the default
   FILE *fp = fopen("algorithms.lst", "w");
   for (j = 0; j < numalgo; j++)
-    if (ALGO_NAME[j] && (j >= NumAlgo || ALGOS[j].execute != execute[j]))
+    if (ALGO_NAME[j] && !ALGOS[j].missing && (j >= NumAlgo || ALGOS[j].execute != execute[j]))
       fprintf(fp, "#%d #%s \n", execute[j], ALGO_NAME[j]);
   fclose(fp);
   free(execute);
