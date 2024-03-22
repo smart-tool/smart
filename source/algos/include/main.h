@@ -156,6 +156,7 @@ int main(int argc, char *argv[]) {
       perror("shmat");
       return 1;
     }
+    //fprintf(stderr, "%s\n", argv[0]);
 
     // timer_start(_timer);
     // start = clock();

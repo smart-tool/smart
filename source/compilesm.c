@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/stat.h>
 
 // strncat helpers
@@ -103,6 +104,7 @@ int main(int argc, char **argv) {
   // compile c files
   d = opendir("./source/algos");
   if (d) {
+    unlink("warning"); // appending to it
     while ((dir = readdir(d)) != NULL) {
       strncpy(filename, dir->d_name, SZNCPY(filename));
       filename[sizeof(filename) - 1] = '\0';
@@ -140,7 +142,7 @@ int main(int argc, char **argv) {
         printf("\b\b\b\b\b\b[%.3d%%]", current * 100 / n_algo);
         fflush(stdout);
 
-        stream = freopen("warning", "w", stderr); // redirect of stderr
+        stream = freopen("warning", "a", stderr); // redirect of stderr
         if (system(command) == 1)
           printf("[ERROR]\n");
         else {

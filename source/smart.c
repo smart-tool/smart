@@ -67,10 +67,10 @@ void printManual() {
          "(mandatory unless you use the -simple parameter)\n");
   printf("\t              Use option \"all\" to performe experimental results "
          "using all text buffers.\n");
-  printf("\t              Use the style A-B-C to performe experimental results "
+  printf("\t              Use the style A:B:C to performe experimental results "
          "using multiple text buffers.\n");
   printf("\t              Separate the list of text buffers using the symbol "
-         "\"-\"\n");
+         "\":\"\n");
   printf("\t-short        computes experimental results using short length "
          "patterns (from 2 to 32)\n");
   printf("\t-vshort       computes experimental results using very short "
@@ -410,6 +410,8 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
           char *upname = str2upper(ALGO_NAME[algo]);
           char data[30];
           current_running++;
+          if (!SIMPLE)
+            fprintf(stream, "%s - %s - %d\n", ALGO_NAME[algo], filename, m);
           sprintf(data, "\t - [%d/%d] %s ", current_running, num_running,
                   upname);
           printf("%s", data);
@@ -447,6 +449,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
             if (WORST[algo][il] < (*e_time))
               WORST[algo][il] = (*e_time);
             total_occur += occur;
+            fflush(stderr);
             if (occur <= 0 && (!SIMPLE)) {
               // timer_stop(_timer);
               TIME[algo][il] = 0;
@@ -797,10 +800,41 @@ int main(int argc, const char *argv[]) {
     PATT_CUSTOM_SIZE[0] = m;
     PATT_CUSTOM_SIZE[1] = 0;
     PATT_SIZE = PATT_CUSTOM_SIZE;
-    if (!(alpha = getAlpha(filename)))
-      goto end_shm;
-    printf("\n\tText of %d chars : %s\n", n, T);
-    printf("\tPattern of %d chars : %s, alpha = %d\n", m, simplePattern, alpha);
+    
+    // compute the frequency of characters and the dimension of the alphabet
+    int j;
+    int nalpha = 0;
+    int maxcode = 0;
+    int mincode = 255;
+    int maxfreq = 0;
+    int median = 0;
+    unsigned char *sorted;
+    for (j = 0; j < SIGMA; j++)
+      FREQ[j] = 0;
+    for (j = 0; j < n; j++) {
+      unsigned char c = simpleText[j];
+      if (FREQ[c] == 0)
+        nalpha++;
+      FREQ[c]++;
+      if (maxcode < c)
+        maxcode = c;
+      if (mincode > c)
+        mincode = c;
+    }
+    for (j = 0; j < SIGMA; j++)
+      if (maxfreq < FREQ[j])
+        maxfreq = j;
+    median = (n % 2) ? (n+1)/2 : n/2;
+    sorted = malloc(n);
+    memcpy(sorted, simpleText, n);
+    qsort(sorted, n, 1, u8_cmp);
+    printf("\t%d characters [%d-%d], median: %d, alpha: %d, highest freq: %d\n",
+           n, mincode, maxcode,
+           n % 2 ? sorted[median] : (sorted[median] + sorted[(n + 2)/2]) / 2,
+           nalpha, maxfreq);
+    free(sorted);
+    //printf("\n\tText of %d chars : %s\n", n, T);
+    //printf("\tPattern of %d chars : %s, alpha = %d\n", m, simplePattern, alpha);
     srand(time(NULL));
     char expcode[32];
     generateCode(expcode);

@@ -362,6 +362,7 @@ int main(int argc, char *argv[]) {
                   }
           }
   }*/
+  fprintf(stderr, "%s\n", algoname);
 
   // 1) search for "a" in "aaaaaaaaaa"
   if (!minlen || minlen < 1) {
