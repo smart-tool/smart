@@ -31,14 +31,6 @@ unsigned int MINLEN = 1,
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifndef _WIN32
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#else
-//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a, b, c)
-#endif
 #include <sys/stat.h>
 #include <time.h>
 #include "sets.h"
@@ -48,6 +40,21 @@ unsigned int MINLEN = 1,
 #ifndef BINDIR
 #define BINDIR "bin"
 #endif
+
+struct options {
+  unsigned simple :1;
+  unsigned dif :1;
+  unsigned occ :1;
+  unsigned pre :1;
+  unsigned txt :1;
+  unsigned std :1;
+  unsigned _short :1;
+  unsigned vshort :1;
+  unsigned php :1;
+  unsigned tex :1;
+  unsigned tb :1;
+  int limit;
+} options;
 
 //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
 
@@ -117,91 +124,20 @@ void generateCode(char *code) {
   sprintf(code, "EXP%u", t);
 }
 
-static int u8_cmp(const void* a, const void* b) {
-  return *(uint8_t*)a < *(uint8_t*)b ? -1 :
-    *(uint8_t*)a > *(uint8_t*)b ? 1 : 0;
-}
-
-int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
-  // obtains the input text
-  int j, i = 0;
-  char indexfilename[100];
-  strncpy(indexfilename, path, SZNCPY(indexfilename));
-  strncat(indexfilename, "/index.txt", SZNCAT(indexfilename));
-  FILE *index;
-  if ((index = fopen(indexfilename, "r"))) {
-    char c;
-    while (i < TSIZE && (c = getc(index)) != EOF) {
-      if (c == '#') {
-        char filename[100];
-        strncpy(filename, path, SZNCPY(filename));
-        j = strlen(filename);
-        filename[j++] = '/';
-        while ((c = getc(index)) != '#')
-          filename[j++] = c;
-        filename[j] = '\0';
-        printf("\tLoading the file %s\n", filename);
-        FILE *input;
-        if ((input = fopen(filename, "r"))) {
-          int d;
-          while (i < TSIZE && (d = getc(input)) != EOF)
-            T[i++] = d;
-          fclose(input);
-        } else
-          printf("\tError in loading text file %s\n", filename);
-      }
-    }
-    fclose(index);
-  } else
-    printf("\tError in loading text buffer. No index file exists.\n");
-  T[i] = '\0';
-  // compute the frequency of characters and the dimension of the alphabet
-  int nalpha = 0;
-  int maxcode = 0;
-  int mincode = 255;
-  int maxfreq = 0;
-  int median = 0;
-  unsigned char *sorted;
-  for (j = 0; j < SIGMA; j++)
-    FREQ[j] = 0;
-  for (j = 0; j < i; j++) {
-    unsigned char c = T[j];
-    if (FREQ[c] == 0)
-      nalpha++;
-    FREQ[c]++;
-    if (maxcode < c)
-      maxcode = c;
-    if (mincode > c)
-      mincode = c;
-  }
-  for (j = 0; j < SIGMA; j++)
-    if (maxfreq < FREQ[j])
-      maxfreq = j;
-  median = (i % 2) ? (i+1)/2 : i/2;
-  sorted = malloc(i);
-  memcpy(sorted, T, i);
-  qsort(sorted, i, 1, u8_cmp);
-  printf("\t%d characters [%d-%d], median: %d, alpha: %d, highest freq: %d\n",
-         i, mincode, maxcode,
-         i % 2 ? sorted[median] : (sorted[median] + sorted[(i + 2)/2]) / 2,
-         nalpha, maxfreq);
-  free(sorted);
-  return i;
-}
-
 #ifdef _WIN32
 int execute(enum algo_id algo, unsigned char *P, int m, unsigned char *T, int n) {
   char command[100];
-  snprintf(command, sizeof(command), "./%s/%s %s %d %s %d", BINDIR, ALGO_NAME[algo], P, m,
-          T, n);
-  return 0;
+  snprintf(command, sizeof(command), "./%s/%s %s %d %s %d", BINDIR,
+           ALGO_NAME[algo], P, m, T, n);
+  return system(command);
 }
 #else
-int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-            key_t ekey, key_t prekey, int *count) {
+int execute(enum algo_id algo, int m, int n, int *count) {
   char command[100];
-  snprintf(command, sizeof(command), "./%s/%s shared %d %d %d %d %d %d %d", BINDIR,
-          ALGO_NAME[algo], pkey, m, tkey, n, rkey, ekey, prekey);
+  snprintf(command, sizeof(command), "./%s/%s shared %d %d %d %d %d %d %d",
+           BINDIR, ALGO_NAME[algo], shmids.pkey, m, shmids.tkey, n, shmids.rkey,
+           shmids.ekey, shmids.prekey);
+  // TODO fork/exec with timeout
   int res = system(command);
   if (!res)
     return (*count);
@@ -210,50 +146,11 @@ int execute(enum algo_id algo, key_t pkey, int m, key_t tkey, int n, key_t rkey,
 }
 #endif
 
-void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
-                         int numpatt, unsigned char *simplePattern, int alpha) {
-  int i, j, k;
-  (void)alpha;
-  for (i = 0; i < numpatt; i++) {
-    if (strcmp((char *)simplePattern, ""))
-      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
-      strcpy((char *)setP[i], (char *)simplePattern);
-    else {
-      k = rand() % (n - m); // generates a number between 0 and n-m
-      // TODO: observe alpha
-      for (j = 0; j < m; j++)
-        setP[i][j] = T[k + j]; // creates the pattern
-      setP[i][j] = '\0';
-    }
-  }
-}
-
-#ifndef _WIN32
-/* Free up shared memory allocated by shm execution */
-void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
-              double *pre_time, int tshmid, int pshmid, int rshmid, int eshmid,
-              int preshmid) {
-  (void)T;
-  (void)tshmid;
-  // T is shared with test, only free'd at the very end
-  //fprintf(stderr, "shmdt T %p\n", T);
-  shmdt(P);
-  shmdt(count);
-  shmdt(e_time);
-  shmdt(pre_time);
-  shmctl(pshmid, IPC_RMID, 0);
-  shmctl(rshmid, IPC_RMID, 0);
-  shmctl(eshmid, IPC_RMID, 0);
-  shmctl(preshmid, IPC_RMID, 0);
-}
-#endif
-
 /********************************************************/
 
-int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
-                int *FREQ, unsigned VOLTE, int occ, int pre, int dif,
-                char *code, int tshmid, int txt, int tex, int php,
-                unsigned char *simplePattern, int std, int limit,
+int run_setting(char *filename, unsigned char *T, int n, int alpha,
+                int *FREQ, unsigned VOLTE, struct options options,
+                char *code, unsigned char *simplePattern,
                 char *time_format) {
   // performs experiments on a text
   int m, occur, total_occur;
@@ -287,93 +184,13 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
   // allocate space for running time in shared memory
   srand(time(NULL));
 #ifndef _WIN32
-  key_t ekey;
-  int eshmid = 0, preshmid = 0, pshmid = 0, rshmid = 0;
-  int try = 0;
-  do {
-    ekey = rand() % 1000;
-    eshmid = shmget(ekey, 8, IPC_CREAT | 0666);
-  } while ((++try < 10 && eshmid < 0) || ekey == tkey);
-  if (eshmid < 0) {
-    perror("shmget");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  if ((e_time = shmat(eshmid, NULL, 0)) == (double *)-1) {
-    perror("shmat");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-
-  // allocate space for preprocessing running time in shared memory
-  key_t prekey;
-  try = 0;
-  do {
-    prekey = rand() % 1000;
-    preshmid = shmget(prekey, 8, IPC_CREAT | 0666);
-  } while ((++try < 10 && preshmid < 0) || prekey == tkey || prekey == ekey);
-  if (preshmid < 0) {
-    perror("shmget");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  if ((pre_time = shmat(preshmid, NULL, 0)) == (double *)-1) {
-    perror("shmat");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  for (i = 0; i < SIGMA; i++)
-    FREQ[i] = 0;
-
-  // allocate space for pattern in shared memory
-  key_t pkey;
-  try = 0;
-  do {
-    pkey = rand() % 1000;
-    pshmid = shmget(pkey, XSIZE + 1, IPC_CREAT | 0666);
-  } while ((++try < 10 && pshmid < 0) || pkey == tkey || pkey == ekey ||
-           pkey == prekey);
-  if (pshmid < 0) {
-    perror("shmget");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  if ((P = shmat(pshmid, NULL, 0)) == (unsigned char *)-1) {
-    perror("shmat");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  for (i = 0; i < SIGMA; i++)
-    FREQ[i] = 0;
-
-  // allocate space for the result number of occurrences in shared memory
-  key_t rkey;
-  try = 0;
-  do {
-    rkey = rand() % 1000;
-    rshmid = shmget(rkey, 4, IPC_CREAT | 0666);
-  } while ((++try < 10 && rshmid < 0) || rkey == tkey || rkey == pkey ||
-           pkey == ekey);
-  if (rshmid < 0) {
-    perror("shmget");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-  if ((count = shmat(rshmid, NULL, 0)) == (int *)-1) {
-    perror("shmat");
-    free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-             preshmid);
-    exit(1);
-  }
-#else
-  key_t pkey, rkey, ekey, prekey;
+  // allocate in shared memory
+  // P = shmalloc(m, &shmids.p, &shmids.pkey);  // pattern
+  e_time = shmalloc(sizeof(double), &shmids.e, &shmids.ekey); // running time
+  pre_time = shmalloc(sizeof(double), &shmids.pre, &shmids.prekey); // preprocessing
+  count = shmalloc(sizeof(int), &shmids.r, &shmids.rkey); // number of occurrences
+  
+  memset(FREQ, 0, SIGMA * sizeof(int));
 #endif // _WIN32
 
   // initializes the vector which will contain running times
@@ -391,12 +208,14 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 
   // i=system("./logo");
   for (il = 0; PATT_SIZE[il] > 0; il++)
-    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN && PATT_SIZE[il] <= (unsigned)n) {
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN &&
+        PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
+      P = shmalloc(m, &shmids.p, &shmids.pkey); // pattern
       setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
       printf("\n");
       printTopEdge(60);
-      if (!SIMPLE)
+      if (!options.simple)
         printf("\tExperimental results on %s: %s\n", filename, code);
       else
         printf("\tExperimental results on %s\n", T);
@@ -408,9 +227,9 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
       for (algo = 0; algo < NumAlgo; algo++)
         if (EXECUTE[algo] && (!ALGOS[algo].minlen || m >= ALGOS[algo].minlen)) {
           char *upname = str2upper(ALGO_NAME[algo]);
-          char data[64];
+          char data[40];
           current_running++;
-          if (!SIMPLE)
+          if (!options.simple)
             fprintf(stream, "%s - %s - %d\n", ALGO_NAME[algo], filename, m);
           snprintf(data, sizeof(data), "\t - [%d/%d] %s ", current_running,
                    num_running, upname);
@@ -437,9 +256,9 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 #ifdef _WIN32
             occur = execute(algo, P, m, T, n);
 #else
-            occur = execute(algo, pkey, m, tkey, n, rkey, ekey, prekey, count);
+            occur = execute(algo, m, n, count);
 #endif
-            if (!pre)
+            if (!options.pre)
               (*e_time) += (*pre_time);
             STDTIME[k] = (*e_time);
             TIME[algo][il] += (*e_time);
@@ -457,7 +276,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
               total_occur = occur;
               break;
             }
-            if ((*e_time) > limit) {
+            if ((*e_time) > options.limit) {
               // timer_stop(_timer);
               TIME[algo][il] = 0;
               PRE_TIME[algo][il] = 0;
@@ -483,7 +302,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
             */
             unsigned i;
             printf("\b\b\b\b\b\b\b.[OK]  ");
-            if (pre)
+            if (options.pre)
               sprintf(data, "\t\%.2f + \%.2f ms", PRE_TIME[algo][il],
                       TIME[algo][il]);
             else
@@ -491,19 +310,19 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
             printf("%s", data);
             for (i = 0; i < 20 - strlen(data); i++)
               printf(" ");
-            if (dif) {
+            if (options.dif) {
               sprintf(data, " [%.2f, %.2f]", BEST[algo][il], WORST[algo][il]);
               printf("%s", data);
               for (i = 0; i < 20 - strlen(data); i++)
                 printf(" ");
             }
-            if (std) {
+            if (options.std) {
               sprintf(data, " std %.2f", STD[algo][il]);
               printf("%s", data);
               for (i = 0; i < 15 - strlen(data); i++)
                 printf(" ");
             }
-            if (occ)
+            if (options.occ)
               printf("\tocc \%u", total_occur / VOLTE);
             printf("\n");
           } else if (total_occur == 0)
@@ -513,33 +332,31 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
           else if (total_occur == -2)
             printf("\b\b\b\b\b\b.[OUT]  \n");
         }
+      shmdt(P);
+      shmctl(shmids.p, IPC_RMID, 0);
     }
 
   printf("\n");
   printTopEdge(60);
-  if (!SIMPLE) {
+  if (!options.simple) {
     fclose(stream);
     printf("\tOUTPUT RUNNING TIMES %s\n", code);
     outputXML(TIME, alpha, filename, code);
-    outputHTML2(PRE_TIME, TIME, BEST, WORST, STD, pre, dif, alpha, n, VOLTE,
+    outputHTML2(PRE_TIME, TIME, BEST, WORST, STD, options.pre, options.dif, alpha, n, VOLTE,
                 filename, code, time_format);
-    if (txt)
+    if (options.txt)
       outputTXT(TIME, alpha, filename, code, time_format);
-    if (tex)
+    if (options.tex)
       outputLatex(TIME, alpha, filename, code, time_format);
-    if (php)
-      outputPHP(TIME, BEST, WORST, STD, alpha, filename, code, dif, std);
+    if (options.php)
+      outputPHP(TIME, BEST, WORST, STD, alpha, filename, code, options.dif, options.std);
   }
   // free memory allocated for patterns
   for (i = 0; i < VOLTE; i++)
     free(setP[i]);
   free(setP);
 #ifndef _WIN32
-  // free shared memory
-  free_shm(T, P, count, e_time, pre_time, tshmid, pshmid, rshmid, eshmid,
-           preshmid);
-#else
-  //free(T);
+  free_shm(NULL, P, count, e_time, pre_time);
 #endif
   return 0;
 }
@@ -555,23 +372,15 @@ int main(int argc, const char *argv[]) {
   int alpha = 256;             // size of the alphabet, -alpha
   int VOLTE = 500;             // number of runs for each pattern length
   int TSIZE = 1048576;
-  int SIMPLE = 0;  // for single search with custom pattern and text
-  int occ = 0;     // for printing number of occurrences
-  int pre = 0;     // for separating preprocessing and running times
-  int dif = 0;     // for printing the best and the worst running time
-  int txt = 0;     // for printing results in txt format
-  int tex = 0;     // for printing results in latex format
-  int php = 0;     // for printing results in php format
-  int std = 0;     // for printing the standard deviation value
-  int limit = 300; // running time bound
   unsigned char simplePattern[100]; // used for the simple run of SMART
   unsigned char simpleText[1000];   // used for the simple run of SMART
   /* useful variables */
   unsigned char *T = NULL; // text and pattern
   int n;           // length of the text
-  int tshmid = 0;
   char parameter[1000];
 
+  memset(&options, 0, sizeof(options));
+  options.limit = 300; // running time bound
   srand(time(NULL));
 
   /* processing of input parameters */
@@ -640,7 +449,7 @@ int main(int argc, const char *argv[]) {
         printf("Error in input parameters. Use -h for help.\n\n");
         goto end;
       }
-      limit = string2decimal(parameter);
+      options.limit = string2decimal(parameter);
     }
     if (par < argc && !strcmp("-text", argv[par])) {
       par++;
@@ -698,35 +507,35 @@ int main(int argc, const char *argv[]) {
         goto end;
       }
       strncpy((char *)simpleText, argv[par++], SZNCPY(simpleText));
-      SIMPLE = 1;
+      options.simple = 1;
     }
     if (par < argc && !strcmp("-occ", argv[par])) {
       par++;
-      occ = 1;
+      options.occ = 1;
     }
     if (par < argc && !strcmp("-pre", argv[par])) {
       par++;
-      pre = 1;
+      options.pre = 1;
     }
     if (par < argc && !strcmp("-dif", argv[par])) {
       par++;
-      dif = 1;
+      options.dif = 1;
     }
     if (par < argc && !strcmp("-txt", argv[par])) {
       par++;
-      txt = 1;
+      options.txt = 1;
     }
     if (par < argc && !strcmp("-std", argv[par])) {
       par++;
-      std = 1;
+      options.std = 1;
     }
     if (par < argc && !strcmp("-tex", argv[par])) {
       par++;
-      tex = 1;
+      options.tex = 1;
     }
     if (par < argc && !strcmp("-php", argv[par])) {
       par++;
-      php = 1;
+      options.php = 1;
     }
     if (par < argc && !strcmp("-short", argv[par])) {
       par++;
@@ -749,12 +558,12 @@ int main(int argc, const char *argv[]) {
       goto end;
     }
   }
-  if (strcmp(filename, "") && SIMPLE) {
+  if (strcmp(filename, "") && options.simple) {
     printf("Error in input parameters. Both parameters -simple and -text "
            "defined.\n\n");
     goto end;
   }
-  if (!strcmp(filename, "") && !SIMPLE) {
+  if (!strcmp(filename, "") && !options.simple) {
     printf("Error in input parameters. No filename given.\n\n");
     goto end;
   }
@@ -762,30 +571,13 @@ int main(int argc, const char *argv[]) {
   // get information about the set of algorithms
   getAlgo(ALGO_NAME, EXECUTE);
 
-  key_t tkey = 0;
 #ifndef _WIN32
   // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
-  int try = 0;
-  do {
-    tkey = rand() % 1000;
-    tshmid = shmget(tkey, size, IPC_CREAT | 0666);
-  } while (++try < 10 && tshmid < 0);
-  if (tshmid < 0) {
-    perror("shmget");
-    goto end_1;
-  }
-  if ((T = shmat(tshmid, NULL, 0)) == (unsigned char *)-1) {
-    printf(
-        "\nShared memory allocation failed!\nYou need at least 12Mb of shared "
-        "memory\nPlease, change your system settings and try again.\n");
-    perror("shmat");
-    goto end_1;
-  }
-  //fprintf(stderr, "shmget+shmat T %p\n", T);
+  T = shmalloc(size, &shmids.t, &shmids.tkey); // text  
 #endif
 
-  if (SIMPLE) {
+  if (options.simple) {
     if (system("./logo"))
       perror("logo");
     // experimental results on a single pattern and a single text
@@ -801,40 +593,7 @@ int main(int argc, const char *argv[]) {
     PATT_CUSTOM_SIZE[1] = 0;
     PATT_SIZE = PATT_CUSTOM_SIZE;
     
-    // compute the frequency of characters and the dimension of the alphabet
-    int j;
-    int nalpha = 0;
-    int maxcode = 0;
-    int mincode = 255;
-    int maxfreq = 0;
-    int median = 0;
-    unsigned char *sorted;
-    for (j = 0; j < SIGMA; j++)
-      FREQ[j] = 0;
-    for (j = 0; j < n; j++) {
-      unsigned char c = simpleText[j];
-      if (FREQ[c] == 0)
-        nalpha++;
-      FREQ[c]++;
-      if (maxcode < c)
-        maxcode = c;
-      if (mincode > c)
-        mincode = c;
-    }
-    for (j = 0; j < SIGMA; j++)
-      if (maxfreq < FREQ[j])
-        maxfreq = j;
-    median = (n % 2) ? (n+1)/2 : n/2;
-    sorted = malloc(n);
-    memcpy(sorted, simpleText, n);
-    qsort(sorted, n, 1, u8_cmp);
-    printf("\t%d characters [%d-%d], median: %d, alpha: %d, highest freq: %d\n",
-           n, mincode, maxcode,
-           n % 2 ? sorted[median] : (sorted[median] + sorted[(n + 2)/2]) / 2,
-           nalpha, maxfreq);
-    free(sorted);
-    //printf("\n\tText of %d chars : %s\n", n, T);
-    //printf("\tPattern of %d chars : %s, alpha = %d\n", m, simplePattern, alpha);
+    textStats(T, n, FREQ, TSIZE);
     srand(time(NULL));
     char expcode[32];
     generateCode(expcode);
@@ -848,8 +607,8 @@ int main(int argc, const char *argv[]) {
     printf("\tExperimental tests started on %s\n", time_format);
 
     printf("\tStarting experimental tests with code %s\n", expcode);
-    run_setting("", tkey, T, n, alpha, FREQ, VOLTE, occ, pre, dif, expcode,
-                tshmid, txt, tex, php, simplePattern, std, limit, time_format);
+    run_setting("", T, n, alpha, FREQ, VOLTE, options, expcode,
+                simplePattern, time_format);
     // no output is given for the simple case;
   } else if (strcmp(filename, "all")) {
     // experimental results on a list of text buffers
@@ -868,7 +627,7 @@ int main(int argc, const char *argv[]) {
              list_of_filenames[k]);
       char fullpath[800];
       snprintf(fullpath, sizeof(fullpath), "data/%s", list_of_filenames[k]);
-      // initialize the frequency vector
+      // initialize the text and frequency vector
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
         goto end_shm;
       }
@@ -884,9 +643,8 @@ int main(int argc, const char *argv[]) {
       strftime(time_format, 26, "%Y:%m:%d %H:%M:%S", tm_info);
       printf("\tExperimental tests started on %s\n", time_format);
 
-      run_setting(list_of_filenames[k], tkey, T, n, alpha, FREQ, VOLTE, occ,
-                  pre, dif, expcode, tshmid, txt, tex, php, (unsigned char *)"",
-                  std, limit, time_format);
+      run_setting(list_of_filenames[k], T, n, alpha, FREQ, VOLTE, options,
+                  expcode, (unsigned char *)"", time_format);
       outputINDEX(list_of_filenames, num_buffers, expcode);
     }
   } else {
@@ -909,7 +667,7 @@ int main(int argc, const char *argv[]) {
       if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
         goto end_shm;
       }
-      printf("\tText buffer of dimension %d byte\n", n);
+      //printf("\tText buffer of dimension %d byte\n", n);
       time_t date_timer;
       char time_format[26];
       struct tm *tm_info;
@@ -918,19 +676,18 @@ int main(int argc, const char *argv[]) {
       strftime(time_format, 26, "%Y:%m:%d %H:%M:%S", tm_info);
       printf("\tExperimental tests started on %s\n", time_format);
 
-      run_setting(SETTING_BUFFER[sett], tkey, T, n, alpha, FREQ, VOLTE, occ,
-                  pre, dif, expcode, tshmid, txt, tex, php, (unsigned char *)"",
-                  std, limit, time_format);
+      run_setting(SETTING_BUFFER[sett], T, n, alpha, FREQ, VOLTE, options,
+                  expcode, (unsigned char *)"", time_format);
     }
     outputINDEX(list_of_filenames, num_buffers, expcode);
   }
 
-  // free shared memory
+  // free shared memory. only T is remaining
 end_shm:
 #ifndef _WIN32
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
-  shmctl(tshmid, IPC_RMID, 0);
+  shmctl(shmids.t, IPC_RMID, 0);
 #else
   free(T);
 #endif
@@ -939,10 +696,10 @@ end:
   return 0;
 
 #ifndef _WIN32
-end_1:
+  //end_1:
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
-  shmctl(tshmid, IPC_RMID, 0);
+  shmctl(shmids.t, IPC_RMID, 0);
   return 1;
 #endif
 }

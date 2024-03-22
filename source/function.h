@@ -20,15 +20,32 @@
 #include "algorithms.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
+#ifndef _WIN32
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#else
+// TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
+#define key_t int
+#define shmctl(a, b, c)
+#endif
 
 #ifdef __GNUC__
 #define ATTRIBUTE_MALLOC __attribute__((malloc))
 #else
 #define ATTRIBUTE_MALLOC
 #endif
+
+#define SIGMA 256
+
+#define ATTEMPT 40 // number of attempts to allocate shared memory
+struct shmids {
+  int t, e, pre, p, r;
+  key_t tkey, ekey, prekey, pkey, rkey;
+} shmids;
 
 // strncat helper
 #define SZNCAT(x) sizeof(x) - strlen(x) - 1
@@ -209,4 +226,142 @@ int split_filelist(char *filename, char list_of_filenames[NumSetting][50]) {
     }
   }
   return (k + 1);
+}
+
+static int u8_cmp(const void* a, const void* b) {
+  return *(uint8_t*)a < *(uint8_t*)b ? -1 :
+    *(uint8_t*)a > *(uint8_t*)b ? 1 : 0;
+}
+
+// display the frequency of characters and the dimension of the alphabet
+void textStats(unsigned char *T, int n, int FREQ[SIGMA], int TSIZE) {
+  int j;
+  int nalpha = 0;
+  int maxcode = 0;
+  int mincode = 255;
+  int maxfreq = 0;
+  int median = 0;
+  unsigned char *sorted;
+  for (j = 0; j < SIGMA; j++)
+    FREQ[j] = 0;
+  for (j = 0; j < n; j++) {
+    unsigned char c = T[j];
+    if (FREQ[c] == 0)
+      nalpha++;
+    FREQ[c]++;
+    if (maxcode < c)
+      maxcode = c;
+    if (mincode > c)
+      mincode = c;
+  }
+  for (j = 0; j < SIGMA; j++)
+    if (maxfreq < FREQ[j])
+      maxfreq = j;
+  median = (n % 2) ? (n+1)/2 : n/2;
+  sorted = malloc(n);
+  memcpy(sorted, T, n);
+  qsort(sorted, n, 1, u8_cmp);
+  printf("\t%d characters [%d-%d], median: %d, alpha: %d, highest freq: %d\n",
+         n, mincode, maxcode,
+         n % 2 ? sorted[median] : (sorted[median] + sorted[(n + 2)/2]) / 2,
+         nalpha, maxfreq);
+  //printf("\n\tText of %d chars : %s\n", n, T);
+  //printf("\tPattern of %d chars : %s, alpha = %d\n", m, simplePattern, alpha);
+  free(sorted);
+}
+
+int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
+  // obtains the input text
+  int j, i = 0;
+  char indexfilename[100];
+  strncpy(indexfilename, path, SZNCPY(indexfilename));
+  strncat(indexfilename, "/index.txt", SZNCAT(indexfilename));
+  FILE *index;
+  if ((index = fopen(indexfilename, "r"))) {
+    char c;
+    while (i < TSIZE && (c = getc(index)) != EOF) {
+      if (c == '#') {
+        char filename[100];
+        strncpy(filename, path, SZNCPY(filename));
+        j = strlen(filename);
+        filename[j++] = '/';
+        while ((c = getc(index)) != '#')
+          filename[j++] = c;
+        filename[j] = '\0';
+        printf("\tLoading the file %s\n", filename);
+        FILE *input;
+        if ((input = fopen(filename, "r"))) {
+          int d;
+          while (i < TSIZE && (d = getc(input)) != EOF)
+            T[i++] = d;
+          fclose(input);
+        } else
+          printf("\tError in loading text file %s\n", filename);
+      }
+    }
+    fclose(index);
+  } else
+    printf("\tError in loading text buffer. No index file exists.\n");
+  T[i] = '\0';
+  // compute the frequency of characters and the dimension of the alphabet
+  textStats(T, i, FREQ, TSIZE);
+  return i;
+}
+
+void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
+                         int numpatt, unsigned char *simplePattern,
+                         int alpha /*ignored*/) {
+  int i, j, k;
+  (void)alpha;
+  for (i = 0; i < numpatt; i++) {
+    if (strcmp((char *)simplePattern, ""))
+      //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
+      strcpy((char *)setP[i], (char *)simplePattern);
+    else {
+      k = rand() % (n - m); // generates a number between 0 and n-m
+      // TODO: observe alpha
+      for (j = 0; j < m; j++)
+        setP[i][j] = T[k + j]; // creates the pattern
+      setP[i][j] = '\0';
+    }
+  }
+}
+
+void *shmalloc(size_t size, int *id, key_t *key) {
+  char *buf;
+  int try = 0;
+  do {
+    *key = rand() % 1000;
+    *id = shmget(*key, size, IPC_CREAT | 0666);
+  } while (++try < ATTEMPT && *id < 0);
+  if (*id < 0) {
+    perror("shmget");
+    exit(1);
+  }
+  if ((buf = shmat(*id, NULL, 0)) == (char *)-1) {
+    perror("shmat");
+    exit(1);
+  }
+  return (void*)buf;
+}
+
+void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
+              double *pre_time) {
+#ifdef HAVE_SHM
+  // T is shared between test and smart
+  if (T) {
+    shmdt(T);
+    shmctl(shmids.t, IPC_RMID, 0);
+  }
+  if (P) {
+    shmdt(P);
+    shmctl(shmids.p, IPC_RMID, 0);
+  }
+  shmdt(count);
+  shmdt(e_time);
+  shmdt(pre_time);
+  shmctl(shmids.r, IPC_RMID, 0);
+  shmctl(shmids.e, IPC_RMID, 0);
+  shmctl(shmids.pre, IPC_RMID, 0);
+#endif
 }

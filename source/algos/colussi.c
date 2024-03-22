@@ -20,6 +20,8 @@
  * in COLUSSI L., 1991, Correctness and efficiency of the pattern matching
  * algorithms, Information and Computation 95(2):225-251.
  * http://www-igm.univ-mlv.fr/~lecroq/string/node10.html
+ *
+ * Note: endless loop
  */
 
 #include "include/define.h"

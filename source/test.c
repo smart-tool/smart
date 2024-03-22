@@ -43,13 +43,12 @@
 #define BINDIR "bin"
 #endif
 
-#define SIGMA 256
+//#define SIGMA 256
+#define TSIZE 1048576
 #define XSIZE 1024
 #define YSIZE 2048
-#define ATTEMPT 40 // number of attempts to allocate shared memory
 #define VERBOSE strcmp(parameter, "-nv")
 
-int tshmid, eshmid, preshmid, pshmid, rshmid;
 unsigned char *T, *P;
 double *e_time, *pre_time;
 int *count;
@@ -73,29 +72,30 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
 void printManual() {
   printf("\n\tSMART UTILITY FOR TESTING STRING MATCHING ALGORITHMS\n\n");
-  printf("\tusage: ./test ALGONAME [-nv]\n");
-  printf("\tTest the program named \"algoname\" for correctness.\n");
-  printf("\tThe program \"algoname\" must be located in bin/\n");
+  printf("\tusage: ./test ALGONAME [-nv][text [patlen]]\n");
+  printf("\tTest the program named \"ALGONAME\" for correctness.\n");
+  printf("\tThe program \"ALGONAME\" must be located in bin/\n");
   printf("\tOnly programs in smart format can be tested.\n");
+  printf("\t-nv non-verbose (i.e. silent)\n");
+  printf("\ttext: optional data/text corpus(es) to use\n");
+  printf("\tpatlen: only use this pattern length, not all.\n");
   printf("\n\n");
 }
 
-int execute(
-#ifndef HAVE_SHM
-    char *algoname, unsigned char *P, int m, unsigned char *T, int n, int *count
-#else
-    char *algoname, key_t pkey, int m, key_t tkey, int n, key_t rkey,
-    key_t ekey, key_t prekey, int *count, int alpha
-#endif
-) {
+int execute(char *algoname, unsigned char *P, int m, unsigned char *T, int n,
+            int *count, int alpha) {
   char command[100];
 #ifndef HAVE_SHM
   sprintf(command, "./%s/%s %s %d %s %d", BINDIR, algoname, P, m, T, n);
 #else
+  (void)P;
+  (void)T;
   (void)alpha;
   sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR, algoname,
-          pkey, m, tkey, n, rkey, ekey, prekey);
+          shmids.pkey, m, shmids.tkey, n, shmids.rkey, shmids.ekey,
+          shmids.prekey);
 #endif
+  // TODO fork/exec with timeout
   // printf("%s\n",command);
   int res = system(command);
   if (!res)
@@ -106,28 +106,13 @@ int execute(
 
 int FREQ[SIGMA];
 
-void free_shm() {
-#ifdef HAVE_SHM
-  // T is shared with smart
-  shmdt(P);
-  shmdt(count);
-  shmdt(e_time);
-  shmdt(pre_time);
-  shmctl(pshmid, IPC_RMID, 0);
-  shmctl(rshmid, IPC_RMID, 0);
-  shmctl(eshmid, IPC_RMID, 0);
-  shmctl(preshmid, IPC_RMID, 0);
-#endif
-}
-
 int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
-            int n, char *algoname, key_t pkey, key_t tkey, key_t rkey,
-            key_t ekey, key_t prekey, int alpha, char *parameter /*ignored*/) {
+            int n, char *algoname, int verbose, int alpha /*ignored*/) {
   // printf("\b\b\b\b\b\b[%.3d%%]",(*rip)*100/18); fflush(stdout);
   (*count) = 0;
   char *pP = NULL;
   char *pT = NULL;
-  if (VERBOSE) {
+  if (verbose) {
     pP = printable((char *)P);
     pT = printable((char *)T);
 #ifdef DEBUG
@@ -135,22 +120,10 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 #endif
   }
   int occur1 = search(P, m, T, n);
-#ifndef HAVE_SHM
-  int occur2 = execute(algoname, P, m, T, n, count);
-  (void)pkey;
-  (void)tkey;
-  (void)rkey;
-  (void)ekey;
-  (void)prekey;
-  (void)tkey;
-#else
-  int occur2 =
-      execute(algoname, pkey, m, tkey, n, rkey, ekey, prekey, count, alpha);
-#endif
-  (void)parameter;
+  int occur2 = execute(algoname, P, m, T, n, count, alpha);
 
   if (occur2 >= 0 && occur1 != occur2) {
-    if (VERBOSE) {
+    if (verbose) {
       printf("%s\tERROR: test failed on case n.%d\n"
 #ifndef DEBUG
              "\t%s/%s %s %d %s %d "
@@ -164,11 +137,11 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
       free(pP);
       free(pT);
     }
-    free_shm();
+    //free_shm();
     (*rip)++; //NOLINT(clang-analyzer-unix.Malloc)
     return 0;
   } else {
-    if (VERBOSE) {
+    if (verbose) {
 #ifdef DEBUG
       printf("%d OK\n", *rip);
 #endif
@@ -190,8 +163,8 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 #endif
 
 int main(int argc, char *argv[]) {
-  int i;
-  int minlen;
+  int n = 0, m = 0, minlen = 0;
+  int verbose = 0;
   getAlgo(ALGO_NAME, EXECUTE);
 
   /* processing of input parameters */
@@ -199,18 +172,21 @@ int main(int argc, char *argv[]) {
     printManual();
     return 0;
   }
-  char algoname[50];
+  char algoname[50]; // algo
   strncpy(algoname, argv[1], SZNCPY(algoname));
   char parameter[100];
-  if (argc > 2)
-    strncpy(parameter, argv[2], SZNCPY(parameter));
-  char filename[100] = BINDIR "/";
-  strncat(filename, algoname, SZNCAT(filename));
-  FILE *fp = fopen(filename, "r");
+  int argn = 2;
+  if (argc > argn && strcmp(argv[argn], "-nv") == 0) {
+    strncpy(parameter, argv[argn++], SZNCPY(parameter));
+    verbose = 1;
+  }
+  char algopath[100] = BINDIR "/";
+  strncat(algopath, algoname, SZNCAT(algopath));
+  FILE *fp = fopen(algopath, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
   if (!fp) {
     if (VERBOSE)
-      printf("\n\tERROR: unable to execute program %s\n\n", filename);
+      printf("\n\tERROR: unable to execute program %s\n\n", algopath);
     exit(1);
   }
   fclose(fp);
@@ -222,9 +198,41 @@ int main(int argc, char *argv[]) {
   } else {
     minlen = ALGOS[id].minlen;
   }
+  memset(FREQ, 0, SIGMA * sizeof(int));
 
-  for (i = 0; i < SIGMA; i++)
-    FREQ[i] = 0;
+#ifdef HAVE_SHM
+  // allocate in shared memory
+  T = shmalloc(TSIZE + 1, &shmids.t, &shmids.tkey); // text
+#else
+  T = malloc(TSIZE + 1);
+#endif
+  char text[100];
+  if (argc > argn) { // text=%s
+    strncpy(text, argv[argn], SZNCPY(text));
+    if (strcmp(text, "all") == 0) {
+      char list_of_filenames[NumSetting][50];
+      int num_buffers = split_filelist(text, list_of_filenames);
+      for (int k = 0; k < num_buffers; k++) {
+        char fullpath[800];
+        snprintf(fullpath, sizeof(fullpath), "data/%s", list_of_filenames[k]);
+        // initialize the frequency vector
+        if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
+          exit(1);
+        }
+      }
+    } else {
+      char fullpath[800];
+      snprintf(fullpath, sizeof(fullpath), "data/%s", text);
+      n = getText(T, fullpath, FREQ, TSIZE);
+    }
+    argn++;
+  }
+  else
+    n = YSIZE;
+  if (argc > argn) // m=%d
+    m = string2decimal(argv[argn]);
+  else
+    m = XSIZE;
 
   // allocate space for text in shared memory
   unsigned long seed = time(NULL);
@@ -237,98 +245,11 @@ int main(int argc, char *argv[]) {
 #endif
   srand(seed);
 #ifdef HAVE_SHM
-  key_t tkey;
-  int try = 0;
-  do {
-    tkey = rand() % 1000;
-    // max text size
-    tshmid = shmget(tkey, YSIZE + 16, IPC_CREAT | 0666);
-  } while (++try < ATTEMPT && tshmid < 0);
-  if (tshmid < 0) {
-    perror("shmget");
-    exit(1);
-  }
-  if ((T = shmat(tshmid, NULL, 0)) == (unsigned char *)-1) {
-    perror("shmat");
-    free_shm();
-    exit(1);
-  }
-
-  // allocate space for running time in shared memory
-  key_t ekey;
-  try = 0;
-  do {
-    ekey = rand() % 1000;
-    eshmid = shmget(ekey, 8, IPC_CREAT | 0666);
-  } while ((++try < ATTEMPT && eshmid < 0) || ekey == tkey);
-  if (eshmid < 0) {
-    perror("shmget");
-    free_shm();
-    exit(1);
-  }
-  if ((e_time = shmat(eshmid, NULL, 0)) == (double *)-1) {
-    perror("shmat");
-    free_shm();
-    exit(1);
-  }
-
-  // allocate space for preprocessing running time in shared memory
-  key_t prekey;
-  try = 0;
-  do {
-    prekey = rand() % 1000;
-    preshmid = shmget(prekey, 8, IPC_CREAT | 0666);
-  } while ((++try < ATTEMPT && preshmid < 0) || prekey == tkey ||
-           prekey == ekey);
-  if (preshmid < 0) {
-    perror("shmget");
-    free_shm();
-    exit(1);
-  }
-  if ((pre_time = shmat(preshmid, NULL, 0)) == (double *)-1) {
-    perror("shmat");
-    free_shm();
-    exit(1);
-  }
-
-  // allocate space for pattern in shared memory
-  key_t pkey;
-  try = 0;
-  do {
-    pkey = rand() % 1000;
-    pshmid = shmget(pkey, XSIZE + 1, IPC_CREAT | 0666);
-  } while ((++try < ATTEMPT && pshmid < 0) || pkey == tkey || pkey == ekey ||
-           pkey == prekey);
-  if (pshmid < 0) {
-    perror("shmget");
-    free_shm();
-    exit(1);
-  }
-  if ((P = shmat(pshmid, NULL, 0)) == (unsigned char *)-1) {
-    perror("shmat");
-    free_shm();
-    exit(1);
-  }
-
-  // allocate space for the result number of occurrences in shared memory
-  int *count;
-  key_t rkey;
-  try = 0;
-  do {
-    rkey = rand() % 1000;
-    rshmid = shmget(rkey, 4, IPC_CREAT | 0666);
-  } while ((++try < ATTEMPT && rshmid < 0) || rkey == tkey || rkey == pkey ||
-           pkey == ekey || pkey == prekey);
-  if (rshmid < 0) {
-    perror("shmget");
-    free_shm();
-    exit(1);
-  }
-  if ((count = shmat(rshmid, NULL, 0)) == (int *)-1) {
-    perror("shmat");
-    free_shm();
-    exit(1);
-  }
+  // allocate in shared memory
+  P = shmalloc(m, &shmids.p, &shmids.pkey);  // pattern
+  e_time = shmalloc(sizeof(double), &shmids.e, &shmids.ekey); // running time
+  pre_time = shmalloc(sizeof(double), &shmids.pre, &shmids.prekey); // preprocessing
+  count = shmalloc(sizeof(int), &shmids.r, &shmids.rkey); // number of occurrences
 #else
   int *count;
   key_t pkey, tkey, rkey, ekey, prekey;
@@ -370,95 +291,84 @@ int main(int argc, char *argv[]) {
   if (!minlen || minlen < 1) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "aaaaaaaaaa");
-    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 2) search for "aa" in "aaaaaaaaaa"
   if (!minlen || minlen < 2) {
     strcpy((char *)P, "aa");
     strcpy((char *)T, "aaaaaaaaaa");
-    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 3) search for "aaaaaaaaaa" in "aaaaaaaaaa"
   strcpy((char *)P, "aaaaaaaaaa");
   strcpy((char *)T, "aaaaaaaaaa");
-  if (!attempt(&rip, count, P, 10, T, 10, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, 10, T, 10, algoname, verbose, alpha))
+    goto free_shm1;
 
   // 4) search for "b" in "aaaaaaaaaa"
   if (!minlen || minlen < 1) {
     strcpy((char *)P, "b");
     strcpy((char *)T, "aaaaaaaaaa");
-    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 5) search for "ab" in "ababababab"
   if (!minlen || minlen < 2) {
     strcpy((char *)P, "ab");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 6) search for "a" in "ababababab"
   if (!minlen || minlen < 1) {
     strcpy((char *)P, "a");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 1, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 1, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 7) search for "aba" in "ababababab"
   if (!minlen || minlen < 3) {
     strcpy((char *)P, "aba");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 3, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
 
     // 8) search for "abc" in "ababababab"
     strcpy((char *)P, "abc");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 3, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 3, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 9) search for "ba" in "ababababab"
   if (!minlen || minlen < 2) {
     strcpy((char *)P, "ba");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 2, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 2, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 10) search for "babbbbb" in "ababababab"
   if (!minlen || minlen < 7) {
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "ababababab");
-    if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 7, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 11) search for "bcdefg" in "bcdefghilm"
   if (!minlen || minlen < 6) {
     strcpy((char *)P, "bcdefg");
     strcpy((char *)T, "bcdefghilm");
-    if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 6, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 12) search for rand4 in rand100
@@ -468,9 +378,8 @@ int main(int argc, char *argv[]) {
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[YSIZE] = P[4] = '\0';
-    if (!attempt(&rip, count, P, 4, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 4, T, YSIZE, algoname, verbose, alpha))
+      goto free_shm1;
 
     // 13) search for rand4 in rand10
     for (h = 0; h < 10; h++)
@@ -478,9 +387,8 @@ int main(int argc, char *argv[]) {
     for (h = 0; h < 4; h++)
       P[h] = T[h];
     T[10] = P[4] = '\0';
-    if (!attempt(&rip, count, P, 4, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 4, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   // 14) search for rand32 in rand64
@@ -490,9 +398,8 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < 32; h++)
     P[h] = T[h];
   T[64] = P[32] = '\0';
-  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, verbose, alpha))
+    goto free_shm1;
 
   // 15) search for same rand32 in rand64
   for (h = 0; h < 64; h++)
@@ -500,9 +407,8 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < 32; h++)
     P[h] = T[h];
   T[64] = P[32] = '\0';
-  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, verbose, alpha))
+    goto free_shm1;
 
   // 16) search for a*32 in a*64
   for (h = 0; h < 64; h++)
@@ -510,8 +416,7 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < 32; h++)
     P[h] = 'a';
   T[64] = P[32] = '\0';
-  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, verbose, alpha))
     exit(1);
 
   // 17) search for ab*32 in ab*64
@@ -524,9 +429,8 @@ int main(int argc, char *argv[]) {
   for (h = 1; h < 32; h += 2)
     P[h] = 'b';
   T[64] = P[32] = '\0';
-  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, verbose, alpha))
+    goto free_shm1;
 
   // 18) search for ab*30c in ab*64
   for (h = 0; h < 64; h += 2)
@@ -539,26 +443,23 @@ int main(int argc, char *argv[]) {
     P[h] = 'b';
   P[30] = 'c';
   T[64] = P[32] = '\0';
-  if (!attempt(&rip, count, P, 32, T, 64, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, 32, T, 64, algoname, verbose, alpha))
+    goto free_shm1;
 
   if (!minlen || minlen < 7) {
     // 19) search for "babbbbb" in "abababbbbb"
     strcpy((char *)P, "babbbbb");
     strcpy((char *)T, "abababbbbb");
-    if (!attempt(&rip, count, P, 7, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 7, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
 
   if (!minlen || minlen < 6) {
     // 20) search for "bababb" in "abababbbbb"
     strcpy((char *)P, "bababb");
     strcpy((char *)T, "abababbbbb");
-    if (!attempt(&rip, count, P, 6, T, 10, algoname, pkey, tkey, rkey, ekey,
-                 prekey, alpha, parameter))
-      exit(1);
+    if (!attempt(&rip, count, P, 6, T, 10, algoname, verbose, alpha))
+      goto free_shm1;
   }
   // 22) dont find m=1024 in n=2048 at pos 16
   for (h = 0; h < YSIZE; h++)
@@ -567,9 +468,8 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < XSIZE; h++)
     P[h] = T[h + 16];
   T[YSIZE] = P[XSIZE] = '\0';
-  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, verbose, alpha))
+    goto free_shm1;
 
   // 23) dont find m=1024 in n=2048
   for (h = 0; h < YSIZE; h++)
@@ -577,17 +477,24 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < XSIZE; h++)
     RANDCH(P[h]);
   T[YSIZE] = P[XSIZE] = '\0';
-  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
-               prekey, alpha, parameter))
-    exit(1);
+  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, verbose, alpha))
+    goto free_shm1;
+
+  // TODO same as smart:
+  //setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
+  
+  
   //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
   if (VERBOSE)
     printf("%-12stested OK\n", algoname);
 
   // free shared memory
-  free_shm();
+  free_shm(T, P, count, e_time, pre_time);
   return 0;
+ free_shm1:
+  free_shm(T, P, count, e_time, pre_time);
+  exit(1);
 }
 
 //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)

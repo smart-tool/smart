@@ -71,8 +71,26 @@ clock_t start, end;
 #define END_SEARCHING
 #endif
 TIMER *_timer;
-
 int search(unsigned char *p, int m, unsigned char *t, int n);
+
+#ifdef HAVE_SHM
+void *shmretrieve(const char* name, key_t key, size_t size) {
+  void *buf;
+  int shmid;
+  if ((shmid = shmget(key, size, 0666)) < 0) {
+    fprintf(stderr, "%s: key: %d size: %zu\n", name, (int)key, size);
+    perror("shmget");
+    return NULL;
+  }
+  /* Now we attach the segment to our data space. */
+  if ((buf = shmat(shmid, NULL, 0)) == (unsigned char *)-1) {
+    fprintf(stderr, "%s: shmid: %d\n", name, shmid);
+    perror("shmat");
+    return NULL;
+  }
+  return buf;
+}
+#endif
 
 #ifdef CBMC
 /* the brute force algorithm used for comparing occurrences */
@@ -104,7 +122,7 @@ int main(int argc, char *argv[]) {
     return 1;
 #endif
     if (argc < 7) {
-      printf("error in input parameter\nfive parameters needed when used with "
+      printf("error in input parameter\nseven parameters needed when used with "
              "shared memory\n");
       return 1;
     }
@@ -113,71 +131,24 @@ int main(int argc, char *argv[]) {
     m = atoi(argv[3]);            // segment size for the pattern
     key_t tkey = atoi(argv[4]);   // segment name for the text
     n = atoi(argv[5]);            // segment size for the text
+    key_t rkey = atoi(argv[6]);   // segment name for the occurrences
     key_t ekey = atoi(argv[7]);   // segment name for the running time
     key_t prekey = atoi(argv[8]); // preprocessing running time
-    int pshmid, tshmid, eshmid, preshmid;
-    /* Locate the pattern. */
-    if ((pshmid = shmget(pkey, m, 0666)) < 0) {
-      perror("shmget");
+    int *result;
+
+    if (!(p = shmretrieve("p", pkey, m)))
       return 1;
-    }
-    /* Now we attach the segment to our data space. */
-    if ((p = shmat(pshmid, NULL, 0)) == (unsigned char *)-1) {
-      perror("shmat");
+    if (!(t = shmretrieve("t", tkey, n)))
       return 1;
-    }
-    /* Locate the text. */
-    if ((tshmid = shmget(tkey, n, 0666)) < 0) {
-      perror("shmget");
+    if (!(result = shmretrieve("result", rkey, 4)))
       return 1;
-    }
-    /* Now we attach the segment to our data space. */
-    if ((t = shmat(tshmid, NULL, 0)) == (unsigned char *)-1) {
-      perror("shmat");
+    if (!(run_time = shmretrieve("run_time", ekey, 8)))
       return 1;
-    }
-    /* Locate the running time variable */
-    if ((eshmid = shmget(ekey, 8, 0666)) < 0) {
-      perror("shmget");
+    if (!(pre_time = shmretrieve("pre_time", prekey, 8)))
       return 1;
-    }
-    /* Now we attach the segment to our time variable space. */
-    if ((run_time = shmat(eshmid, NULL, 0)) == (double *)-1) {
-      perror("shmat");
-      return 1;
-    }
-    /* Locate the preprocessing running time variable */
-    if ((preshmid = shmget(prekey, 8, 0666)) < 0) {
-      perror("shmget");
-      return 1;
-    }
-    /* Now we attach the segment to our time variable space. */
-    if ((pre_time = shmat(preshmid, NULL, 0)) == (double *)-1) {
-      perror("shmat");
-      return 1;
-    }
     //fprintf(stderr, "%s\n", argv[0]);
 
-    // timer_start(_timer);
-    // start = clock();
-    int count = search(p, m, t, n);
-    // timer_stop(_timer);
-    // end = clock();
-    //(*run_time) = timer_elapsed(_timer)*1000;
-
-    int rshmid, *result;
-    key_t rkey = atoi(argv[6]); // segment name for the occurrences
-                                //  Locate the int value.
-    if ((rshmid = shmget(rkey, 4, 0666)) < 0) {
-      perror("shmget");
-      return 1;
-    }
-    // Now we attach the segment to our data space.
-    if ((result = shmat(rshmid, NULL, 0)) == (int *)-1) {
-      perror("shmat");
-      return 1;
-    }
-    *result = count;
+    *result = search(p, m, t, n);
     return 0;
 #endif
   } else {
@@ -237,7 +208,7 @@ int main(int argc, char *argv[]) {
     printf("found %d occurrences\n", occ);
     free(p);
     free(t);
-    return 0;
+    return occ;
 #endif
   }
 }
