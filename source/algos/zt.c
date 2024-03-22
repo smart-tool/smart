@@ -24,6 +24,7 @@
  * Constraints: requires m>=2
  * Note: Original crashed with bin/zt a 1 bb 2
  *       y[j + m - 2]
+ * Crashes with rand2 m=1024
  */
 
 #include "include/define.h"

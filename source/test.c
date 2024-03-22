@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 #ifdef HAVE_SHM
 #include <sys/ipc.h>
 #include <sys/shm.h>
@@ -43,8 +44,8 @@
 #endif
 
 #define SIGMA 256
-#define XSIZE 100
-#define YSIZE 100
+#define XSIZE 1024
+#define YSIZE 2048
 #define ATTEMPT 40 // number of attempts to allocate shared memory
 #define VERBOSE strcmp(parameter, "-nv")
 
@@ -240,7 +241,8 @@ int main(int argc, char *argv[]) {
   int try = 0;
   do {
     tkey = rand() % 1000;
-    tshmid = shmget(tkey, YSIZE * 2, IPC_CREAT | 0666);
+    // max text size
+    tshmid = shmget(tkey, YSIZE + 16, IPC_CREAT | 0666);
   } while (++try < ATTEMPT && tshmid < 0);
   if (tshmid < 0) {
     perror("shmget");
@@ -558,6 +560,26 @@ int main(int argc, char *argv[]) {
                  prekey, alpha, parameter))
       exit(1);
   }
+  // 22) dont find m=1024 in n=2048 at pos 16
+  for (h = 0; h < YSIZE; h++)
+    RANDCH(T[h]);
+  assert(XSIZE + 16 < YSIZE);
+  for (h = 0; h < XSIZE; h++)
+    P[h] = T[h + 16];
+  T[YSIZE] = P[XSIZE] = '\0';
+  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
+               prekey, alpha, parameter))
+    exit(1);
+
+  // 23) dont find m=1024 in n=2048
+  for (h = 0; h < YSIZE; h++)
+    RANDCH(T[h]);
+  for (h = 0; h < XSIZE; h++)
+    RANDCH(P[h]);
+  T[YSIZE] = P[XSIZE] = '\0';
+  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, pkey, tkey, rkey, ekey,
+               prekey, alpha, parameter))
+    exit(1);
   //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
   if (VERBOSE)
