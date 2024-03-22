@@ -33,6 +33,11 @@ char *SETTING_BUFFER[NumSetting] = {
     "frenchTexts", "chineseTexts", "midimusic", "genome",       "protein"};
 unsigned int SETTING_ALPHA_SIZE[NumSetting] = {
     2, 4, 8, 16, 32, 64, 128, 250, 128, 128, 128, 128, 128, 64, 64};
+// smallest text size
+unsigned int SETTING_TEXT_SIZE[NumSetting] = {
+    5000000U, 5000000U, 5000000U, 5000000U, 5000000U,
+    5000000U, 5000000U, 5000000U, 287951U,  2473400U,
+    556663U,  686958U,  1304,     4638690U, 509519U};
 
 #include "algorithms.h"
 

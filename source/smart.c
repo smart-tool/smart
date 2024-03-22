@@ -391,7 +391,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
 
   // i=system("./logo");
   for (il = 0; PATT_SIZE[il] > 0; il++)
-    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN && PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
       setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
       printf("\n");
@@ -400,7 +400,7 @@ int run_setting(char *filename, key_t tkey, unsigned char *T, int n, int alpha,
         printf("\tExperimental results on %s: %s\n", filename, code);
       else
         printf("\tExperimental results on %s\n", T);
-      printf("\tSearching for a set of %u patterns with length %d\n", VOLTE, m);
+      printf("\tSearching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
       printf("\tTesting %d algorithms\n", num_running);
       printf("\n");
 
