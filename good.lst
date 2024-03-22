@@ -4,11 +4,8 @@ kmp
 bm
 hor
 ag
-kr
-zt
 ac
 tw
-om
 ms
 qs
 nsn
@@ -77,7 +74,6 @@ sbndm-bmh
 fndm
 bww
 faoso2
-faoso4
 aoso2
 aoso4
 aoso6
@@ -98,9 +94,6 @@ dbww
 dbww2
 ksa
 kbndm
-bsdm
-bsdm2
-bsdm3
 bsdm4
 bsdm5
 bsdm6
@@ -117,9 +110,6 @@ fs-w1
 fs-w6
 fs-w8
 fsbndm-w1
-fsbndm-w2
-fsbndm-w4
-fsbndm-w6
 fsbndm-w8
 fsbndmq20
 fsbndmq21
@@ -149,9 +139,6 @@ qf44
 qf62
 qf63
 qlqs
-sbndm-w2
-sbndm-w4
-sbndm-w6
 ssm
 tso5
 tunedbm
@@ -192,7 +179,6 @@ doublehash
 ft3
 epsm
 libc
-libc1
 musl
 musl1
 simdkr

@@ -143,13 +143,14 @@ enum algo_id {
   _BSDM6,     // Backward SNR DAWG Matching (m>=6)
   _BSDM7,     // Backward SNR DAWG Matching (m>=7)
   _BSDM8,     // Backward SNR DAWG Matching (m>=8)
-  _BXS,       // BXS
+  _BXS,       // BNDMq with eXtended Shift
   _BXS1,      // BXS with q-grams limit
   _BXS2,      // BXS with q-grams limit
   _BXS3,      // BXS with q-grams limit
   _BXS4,      // BXS with q-grams limit
   _BXS6,      // BXS with q-grams limit
   _BXS8,      // BXS with q-grams limit
+  // _BQL,    // BNDMq Long (see BXS)
   _FS_W1,     // Multiple Sliding Windows
   _FS_W2,     // Multiple Sliding Windows
   _FS_W4,     // Multiple Sliding Windows
@@ -264,6 +265,7 @@ struct algo {
 
 #define OK 1
 #define FAIL 0
+#define RNDCRASH 0
 #define MISSING 1
 
 // Note: This part may be edited by select
@@ -277,11 +279,11 @@ const struct algo ALGOS[] = {
   [_HOR] = {_HOR, OK, "hor", "Hoorspool", 0, 0},
   [_GS] = {_GS, FAIL, "gs", "Galil Seiferas", 0, 0},
   [_AG] = {_AG, OK, "ag", "Apostolico-Giancarlo", 0, 0},
-  [_KR] = {_KR, OK, "kr", "Karp-Rabin", 0, 0},
-  [_ZT] = {_ZT, OK, "zt", "Zhu-Takaoka", 0, 0}, //m>=2
+  [_KR] = {_KR, RNDCRASH, "kr", "Karp-Rabin", 0, 0},
+  [_ZT] = {_ZT, RNDCRASH, "zt", "Zhu-Takaoka", 0, 0}, //m>=2
   [_AC] = {_AC, OK, "ac", "Apostolico-Crochemore", 0, 0},
   [_TW] = {_TW, OK, "tw", "Two-Way", 0, 0},
-  [_OM] = {_OM, OK, "om", "Optimal Mismatch", 0, 0},
+  [_OM] = {_OM, RNDCRASH, "om", "Optimal Mismatch", 0, 0}, //RNDCRASH with m=4096
   [_MS] = {_MS, OK, "ms", "Maximal shift", 0, 0},
   [_QS] = {_QS, OK, "qs", "Quick-Search", 0, 0},
   [_TunBM] = {_TunBM, FAIL, "tunbm", "Tuned Boyer-Moore", 0, 0},
@@ -371,7 +373,7 @@ const struct algo ALGOS[] = {
   [_FNDM] = {_FNDM, OK, "fndm", "forward nondeterministic dawg matching", 0, 0},
   [_BWW] = {_BWW, OK, "bww", "bit parallel wide window", 0, 0},
   [_FAOSO2] = {_FAOSO2, OK, "faoso2", "fast average optimal shift-or (u=2,m>2)", 3, 0},
-  [_FAOSO4] = {_FAOSO4, OK, "faoso4", "fast average optimal shift-or (u=2,m>4)", 5, 0},
+  [_FAOSO4] = {_FAOSO4, RNDCRASH, "faoso4", "fast average optimal shift-or (u=2,m>4)", 5, 0},
   [_FAOSO6] = {_FAOSO6, FAIL, "faoso6", "fast average optimal shift-or (u=2,m>6)", 7, 0},
   [_AOSO2] = {_AOSO2, OK, "aoso2", "average optimal shift-or (q=2)", 2, 0},
   [_AOSO4] = {_AOSO4, OK, "aoso4", "average optimal shift-or (q=4)", 4, 0},
@@ -395,9 +397,9 @@ const struct algo ALGOS[] = {
   [_KSA] = {_KSA, OK, "ksa", "Factorized Shift-And", 0, 0},
   [_KBNDM] = {_KBNDM, OK, "kbndm", "Factorized BNDM", 0, 0},
   // new algorithms
-  [_BSDM] = {_BSDM, OK, "bsdm", "Backward SNR DAWG Matching", 0, 0},
-  [_BSDM2] = {_BSDM2, OK, "bsdm2", "Backward SNR DAWG Matching (m>=2)", 2, 0},
-  [_BSDM3] = {_BSDM3, OK, "bsdm3", "Backward SNR DAWG Matching (m>=3)", 3, 0},
+  [_BSDM] = {_BSDM, RNDCRASH, "bsdm", "Backward SNR DAWG Matching", 0, 0},
+  [_BSDM2] = {_BSDM2, RNDCRASH, "bsdm2", "Backward SNR DAWG Matching (m>=2)", 2, 0},
+  [_BSDM3] = {_BSDM3, RNDCRASH, "bsdm3", "Backward SNR DAWG Matching (m>=3)", 3, 0},
   [_BSDM4] = {_BSDM4, OK, "bsdm4", "Backward SNR DAWG Matching (m>=4)", 4, 0},
   [_BSDM5] = {_BSDM5, OK, "bsdm5", "Backward SNR DAWG Matching (m>=5)", 5, 0},
   [_BSDM6] = {_BSDM6, OK, "bsdm6", "Backward SNR DAWG Matching (m>=6)", 6, 0},
@@ -410,6 +412,7 @@ const struct algo ALGOS[] = {
   [_BXS4] = {_BXS4, OK, "bxs4", "BXS with q-grams limit", 4, 0},
   [_BXS6] = {_BXS6, OK, "bxs6", "BXS with q-grams limit", 6, 0},
   [_BXS8] = {_BXS8, OK, "bxs8", "BXS with q-grams limit", 8, 0},
+  // _BQL = {_BQL,  OK, "bql", "BNDMq Long", 8, MISSING},
   [_FS_W1] = {_FS_W1, OK, "fs-w1", "Multiple Sliding Windows", 0, 0},
   [_FS_W2] = {_FS_W2, FAIL, "fs-w2", "Multiple Sliding Windows", 0, 0},
   [_FS_W4] = {_FS_W4, FAIL, "fs-w4", "Multiple Sliding Windows", 0, 0}, // n>=6
@@ -418,11 +421,11 @@ const struct algo ALGOS[] = {
   [_FSBNDM_W1] =
         {_FSBNDM_W1, OK, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W2] =
-        {_FSBNDM_W2, OK, "fsbndm-w2", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W4] =
-        {_FSBNDM_W4, OK, "fsbndm-w4", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W4, RNDCRASH, "fsbndm-w4", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W6] =
-        {_FSBNDM_W6, OK, "fsbndm-w6", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W6, RNDCRASH, "fsbndm-w6", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W8] =
         {_FSBNDM_W8, OK, "fsbndm-w8", "fsbndm with multiple sliding windows", 11, 0}, // inexact >31
   [_FSBNDMQ20] =
@@ -475,9 +478,9 @@ const struct algo ALGOS[] = {
   [_QF62] = {_QF62, OK, "qf62", "Q-gram Filtering q=6 s=2", 7, 0},
   [_QF63] = {_QF63, OK, "qf63", "Q-gram Filtering q=6 s=3", 7, 0},
   [_QLQS] = {_QLQS, OK, "qlqs", "Quantum Leap Quick Search", 0, 0},
-  [_SBNDM_W2] = {_SBNDM_W2, OK, "sbndm-w2", "SBNDM with lookahead", 0, 0}, // inexact >32
-  [_SBNDM_W4] = {_SBNDM_W4, OK, "sbndm-w4", "SBNDM with lookahead", 0, 0}, // inexact >32
-  [_SBNDM_W6] = {_SBNDM_W6, OK, "sbndm-w6", "SBNDM with lookahead", 0, 0}, // inexact >32
+  [_SBNDM_W2] = {_SBNDM_W2, RNDCRASH, "sbndm-w2", "SBNDM with lookahead", 0, 0}, // inexact >32
+  [_SBNDM_W4] = {_SBNDM_W4, RNDCRASH, "sbndm-w4", "SBNDM with lookahead", 0, 0}, // inexact >32
+  [_SBNDM_W6] = {_SBNDM_W6, RNDCRASH, "sbndm-w6", "SBNDM with lookahead", 0, 0}, // inexact >32
   [_SSM] = {_SSM, OK, "ssm", "SSM", 0, 0},
   [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64. flapping
   [_TSA_Q2] = {_TSA_Q2, FAIL, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
@@ -524,11 +527,11 @@ const struct algo ALGOS[] = {
   [_FT3] = {_FT3, OK, "ft3", "Parallel Boyer-Moore with goodsuff", 0, 0}, // Lecroq 2015
   [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, MISSING},
   [_SSECP] = {_SSECP, FAIL, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
-  [_EPSM] = {_EPSM, X64_ONLY, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
+  [_EPSM] = {_EPSM, X64_ONLY + RNDCRASH, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
   [_LIBC] = {_LIBC, OK, "libc", "strstr", 0, 0}, // no \0
-  [_LIBC1] = {_LIBC1, OK, "libc1", "memmem", 0, 0},
+  [_LIBC1] = {_LIBC1, RNDCRASH, "libc1", "memmem", 0, 0},
   [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0}, // no \0
-  [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0}, // flapping
+  [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},
   [_SIMDKR] = {_SIMDKR, OK, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
     // clang-format on
 };
