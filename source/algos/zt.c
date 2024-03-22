@@ -20,10 +20,15 @@
  * in R. F. Zhu and T. Takaoka.
  * On improving the average case of the Boyer-Moore string matching algorithm.
  * J. Inform. Process., vol.10, n.3, pp.173--177, (1987).
+ *
+ * Constraints: requires m>=2
+ * Note: Original crashed with bin/zt a 1 bb 2
+ *       y[j + m - 2]
  */
 
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void suffixes(unsigned char *x, int m, int *suff) {
   int f = m - 2, g, i;
@@ -75,7 +80,8 @@ void preZtBc(unsigned char *x, int m, int ztBc[SIGMA][SIGMA]) {
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, ztBc[SIGMA][SIGMA], bmGs[XSIZE] = {0}, count;
-
+  if (m < 2)
+    return search_small(x, m, y, n);
   /* Preprocessing */
   BEGIN_PREPROCESSING
   preZtBc(x, m, ztBc);
