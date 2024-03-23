@@ -27,6 +27,7 @@
 #ifdef HAVE_SHM
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include "shmids.h"
 #else
 //TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
 #define key_t int
@@ -73,25 +74,6 @@ clock_t start, end;
 TIMER *_timer;
 int search(unsigned char *p, int m, unsigned char *t, int n);
 
-#ifdef HAVE_SHM
-void *shmretrieve(const char* name, key_t key, size_t size) {
-  void *buf;
-  int shmid;
-  if ((shmid = shmget(key, size, 0666)) < 0) {
-    fprintf(stderr, "%s: key: %d size: %zu\n", name, (int)key, size);
-    perror("shmget");
-    return NULL;
-  }
-  /* Now we attach the segment to our data space. */
-  if ((buf = shmat(shmid, NULL, 0)) == (unsigned char *)-1) {
-    fprintf(stderr, "%s: shmid: %d\n", name, shmid);
-    perror("shmat");
-    return NULL;
-  }
-  return buf;
-}
-#endif
-
 #ifdef CBMC
 /* the brute force algorithm used for comparing occurrences */
 int bf_search(unsigned char *x, int m, unsigned char *y, int n) {
@@ -136,15 +118,15 @@ int main(int argc, char *argv[]) {
     key_t prekey = atoi(argv[8]); // preprocessing running time
     int *result;
 
-    if (!(p = shmretrieve("p", pkey, m)))
+    if (!(p = shmretrieve(shm_P, pkey, m)))
       return 1;
-    if (!(t = shmretrieve("t", tkey, n)))
+    if (!(t = shmretrieve(shm_T, tkey, n)))
       return 1;
-    if (!(result = shmretrieve("result", rkey, 4)))
+    if (!(result = shmretrieve(shm_r, rkey, 4)))
       return 1;
-    if (!(run_time = shmretrieve("run_time", ekey, 8)))
+    if (!(run_time = shmretrieve(shm_e, ekey, 8)))
       return 1;
-    if (!(pre_time = shmretrieve("pre_time", prekey, 8)))
+    if (!(pre_time = shmretrieve(shm_pre, prekey, 8)))
       return 1;
     //fprintf(stderr, "%s\n", argv[0]);
 

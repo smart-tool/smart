@@ -27,14 +27,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#ifdef HAVE_SHM
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#else
-//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a, b, c)
-#endif
 #include <sys/types.h>
 #include <time.h>
 #include <ctype.h>
@@ -92,8 +84,9 @@ int execute(char *algoname, unsigned char *P, int m, unsigned char *T, int n,
   (void)T;
   (void)alpha;
   sprintf(command, "./%s/%s shared %d %d %d %d %d %d %d", BINDIR, algoname,
-          shmids.pkey, m, shmids.tkey, n, shmids.rkey, shmids.ekey,
-          shmids.prekey);
+          shmids[shm_P].key, m, shmids[shm_T].key, n, shmids[shm_r].key, shmids[shm_e].key,
+          shmids[shm_pre].key);
+  //fprintf(stderr, "%s\n", command);
 #endif
   // TODO fork/exec with timeout
   // printf("%s\n",command);
@@ -202,7 +195,7 @@ int main(int argc, char *argv[]) {
 
 #ifdef HAVE_SHM
   // allocate in shared memory
-  T = shmalloc(TSIZE + 1, &shmids.t, &shmids.tkey); // text
+  T = shmalloc(shm_T, TSIZE + 1); // text
 #else
   T = malloc(TSIZE + 1);
 #endif
@@ -246,13 +239,12 @@ int main(int argc, char *argv[]) {
   srand(seed);
 #ifdef HAVE_SHM
   // allocate in shared memory
-  P = shmalloc(MAX(m, XSIZE), &shmids.p, &shmids.pkey);  // pattern
-  e_time = shmalloc(sizeof(double), &shmids.e, &shmids.ekey); // running time
-  pre_time = shmalloc(sizeof(double), &shmids.pre, &shmids.prekey); // preprocessing
-  count = shmalloc(sizeof(int), &shmids.r, &shmids.rkey); // number of occurrences
+  P = shmalloc(shm_P, MAX(m, XSIZE));  // pattern
+  count = shmalloc(shm_r, sizeof(int)); // number of occurrences
+  e_time = shmalloc(shm_e, sizeof(double)); // running time
+  pre_time = shmalloc(shm_pre, sizeof(double)); // preprocessing
 #else
   int *count;
-  key_t pkey, tkey, rkey, ekey, prekey;
 #endif
 
   // begin testing

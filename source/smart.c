@@ -135,8 +135,8 @@ int execute(enum algo_id algo, unsigned char *P, int m, unsigned char *T, int n)
 int execute(enum algo_id algo, int m, int n, int *count) {
   char command[100];
   snprintf(command, sizeof(command), "./%s/%s shared %d %d %d %d %d %d %d",
-           BINDIR, ALGO_NAME[algo], shmids.pkey, m, shmids.tkey, n, shmids.rkey,
-           shmids.ekey, shmids.prekey);
+           BINDIR, ALGO_NAME[algo], shmids[shm_P].key, m, shmids[shm_T].key, n,
+           shmids[shm_r].key, shmids[shm_e].key, shmids[shm_pre].key);
   // TODO fork/exec with timeout
   int res = system(command);
   if (!res)
@@ -185,20 +185,21 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
   srand(time(NULL));
 #ifndef _WIN32
   // allocate in shared memory
-  // P = shmalloc(m, &shmids.p, &shmids.pkey);  // pattern
-  e_time = shmalloc(sizeof(double), &shmids.e, &shmids.ekey); // running time
-  pre_time = shmalloc(sizeof(double), &shmids.pre, &shmids.prekey); // preprocessing
-  count = shmalloc(sizeof(int), &shmids.r, &shmids.rkey); // number of occurrences
+  // P = shmalloc(shm_P, m);  // pattern
+  count = shmalloc(shm_r, sizeof(int)); // number of occurrences
+  e_time = shmalloc(shm_e, sizeof(double)); // running time
+  pre_time = shmalloc(shm_pre, sizeof(double)); // preprocessing
   
   memset(FREQ, 0, SIGMA * sizeof(int));
 #endif // _WIN32
 
   // initializes the vector which will contain running times
-  for (i = 0; i < NumAlgo; i++)
+  for (i = 0; i < NumAlgo; i++) {
     for (j = 0; j < NumPatt; j++) {
       TIME[i][j] = PRE_TIME[i][j] = WORST[i][j] = STD[i][j] = 0;
       BEST[i][j] = MAXTIME;
     }
+  }
 
   // count how many algorithms are going to run
   int num_running = 0;
@@ -211,7 +212,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
     if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN &&
         PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
-      P = shmalloc(m, &shmids.p, &shmids.pkey); // pattern
+      P = shmalloc(shm_P, m); // pattern
       setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
       printf("\n");
       printTopEdge(60);
@@ -332,8 +333,9 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
           else if (total_occur == -2)
             printf("\b\b\b\b\b\b.[OUT]  \n");
         }
+
       shmdt(P);
-      shmctl(shmids.p, IPC_RMID, 0);
+      shmctl(shmids[shm_P].id, IPC_RMID, 0);
     }
 
   printf("\n");
@@ -375,7 +377,7 @@ int main(int argc, const char *argv[]) {
   unsigned char simplePattern[100]; // used for the simple run of SMART
   unsigned char simpleText[1000];   // used for the simple run of SMART
   /* useful variables */
-  unsigned char *T = NULL; // text and pattern
+  unsigned char *T = NULL; // text
   int n;           // length of the text
   char parameter[1000];
 
@@ -574,7 +576,7 @@ int main(int argc, const char *argv[]) {
 #ifndef _WIN32
   // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
-  T = shmalloc(size, &shmids.t, &shmids.tkey); // text  
+  T = shmalloc(shm_T, size); // text
 #endif
 
   if (options.simple) {
@@ -687,7 +689,7 @@ end_shm:
 #ifndef _WIN32
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
-  shmctl(shmids.t, IPC_RMID, 0);
+  shmctl(shmids[shm_T].id, IPC_RMID, 0);
 #else
   free(T);
 #endif
@@ -699,7 +701,7 @@ end:
   //end_1:
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
-  shmctl(shmids.t, IPC_RMID, 0);
+  shmctl(shmids[shm_T].id, IPC_RMID, 0);
   return 1;
 #endif
 }

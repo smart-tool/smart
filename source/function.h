@@ -27,6 +27,7 @@
 #ifndef _WIN32
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include "algos/include/shmids.h"
 #else
 // TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
 #define key_t int
@@ -40,12 +41,6 @@
 #endif
 
 #define SIGMA 256
-
-#define ATTEMPT 40 // number of attempts to allocate shared memory
-struct shmids {
-  int t, e, pre, p, r;
-  key_t tkey, ekey, prekey, pkey, rkey;
-} shmids;
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 // strncat helper
@@ -326,43 +321,4 @@ void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
       setP[i][j] = '\0';
     }
   }
-}
-
-void *shmalloc(size_t size, int *id, key_t *key) {
-  char *buf;
-  int try = 0;
-  do {
-    *key = rand() % 1000;
-    *id = shmget(*key, size, IPC_CREAT | 0666);
-  } while (++try < ATTEMPT && *id < 0);
-  if (*id < 0) {
-    perror("shmget");
-    exit(1);
-  }
-  if ((buf = shmat(*id, NULL, 0)) == (char *)-1) {
-    perror("shmat");
-    exit(1);
-  }
-  return (void*)buf;
-}
-
-void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
-              double *pre_time) {
-#ifdef HAVE_SHM
-  // T is shared between test and smart
-  if (T) {
-    shmdt(T);
-    shmctl(shmids.t, IPC_RMID, 0);
-  }
-  if (P) {
-    shmdt(P);
-    shmctl(shmids.p, IPC_RMID, 0);
-  }
-  shmdt(count);
-  shmdt(e_time);
-  shmdt(pre_time);
-  shmctl(shmids.r, IPC_RMID, 0);
-  shmctl(shmids.e, IPC_RMID, 0);
-  shmctl(shmids.pre, IPC_RMID, 0);
-#endif
 }

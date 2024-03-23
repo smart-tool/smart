@@ -3,17 +3,19 @@ MACHINE := $(shell uname -m)
 # fixme: detect mingw
 ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
 BINDIR  = bin
+ALGOSINC := $(wildcard source/algos/include/*.h)
+SRCINC   := $(wildcard source/*.h)
 ifneq ($(ARCH),x86_64)
   CFLAGS  := -O3 -Wall
   NON_SSE = source/algos/epsm.c source/algos/ssecp.c source/algos/ssef.c
-  ALGOSRC = $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
+  ALGOSRC := $(filter-out $(NON_SSE),$(wildcard source/algos/*.c))
 else
   CFLAGS  := -O3 -march=native -mtune=native -Wall -Wfatal-errors
   ifeq ($(SANITIZE),1)
     BINDIR = bin/asan
     CFLAGS += -g -Wextra -fsanitize=address,undefined -DBINDIR=\"$(BINDIR)\"
   endif
-  ALGOSRC = $(wildcard source/algos/*.c)
+  ALGOSRC := $(wildcard source/algos/*.c)
 endif
 ifneq ($(ASSERT),1)
   ifneq ($(SANITIZE),1)
@@ -27,7 +29,7 @@ ifneq ($(ARCH),$(MACHINE))
 else
   DRV =
 endif
-ALLSRC  = $(ALGOSRC) $(wildcard source/*.c) $(wildcard source/*.h) $(wildcard source/algos/include/*.h)
+ALLSRC  = $(ALGOSRC) $(wildcard source/*.c) $(SRCINC) $(ALGOSINC)
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
 ifeq ($(SANITIZE),1)
   TESTBIN = test-asan
@@ -47,14 +49,14 @@ endif
 
 all: $(BINS) $(HELPERS)
 
-$(BINDIR)/%: source/algos/%.c $(wildcard source/algos/include/*.h)
+$(BINDIR)/%: source/algos/%.c $(ALGOSINC)
 	@test -d $(BINDIR) || mkdir $(BINDIR)
 	$(CC) $(CFLAGS) $< -o $@
-./%-asan: source/%.c $(wildcard source/*.h)
+./%-asan: source/%.c $(SRCINC) source/algos/include/shmids.h
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
-./%: source/%.c $(wildcard source/*.h)
+./%: source/%.c $(SRCINC) source/algos/include/shmids.h
 	$(CC) $(CFLAGS) $< -std=gnu99 -o $@ -lm
-$(SELECTBIN): source/selectAlgo.c
+$(SELECTBIN): source/selectAlgo.c $(SRCINC)
 	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: check clean all lint verify fmt cppcheck clang-tidy
