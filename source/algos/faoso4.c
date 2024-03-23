@@ -135,7 +135,7 @@ void verify_large(unsigned char *y, int j, /*int n,*/ unsigned char *x, int m,
     c -= (s / v + z * q);
     i = j + c;
     if (!memcmp(x, y + i, p_len)) {
-      (*count)++;
+      OUTPUT(i);
       // printf("%d\n",i);
     }
     D &= ~(1U << s);

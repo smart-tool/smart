@@ -22,7 +22,6 @@
  * Science, vol.3772, pp.376--387, Springer-Verlag, Berlin, (2005).
  *
  * Constraints: requires m>6
- * Note: Broken search_large() m>31
  */
 
 #include <stdint.h>
@@ -141,7 +140,7 @@ void verify_large(unsigned char *y, int j, int n, unsigned char *x, int m,
       while (k < p_len && x[k] == y[i + k])
         k++;
     if (k == p_len)
-      (*count)++;
+      OUTPUTP(i);
     D &= ~(1U << s);
   }
 }

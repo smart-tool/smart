@@ -374,7 +374,7 @@ const struct algo ALGOS[] = {
   [_BWW] = {_BWW, OK, "bww", "bit parallel wide window", 0, 0},
   [_FAOSO2] = {_FAOSO2, OK, "faoso2", "fast average optimal shift-or (u=2,m>2)", 3, 0},
   [_FAOSO4] = {_FAOSO4, RNDCRASH, "faoso4", "fast average optimal shift-or (u=2,m>4)", 5, 0},
-  [_FAOSO6] = {_FAOSO6, FAIL, "faoso6", "fast average optimal shift-or (u=2,m>6)", 7, 0},
+  [_FAOSO6] = {_FAOSO6, RNDCRASH, "faoso6", "fast average optimal shift-or (u=2,m>6)", 7, 0},
   [_AOSO2] = {_AOSO2, OK, "aoso2", "average optimal shift-or (q=2)", 2, 0},
   [_AOSO4] = {_AOSO4, OK, "aoso4", "average optimal shift-or (q=4)", 4, 0},
   [_AOSO6] = {_AOSO6, OK, "aoso6", "average optimal shift-or (q=6)", 6, 0},
