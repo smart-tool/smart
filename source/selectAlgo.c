@@ -275,7 +275,9 @@ int main(int argc, const char *argv[]) {
   // store only the changes from the default
   FILE *fp = fopen("algorithms.lst", "w");
   for (j = 0; j < numalgo; j++)
-    if (ALGO_NAME[j] && !ALGOS[j].missing && (j >= NumAlgo || ALGOS[j].execute != execute[j]))
+    if (ALGO_NAME[j] &&
+        (j >= NumAlgo || !ALGOS[j].missing) &&
+        (j >= NumAlgo || ALGOS[j].execute != execute[j]))
       fprintf(fp, "#%d #%s \n", execute[j], ALGO_NAME[j]);
   fclose(fp);
   free(execute);
