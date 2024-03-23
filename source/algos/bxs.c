@@ -57,7 +57,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   BEGIN_SEARCHING
   /* Searching */
-  for (i = mq1 - 1; i < nq1; i += mq1) {
+  for (i = mq1; i < nq1; i += mq1) {
     D = B[y[i]];
     if (D) {
       j = i;
@@ -65,7 +65,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       do {
         j--;
         if (D >= mask) {
-          if (j - first)
+          if (j > first)
             i = j;
           else {
             for (k = len; y[first + k] == x[k - 1] && (k); k--)
