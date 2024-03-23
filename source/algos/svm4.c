@@ -114,7 +114,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  tmp = (~0);
+  tmp = ~0U;
   tmp >>= (WORD - m);
   for (j = 0; j < SIGMA; j++)
     cv[j] = tmp;
@@ -134,7 +134,6 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     sv |= cv[y[s]];
     j = 1;
     while ((sv & 1) == 0) {
-      sv |= cv[y[s - j]] >> j;
       if (j >= m) {
         k = m;
         first = s - m + 1;
@@ -144,6 +143,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
           OUTPUT(first);
         break;
       }
+      sv |= cv[y[s - j]] >> j;
       j++;
     }
     j = 0;

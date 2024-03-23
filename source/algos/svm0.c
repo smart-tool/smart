@@ -100,7 +100,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
 
   /* proprocessing */
   BEGIN_PREPROCESSING
-  tmp = (~0);
+  tmp = ~0U;
   tmp >>= (WORD - m);
   for (j = 0; j < SIGMA; j++)
     cv[j] = tmp;

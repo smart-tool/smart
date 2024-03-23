@@ -71,20 +71,21 @@ check: all
 	for t in $(TESTS); do echo $$t; ./$(TESTBIN) $$t; done
 	$(DRV) ./$(SELECTBIN) -all block bmh2 bmh4 dfdm sbdm faoso2 blim ssecp
 	-mv algorithms.lst.bak algorithms.lst
-sanitizer.log: $(ALLSRC)
-	-rm -f sanitizer.log 2>/dev/null
-	./sanitizer.sh 2>sanitizer.log
-lint: cppcheck clang-tidy
-# --check-level=exhaustive for newer cppcheck
+lint: cppcheck clang-tidy sanitizer.log
+# for newer cppcheck
+#CPPCHECK_ARGS="-j4 --enable=warning,portability --inline-suppr --check-level=exhaustive"
+CPPCHECK_ARGS = -j4 --enable=warning,portability --inline-suppr
 cppcheck:
-	cppcheck -j4 --enable=warning,portability --inline-suppr \
-          source/*.c source/algos/*.c
+	cppcheck $(CPPCHECK_ARGS) source/*.c source/algos/*.c
 compile_commands.json: GNUmakefile
 	-+$(MAKE) clean
 	bear -- $(MAKE)
 clang-tidy.log: compile_commands.json $(ALLSRC)
 	clang-tidy source/*.c source/algos/*.c | sed -e"s,$$PWD/,," | tee clang-tidy.log
 clang-tidy: clang-tidy.log
+sanitizer.log: $(ALLSRC)
+	-rm -f sanitizer.log 2>/dev/null
+	./sanitizer.sh 2>sanitizer.log
 
 CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \
   --div-by-zero-check --signed-overflow-check --unsigned-overflow-check   \

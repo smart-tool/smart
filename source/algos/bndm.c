@@ -29,17 +29,15 @@
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-  int B[SIGMA];
+  unsigned int B[SIGMA], s, D;
   int i, j, last, count;
-  unsigned s, D;
 
   if (m > 32)
     return search_large(x, m, y, n);
 
   BEGIN_PREPROCESSING
-  /* Preprocessing */
-  for (i = 0; i < SIGMA; i++)
-    B[i] = 0;
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(B, 0, SIGMA * sizeof(unsigned int));
   s = 1;
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= s;
@@ -80,8 +78,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  int B[SIGMA];
-  int i, j, s, D, last, count, p_len, k;
+  unsigned int B[SIGMA], s, D;
+  int i, j, last, count, p_len, k;
 
   p_len = m;
   m = 32;
@@ -89,8 +87,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-  memset(B, 0, SIGMA * sizeof(int));
-  s = 1;
+  memset(B, 0, SIGMA * sizeof(unsigned int));
+  s = 1U;
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= s;
     s <<= 1;

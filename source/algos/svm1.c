@@ -30,19 +30,18 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int count, s, j;
-  unsigned int tmp, sv, cv[SIGMA], ONE;
+  unsigned int tmp, sv, cv[SIGMA];
 
   if (m > 32)
     return search_large(x, m, y, n);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
-  ONE = 1;
-  tmp = (~0);
+  tmp = ~0U;
   tmp >>= (32 - m);
   for (j = 0; j < SIGMA; j++)
     cv[j] = tmp;
-  tmp = ~ONE;
+  tmp = ~1U;
   for (j = m - 1; j >= 0; j--) {
     cv[x[j]] &= tmp;
     tmp <<= 1;
@@ -60,7 +59,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   while (s < n) {
     sv |= cv[y[s]];
     j = 1;
-    while ((sv & ONE) == 0) {
+    while ((sv & 1) == 0) {
       sv |= j > 31 ? 0 : (cv[y[s - j]] >> j);
       if (j >= m) {
         OUTPUT(s);
@@ -70,7 +69,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     }
     sv >>= 1;
     s += 1;
-    while ((sv & ONE) == 1) {
+    while ((sv & 1) == 1) {
       sv >>= 1;
       s += 1;
     }
@@ -95,7 +94,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   ONE = 1;
-  tmp = (~0);
+  tmp = ~0U;
   tmp >>= (32 - m);
   for (j = 0; j < SIGMA; j++)
     cv[j] = tmp;
@@ -118,7 +117,6 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     sv |= cv[y[s]];
     j = 1;
     while ((sv & ONE) == 0) {
-      sv |= (cv[y[s - j]] >> j);
       if (j >= m) {
         k = m;
         first = s - m + 1;
@@ -128,6 +126,7 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
           OUTPUT(first);
         break;
       }
+      sv |= (cv[y[s - j]] >> j);
       j++;
     }
     sv >>= 1;

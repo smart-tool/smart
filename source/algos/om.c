@@ -42,8 +42,7 @@ void preQsBc(unsigned char *P, int m, int qbc[]) {
 /* Construct an ordered pattern from a string. */
 void orderPattern(unsigned char *x, int m, int (*pcmp)(), pattern *pat) {
   int i;
-
-  for (i = 0; i <= m; ++i) {
+  for (i = 0; i < m; ++i) {
     pat[i].loc = i;
     pat[i].c = x[i];
   }

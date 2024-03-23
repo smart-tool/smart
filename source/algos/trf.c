@@ -201,6 +201,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     free(tsuffix);
     free(tposition);
     free(tlength);
+    free(tshift);
     free(ttrans);
     free(mpNext);
   }

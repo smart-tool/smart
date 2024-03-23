@@ -106,17 +106,18 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-  int i, j, s, last, restore[XSIZE + 1], p_len, k;
-  unsigned int D, B[SIGMA];
+  int i, j, last, restore[XSIZE + 1], p_len, k;
+  unsigned int s, D, B[SIGMA];
   int count = 0;
 
   p_len = m;
   m = 32;
 
-  /* Preprocessing */
   BEGIN_PREPROCESSING
-  for (i = 0; i < SIGMA; i++)
-    B[i] = 0;
+  //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(B, 0, SIGMA * sizeof(unsigned int));
+  memset(restore, 0, 32 * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   s = 1;
   for (i = m - 1; i >= 0; i--) {
     B[x[i]] |= s;
