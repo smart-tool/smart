@@ -166,6 +166,10 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
   unsigned char *P = NULL;
   FILE *stream = NULL;
   int SIMPLE = (strcmp((char *)simplePattern, "") ? 1 : 0);
+  char buf[40] = {0};
+  double *e_time = NULL, *pre_time = NULL;
+  int *count = NULL;
+
   if (!SIMPLE) {
     char logfile[100];
     sprintf(logfile, "results/%s", code);
@@ -177,9 +181,6 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
     strncat(logfile, "/errorlog.txt", SZNCAT(logfile));
     stream = freopen(logfile, "w", stderr); // redirect of stderr
   }
-
-  double *e_time = NULL, *pre_time = NULL;
-  int *count = NULL;
 
   // allocate space for running time in shared memory
   srand(time(NULL));
@@ -205,11 +206,12 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
       num_running++;
 
   // i=system("./logo");
-  for (il = 0; PATT_SIZE[il] > 0; il++)
-    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN &&
+  for (il = 0; PATT_SIZE[il] > 0; il++) {
+    if (PATT_SIZE[il] >= MINLEN &&
+        PATT_SIZE[il] <= MAXLEN &&
         PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
-      P = shmalloc(shm_P, m); // pattern
+      P = shmalloc(shm_P, m + 1); // pattern
       setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
       printf("\n");
       printTopEdge(60);
@@ -222,18 +224,17 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
       printf("\n");
 
       int current_running = 0;
-      for (algo = 0; algo < NumAlgo; algo++)
+      for (algo = 0; algo < NumAlgo; algo++) {
         if (EXECUTE[algo] && (!ALGOS[algo].minlen || m >= ALGOS[algo].minlen)) {
           char *upname = str2upper(ALGO_NAME[algo]);
-          char data[40];
           current_running++;
           if (!options.simple)
             fprintf(stream, "%s - %s - %d\n", ALGO_NAME[algo], filename, m);
-          snprintf(data, sizeof(data), "\t - [%d/%d] %s ", current_running,
+          snprintf(buf, sizeof(buf), "\t - [%d/%d] %s ", current_running,
                    num_running, upname);
-          printf("%s", data);
+          printf("%s", buf);
           fflush(stdout);
-          for (i = 0; i < 35 - strlen(data); i++)
+          for (i = 0; i < 35 - strlen(buf); i++)
             printf(".");
           total_occur = 0;
 
@@ -301,23 +302,23 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
             unsigned i;
             printf("\b\b\b\b\b\b\b.[OK]  ");
             if (options.pre)
-              sprintf(data, "\t\%.2f + \%.2f ms", PRE_TIME[algo][il],
+              snprintf(buf, sizeof(buf), "\t\%.2f + \%.2f ms", PRE_TIME[algo][il],
                       TIME[algo][il]);
             else
-              sprintf(data, "\t\%.2f ms", TIME[algo][il]);
-            printf("%s", data);
-            for (i = 0; i < 20 - strlen(data); i++)
+              snprintf(buf, sizeof(buf), "\t\%.2f ms", TIME[algo][il]);
+            printf("%s", buf);
+            for (i = 0; i < 20 - strlen(buf); i++)
               printf(" ");
             if (options.dif) {
-              sprintf(data, " [%.2f, %.2f]", BEST[algo][il], WORST[algo][il]);
-              printf("%s", data);
-              for (i = 0; i < 20 - strlen(data); i++)
+              snprintf(buf, sizeof(buf), " [%.2f, %.2f]", BEST[algo][il], WORST[algo][il]);
+              printf("%s", buf);
+              for (i = 0; i < 20 - strlen(buf); i++)
                 printf(" ");
             }
             if (options.std) {
-              sprintf(data, " std %.2f", STD[algo][il]);
-              printf("%s", data);
-              for (i = 0; i < 15 - strlen(data); i++)
+              snprintf(buf, sizeof(buf), " std %.2f", STD[algo][il]);
+              printf("%s", buf);
+              for (i = 0; i < 15 - strlen(buf); i++)
                 printf(" ");
             }
             if (options.occ)
@@ -330,6 +331,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
           else if (total_occur == -2)
             printf("\b\b\b\b\b\b.[OUT]  \n");
         }
+      }
 #ifdef HAVE_SHM
       shmdt(P);
       shmctl(shmids[shm_P].id, IPC_RMID, 0);
@@ -337,6 +339,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
       free(P);
 #endif
     }
+  }
 
   printf("\n");
   printTopEdge(60);

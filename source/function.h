@@ -104,7 +104,7 @@ char *str2lower(const char *s) {
 ATTRIBUTE_MALLOC
 char *str2upper(const char *s) {
   int n = strlen(s) - 1;
-  char *ret = calloc(n + 1, 1);
+  char *ret = calloc(n + 2, 1);
   while (n >= 0) {
     if (s[n] >= 'a' && s[n] <= 'z')
       ret[n] = s[n] - 'a' + 'A';
@@ -131,10 +131,10 @@ void getAlgo(const char *ALGO_NAME[], int EXECUTE[]) {
   DIR *d;
   struct dirent *dir;
 
-  for (unsigned int id = 0; id < ARRAY_SIZE(ALGOS); id++) {
-    EXECUTE[id] = ALGOS[id].execute;
-    ALGO_NAME[id] = ALGOS[id].name;
-    ALGO_DESCRIPTION[id] = ALGOS[id].desc;
+  for (unsigned i = 0; i < NumAlgo; i++) {
+    EXECUTE[i] = ALGOS[i].execute;
+    ALGO_NAME[i] = ALGOS[i].name;
+    ALGO_DESCRIPTION[i] = ALGOS[i].desc;
   }
   // cross-check against existing algos:
   char algo[50];
