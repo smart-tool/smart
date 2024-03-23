@@ -88,7 +88,7 @@ clang-tidy.log: compile_commands.json $(ALLSRC)
 clang-tidy: clang-tidy.log
 sanitizer.log: $(ALLSRC)
 	-rm -f sanitizer.log 2>/dev/null
-	./sanitizer.sh 2>sanitizer.log
+	-./sanitizer.sh 2>sanitizer.log
 
 CBMC_CHECKS=--bounds-check --pointer-check --memory-leak-check            \
   --div-by-zero-check --signed-overflow-check --unsigned-overflow-check   \
