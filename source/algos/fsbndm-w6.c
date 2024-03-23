@@ -25,7 +25,7 @@
 
  We also request that use of this software be cited in publications as
 
- Simone Faro ad Thierry Lecroq,
+ Simone Faro and Thierry Lecroq,
  "Multiple Sliding Windows Algorithms for Searching Texts on Large Alphabets"
  SEA 2012 - 11th International Symposium on Experimental Algorithms
 
@@ -41,12 +41,15 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Constraints: inexact for m>31
+ * Constraints: requires m>=6
+ * Buffer overflows: bin/asan/fsbndm-w6 aaaaaa 6 aaaaaaaaaa 10
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-#include "include/search_large.h"
+//#include "include/search_large.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
@@ -55,8 +58,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   int plen = m;
   if (m > 31)
-    //m = 31;
-    return search_large(x, m, y, n);;
+    m = 31;
+    //return search_large(x, m, y, n);;
+  if (m < 6)
+    return search_small(x, m, y, n);;
   BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
@@ -87,18 +92,35 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s5 = 2 * q;
   s6 = n - plen;
   while (s1 <= s2 + mm1 || s3 <= s4 + mm1 || s5 <= s6 + mm1) {
+    assert(s1 + 1 <= n);
+    assert(s2 <= n);
+    assert(s3 + 1 <= n);
+    assert(s4 <= n);
+    assert(s5 + 1 <= n);
+    assert(s6 <= n);
+    assert(s2 > 0);
+    assert(s4 > 0);
+    assert(s6 > 0);
     while ((d = (((B[y[s1 + 1]] << 1) & B[y[s1]]) |
                  ((W[y[s2 - 1]] << 1) & W[y[s2]]) |
                  ((B[y[s3 + 1]] << 1) & B[y[s3]]) |
                  ((W[y[s4 - 1]] << 1) & W[y[s4]]) |
                  ((B[y[s5 + 1]] << 1) & B[y[s5]]) |
                  ((W[y[s6 - 1]] << 1) & W[y[s6]]))) == 0) {
+      assert(s1 + m <= n);
+      assert(s2 - m >= 0);
       s1 += hbcr[y[s1 + m]];
       s2 -= hbcl[y[s2 - m]];
       s3 += hbcr[y[s3 + m]];
       s4 -= hbcl[y[s4 - m]];
       s5 += hbcr[y[s5 + m]];
       s6 -= hbcl[y[s6 - m]];
+      assert(s1 + 1 <= n);
+      assert(s3 + 1 <= n);
+      assert(s5 + 1 <= n);
+      assert(s2 > 0);
+      assert(s4 > 0);
+      assert(s6 > 0);
     }
     pos = s1;
     while ((d = (d + d) & (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] |
@@ -109,6 +131,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       ++s4;
       --s5;
       ++s6;
+      assert(s1 > 0);
+      assert(s2 + 1 <= n);
+      assert(s3 > 0);
+      assert(s4 + 1 <= n);
+      assert(s5 > 0);
+      assert(s6 + 1 <= n);
     }
     s1 += mm1;
     s2 -= mm1;
@@ -119,33 +147,39 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (s1 == pos) {
       i = 0;
       j = s1 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s1 <= s2 + mm1)
         OUTPUT(j);
       i = 0;
+      assert(s2 + plen <= n);
       while (i < plen && x[i] == y[s2 + i])
         i++;
       if (i == plen && s1 < s2 + mm1)
         OUTPUT(s2);
       i = 0;
       j = s3 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s3 <= s4 + mm1)
         OUTPUT(j);
       i = 0;
+      assert(s4 + plen <= n);
       while (i < plen && x[i] == y[s4 + i])
         i++;
       if (i == plen && s3 < s4 + mm1)
         OUTPUT(s4);
       i = 0;
       j = s5 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s5 <= s6 + mm1)
         OUTPUT(j);
       i = 0;
+      assert(s6 + plen <= n);
       while (i < plen && x[i] == y[s6 + i])
         i++;
       if (i == plen && s5 < s6 + mm1)

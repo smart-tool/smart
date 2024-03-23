@@ -42,12 +42,13 @@
  SUCH DAMAGE.
  *
  * Good for m>=16 and m<128
- * Constraints: inexact for m>31
+ * Buffer overflows: bin/asan/fsbndm-w1 aaaaaa 6 aaaaaaaaaa 10
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-#include "include/search_large.h"
+//#include "include/search_large.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], d, set, hbc[SIGMA];
@@ -56,8 +57,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   int plen = m;
   if (m > 31)
-    //m = 31;
-    return search_large(x, m, y, n);;
+    m = 31;
+    //return search_large(x, m, y, n);;
   BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
@@ -82,14 +83,23 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int diff = plen - m;
   j = mm1;
   while (j < n - diff) {
-    while ((d = (B[y[j + 1]] << 1) & B[y[j]]) == 0)
+    assert(j + 1 <= n);
+    assert(j > 0);
+    while ((d = (B[y[j + 1]] << 1) & B[y[j]]) == 0) {
       j += hbc[y[j + m]];
+      assert(j + 1 <= n);
+    }
     pos = j;
-    while ((d = (d + d) & B[y[j - 1]]))
+    assert(j - 1 <= n);
+    assert(j > 0);
+    while ((d = (d + d) & B[y[j - 1]])) {
       --j;
+      assert(j > 0);
+    }
     j += mm1;
     if (j == pos && j < n - diff) {
       i = 0;
+      assert(m + plen + j <= n);
       while (m + i < plen && x[mm1 + i] == y[j + i])
         i++;
       if (m + i == plen)

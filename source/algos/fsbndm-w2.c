@@ -25,7 +25,7 @@
 
  We also request that use of this software be cited in publications as
 
- Simone Faro ad Thierry Lecroq,
+ Simone Faro and Thierry Lecroq,
  "Multiple Sliding Windows Algorithms for Searching Texts on Large Alphabets"
  SEA 2012 - 11th International Symposium on Experimental Algorithms
 
@@ -41,12 +41,15 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Constraints: inexact for m>31
+ * Constraints: m>=2
+ * Broken: Overflow at bin/asan/fsbndm-w2 aa 2 aaaaaaaaaa 10
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-#include "include/search_large.h"
+//#include "include/search_large.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
@@ -55,8 +58,9 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   int plen = m;
   if (m > 31)
-    //m = 31;
-    return search_large(x, m, y, n);;
+    m = 31;
+  if (m < 2)
+    return search_small(x, m, y, n);;
   BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
@@ -82,26 +86,36 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s1 = mm1;
   s2 = n - plen;
   while (s1 <= s2 + mm1) {
+    assert(s1 + 1 <= n);
+    assert(s2 <= n);
+    assert(s2 > 0);
     while (s1 <= s2 + mm1 && (d = (((B[y[s1 + 1]] << 1) & B[y[s1]]) |
                                    ((W[y[s2 - 1]] << 1) & W[y[s2]]))) == 0) {
       s1 += hbcr[y[s1 + m]];
       s2 -= hbcl[y[s2 - m]];
     }
     pos = s1;
+    assert(s1 > 0);
+    assert(s1 - 1 <= n);
+    assert(s2 + 1 <= n);
     while ((d = (d + d) & (B[y[s1 - 1]] | W[y[s2 + 1]]))) {
       --s1;
       ++s2;
+      assert(s1 > 0);
+      assert(s2 + 1 <= n);
     }
     s1 += mm1;
     s2 -= mm1;
     if (s1 == pos) {
       i = 0;
       j = s1 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && s1 <= s2 + mm1)
         OUTPUT(j);
       i = 0;
+      assert(s2 + plen <= n);
       while (i < plen && x[i] == y[s2 + i])
         i++;
       if (i == plen && s1 < s2 + mm1)

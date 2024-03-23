@@ -41,12 +41,15 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Constraints: inexact for m>31
+ * Constraints: requires m>=4
+ * Buffer overflows.  bin/asan/fsbndm-w4 aaaaaa 6 aaaaaaaaaa 10
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-#include "include/search_large.h"
+//#include "include/search_large.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
@@ -54,8 +57,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
 
   int plen = m;
   if (m > 31)
-    //m = 31;
-    return search_large(x, m, y, n);;
+    m = 31;
+    //return search_large(x, m, y, n);;
+  if (m < 4)
+    return search_small(x, m, y, n);;
   BEGIN_PREPROCESSING
   /* Preprocessing */
   count = 0;
@@ -85,6 +90,12 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s3 = q;
   s4 = n - plen;
   while (s1 <= s2 + mm1 || s3 <= s4 + mm1) {
+    assert(s1 + 1 <= n);
+    assert(s2 <= n);
+    assert(s3 + 1 <= n);
+    assert(s4 <= n);
+    assert(s2 > 0);
+    assert(s4 > 0);
     while ((d = (((B[y[s1 + 1]] << 1) & B[y[s1]]) |
                  ((W[y[s2 - 1]] << 1) & W[y[s2]]) |
                  ((B[y[s3 + 1]] << 1) & B[y[s3]]) |
@@ -93,14 +104,26 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       s2 -= hbcl[y[s2 - m]];
       s3 += hbcr[y[s3 + m]];
       s4 -= hbcl[y[s4 - m]];
+      assert(s1 + 1 <= n);
+      assert(s3 + 1 <= n);
+      assert(s2 > 0);
+      assert(s4 > 0);
     }
     pos = s1;
+    assert(s1 - 1 <= n);
+    assert(s2 + 1 <= n);
+    assert(s3 - 1 <= n);
+    assert(s4 + 1 <= n);
     while ((d = (d + d) &
                 (B[y[s1 - 1]] | W[y[s2 + 1]] | B[y[s3 - 1]] | W[y[s4 + 1]]))) {
       --s1;
       ++s2;
       --s3;
       ++s4;
+      assert(s1 > 0);
+      assert(s2 + 1 <= n);
+      assert(s3 > 0);
+      assert(s4 + 1 <= n);
     }
     s1 += mm1;
     s2 -= mm1;

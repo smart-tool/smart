@@ -25,7 +25,7 @@
 
  We also request that use of this software be cited in publications as
 
- Simone Faro ad Thierry Lecroq,
+ Simone Faro and Thierry Lecroq,
  "Multiple Sliding Windows Algorithms for Searching Texts on Large Alphabets"
  SEA 2012 - 11th International Symposium on Experimental Algorithms
 
@@ -41,13 +41,15 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Constraints: requires m>=11, inexact for m>31
+ * Constraints: requires m>=11
+ * Buffer overflows and asserts.
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_small.h"
-#include "include/search_large.h"
+//#include "include/search_large.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], W[SIGMA], d, set, hbcr[SIGMA], hbcl[SIGMA];
@@ -59,8 +61,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   int plen = m;
   if (m > 31)
-    //m = 31;
-    return search_large(x, m, y, n);;
+    m = 31;
+    //return search_large(x, m, y, n);;
   BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
@@ -114,6 +116,18 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   l8 = s8;
 
   while (s1 <= s2 + mm1 || s3 <= s4 + mm1 || s5 <= s6 + mm1 || s7 <= s8 + mm1) {
+    assert(s1 + 1 <= n);
+    assert(s2 <= n);
+    assert(s3 + 1 <= n);
+    assert(s4 <= n);
+    assert(s5 + 1 <= n);
+    assert(s6 <= n);
+    assert(s7 + 1 <= n);
+    assert(s8 <= n);
+    assert(s2 > 0);
+    assert(s4 > 0);
+    assert(s6 > 0);
+    assert(s8 > 0);
     while ((d = (((B[y[s1 + 1]] << 1) & B[y[s1]]) |
                  ((W[y[s2 - 1]] << 1) & W[y[s2]]) |
                  ((B[y[s3 + 1]] << 1) & B[y[s3]]) |
@@ -122,6 +136,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
                  ((W[y[s6 - 1]] << 1) & W[y[s6]]) |
                  ((B[y[s7 + 1]] << 1) & B[y[s7]]) |
                  ((W[y[s8 - 1]] << 1) & W[y[s8]]))) == 0) {
+      assert(s1 + m <= n);
+      assert(s2 - m >= 0);
       s1 += hbcr[y[s1 + m]];
       s2 -= hbcl[y[s2 - m]];
       s3 += hbcr[y[s3 + m]];
@@ -130,6 +146,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       s6 -= hbcl[y[s6 - m]];
       s7 += hbcr[y[s7 + m]];
       s8 -= hbcl[y[s8 - m]];
+      assert(s1 + 1 <= n);
+      assert(s3 + 1 <= n);
+      assert(s5 + 1 <= n);
+      assert(s7 + 1 <= n);
+      assert(s2 > 0);
+      assert(s4 > 0);
+      assert(s6 > 0);
+      assert(s8 > 0);
     }
     pos = s1;
     while ((d = (d + d)) &
@@ -143,6 +167,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       ++s6;
       --s7;
       ++s8;
+      assert(s1 > 0);
+      assert(s2 + 1 <= n);
+      assert(s3 > 0);
+      assert(s4 + 1 <= n);
+      assert(s5 > 0);
+      assert(s6 + 1 <= n);
+      assert(s7 > 0);
+      assert(s8 + 1 <= n);
     }
     s1 += mm1;
     s2 -= mm1;
@@ -155,6 +187,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (s1 == pos) {
       i = 0;
       j = s1 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && j < l2) {
@@ -162,6 +195,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         OUTPUT(l1);
       }
       i = 0;
+      assert(s2 + plen <= n);
       while (i < plen && x[i] == y[s2 + i])
         i++;
       if (i == plen && s2 > l1) {
@@ -170,6 +204,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
       i = 0;
       j = s3 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && j < l4) {
@@ -177,6 +212,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         OUTPUT(l3);
       }
       i = 0;
+      assert(s4 + plen <= n);
       while (i < plen && x[i] == y[s4 + i])
         i++;
       if (i == plen && s4 > l3) {
@@ -185,6 +221,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
       i = 0;
       j = s5 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && j < l6) {
@@ -192,6 +229,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         OUTPUT(l5);
       }
       i = 0;
+      assert(s6 + plen <= n);
       while (i < plen && x[i] == y[s6 + i])
         i++;
       if (i == plen && s6 > l5) {
@@ -200,6 +238,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
       }
       i = 0;
       j = s7 - mm1;
+      assert(j + plen <= n);
       while (i < plen && x[i] == y[j + i])
         i++;
       if (i == plen && j < l8) {
@@ -207,6 +246,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
         OUTPUT(l7);
       }
       i = 0;
+      assert(s8 + plen <= n);
       while (i < plen && x[i] == y[s8 + i])
         i++;
       if (i == plen && s8 > l7) {

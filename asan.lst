@@ -119,10 +119,10 @@ fs-w1
 #fs-w6
 #fs-w8
 #fsbndm-w1
-fsbndm-w2
-fsbndm-w4
-fsbndm-w6
-fsbndm-w8
+#fsbndm-w2
+#fsbndm-w4
+#fsbndm-w6
+#fsbndm-w8
 fsbndmq20
 fsbndmq21
 fsbndmq31
@@ -153,7 +153,7 @@ qf63
 qlqs
 sbndm-w2
 sbndm-w4
-sbndm-w6
+#sbndm-w6
 ssm
 tso5
 tunedbm
