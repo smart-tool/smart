@@ -21,6 +21,8 @@ To compile the source just download (or clone) this repository and run the file 
 According to our experimental results in 2010 (until KBNDM), we conclude
 that the following algorithms are the most efficient in the following situations:
 
+* MUSL memmem(): short patterns.
+* EPSM: The best SSE2 algo, but unsafe.
 * SA: very short patterns and very small alphabets.
 * TVSBS: very short patterns and small alphabets, and long patterns and large alphabets.
 * FJS: very short patterns and large and very large alphabets.
@@ -30,7 +32,6 @@ that the following algorithms are the most efficient in the following situations
 * FSBNDM: long patterns and large and very larghe alphabets.
 * SBNDMq: long pattern and small alphabets.
 * LBNDM: very long patterns and very large alphabets.
-* SSEF: very long pattern
 
 - https://arxiv.org/pdf/1012.2547v1.pdf
 

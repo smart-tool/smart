@@ -179,7 +179,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
     mkdir(logfile);
 #endif
     strncat(logfile, "/errorlog.txt", SZNCAT(logfile));
-    stream = freopen(logfile, "w", stderr); // redirect of stderr
+    stream = freopen(logfile, "a", stderr); // redirect of stderr
   }
 
   // allocate space for running time in shared memory
