@@ -474,18 +474,18 @@ int main(int argc, char *argv[]) {
 
   if (*text) {
     // now do the same as smart
-    int VOLTE = 500;
+    int VOLTE = 50;
     unsigned char **setP =
       (unsigned char **)malloc(sizeof(unsigned char *) * VOLTE);
     for (int i = 0; i < VOLTE; i++)
       setP[i] = (unsigned char *)malloc(sizeof(unsigned char) * (XSIZE + 1));
-    // for all m or just one?
+    // for all m or just XSIZE?
     setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"", alpha);
     if (VERBOSE)
       printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
     for (int k = 1; k <= VOLTE; k++) {
       int j;
-      for (j = 0; j < m; j++)
+      for (j = 0; j <= m; j++)
         P[j] = setP[k - 1][j];
       P[j] = '\0'; // creates the pattern
       if (!attempt(&rip, count, P, m, T, n, algoname, verbose, alpha))

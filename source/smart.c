@@ -241,7 +241,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
           total_occur = 0;
 
           for (k = 1; k <= VOLTE; k++) {
-            for (j = 0; j < (unsigned)m; j++)
+            for (j = 0; j <= (unsigned)m; j++)
               P[j] = setP[k - 1][j];
             P[j] = '\0'; // creates the pattern
             int perc = (int)((100 * k) / VOLTE);
