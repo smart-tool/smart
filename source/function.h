@@ -24,15 +24,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
-#ifndef _WIN32
-#include <sys/ipc.h>
-#include <sys/shm.h>
 #include "algos/include/shmids.h"
-#else
-// TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a, b, c)
-#endif
 
 #ifdef __GNUC__
 #define ATTRIBUTE_MALLOC __attribute__((malloc))

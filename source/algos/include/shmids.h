@@ -48,8 +48,8 @@ struct shmids {
   [shm_r] = {"r", 0, 0, sizeof(int)},
 };
 
-#ifdef HAVE_SHM
 void *shmalloc(shmids_e e, size_t size) {
+#ifdef HAVE_SHM
   char *buf;
   int try = 0;
   const char *name = shmids[e].name;
@@ -74,8 +74,13 @@ void *shmalloc(shmids_e e, size_t size) {
     exit(1);
   }
   return (void*)buf;
+#else
+  shmids[e].size = size;
+  return malloc(size);
+#endif
 }
 
+#ifdef HAVE_SHM
 void *shmretrieve(shmids_e e, key_t key, size_t size) {
   void *buf;
   int id;
@@ -116,5 +121,11 @@ void free_shm(unsigned char *T, unsigned char *P, int *count, double *e_time,
   shmctl(shmids[shm_r].id, IPC_RMID, 0);
   shmctl(shmids[shm_e].id, IPC_RMID, 0);
   shmctl(shmids[shm_pre].id, IPC_RMID, 0);
+#else
+  free (T);
+  free (P);
+  free (count);
+  free (e_time);
+  free (pre_time);
 #endif
 }

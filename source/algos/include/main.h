@@ -24,15 +24,7 @@
 #ifdef CBMC
 #undef HAVE_SHM
 #endif
-#ifdef HAVE_SHM
-#include <sys/ipc.h>
-#include <sys/shm.h>
 #include "shmids.h"
-#else
-//TODO https://learn.microsoft.com/en-us/windows/win32/memory/creating-named-shared-memory
-#define key_t int
-#define shmctl(a, b, c)
-#endif
 #include <sys/types.h>
 
 double *run_time,    // searching time

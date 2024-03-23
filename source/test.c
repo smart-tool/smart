@@ -193,12 +193,8 @@ int main(int argc, char *argv[]) {
   }
   memset(FREQ, 0, SIGMA * sizeof(int));
 
-#ifdef HAVE_SHM
   // allocate in shared memory
   T = shmalloc(shm_T, TSIZE + 1); // text
-#else
-  T = malloc(TSIZE + 1);
-#endif
   char text[100] = {0};
   if (argc > argn) { // text=%s
     strncpy(text, argv[argn], SZNCPY(text));
@@ -237,15 +233,11 @@ int main(int argc, char *argv[]) {
     printf("seed=%lu\n", seed);
 #endif
   srand(seed);
-#ifdef HAVE_SHM
   // allocate in shared memory
   P = shmalloc(shm_P, MAX(m, XSIZE));  // pattern
   count = shmalloc(shm_r, sizeof(int)); // number of occurrences
   e_time = shmalloc(shm_e, sizeof(double)); // running time
   pre_time = shmalloc(shm_pre, sizeof(double)); // preprocessing
-#else
-  int *count;
-#endif
 
   // begin testing
   int rip = 0;

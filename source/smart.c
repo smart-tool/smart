@@ -124,7 +124,7 @@ void generateCode(char *code) {
   sprintf(code, "EXP%u", t);
 }
 
-#ifdef _WIN32
+#ifndef HAVE_SHM
 int execute(enum algo_id algo, unsigned char *P, int m, unsigned char *T, int n) {
   char command[100];
   snprintf(command, sizeof(command), "./%s/%s %s %d %s %d", BINDIR,
@@ -183,15 +183,12 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
 
   // allocate space for running time in shared memory
   srand(time(NULL));
-#ifndef _WIN32
   // allocate in shared memory
-  // P = shmalloc(shm_P, m);  // pattern
   count = shmalloc(shm_r, sizeof(int)); // number of occurrences
   e_time = shmalloc(shm_e, sizeof(double)); // running time
   pre_time = shmalloc(shm_pre, sizeof(double)); // preprocessing
   
   memset(FREQ, 0, SIGMA * sizeof(int));
-#endif // _WIN32
 
   // initializes the vector which will contain running times
   for (i = 0; i < NumAlgo; i++) {
@@ -254,7 +251,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
             fflush(stdout);
 
             (*e_time) = (*pre_time) = 0.0;
-#ifdef _WIN32
+#ifndef HAVE_SHM
             occur = execute(algo, P, m, T, n);
 #else
             occur = execute(algo, m, n, count);
@@ -333,9 +330,12 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
           else if (total_occur == -2)
             printf("\b\b\b\b\b\b.[OUT]  \n");
         }
-
+#ifdef HAVE_SHM
       shmdt(P);
       shmctl(shmids[shm_P].id, IPC_RMID, 0);
+#else
+      free(P);
+#endif
     }
 
   printf("\n");
@@ -357,9 +357,7 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
   for (i = 0; i < VOLTE; i++)
     free(setP[i]);
   free(setP);
-#ifndef _WIN32
   free_shm(NULL, P, count, e_time, pre_time);
-#endif
   return 0;
 }
 
@@ -573,11 +571,9 @@ int main(int argc, const char *argv[]) {
   // get information about the set of algorithms
   getAlgo(ALGO_NAME, EXECUTE);
 
-#ifndef _WIN32
   // allocate space for text in shared memory
   const size_t size = sizeof(unsigned char) * TSIZE + 10;
   T = shmalloc(shm_T, size); // text
-#endif
 
   if (options.simple) {
     if (system("./logo"))
@@ -585,9 +581,6 @@ int main(int argc, const char *argv[]) {
     // experimental results on a single pattern and a single text
     n = strlen((char *)simpleText);
     int m = strlen((char *)simplePattern);
-#ifdef _WIN32
-    T = malloc(n + 10);
-#endif
     //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
     strcpy((char *)T, (char *)simpleText);
     //alpha = 250;
@@ -686,7 +679,7 @@ int main(int argc, const char *argv[]) {
 
   // free shared memory. only T is remaining
 end_shm:
-#ifndef _WIN32
+#ifdef HAVE_SHM
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
   shmctl(shmids[shm_T].id, IPC_RMID, 0);
@@ -697,7 +690,7 @@ end_shm:
 end:
   return 0;
 
-#ifndef _WIN32
+#ifndef HAVE_SHM
   //end_1:
   //fprintf(stderr, "shmdt T %p\n", T);
   shmdt(T);
