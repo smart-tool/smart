@@ -466,7 +466,7 @@ int main(int argc, char *argv[]) {
 
   if (*text) {
     // now do the same as smart
-    int VOLTE = 50;
+    const int VOLTE = 500;
     unsigned char **setP =
       (unsigned char **)malloc(sizeof(unsigned char *) * VOLTE);
     for (int i = 0; i < VOLTE; i++)

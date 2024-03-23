@@ -47,7 +47,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   /* Preprocessing */
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-  memset(kmpNext, -1, n);
+  memset(kmpNext, -1, XSIZE * sizeof(int));
   preKmp(x, m, kmpNext);
   for (ell = 1; ell < m && x[ell - 1] == x[ell]; ell++)
     ;
