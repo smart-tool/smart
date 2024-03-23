@@ -115,7 +115,8 @@ int main(int argc, char **argv) {
         current++;
 #if !(defined __x86_64__ && defined __SSE__)
         // skip SSE specific algos
-        if (!strcmp(filename, "epsm") || !strcmp(filename, "ssecp") ||
+        if (!strcmp(filename, "epsm") ||
+            !strcmp(filename, "ssecp") ||
             !strcmp(filename, "ssef")) {
           printf("\tSkipped %s.c", filename);
           continue;
@@ -123,6 +124,12 @@ int main(int argc, char **argv) {
 #endif
 #if !defined __SSE2__ && !defined __ARM_NEON__
         if (!strcmp(filename, "simdkr")) {
+          printf("\tSkipped %s.c", filename);
+          continue;
+        }
+#endif
+#if __MINGW64__
+        if (!strcmp(filename, "libc1")) { // no memmem()
           printf("\tSkipped %s.c", filename);
           continue;
         }

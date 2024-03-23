@@ -18,6 +18,7 @@
  *
  */
 
+// not in mingw64 yet!
 #define _GNU_SOURCE
 #include "include/define.h"
 #include "include/main.h"

@@ -1,8 +1,9 @@
 CC      := gcc
 MACHINE := $(shell uname -m)
-# fixme: detect mingw
-ARCH    := $(shell ${CC} -dumpmachine | cut -f1 -d-)
-BINDIR  = bin
+ARCH    := $(shell $(CC) -dumpmachine | cut -f1 -d-)
+# to detect mingw
+TARGET  := $(shell $(CC) -dumpmachine | cut -f3 -d-)
+BINDIR  := bin
 ALGOSINC := $(wildcard source/algos/include/*.h)
 SRCINC   := $(wildcard source/*.h)
 ifneq ($(ARCH),x86_64)
@@ -27,7 +28,17 @@ ifneq ($(ARCH),$(MACHINE))
   CFLAGS += -DBINDIR=\"$(BINDIR)\"
   DRV = qemu-$(ARCH)
 else
-  DRV =
+  # debian nonsense calling linux gnu
+  ifneq ($(TARGET),gnu)
+    ifneq ($(TARGET),$(shell uname -s | tr A-Z a-z))
+      BINDIR = bin/$(TARGET)
+      CFLAGS += -DBINDIR=\"$(BINDIR)\"
+      ifeq ($(TARGET),mingw32)
+        ALGOSRC := $(filter-out source/algos/libc1.c,$(wildcard source/algos/*.c))
+        DRV = wine
+      endif
+    endif
+  endif
 endif
 ALLSRC  = $(ALGOSRC) $(wildcard source/*.c) $(SRCINC) $(ALGOSINC)
 BINS    = $(patsubst source/algos/%,$(BINDIR)/%,$(patsubst %.c,%,$(ALGOSRC)))
