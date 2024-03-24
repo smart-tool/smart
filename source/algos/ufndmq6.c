@@ -55,7 +55,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     B[x[j]] &= ~(1U << j);
   for (i = 0; i < m; i++)
     y[n + i] = y[n + m + i] = x[i];
-  mm = 1U << (m + q - 2);
+  //NOLINTNEXTLINE(shiftTooManyBits)
+  mm = 1U << (m + q - 2); // 26
   mask = (1U << (m - 1)) - 1;
   mq = m + q - 1;
   END_PREPROCESSING

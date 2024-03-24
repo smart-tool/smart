@@ -61,19 +61,3 @@ source/algos/sfbom.c:51:3: note: Loop condition is true.  Entering loop body
 source/algos/sfbom.c:54:17: note: Array access results in an undefined pointer dereference
    54 |     trans[i][c] = iMinus1;
       |     ~~~~~~~~~~~~^~~~~~~~~
-source/test.c:218:15: warning: Although the value stored to 'n' is used in the enclosing expression, the value is never actually read from 'n' [clang-analyzer-deadcode.DeadStores]
-  218 |         if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
-      |               ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/test.c:218:15: note: Although the value stored to 'n' is used in the enclosing expression, the value is never actually read from 'n'
-  218 |         if (!(n = getText(T, fullpath, FREQ, TSIZE))) {
-      |               ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/test.c:225:7: warning: Value stored to 'n' is never read [clang-analyzer-deadcode.DeadStores]
-  225 |       n = getText(T, fullpath, FREQ, TSIZE);
-      |       ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/test.c:225:7: note: Value stored to 'n' is never read
-  225 |       n = getText(T, fullpath, FREQ, TSIZE);
-      |       ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-source/test.c:230:5: warning: Value stored to 'n' is never read [clang-analyzer-deadcode.DeadStores]
-  230 |     n = YSIZE;
-      |     ^
-source/test.c:230:5: note: Value stored to 'n' is never read

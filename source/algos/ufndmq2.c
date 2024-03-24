@@ -117,7 +117,8 @@ int search_large(unsigned char *x, int m, unsigned char *y, int n) {
     B[j] = S;
   for (j = 0; j < m; ++j)
     B[x[j]] &= ~(1U << j);
-  mm = 1U << (m + q - 2);
+  //NOLINTNEXTLINE(shiftTooManyBits)
+  mm = 1U << (m + q - 2); // 30
   mask = (1U << (m - 1)) - 1;
   mq = m + q - 1;
   END_PREPROCESSING
