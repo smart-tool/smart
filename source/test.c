@@ -156,7 +156,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
 
 int main(int argc, char *argv[]) {
   int n = 0, m = 0, minlen = 0;
-  int verbose = 0;
+  int verbose = 1;
   getAlgo(ALGO_NAME, EXECUTE);
 
   /* processing of input parameters */
@@ -170,7 +170,7 @@ int main(int argc, char *argv[]) {
   int argn = 2;
   if (argc > argn && strcmp(argv[argn], "-nv") == 0) {
     strncpy(parameter, argv[argn++], SZNCPY(parameter));
-    verbose = 1;
+    verbose = 0;
   }
   char algopath[100] = BINDIR "/";
   strncat(algopath, algoname, SZNCAT(algopath));
