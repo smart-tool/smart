@@ -39,7 +39,6 @@
 #define TSIZE 1048576
 #define XSIZE 1024
 #define YSIZE 2048
-#define VERBOSE strcmp(parameter, "-nv")
 
 unsigned char *T, *P;
 double *e_time, *pre_time;
@@ -66,7 +65,7 @@ void printManual() {
   printf("\n\tSMART UTILITY FOR TESTING STRING MATCHING ALGORITHMS\n\n");
   printf("\tusage: ./test ALGONAME [-nv][text [patlen]]\n");
   printf("\tTest the program named \"ALGONAME\" for correctness.\n");
-  printf("\tThe program \"ALGONAME\" must be located in bin/\n");
+  printf("\tThe program \"ALGONAME\" must be located in %s/\n", BINDIR);
   printf("\tOnly programs in smart format can be tested.\n");
   printf("\t-nv non-verbose (i.e. silent)\n");
   printf("\ttext: optional data/text corpus(es) to use\n");
@@ -109,7 +108,7 @@ int attempt(int *rip, int *count, unsigned char *P, int m, unsigned char *T,
     pP = printable((char *)P);
     pT = printable((char *)T);
 #ifdef DEBUG
-    printf("\t%d bin/%s %s %d %s %d ", *rip, algoname, pP, m, pT, n);
+    printf("\t%d %s/%s %s %d %s %d ", *rip, BINDIR, algoname, pP, m, pT, n);
 #endif
   }
   int occur1 = search(P, m, T, n);
@@ -178,7 +177,7 @@ int main(int argc, char *argv[]) {
   FILE *fp = fopen(algopath, "r");
   int id = search_ALGO(ALGO_NAME, algoname);
   if (!fp) {
-    if (VERBOSE)
+    if (verbose)
       printf("\n\tERROR: unable to execute program %s\n\n", algopath);
     exit(1);
   }
@@ -229,7 +228,7 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
   if (getenv("SEED"))
     sscanf(getenv("SEED"), "%lu", &seed);
-  if (VERBOSE)
+  if (verbose)
     printf("seed=%lu\n", seed);
 #endif
   srand(seed);
@@ -262,7 +261,7 @@ int main(int argc, char *argv[]) {
                           occur2 =
                           execute(algoname,pkey,m,tkey,YSIZE,rkey,ekey,prekey,count,alpha);
                           if(occur2>=0 && occur1 != occur2) {
-                            if(VERBOSE) printf("\n\tERROR: test failed\n\n");
+                            if(verbose) printf("\n\tERROR: test failed\n\n");
                             free_shm();
                             exit(1);
                           }
@@ -445,6 +444,12 @@ int main(int argc, char *argv[]) {
     if (!attempt(&rip, count, P, 6, T, 10, algoname, verbose, alpha))
       goto free_shm1;
   }
+  // 21) search for "aba" in "abababbbbb"
+  strcpy((char *)P, "aba");
+  strcpy((char *)T, "ababababab");
+  if (!attempt(&rip, count, P, 3, T, 10, algoname, verbose, alpha))
+    goto free_shm1;
+
   // 22) dont find m=1024 in n=2048 at pos 16
   for (h = 0; h < YSIZE; h++)
     RANDCH(T[h]);
@@ -473,7 +478,7 @@ int main(int argc, char *argv[]) {
       setP[i] = (unsigned char *)malloc(sizeof(unsigned char) * (XSIZE + 1));
     // for all m or just XSIZE?
     setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"", alpha);
-    if (VERBOSE)
+    if (verbose)
       printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
     for (int k = 1; k <= VOLTE; k++) {
       int j;
@@ -489,7 +494,7 @@ int main(int argc, char *argv[]) {
   }
   //NOLINTEND(clang-analyzer-security.insecureAPI.strcpy)
 
-  if (VERBOSE)
+  if (verbose)
     printf("%-12stested OK\n", algoname);
 
   // free shared memory
