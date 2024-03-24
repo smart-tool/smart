@@ -20,6 +20,8 @@
  * in R. M. Karp and M. O. Rabin.
  * Efficient randomized pattern-matching algorithms. ibmjrd, vol.31, n.2,
  * pp.249--260, (1987).
+ *
+ * Constraints: requires m <= n
  */
 
 #include <assert.h>

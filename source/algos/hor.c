@@ -19,36 +19,39 @@
  * This is an implementation of the Horspool algorithm
  * in R. N. Horspool. Practical fast searching in strings. Softw. Pract. Exp.,
  * vol.10, n.6, pp.501--506, (1980).
+ * See also http://www-igm.univ-mlv.fr/~lecroq/string/node18.html
  */
 
 #include "include/define.h"
 #include "include/main.h"
 
-void Pre_Horspool(unsigned char *P, int m, int hbc[]) {
+void preBmBc(unsigned char *P, int m, int bmBc[]) {
   int i;
   for (i = 0; i < SIGMA; i++)
-    hbc[i] = m;
+    bmBc[i] = m;
   for (i = 0; i < m - 1; i++)
-    hbc[P[i]] = m - i - 1;
+    bmBc[P[i]] = m - i - 1;
 }
 
 int search(unsigned char *P, int m, unsigned char *T, int n) {
-  int i, s, count, hbc[SIGMA];
+  int i, s, count = 0, bmBc[SIGMA];
   BEGIN_PREPROCESSING
-  Pre_Horspool(P, m, hbc);
+  preBmBc(P, m, bmBc);
   END_PREPROCESSING
 
   /* Searching */
   BEGIN_SEARCHING
   s = 0;
-  count = 0;
   while (s <= n - m) {
-    i = 0;
-    while (i < m && P[i] == T[s + i])
-      i++;
-    if (i == m)
-      OUTPUT(s);
-    s += hbc[T[s + m - 1]];
+    unsigned char c = T[s + m - 1];
+    if (P[m - 1] == c) {
+      i = 0;
+      while (i < m && P[i] == T[s + i])
+        i++;
+      if (i == m)
+        OUTPUT(s);
+    }
+    s += bmBc[c];
   }
   END_SEARCHING
   return count;
