@@ -20,8 +20,12 @@
  * in GALIL Z., GIANCARLO R., 1992, On the exact complexity of string matching:
  * upper bounds, SIAM Journal on Computing, 21(3):407-437.
  * http://www-igm.univ-mlv.fr/~lecroq/string/node11.html
+ *
+ * Fixed preColussi over the original, which required nul-terminated x, causing
+ * endless loops.
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 
@@ -32,11 +36,16 @@ int preColussi(unsigned char *x, int m, int h[], int next[], int shift[]) {
   /* Computation of hmax */
   i = k = 1;
   do {
-    while (x[i] == x[i - k])
+    assert(i - k >= 0);
+    // note the missing `i < m &&` in the original (but not in colussi's paper!)
+    // which would require a nul-terminated x
+    while (i < m && x[i] == x[i - k])
       i++;
     hmax[k] = i;
     q = k + 1;
     while (hmax[q - k] + k < i) {
+      assert(q < XSIZE);
+      assert(q - k >= 0);
       hmax[q] = hmax[q - k] + k;
       q++;
     }
