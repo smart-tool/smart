@@ -237,7 +237,11 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
           for (i = 0; i < 35 - strlen(buf); i++)
             printf(".");
           total_occur = 0;
-
+          if ((algo == _MUSL || algo == _LIBC) &&
+              (memchr(P, 0, m) || memchr(T, 0, n))) {
+            printf("\b\b\b\b\b.[SKIP] \n");
+            continue;
+          }
           for (k = 1; k <= VOLTE; k++) {
             for (j = 0; j <= (unsigned)m; j++)
               P[j] = setP[k - 1][j];
