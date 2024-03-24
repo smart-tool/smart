@@ -37,8 +37,8 @@
 
 //#define SIGMA 256
 #define TSIZE 1048576
-#define XSIZE 1024
-#define YSIZE 2048
+#define XSIZE 4200 // maximal length of the pattern
+#define YSIZE 4232
 
 unsigned char *T, *P;
 double *e_time, *pre_time;
