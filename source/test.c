@@ -220,7 +220,7 @@ int main(int argc, char *argv[]) {
   if (argc > argn) // m=%d
     m = string2decimal(argv[argn]);
   else
-    m = 16; // TODO loop over PATT_SIZE
+    m = 0; // loop over PATT_SIZE
 
   unsigned long seed = time(NULL);
   //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
@@ -475,17 +475,36 @@ int main(int argc, char *argv[]) {
       (unsigned char **)malloc(sizeof(unsigned char *) * VOLTE);
     for (int i = 0; i < VOLTE; i++)
       setP[i] = (unsigned char *)malloc(sizeof(unsigned char) * (XSIZE + 1));
-    // for all m or just XSIZE?
-    setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"", alpha);
-    if (verbose)
-      printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
-    for (int k = 1; k <= VOLTE; k++) {
-      int j;
-      for (j = 0; j <= m; j++)
-        P[j] = setP[k - 1][j];
-      P[j] = '\0'; // creates the pattern
-      if (!attempt(&rip, count, P, m, T, n, algoname, verbose, alpha))
-        goto free_shm1;
+    if (!m) {
+      PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern lengths (max 4096)
+      for (int il = 0; PATT_SIZE[il] > 0; il++) {
+        if (PATT_SIZE[il] <= (unsigned)n) {
+          m = PATT_SIZE[il];
+          setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"");
+          if (verbose)
+            printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
+          for (int k = 1; k <= VOLTE; k++) {
+            int j;
+            for (j = 0; j <= m; j++)
+              P[j] = setP[k - 1][j];
+            P[j] = '\0'; // creates the pattern
+            if (!attempt(&rip, count, P, m, T, n, algoname, verbose, alpha))
+              goto free_shm1;
+          }
+        }
+      }
+    } else {
+      setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"");
+      if (verbose)
+        printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
+      for (int k = 1; k <= VOLTE; k++) {
+        int j;
+        for (j = 0; j <= m; j++)
+          P[j] = setP[k - 1][j];
+        P[j] = '\0'; // creates the pattern
+        if (!attempt(&rip, count, P, m, T, n, algoname, verbose, alpha))
+          goto free_shm1;
+      }
     }
     for (int i = 0; i < VOLTE; i++)
       free(setP[i]);
