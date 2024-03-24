@@ -322,7 +322,7 @@ const struct algo ALGOS[] = {
   [_TSW] = {_TSW, OK, "tsw", "Two-Sliding-Window", 0, 0}, // m < n - 3
   [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)", 2, MISSING},
   [_BMH4] = {_BMH4, 0, "bmh4", "Boyer-Moore-Horspool with q-grams (BMH4)", 4, MISSING},
-  [_GRASPm] = {_GRASPm, OK, "graspm", "Genomic Rapid Algorithm for String Pattern-match", 0, 0},
+  [_GRASPm] = {_GRASPm, FAIL, "graspm", "Genomic Rapid Algorithm for String Pattern-match", 2, 0},
   [_SSEF] = {_SSEF, X64_ONLY, "ssef", "SSEF (K=7)", 32, 0},
   // Algorithms based on automata
   [_AUT] = {_AUT, OK, "aut", "Automaton Matcher", 0, 0},

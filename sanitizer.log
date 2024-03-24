@@ -38,33 +38,7 @@ hash3
 hash5
 hash8
 tsw
-raspm
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3587252==ERROR: AddressSanitizer: SEGV on unknown address 0x7f1bfacfefff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7ffd58dd27a0 T0)
-==3587252==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7f1bfe646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f1bfe64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3587252==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3587279==ERROR: AddressSanitizer: SEGV on unknown address 0x7fdd6515efff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7ffdd6bf30e0 T0)
-==3587279==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7fdd68046149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7fdd6804620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3587279==ABORTING
+graspm
 ssef
 aut
 rf
@@ -2000,139 +1974,9 @@ om
 rcolussi
 rcolussi
 tsw
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3638642==ERROR: AddressSanitizer: SEGV on unknown address 0x7f0a0dd5efff (pc 0x000000403d73 bp 0x7ffcf49148a0 sp 0x7ffcf48933e0 T0)
-==3638642==The signal is caused by a READ memory access.
-    #0 0x403d73 in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7f0a10c46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f0a10c4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3638642==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3638725==ERROR: AddressSanitizer: SEGV on unknown address 0x7fa629cfefff (pc 0x000000403dbf bp 0x7ffcd29c0550 sp 0x7ffcd293f090 T0)
-==3638725==The signal is caused by a READ memory access.
-    #0 0x403dbf in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7fa62d646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7fa62d64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3638725==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3638863==ERROR: AddressSanitizer: SEGV on unknown address 0x7f79e635efff (pc 0x000000403dbf bp 0x7fff4f1368b0 sp 0x7fff4f0b53f0 T0)
-==3638863==The signal is caused by a READ memory access.
-    #0 0x403dbf in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7f79e9246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f79e924620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3638863==ABORTING
 tsw
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3643708==ERROR: AddressSanitizer: SEGV on unknown address 0x7f3b7915efff (pc 0x000000403d73 bp 0x7ffe0775cc40 sp 0x7ffe076db780 T0)
-==3643708==The signal is caused by a READ memory access.
-    #0 0x403d73 in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7f3b7c046149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f3b7c04620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3643708==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3643724==ERROR: AddressSanitizer: SEGV on unknown address 0x7f2bdb35efff (pc 0x000000403dbf bp 0x7ffd57ba0a50 sp 0x7ffd57b1f590 T0)
-==3643724==The signal is caused by a READ memory access.
-    #0 0x403dbf in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7f2bde246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f2bde24620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3643724==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3643756==ERROR: AddressSanitizer: SEGV on unknown address 0x7efef8cfefff (pc 0x000000403dbf bp 0x7ffc738da060 sp 0x7ffc73858ba0 T0)
-==3643756==The signal is caused by a READ memory access.
-    #0 0x403dbf in search source/algos/tsw.c:72
-    #1 0x4017ba in main source/algos/include/main.h:125
-    #2 0x7efefc646149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7efefc64620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401e84 in _start (/home/rurban/Software/smart/bin/asan/tsw+0x401e84) (BuildId: 1ae7608d7493a33edb8c4e9881f69c7ba7bee3b0)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/tsw.c:72 in search
-==3643756==ABORTING
 graspm
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3646971==ERROR: AddressSanitizer: SEGV on unknown address 0x7f220d8fefff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7fff18ee1000 T0)
-==3646971==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7f2211246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f221124620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3646971==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3646980==ERROR: AddressSanitizer: SEGV on unknown address 0x7f7ef58fefff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7ffcf84a0660 T0)
-==3646980==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7f7ef9246149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f7ef924620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3646980==ABORTING
 graspm
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3652150==ERROR: AddressSanitizer: SEGV on unknown address 0x7f49f915efff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7ffc62f444e0 T0)
-==3652150==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7f49fc046149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f49fc04620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3652150==ABORTING
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3652228==ERROR: AddressSanitizer: SEGV on unknown address 0x7f1366d5efff (pc 0x000000403927 bp 0xffffffffffffffff sp 0x7ffef0407440 T0)
-==3652228==The signal is caused by a READ memory access.
-    #0 0x403927 in search source/algos/graspm.c:72
-    #1 0x4017da in main source/algos/include/main.h:125
-    #2 0x7f1369c46149 in __libc_start_call_main (/lib64/libc.so.6+0x28149) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #3 0x7f1369c4620a in __libc_start_main_impl (/lib64/libc.so.6+0x2820a) (BuildId: 7ea8d85df0e89b90c63ac7ed2b3578b2e7728756)
-    #4 0x401ea4 in _start (/home/rurban/Software/smart/bin/asan/graspm+0x401ea4) (BuildId: 07869903deff27e764675ca179af6b166661acd8)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV source/algos/graspm.c:72 in search
-==3652228==ABORTING
 ssef
 ssef
 faoso4

@@ -16,15 +16,22 @@
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * This is an implementation of the Genomic Rapid Algorithm for String Pattern
+ * This is a fixed implementation of the Genomic Rapid Algorithm for String Pattern
  * Matching in S. Deusdado and P. Carvalho. GRASPm: an efficient algorithm for
  * exact pattern-matching in genomic sequences. Int. J. Bioinformatics Res.
  * Appl., vol.5, n.4, pp.385--401, Inderscience Publishers, Inderscience
  * Publishers, Geneva, SWITZERLAND, (2009).
+ *
+ * Constraints: m>1
+ * Note: Needed to add more checks to avoid overflows and skip an
+ *       endless loop when found.
+ * Still broken.
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 typedef struct GRASPmList {
   int k;
@@ -40,7 +47,9 @@ void ADD_LIST(GList **l, int e) {
 
 int search(unsigned char *p, int m, unsigned char *t, int n) {
   GList *pos, *z[SIGMA];
-  int i, j, k, count, first, hbc[SIGMA];
+  int i, j, k, count, first = 0, hbc[SIGMA];
+  if (m <= 1)
+    return search_small(p, m, t, n);
 
   /* Preprocessing of the list */
   BEGIN_PREPROCESSING
@@ -69,12 +78,21 @@ int search(unsigned char *p, int m, unsigned char *t, int n) {
     while ((k = hbc[t[j]]))
       j += k;
     {
-      pos = z[t[j - 1]];
-      while (pos != NULL) {
+      assert(j - 1 >= 0);
+      //if (j - 1 >= n) fprintf(stderr, "%s %d %s %d\n", p, m, t, n);
+      // added j - 1 < n check
+      while (j - 1 < n && (pos = z[t[j - 1]]) != NULL) {
         k = pos->k;
         i = 0;
+        // added to break the loop
+        if (j - k == first) {
+          j++;
+          break;
+        }
         first = j - k;
-        while (i < m && p[i] == t[first + i])
+        assert(first + i >= 0);
+        // added first + i < n check
+        while (i < m && first + i < n && p[i] == t[first + i])
           i++;
         if (i == m && first <= n - m)
           OUTPUT(first);
