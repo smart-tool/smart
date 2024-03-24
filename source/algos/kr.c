@@ -22,6 +22,7 @@
  * pp.249--260, (1987).
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 #define REHASH(a, b, h) ((((h) - (a)*d) << 1) + (b))
@@ -36,6 +37,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   for (d = i = 1; i < m; ++i)
     d = (d << 1);
 
+  assert(m <= n);
   for (hy = hx = i = 0; i < m; ++i) {
     hx = ((hx << 1) + x[i]);
     hy = ((hy << 1) + y[i]);
