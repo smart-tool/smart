@@ -19,8 +19,12 @@
  * This is an implementation of the Reverse Colussi algorithm
  * in L. Colussi. Fastest pattern matching in strings. J. Algorithms, vol.16,
  * n.2, pp.163--189, (1994).
+ *
+ * Fixed rcGs[] initialization, to ensure progress, fixing endless loops.
+ * But now some occurences are not found anymore.
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 
@@ -37,7 +41,7 @@ void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
     locc[x[i]] = i;
   }
 
-  for (a = 0; a < SIGMA; ++a)
+  for (a = 0; a < SIGMA; ++a) {
     for (s = 1; s <= m; ++s) {
       i = locc[a];
       j = link[m - s];
@@ -49,7 +53,9 @@ void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
       while (i - j > s)
         i = link[i + 1];
       rcBc[a][s] = m - i - 1;
+      assert(rcBc[a][s] > 0);
     }
+  }
 
   k = 1;
   i = m - 1;
@@ -69,7 +75,7 @@ void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
   }
 
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-  memset(kmin, 0, m * sizeof(int));
+  memset(kmin, 1, m * sizeof(int));
   for (k = m; k > 0; --k)
     kmin[hmin[k]] = k;
 
@@ -79,18 +85,25 @@ void preRc(unsigned char *x, int m, int h[], int rcBc[SIGMA][XSIZE],
     rmin[i] = r;
   }
 
+  //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  memset(rcGs, 1, m * sizeof(int));
   i = 1;
-  for (k = 1; k <= m; ++k)
+  for (k = 1; k <= m; ++k) {
     if (hmin[k] != m - 1 && kmin[hmin[k]] == k) {
       h[i] = hmin[k];
+      assert(k > 0);
       rcGs[i++] = k;
     }
+  }
   i = m - 1;
-  for (j = m - 2; j >= 0; --j)
+  for (j = m - 2; j >= 0; --j) {
     if (kmin[j] == 0) {
       h[i] = j;
+      assert(rmin[j] > 0);
       rcGs[i--] = rmin[j];
     }
+  }
+  assert(rmin[0] > 0);
   rcGs[m] = rmin[0];
 }
 
@@ -108,15 +121,21 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   j = 0;
   s = m;
   while (j <= n - m) {
+    assert(j + m - 1 < n);
     while (j <= n - m && x[m - 1] != y[j + m - 1]) {
       s = rcBc[y[j + m - 1]][s];
+      assert(s > 0); // need progress
       j += s;
     }
-    for (i = 1; i < m && x[h[i]] == y[j + h[i]]; ++i)
-      ;
+    for (i = 1; i < m && x[h[i]] == y[j + h[i]]; ++i) {
+      assert(h[i] >= 0);
+      assert(h[i] < m);
+      assert(j + h[i] < n);
+    }
     if (i >= m && j <= n - m)
       OUTPUT(j);
     s = rcGs[i];
+    assert(s > 0); // need progress
     j += s;
   }
   END_SEARCHING
