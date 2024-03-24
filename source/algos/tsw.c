@@ -20,10 +20,14 @@
  * in A. Hudaib and R. Al-Khalid and D. Suleiman and M. Itriq and A. Al-Anani.
  * A Fast Pattern Matching Algorithm with Two Sliding Windows (TSW). J. Comput.
  * Sci., vol.4, n.5, pp.393--401, (2008).
+ *
+ * Undocumented constraints: m < n - 3
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void preBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
   int a, b, i;
@@ -43,11 +47,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, a, b;
   int count;
   unsigned char x1[XSIZE];
-  for (i = m - 1, j = 0; i >= 0; i--, j++)
-    x1[j] = x[i];
+  if (m >= n - 3)
+    return search_small(x, m, y, n);
+  assert(m < n - 2);
 
   /* Preprocessing */
   BEGIN_PREPROCESSING
+  for (i = m - 1, j = 0; i >= 0; i--, j++)
+    x1[j] = x[i];
   preBrBc(x, m, brBc_left);
   preBrBc(x1, m, brBc_right);
   count = 0;
@@ -68,6 +75,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     if (b >= m && j < a)
       OUTPUT(a);
 
+    assert(j + m + 1 < n);
+    assert(a - 1 < n);
+    //if (a - 2 < 0) fprintf(stderr, "%s %d %x %d\n", x, m, y, n);
+    assert(a - 2 >= 0);
     j += brBc_left[y[j + m]][y[j + m + 1]];
     a -= brBc_right[y[a - 1]][y[a - 2]];
   }

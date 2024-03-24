@@ -319,7 +319,7 @@ const struct algo ALGOS[] = {
   // L. Vespa and N. Weng, SWM: Simplified Wu-Manber for GPU-based Deep Packet
   // Inspection, in Proceedings of the 2012 International Conference on
   // Security and Management, 2012.
-  [_TSW] = {_TSW, OK, "tsw", "Two-Sliding-Window", 0, 0},
+  [_TSW] = {_TSW, OK, "tsw", "Two-Sliding-Window", 0, 0}, // m < n - 3
   [_BMH2] = {_BMH2, 0, "bmh2", "Boyer-Moore-Horspool with q-grams (BMH2)", 2, MISSING},
   [_BMH4] = {_BMH4, 0, "bmh4", "Boyer-Moore-Horspool with q-grams (BMH4)", 4, MISSING},
   [_GRASPm] = {_GRASPm, OK, "graspm", "Genomic Rapid Algorithm for String Pattern-match", 0, 0},
