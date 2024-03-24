@@ -27,6 +27,21 @@
  * It is called by makefile script, when compiling SMART
  */
 
+// avoid shell-escapes
+unsigned char printable(unsigned char c, const int sigma) {
+  (void)sigma;
+  if (c <= 10)
+    c += '0';
+  else {
+    c += '@';
+    if (c > 'Z' && c < 'a')
+      c += 6;
+    if (c >= '{' && c <= 127)
+      c += 5;
+  }
+  return c;
+}
+
 int main(void) {
   FILE *stream = NULL;
   unsigned char c;
@@ -55,8 +70,8 @@ int main(void) {
       stream = fopen("data/rand128/rand128.txt", "w");
       break;
     case 256:
-      sigma = 250;
-      stream = fopen("data/rand250/rand250.txt", "w");
+      sigma = 256;
+      stream = fopen("data/rand256/rand256.txt", "w");
       break;
     default:
       fprintf(stderr, "Invalid sigma %d\n", sigma);
@@ -66,10 +81,12 @@ int main(void) {
            sigma);
     for (int i = 0; i < 5000000; i++) {
       c = rand() % sigma;
-      if (sigma < 250)
+      if (sigma <= 64)
+        c = printable(c, sigma);
+      else if (sigma < 250) // 128 + '0' = 176
         c += '0';
-      else
-        c += 5;
+      //if (sigma < 256)
+      //  assert(c < 123);
       fputc(c, stream);
       if (i % 1000 == 0)
         printf("\b\b\b\b\b\b[%.3d%%]", i * 100 / 5000000);

@@ -29,10 +29,10 @@ unsigned PATT_LARGE_SIZE[NumPatt] = {
 #define NumSetting 15U // number of text buffers
 char *SETTING_BUFFER[NumSetting] = {
     "rand2",       "rand4",        "rand8",     "rand16",       "rand32",
-    "rand64",      "rand128",      "rand250",   "italianTexts", "englishTexts",
+    "rand64",      "rand128",      "rand256",   "italianTexts", "englishTexts",
     "frenchTexts", "chineseTexts", "midimusic", "genome",       "protein"};
 unsigned int SETTING_ALPHA_SIZE[NumSetting] = {
-    2, 4, 8, 16, 32, 64, 128, 250, 128, 128, 128, 128, 128, 64, 64};
+    2, 4, 8, 16, 32, 64, 128, 256, 128, 128, 128, 128, 128, 64, 64};
 // smallest text size
 unsigned int SETTING_TEXT_SIZE[NumSetting] = {
     5000000U, 5000000U, 5000000U, 5000000U, 5000000U,
