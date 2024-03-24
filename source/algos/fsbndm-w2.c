@@ -41,7 +41,7 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Constraints: m>=2
+ * Constraints: n > m, m >= 2
  * Broken: Overflow at bin/asan/fsbndm-w2 aa 2 aaaaaaaaaa 10
  */
 
@@ -59,8 +59,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int plen = m;
   if (m > 31)
     m = 31;
-  if (m < 2)
-    return search_small(x, m, y, n);;
+  if (m < 2 || n <= m)
+    return search_small(x, m, y, n);
   BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
@@ -91,8 +91,13 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     assert(s2 > 0);
     while (s1 <= s2 + mm1 && (d = (((B[y[s1 + 1]] << 1) & B[y[s1]]) |
                                    ((W[y[s2 - 1]] << 1) & W[y[s2]]))) == 0) {
+      assert(s1 + m <= n);
+      assert(s2 - m <= n);
+      assert(s2 - m >= 0);
       s1 += hbcr[y[s1 + m]];
       s2 -= hbcl[y[s2 - m]];
+      assert(s1 <= n);
+      assert(s2 > 0);
     }
     pos = s1;
     assert(s1 > 0);

@@ -41,22 +41,30 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Note: inexact m>32
+ * Constraints: n > m, m >= 2
+ * Fixed buffer overflows and asserts with too short m.
+ *       e.g. sbndm-w2 b 1 aaaaaaaaaa 10
+ * Broken: Still buffer overflows.
+ *       e.g. sbndm-w2 aba 3 ababababab 10
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-#include "include/search_large.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   int B[SIGMA], W[SIGMA], hbcr[SIGMA], hbcl[SIGMA];
   unsigned int j, f, d;
   int i, s1, s2, first, count;
-  //int plen = m;
+  int plen = m;
+  if (m < 2 || n <= m)
+    return search_small(x, m, y, n);
   if (m > 32)
-    return search_large(x, m, y, n);;
+    m = 32;
   int m1 = m - 1;
   //int mp1 = m + 1;
+  assert(n - m > 0);
 
   /* Pre processing*/
   BEGIN_PREPROCESSING
@@ -75,6 +83,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     hbcr[i] = hbcl[i] = 2 * m;
   for (i = 0; i < m; i++) {
     hbcr[x[i]] = (2 * m) - i - 1;
+    assert(m - 1 - i >= 0);
+    assert(m - 1 - i < m);
     hbcl[x[m - 1 - i]] = (2 * m) - i - 1;
   }
   END_PREPROCESSING
@@ -85,26 +95,47 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   s2 = n - m;
   count = 0;
   while (s1 <= s2 + m1) {
+    assert(s2 >= 0);
+    assert(s1 <= n);
+    assert(s2 <= n);
     while ((d = (B[y[s1]] | W[y[s2]])) == 0) {
+      assert(s1 + m <= n);
+      assert(s2 - m <= n);
+      assert(s2 - m >= 0);
       s1 += hbcr[y[s1 + m]];
       s2 -= hbcl[y[s2 - m]];
+#ifdef DEBUG
+      if (s2 < 0) fprintf(stderr, "sbndm-w2 %s %d %s %d\n", x, m, y, n);
+#endif
+      assert(s2 >= 0);
+      assert(s1 <= n);
     }
     first = s1 - m1;
     do {
+      assert(s1 - 1 <= n);
+#ifdef DEBUG
+      if (s1 - 1 < 0) fprintf(stderr, "sbndm-w2 %s %d %s %d\n", x, m, y, n);
+#endif
+      assert(s1 - 1 >= 0);
+      assert(s2 + 1 <= n);
+      assert(s2 + 1 >= 0);
       d = (d << 1U) & (B[y[--s1]] | W[y[++s2]]);
     } while (d);
     if (s1 < first) {
       s1++;
       s2--;
       i = 0;
-      while (i < m && x[i] == y[s1 + i])
+      assert(s1 + m <= n);
+      while (i < plen && x[i] == y[s1 + i])
         i++;
-      if (i == m && s1 + m1 < s2)
+      if (i == plen && s1 + m1 < s2)
         OUTPUT(s1);
       i = 0;
-      while (i < m && x[i] == y[s2 - m1 + i])
+      assert(s2 - m1 <= n);
+      assert(s2 - m1 >= 0);
+      while (i < plen && x[i] == y[s2 - m1 + i])
         i++;
-      if (i == m && s1 + m1 <= s2)
+      if (i == plen && s1 + m1 <= s2)
         OUTPUT(s1);
     }
     s1 += m;

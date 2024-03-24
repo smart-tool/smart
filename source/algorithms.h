@@ -421,7 +421,7 @@ const struct algo ALGOS[] = {
   [_FSBNDM_W1] =
         {_FSBNDM_W1, RNDCRASH, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W2] =
-        {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 2, 0},
   [_FSBNDM_W4] =
         {_FSBNDM_W4, RNDCRASH, "fsbndm-w4", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
   [_FSBNDM_W6] =
@@ -478,9 +478,9 @@ const struct algo ALGOS[] = {
   [_QF62] = {_QF62, OK, "qf62", "Q-gram Filtering q=6 s=2", 7, 0},
   [_QF63] = {_QF63, OK, "qf63", "Q-gram Filtering q=6 s=3", 7, 0},
   [_QLQS] = {_QLQS, OK, "qlqs", "Quantum Leap Quick Search", 0, 0},
-  [_SBNDM_W2] = {_SBNDM_W2, RNDCRASH, "sbndm-w2", "SBNDM with lookahead", 0, 0}, // inexact >32
-  [_SBNDM_W4] = {_SBNDM_W4, RNDCRASH, "sbndm-w4", "SBNDM with lookahead", 0, 0}, // inexact >32
-  [_SBNDM_W6] = {_SBNDM_W6, RNDCRASH, "sbndm-w6", "SBNDM with lookahead", 0, 0}, // inexact >32
+  [_SBNDM_W2] = {_SBNDM_W2, RNDCRASH, "sbndm-w2", "SBNDM with lookahead", 2, 0},
+  [_SBNDM_W4] = {_SBNDM_W4, RNDCRASH, "sbndm-w4", "SBNDM with lookahead", 4, 0},
+  [_SBNDM_W6] = {_SBNDM_W6, RNDCRASH, "sbndm-w6", "SBNDM with lookahead", 6, 0},
   [_SSM] = {_SSM, OK, "ssm", "SSM", 0, 0},
   [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64. flapping
   [_TSA_Q2] = {_TSA_Q2, RNDCRASH, "tsa-q2", "word-wise popcount q=2", 2, 0}, // max: 64
