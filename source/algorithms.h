@@ -301,8 +301,8 @@ const struct algo ALGOS[] = {
   [_BR] = {_BR, OK, "br", "Berry-Ravindran", 0, 0},
   [_AKC] = {_AKC, OK, "akc", "Ahmed-Kaykobad-Chowdhury", 0, 0},
   [_FS] = {_FS, OK, "fs", "Fast-Search", 0, 0},
-  [_FFS] = {_FFS, RNDCRASH, "ffs", "Forward-Fast-Search", 0, 0}, // mingw64 only
-  [_BFS] = {_BFS, RNDCRASH, "bfs", "Backward-Fast-Search, Fast Boyer-Moore", 0, 0}, // mingw64 only
+  [_FFS] = {_FFS, OK, "ffs", "Forward-Fast-Search", 0, 0},
+  [_BFS] = {_BFS, OK, "bfs", "Backward-Fast-Search, Fast Boyer-Moore", 0, 0},
   [_TS] = {_TS, OK, "ts", "Tailed-Substring", 0, 0},
   [_SSABS] = {_SSABS, OK, "ssabs", "Sheik-Sumit-Anindya-Balakrishnan-Sekar", 0, 0},
   [_TVSBS] = {_TVSBS, OK, "tvsbs", "Thathoo-Virmani-Sai-Balakrishnan-Sekar", 0, 0},
@@ -373,8 +373,8 @@ const struct algo ALGOS[] = {
   [_FNDM] = {_FNDM, OK, "fndm", "forward nondeterministic dawg matching", 0, 0},
   [_BWW] = {_BWW, OK, "bww", "bit parallel wide window", 0, 0},
   [_FAOSO2] = {_FAOSO2, OK, "faoso2", "fast average optimal shift-or (u=2,m>2)", 3, 0},
-  [_FAOSO4] = {_FAOSO4, RNDCRASH, "faoso4", "fast average optimal shift-or (u=2,m>4)", 5, 0},
-  [_FAOSO6] = {_FAOSO6, RNDCRASH, "faoso6", "fast average optimal shift-or (u=2,m>6)", 7, 0},
+  [_FAOSO4] = {_FAOSO4, FAIL, "faoso4", "fast average optimal shift-or (u=2,m>4)", 5, 0},
+  [_FAOSO6] = {_FAOSO6, FAIL, "faoso6", "fast average optimal shift-or (u=2,m>6)", 7, 0},
   [_AOSO2] = {_AOSO2, OK, "aoso2", "average optimal shift-or (q=2)", 2, 0},
   [_AOSO4] = {_AOSO4, OK, "aoso4", "average optimal shift-or (q=4)", 4, 0},
   [_AOSO6] = {_AOSO6, OK, "aoso6", "average optimal shift-or (q=6)", 6, 0},

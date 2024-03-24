@@ -23,6 +23,7 @@
  * pp.589--608, (2005).
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 
@@ -40,6 +41,8 @@ void Forward_Suffix_Function(unsigned char *x, int m, int bm_gs[XSIZE][SIGMA],
     last = m - 1;
     i = temx[last];
     while (i >= 0) {
+      //if (m - suffix_len >= XSIZE) fprintf(stderr, "%s %d\n", x, m);
+      assert(m - suffix_len < XSIZE);
       if (bm_gs[m - suffix_len][x[i + 1]] > m - 1 - i)
         if (i - suffix_len < 0 ||
             (i - suffix_len >= 0 && x[i - suffix_len] != x[m - 1 - suffix_len]))

@@ -453,19 +453,19 @@ int main(int argc, char *argv[]) {
   for (h = 0; h < YSIZE; h++)
     RANDCH(T[h]);
   assert(XSIZE + 16 < YSIZE);
-  for (h = 0; h < XSIZE; h++)
+  for (h = 0; h < 1024; h++)
     P[h] = T[h + 16];
-  T[YSIZE] = P[XSIZE] = '\0';
-  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, verbose, alpha))
+  T[YSIZE] = P[1024] = '\0';
+  if (!attempt(&rip, count, P, 1024, T, YSIZE, algoname, verbose, alpha))
     goto free_shm1;
 
   // 23) dont find m=1024 in n=2048
   for (h = 0; h < YSIZE; h++)
     RANDCH(T[h]);
-  for (h = 0; h < XSIZE; h++)
+  for (h = 0; h < 1024; h++)
     RANDCH(P[h]);
-  T[YSIZE] = P[XSIZE] = '\0';
-  if (!attempt(&rip, count, P, XSIZE, T, YSIZE, algoname, verbose, alpha))
+  T[YSIZE] = P[1024] = '\0';
+  if (!attempt(&rip, count, P, 1024, T, YSIZE, algoname, verbose, alpha))
     goto free_shm1;
 
   if (*text) {
