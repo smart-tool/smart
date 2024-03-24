@@ -220,9 +220,8 @@ int main(int argc, char *argv[]) {
   if (argc > argn) // m=%d
     m = string2decimal(argv[argn]);
   else
-    m = XSIZE;
+    m = 16; // TODO loop over PATT_SIZE
 
-  // allocate space for text in shared memory
   unsigned long seed = time(NULL);
   //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
 #ifdef DEBUG
@@ -232,7 +231,7 @@ int main(int argc, char *argv[]) {
     printf("seed=%lu\n", seed);
 #endif
   srand(seed);
-  // allocate in shared memory
+  // allocate in shared memory to be used between 2 processes
   P = shmalloc(shm_P, MAX(m, XSIZE));  // pattern
   count = shmalloc(shm_r, sizeof(int)); // number of occurrences
   e_time = shmalloc(shm_e, sizeof(double)); // running time

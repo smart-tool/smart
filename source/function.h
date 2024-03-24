@@ -297,17 +297,15 @@ int getText(unsigned char *T, char *path, int FREQ[SIGMA], int TSIZE) {
 }
 
 void setOfRandomPatterns(unsigned char **setP, int m, unsigned char *T, int n,
-                         int numpatt, unsigned char *simplePattern,
-                         int alpha /*ignored*/) {
+                         int numpatt, unsigned char *simplePattern) {
   int i, j, k;
-  (void)alpha;
   for (i = 0; i < numpatt; i++) {
     if (strcmp((char *)simplePattern, ""))
       //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.strcpy)
       strcpy((char *)setP[i], (char *)simplePattern);
     else {
-      k = rand() % (n - m); // generates a number between 0 and n-m
-      // TODO: observe alpha
+      // TODO find a T range of size m with a wanted alpha
+      k = rand() % (n - m); // pos between 0 and n-m
       for (j = 0; j < m; j++)
         setP[i][j] = T[k + j]; // creates the pattern
       setP[i][j] = '\0';

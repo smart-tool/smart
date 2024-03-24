@@ -212,7 +212,8 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
         PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
       P = shmalloc(shm_P, m + 1); // pattern
-      setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern, alpha);
+      // ensures count >= 1 at some random offset
+      setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern);
       printf("\n");
       printTopEdge(60);
       if (!options.simple)
@@ -375,7 +376,7 @@ int main(int argc, const char *argv[]) {
   // mandatory parameters:
   char filename[100] = {0};
   // optional parameters:
-  PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern lengths
+  PATT_SIZE = PATT_LARGE_SIZE; // the set of pattern lengths (max 4096)
   int alpha = 256;             // size of the alphabet, -alpha
   int VOLTE = 500;             // number of runs for each pattern length
   int TSIZE = 1048576;
