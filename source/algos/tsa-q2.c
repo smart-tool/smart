@@ -1,6 +1,6 @@
 // Note: Does not support OUTPUT with the found pos yet, only the count
 // Note: Broken!
-// Constraints: requires m>=2 and m<=64
+// Constraints: requires m>=2, m<=64. requires T[n + 1] to be accessable.
 
 #include "include/define.h"
 #include "include/main.h"
@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #define Q 2
 #define HS(x, i) (x[i] << 1) + x[i + 1]
@@ -33,8 +34,10 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
   memset(B, 0, 256 * 4);
-  for (j = 0; j < m - Q + 1; ++j)
+  for (j = 0; j < m - Q + 1; ++j) {
+    assert(j + 1 <= m);
     B[HS(P, j)] |= (UINT64_C(1) << (j));
+  }
   // for (j=0; j<256; ++j) B1[j] = B[j]+1;
 #ifndef HAVE_POPCOUNT
   for (PopCount[i = 0] = 0; ++i <= 65535;
@@ -47,12 +50,16 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   BEGIN_SEARCHING
   T[n + 1] = 255; // sentinel
   for (i = m - Q; i <= n - 1; i += m) {
+    assert(i + 1 <= n);
     D = B[HS(T, i)];
     j = 1;
+    assert(i + j + 1 <= n);
     while ((j < m - Q + 1) &&
            (D &= (((B[HS(T, i - j)] + 1) << j) - 1) &
-                 ((B[HS(T, i + j)] >> j) | ((~(uint64_t)0) << (m - j)))))
+            ((B[HS(T, i + j)] >> j) | (~UINT64_C(0) << (m - j))))) {
       j++;
+      assert((j < m - Q + 1) || (i + j + 1 <= n));
+    }
 
     // TODO: OUTPUT
 #ifdef HAVE_POPCOUNT64
