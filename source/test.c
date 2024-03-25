@@ -22,7 +22,6 @@
  * check the number of occurrences reported
  */
 
-#include "sets.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,13 +30,16 @@
 #include <time.h>
 #include <ctype.h>
 
+#include "algos/include/define.h"
+#include "sets.h"
+
 #ifndef BINDIR
 #define BINDIR "bin"
 #endif
 
 //#define SIGMA 256
 #define TSIZE 1048576
-#define XSIZE 4200 // maximal length of the pattern
+//#define XSIZE 4200 // maximal length of the pattern
 #define YSIZE 4232
 
 unsigned char *T, *P;
@@ -217,11 +219,15 @@ int main(int argc, char *argv[]) {
   }
   else
     n = YSIZE;
-  if (argc > argn) // m=%d
+  if (argc > argn) { // m=%d
     m = string2decimal(argv[argn]);
+    if (m > XSIZE || m < 1) {
+      fprintf(stderr, "Invalid m %d\n", m);
+      goto free_shm1;
+    }
+  }
   else
     m = 0; // loop over PATT_SIZE
-
   unsigned long seed = time(NULL);
   //NOLINTBEGIN(clang-analyzer-security.insecureAPI.strcpy)
 #ifdef DEBUG
@@ -480,6 +486,10 @@ int main(int argc, char *argv[]) {
       for (int il = 0; PATT_SIZE[il] > 0; il++) {
         if (PATT_SIZE[il] <= (unsigned)n) {
           m = PATT_SIZE[il];
+          if (m > XSIZE || m < 1 || m > n) {
+            fprintf(stderr, "Invalid m %d\n", m);
+            goto free_shm1;
+          }
           setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"");
           if (verbose)
             printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);
@@ -494,6 +504,10 @@ int main(int argc, char *argv[]) {
         }
       }
     } else {
+      if (m > XSIZE || m < 1 || m > n) {
+        fprintf(stderr, "Invalid m %d\n", m);
+        goto free_shm1;
+      }
       setOfRandomPatterns(setP, m, T, n, VOLTE, (unsigned char *)"");
       if (verbose)
         printf("Searching for a set of %u patterns with m=%d in n=%d\n", VOLTE, m, n);

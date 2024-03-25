@@ -17,15 +17,6 @@
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
-#define XSIZE 4200       // maximal length of the pattern
-#define SIGMA 256        // constant alphabet size
-#define MG (1024 * 1024) // costant for 1 MB size
-#define MAXTIME 999.00
-
-/* DEFINITION OF VARIABLES */
-unsigned int MINLEN = 1,
-             MAXLEN = 4200; // min length and max length of pattern size
-
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -33,9 +24,19 @@ unsigned int MINLEN = 1,
 #include <string.h>
 #include <sys/stat.h>
 #include <time.h>
+
+#include "algos/include/define.h"
 #include "sets.h"
+/* OUTPUT VARIABLES */
+unsigned int MINLEN = 1,
+             MAXLEN = 4200; // min length and max length of pattern size
 #include "output.h"
 #include "timer.h"
+
+//#define XSIZE 4200       // maximal length of the pattern
+//#define SIGMA 256        // constant alphabet size
+#define MG (1024 * 1024) // costant for 1 MB size
+#define MAXTIME 999.00
 
 #ifndef BINDIR
 #define BINDIR "bin"
@@ -211,6 +212,10 @@ int run_setting(char *filename, unsigned char *T, int n, int alpha,
         PATT_SIZE[il] <= MAXLEN &&
         PATT_SIZE[il] <= (unsigned)n) {
       m = PATT_SIZE[il];
+      if (m > XSIZE || m < 1 || m > n) {
+        fprintf(stderr, "Invalid m %d\n", m);
+        continue;
+      }
       P = shmalloc(shm_P, m + 1); // pattern
       // ensures count >= 1 at some random offset
       setOfRandomPatterns(setP, m, T, n, VOLTE, simplePattern);

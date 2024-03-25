@@ -1,3 +1,9 @@
+source/algos/graspm.c:99:9: warning: Value stored to 'pos' is never read [clang-analyzer-deadcode.DeadStores]
+   99 |         pos = pos->next;
+      |         ^     ~~~~~~~~~
+source/algos/graspm.c:99:9: note: Value stored to 'pos' is never read
+   99 |         pos = pos->next;
+      |         ^     ~~~~~~~~~
 source/algos/sebom.c:58:17: warning: Array access results in an undefined pointer dereference [clang-analyzer-core.NullDereference]
    58 |     trans[i][c] = iMinus1;
       |     ~~~~~~~~~~~~^~~~~~~~~

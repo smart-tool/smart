@@ -24,17 +24,10 @@
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
+
+#include "algos/include/define.h"
 #include "algos/include/shmids.h"
 
-#ifdef __GNUC__
-#define ATTRIBUTE_MALLOC __attribute__((malloc))
-#else
-#define ATTRIBUTE_MALLOC
-#endif
-
-#define SIGMA 256
-
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 // strncat helper
 #define SZNCAT(x) sizeof(x) - strlen(x) - 1
 #define SZNCPY(x) sizeof(x) - 1
