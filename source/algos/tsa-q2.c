@@ -33,7 +33,7 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
 
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-  memset(B, 0, 256 * 4);
+  memset(B, 0, 512 * 8);
   for (j = 0; j < m - Q + 1; ++j) {
     assert(j + 1 <= m);
     B[HS(P, j)] |= (UINT64_C(1) << (j));
