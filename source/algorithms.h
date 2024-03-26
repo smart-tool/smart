@@ -279,11 +279,11 @@ const struct algo ALGOS[] = {
   [_HOR] = {_HOR, OK, "hor", "Hoorspool", 0, 0},
   [_GS] = {_GS, FAIL, "gs", "Galil Seiferas", 0, 0},
   [_AG] = {_AG, OK, "ag", "Apostolico-Giancarlo", 0, 0},
-  [_KR] = {_KR, RNDCRASH, "kr", "Karp-Rabin", 0, 0},
-  [_ZT] = {_ZT, RNDCRASH, "zt", "Zhu-Takaoka", 0, 0}, //m>=2
+  [_KR] = {_KR, OK, "kr", "Karp-Rabin", 0, 0},
+  [_ZT] = {_ZT, OK, "zt", "Zhu-Takaoka", 0, 0}, //m>=2
   [_AC] = {_AC, OK, "ac", "Apostolico-Crochemore", 0, 0},
   [_TW] = {_TW, OK, "tw", "Two-Way", 0, 0},
-  [_OM] = {_OM, RNDCRASH, "om", "Optimal Mismatch", 0, 0}, //RNDCRASH with m=4096
+  [_OM] = {_OM, OK, "om", "Optimal Mismatch", 0, 0},
   [_MS] = {_MS, OK, "ms", "Maximal shift", 0, 0},
   [_QS] = {_QS, OK, "qs", "Quick-Search", 0, 0},
   [_TunBM] = {_TunBM, FAIL, "tunbm", "Tuned Boyer-Moore", 0, 0},
@@ -532,7 +532,7 @@ const struct algo ALGOS[] = {
   [_LIBC1] = {_LIBC1, RNDCRASH, "libc1", "memmem", 0, 0},
   [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0}, // no \0
   [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},
-  [_SIMDKR] = {_SIMDKR, OK, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
+  [_SIMDKR] = {_SIMDKR, RNDCRASH, "simdkr", "SIMD generic Rabin-Karp variants", 2, 0},
     // clang-format on
 };
 
