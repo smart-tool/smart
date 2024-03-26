@@ -1,15 +1,17 @@
 // Note: Does not support OUTPUT with the found pos yet, only the count
-// Constraints: requires m<=64
+// Constraints: requires 2<=m<=64
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/search_large.h"
+#include "include/search_small.h"
 
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 // searching
 int search(unsigned char *P, int m, unsigned char *T, int n) {
@@ -22,10 +24,12 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
 
   if (m > 64)
     return search_large(P, m, T, n);
+  if (m < 2)
+    return search_small(P, m, T, n);
 
   BEGIN_PREPROCESSING
   //NOLINTNEXTLINE(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
-  memset(B, 0, 256 * 4);
+  memset(B, 0, 256 * 8);
   for (j = 0; j < m; ++j)
     B[P[j]] |= (UINT64_C(1) << j);
 #ifndef HAVE_POPCOUNT
@@ -41,9 +45,13 @@ int search(unsigned char *P, int m, unsigned char *T, int n) {
   for (i = m - 1; i <= n - 1; i += m) {
     D = B[T[i]];
     j = 1;
+    assert(i - j >= 0);
+    assert(i + j < n);
     while ((j < m) && (D &= (((B[T[i - j]] + 1) << j) - 1) &
-                            ((B[T[i + j]] >> j) | ((~(uint64_t)0) << (m - j)))))
+                       ((B[T[i + j]] >> j) | ((~UINT64_C(0)) << (m - j))))) {
       j++;
+      assert(j < m && i + j < n);
+    }
 
     // TODO: OUTPUT
 #ifdef HAVE_POPCOUNT64

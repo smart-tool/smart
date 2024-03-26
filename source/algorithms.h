@@ -482,9 +482,9 @@ const struct algo ALGOS[] = {
   [_SBNDM_W4] = {_SBNDM_W4, RNDCRASH, "sbndm-w4", "SBNDM with lookahead", 4, 0},
   [_SBNDM_W6] = {_SBNDM_W6, RNDCRASH, "sbndm-w6", "SBNDM with lookahead", 6, 0},
   [_SSM] = {_SSM, OK, "ssm", "SSM", 0, 0},
-  [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 0, 0}, // max 64. flapping
-  [_TSA_Q2] = {_TSA_Q2, FAIL, "tsa-q2", "word-wise popcount q=2", 2, 0}, // 2<m<64
-  [_TSO5] = {_TSO5, OK, "tso5", "optimized word-wise popcount", 2, 0}, // 2<m<64
+  [_TSA] = {_TSA, FAIL, "tsa", "word-wise popcount", 2, 0}, // 2<=m<64
+  [_TSA_Q2] = {_TSA_Q2, FAIL, "tsa-q2", "word-wise popcount q=2", 2, 0}, // 2<=m<64
+  [_TSO5] = {_TSO5, OK, "tso5", "optimized word-wise popcount", 2, 0}, // 2<=m<64
   [_TUNEDBM] = {_TUNEDBM, OK, "tunedbm", "Tuned Boyer-Moore", 0, 0},
   [_TVSBS_W2] = {_TVSBS_W2, OK, "tvsbs-w2", "TVSBS", 0, 0},
   [_TVSBS_W4] = {_TVSBS_W4, FAIL, "tvsbs-w4", "TVSBS", 2, 0},
