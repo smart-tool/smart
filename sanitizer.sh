@@ -8,6 +8,5 @@ done
 echo now test the broken asan algos with some full smart test
 for t in `grep '^#' asan.lst | cut -c2-`
 do
-    ./test-asan "$t" rand2 2
-    ./test-asan "$t" rand64 16
+    ./test-asan "$t" rand32
 done
