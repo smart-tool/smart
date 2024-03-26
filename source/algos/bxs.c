@@ -68,7 +68,7 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           if (j > first)
             i = j;
           else {
-            for (k = len; y[first + k] == x[k - 1] && (k); k--)
+            for (k = len; k && (y[first + k] == x[k - 1]); k--)
               ;
             if (k == 0)
               OUTPUT(first + 1);

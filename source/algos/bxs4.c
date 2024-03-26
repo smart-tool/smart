@@ -22,7 +22,7 @@
  * International Symposium on Experimental Algorithms (SEA 2010)
  * Q is the dimension of q-grams
  *
- * Constraints: requires m>=4. inexact m>32
+ * Constraints: requires m>=4.
  */
 
 #include "include/define.h"
@@ -73,14 +73,14 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
           if (j - first)
             i = j;
           else {
-            for (k = len; y[first + k] == x[k - 1] && (k); k--)
+            for (k = len; k && (y[first + k] == x[k - 1]); k--)
               ;
             if (k == 0)
               OUTPUT(first + 1);
           }
-          D = ((D << 1) | 1) & B[y[j]];
+          D = ((D << 1) | 1) & (j >= 0 ? B[y[j]] : 0);
         } else
-          D = (D << 1) & B[y[j]];
+          D = (D << 1) & (j >= 0 ? B[y[j]] : 0);
       } while (D && j > first);
     }
   }
