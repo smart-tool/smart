@@ -42,13 +42,12 @@
  SUCH DAMAGE.
  *
  * Good for m>=16 and m<128
- * Buffer overflows: bin/asan/fsbndm-w1 aaaaaa 6 aaaaaaaaaa 10
+ * Had to fix plenty of buffer under- and overflows, but now it's broken.
  */
 
 #include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
-//#include "include/search_large.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
   unsigned int B[SIGMA], d, set, hbc[SIGMA];
@@ -83,23 +82,26 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int diff = plen - m;
   j = mm1;
   while (j < n - diff) {
-    assert(j + 1 <= n);
-    assert(j > 0);
-    while ((d = (B[y[j + 1]] << 1) & B[y[j]]) == 0) {
-      j += hbc[y[j + m]];
-      assert(j + 1 <= n);
+    //assert(j + 1 <= n);
+    assert(j + 1 >= 0);
+    while (j + 1 < n &&
+           (d = (B[y[j + 1]] << 1) & (j >= 0 ? B[y[j]] : 0)) == 0) {
+      //assert(j + m <= n);
+      if (j + m < n)
+        j += hbc[y[j + m]];
+      else
+        j++;
+      //assert(j + 1 <= n);
     }
     pos = j;
     assert(j - 1 <= n);
-    assert(j > 0);
-    while ((d = (d + d) & B[y[j - 1]])) {
+    //assert(j > 0);
+    while ((d = (d + d) & ((j - 1 >= 0) ? B[y[j - 1]] : 0)))
       --j;
-      assert(j > 0);
-    }
     j += mm1;
     if (j == pos && j < n - diff) {
       i = 0;
-      assert(m + plen + j <= n);
+      //assert(m + plen + j <= n);
       while (m + i < plen && x[mm1 + i] == y[j + i])
         i++;
       if (m + i == plen)

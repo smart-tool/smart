@@ -419,15 +419,15 @@ const struct algo ALGOS[] = {
   [_FS_W6] = {_FS_W6, OK, "fs-w6", "Multiple Sliding Windows", 0, 0}, // n>=8
   [_FS_W8] = {_FS_W8, OK, "fs-w8", "Multiple Sliding Windows", 0, 0},
   [_FSBNDM_W1] =
-        {_FSBNDM_W1, RNDCRASH, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W1, FAIL, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0},
   [_FSBNDM_W2] =
         {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 2, 0},
   [_FSBNDM_W4] =
-        {_FSBNDM_W4, RNDCRASH, "fsbndm-w4", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W4, RNDCRASH, "fsbndm-w4", "fsbndm with multiple sliding windows", 0, 0},
   [_FSBNDM_W6] =
-        {_FSBNDM_W6, RNDCRASH, "fsbndm-w6", "fsbndm with multiple sliding windows", 0, 0}, // inexact >31
+        {_FSBNDM_W6, RNDCRASH, "fsbndm-w6", "fsbndm with multiple sliding windows", 0, 0},
   [_FSBNDM_W8] =
-        {_FSBNDM_W8, OK, "fsbndm-w8", "fsbndm with multiple sliding windows", 11, 0}, // inexact >31
+        {_FSBNDM_W8, OK, "fsbndm-w8", "fsbndm with multiple sliding windows", 11, 0},
   [_FSBNDMQ20] =
         {_FSBNDMQ20, OK, "fsbndmq20", "fsbndm with q-grams and lookahead", 2, 0}, // m: 2..32
   [_FSBNDMQ21] =
