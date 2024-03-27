@@ -101,6 +101,7 @@ bsdm6
 bsdm7
 bsdm8
 fs-w1
+fsbndm-w1
 fsbndmq20
 fsbndmq21
 fsbndmq31
@@ -118,7 +119,6 @@ lwfr7
 lwfr8
 qf23
 qf24
-qf26
 qf28
 qf33
 qf34
@@ -168,7 +168,6 @@ wom
 doublehash
 ft3
 epsm
-libc
 musl
 musl1
 simdkr

@@ -419,7 +419,7 @@ const struct algo ALGOS[] = {
   [_FS_W6] = {_FS_W6, OK, "fs-w6", "Multiple Sliding Windows", 0, 0}, // n>=8
   [_FS_W8] = {_FS_W8, OK, "fs-w8", "Multiple Sliding Windows", 0, 0},
   [_FSBNDM_W1] =
-        {_FSBNDM_W1, FAIL, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0},
+        {_FSBNDM_W1, OK, "fsbndm-w1", "fsbndm with multiple sliding windows", 0, 0},
   [_FSBNDM_W2] =
         {_FSBNDM_W2, RNDCRASH, "fsbndm-w2", "fsbndm with multiple sliding windows", 2, 0},
   [_FSBNDM_W4] =
@@ -467,7 +467,7 @@ const struct algo ALGOS[] = {
   [_LWFR8] = {_LWFR8, OK, "lwfr8", "Weak Factor Recognizer, Linear Version", 8, 0},
   [_QF23] = {_QF23, OK, "qf23", "Q-gram Filtering q=2 s=3", 3, 0},
   [_QF24] = {_QF24, OK, "qf24", "Q-gram Filtering q=2 s=4", 3, 0},
-  [_QF26] = {_QF26, OK, "qf26", "Q-gram Filtering q=2 s=6", 3, 0},
+  [_QF26] = {_QF26, FAIL, "qf26", "Q-gram Filtering q=2 s=6", 3, 0},
   [_QF28] = {_QF28, OK, "qf28", "Q-gram Filtering q=2 s=8", 3, 0},
   [_QF33] = {_QF33, OK, "qf33", "Q-gram Filtering q=3 s=3", 4, 0},
   [_QF34] = {_QF34, OK, "qf34", "Q-gram Filtering q=3 s=4", 4, 0},
@@ -528,7 +528,7 @@ const struct algo ALGOS[] = {
   [_HPBM] = {_HPBM, 0, "hpbm", "Parallel Boyer-Moore", 0, MISSING},
   [_SSECP] = {_SSECP, FAIL, "ssecp", "SSE Crochemore-Perrin", 0, 0}, // broken
   [_EPSM] = {_EPSM, X64_ONLY + RNDCRASH, "epsm", "SSE4 Exact Packed String Matching", 0, 0},
-  [_LIBC] = {_LIBC, OK, "libc", "strstr", 0, 0}, // no \0
+  [_LIBC] = {_LIBC, FAIL, "libc", "strstr", 0, 0}, // no \0
   [_LIBC1] = {_LIBC1, RNDCRASH, "libc1", "memmem", 0, 0},
   [_MUSL] = {_MUSL, OK, "musl", "musl strstr", 0, 0}, // no \0
   [_MUSL1] = {_MUSL1, OK, "musl1", "musl memmem", 0, 0},

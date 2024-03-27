@@ -41,11 +41,12 @@
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
  *
- * Good for m>=16 and m<128
- * Had to fix plenty of buffer under- and overflows, but now it's broken.
+ * Good for m>=16 and m<128.
+ * Constraints: requires additional m chars after the end of y.
+ * rurban had to fix plenty of buffer under- and overflows.
  */
 
-#include <assert.h>
+//#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
 
@@ -54,11 +55,10 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int i, j, pos, mm1, count;
 
   /* Preprocessing */
+  BEGIN_PREPROCESSING
   int plen = m;
   if (m > 31)
     m = 31;
-    //return search_large(x, m, y, n);;
-  BEGIN_PREPROCESSING
   count = 0;
   mm1 = m - 1;
   //mp1 = m + 1;
@@ -73,8 +73,8 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
     hbc[x[i]] = (2 * m) - i - 1;
 
   /* added to stop ufast-loop */
-  for (i = 0; i < m; i++)
-    y[n + i] = x[i];
+  //for (i = 0; i < m; i++)
+  //  y[n + i] = x[i];
   END_PREPROCESSING
 
   /* Searching */
@@ -82,26 +82,19 @@ int search(unsigned char *x, int m, unsigned char *y, int n) {
   int diff = plen - m;
   j = mm1;
   while (j < n - diff) {
-    //assert(j + 1 <= n);
-    assert(j + 1 >= 0);
-    while (j + 1 < n &&
-           (d = (B[y[j + 1]] << 1) & (j >= 0 ? B[y[j]] : 0)) == 0) {
-      //assert(j + m <= n);
+    while (j + 1 <= n &&
+           (d = (j + 1 < n ? B[y[j + 1]] << 1 : 2) & (j >= 0 ? B[y[j]] : 1)) == 0) {
       if (j + m < n)
         j += hbc[y[j + m]];
       else
-        j++;
-      //assert(j + 1 <= n);
+        j += hbc[x[m]];
     }
     pos = j;
-    assert(j - 1 <= n);
-    //assert(j > 0);
     while ((d = (d + d) & ((j - 1 >= 0) ? B[y[j - 1]] : 0)))
       --j;
     j += mm1;
     if (j == pos && j < n - diff) {
       i = 0;
-      //assert(m + plen + j <= n);
       while (m + i < plen && x[mm1 + i] == y[j + i])
         i++;
       if (m + i == plen)
