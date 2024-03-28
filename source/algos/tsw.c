@@ -12,60 +12,76 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Two Sliding Window algorithm
- * in A. Hudaib and R. Al-Khalid and D. Suleiman and M. Itriq and A. Al-Anani. 
- * A Fast Pattern Matching Algorithm with Two Sliding Windows (TSW). J. Comput. Sci., vol.4, n.5, pp.393--401, (2008).
+ * in A. Hudaib and R. Al-Khalid and D. Suleiman and M. Itriq and A. Al-Anani.
+ * A Fast Pattern Matching Algorithm with Two Sliding Windows (TSW). J. Comput.
+ * Sci., vol.4, n.5, pp.393--401, (2008).
+ *
+ * Undocumented constraints: m < n - 3
  */
 
+#include <assert.h>
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
 
 void preBrBc(unsigned char *x, int m, int brBc[SIGMA][SIGMA]) {
-   int a, b, i;
-   for (a = 0; a < SIGMA; ++a)
-      for (b = 0; b < SIGMA; ++b)
-         brBc[a][b] = m + 2;
-   for (a = 0; a < SIGMA; ++a)
-      brBc[a][x[0]] = m + 1;
-   for (i = 0; i < m - 1; ++i)
-      brBc[x[i]][x[i + 1]] = m - i;
-   for (a = 0; a < SIGMA; ++a)
-      brBc[x[m - 1]][a] = 1;
+  int a, b, i;
+  for (a = 0; a < SIGMA; ++a)
+    for (b = 0; b < SIGMA; ++b)
+      brBc[a][b] = m + 2;
+  for (a = 0; a < SIGMA; ++a)
+    brBc[a][x[0]] = m + 1;
+  for (i = 0; i < m - 1; ++i)
+    brBc[x[i]][x[i + 1]] = m - i;
+  for (a = 0; a < SIGMA; ++a)
+    brBc[x[m - 1]][a] = 1;
 }
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int j, brBc_left[SIGMA][SIGMA], brBc_right[SIGMA][SIGMA];
-   int i, a,b;
-   int count;
-   unsigned char x1[XSIZE];
-   for(i=m-1, j=0; i>=0; i--, j++) x1[j]=x[i];
+  int j, brBc_left[SIGMA][SIGMA], brBc_right[SIGMA][SIGMA];
+  int i, a, b;
+  int count;
+  unsigned char x1[XSIZE];
+  if (m >= n - 3)
+    return search_small(x, m, y, n);
+  assert(m < n - 2);
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   preBrBc(x, m, brBc_left);
-   preBrBc(x1, m, brBc_right);
-   count =0;
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  for (i = m - 1, j = 0; i >= 0; i--, j++)
+    x1[j] = x[i];
+  preBrBc(x, m, brBc_left);
+  preBrBc(x1, m, brBc_right);
+  count = 0;
+  END_PREPROCESSING
 
-   /* Searching */
-   BEGIN_SEARCHING
-   j = 0; a = n-m;
-   while (j <= a) {
-      for(i=0; i<m && x[i]==y[j+i]; i++);
-      if (i>=m && j<=a) count++;
+  /* Searching */
+  BEGIN_SEARCHING
+  j = 0;
+  a = n - m;
+  while (j <= a) {
+    for (i = 0; i < m && x[i] == y[j + i]; i++)
+      ;
+    if (i >= m && j <= a)
+      OUTPUT(j);
 
-      for(b=0; b<m && x[b]==y[a+b]; b++);
-      if (b>=m && j<a) count++;
+    for (b = 0; b < m && x[b] == y[a + b]; b++)
+      ;
+    if (b >= m && j < a)
+      OUTPUT(a);
 
-      j += brBc_left[y[j + m]][y[j + m + 1]];
-      a -= brBc_right[y[a - 1]][y[a - 2]];
-   }
-   END_SEARCHING
-   return count;
+    assert(j + m + 1 < n);
+    assert(a - 1 < n);
+    //if (a - 2 < 0) fprintf(stderr, "%s %d %x %d\n", x, m, y, n);
+    assert(a - 2 >= 0);
+    j += brBc_left[y[j + m]][y[j + m + 1]];
+    a -= brBc_right[y[a - 1]][y[a - 2]];
+  }
+  END_SEARCHING
+  return count;
 }
-
-

@@ -14,11 +14,35 @@ The release of smart will be available [here](https://github.com/smart-tool/smar
 The documentation about smart is available [here](https://www.dmi.unict.it/faro/smart/howto.php)
 
 ## How to compile it from source
-To compile the source just download (or clone) this repository and run the file makefile from terminal (with **./makefile**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into source/bin/).
+To compile the source just download (or clone) this repository and run the file build.sh from terminal (with **./build.sh**), it will compile the smart binaries and all the algorithms (the algorithms binaries will be created into bin/).
+
+## Summary
+
+According to our experimental results in 2010 (until KBNDM), we conclude
+that the following algorithms are the most efficient in the following situations:
+
+* MUSL memmem(): short patterns.
+* EPSM: The best SSE2 algo, but unsafe.
+* SA: very short patterns and very small alphabets.
+* TVSBS: very short patterns and small alphabets, and long patterns and large alphabets.
+* FJS: very short patterns and large and very large alphabets.
+* EBOM: short patterns and large and very large alphabets.
+* SBNDM-BMH and BMH-SBNDM: short patterns and very large alphabets.
+* HASHq: short and large patterns and small alphabets.
+* FSBNDM: long patterns and large and very larghe alphabets.
+* SBNDMq: long pattern and small alphabets.
+* LBNDM: very long patterns and very large alphabets.
+
+- https://arxiv.org/pdf/1012.2547v1.pdf
+
+However the old tests were done with temp. buffers on the heap, not static stack buffers.
+And some implementations didn't free their temp. buffers.
 
 ## Reference
 
 [Stringology Conference article url](https://www.stringology.org/event/2016/p09.html)
+
+[Lecroq's EXACT STRING MATCHING ALGORITHMS](https://www-igm.univ-mlv.fr/~lecroq/string/)
 
 If you work with SMART, please cite:
 ```BibTeX

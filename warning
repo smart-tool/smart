@@ -1,4 +1,0 @@
-source/algos/fsbndm.c: In function ‘search’:
-source/algos/fsbndm.c:32:20: warning: implicit declaration of function ‘search_large’ [-Wimplicit-function-declaration]
-   32 |    if(m>31) return search_large(x,m,y,n);
-      |                    ^~~~~~~~~~~~

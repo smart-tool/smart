@@ -12,303 +12,371 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
 char colors[100][8];
-int num_colors = 100;
+unsigned int num_colors = 100U;
 
 char dec2hex(int v) {
-	if(v < 10) return '0'+v;
-	if(v == 10) return 'a';
-	if(v == 11) return 'b';
-	if(v == 12) return 'c';
-	if(v == 13) return 'd';
-	if(v == 14) return 'e';
-	if(v == 15) return 'f';
-	return '0';
+  if (v < 10)
+    return '0' + v;
+  if (v == 10)
+    return 'a';
+  if (v == 11)
+    return 'b';
+  if (v == 12)
+    return 'c';
+  if (v == 13)
+    return 'd';
+  if (v == 14)
+    return 'e';
+  if (v == 15)
+    return 'f';
+  return '0';
 }
 
 void computeRandomColors(char colors[100][8]) {
-    srand( time(NULL) );
-	for(int i=0; i<100; i++) {
-		int j = 0;
-		colors[i][j++] = '#';
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j++] = dec2hex((rand()%14));
-		colors[i][j] = '\0';
-	}
+  srand(time(NULL));
+  for (int i = 0; i < 100; i++) {
+    int j = 0;
+    colors[i][j++] = '#';
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j++] = dec2hex((rand() % 14));
+    colors[i][j] = '\0';
+  }
 }
 
-int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt], double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt], 
-			  int alpha, char *filename, char *expcode, int dif, int std) {
-  	int  i, il, algo;
-   	FILE *fp;
-	char outname[100];
-   	//printing results in txt format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	//mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".php");
-   	printf("\tSaving data on %s/%s.php\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.txt\n",expcode,filename);
-		return 0;
-	}
-	fprintf(fp,"<?\n$%s = array(\n",filename);
-	fprintf(fp,"\t\"PATT\" => array(");
-	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-		fprintf(fp,"\"%d\", ", PATT_SIZE[il]);
-	}
-	fprintf(fp, "),\n");
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-   			fprintf(fp,"\t\"%s\" => array(",str2upper(ALGO_NAME[algo]));
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]==0)  fprintf(fp,"\"VOID\", ");
-   	  	 		else
-					fprintf(fp,"\"%.2f\", ",TIME[algo][il]);
-   			}
-   			fprintf(fp,"),\n");
-			if(dif) {
-				fprintf(fp,"\t\"%s.best\" => array(",str2upper(ALGO_NAME[algo]));
-				for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-					if(TIME[algo][il]==0)  fprintf(fp,"\"0.1\", ");
-					else
-						fprintf(fp,"\"%.2f\", ",BEST[algo][il]);
-				}
-				fprintf(fp,"),\n");
-				fprintf(fp,"\t\"%s.worst\" => array(",str2upper(ALGO_NAME[algo]));
-				for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-					if(TIME[algo][il]==0)  fprintf(fp,"\"0.1\", ");
-					else
-						fprintf(fp,"\"%.2f\", ",WORST[algo][il]);
-				}
-				fprintf(fp,"),\n");
-			}
-			if(std) {
-				fprintf(fp,"\t\"%s.std\" => array(",str2upper(ALGO_NAME[algo]));
-				for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-					if(TIME[algo][il]==0)  fprintf(fp,"\"VOID\", ");
-					else
-						fprintf(fp,"\"%.2f\", ",STD[algo][il]);
-				}
-				fprintf(fp,"),\n");
-			}
-		}
-   	}
-	fprintf(fp,");\n?>");
-   	fclose(fp);
-	
-	
-	return 1;
+int outputPHP(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
+              double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
+              int alpha, char *filename, char *expcode, int dif, int std) {
+  unsigned int il, algo;
+  FILE *fp;
+  char outname[100];
+  (void)alpha;
+  // printing results in PHP format
+  snprintf(outname, sizeof(outname), "results/%s/%s.php", expcode, filename);
+  // mkdir(outname,S_IROTH);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  fprintf(fp, "<?\n$%s = array(\n", filename);
+  fprintf(fp, "\t\"PATT\" => array(");
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      fprintf(fp, "\"%u\", ", PATT_SIZE[il]);
+    }
+  fprintf(fp, "),\n");
+  for (algo = 0; algo < NumAlgo; algo++) {
+    char *upname = str2upper(ALGO_NAME[algo]);
+    if (EXECUTE[algo]) {
+      fprintf(fp, "\t\"%s\" => array(", upname);
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] == 0)
+            fprintf(fp, "\"VOID\", ");
+          else
+            fprintf(fp, "\"%.2f\", ", TIME[algo][il]);
+        }
+      fprintf(fp, "),\n");
+      if (dif) {
+        fprintf(fp, "\t\"%s.best\" => array(", upname);
+        for (il = 0; il < NumPatt; il++)
+          if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+            if (TIME[algo][il] == 0)
+              fprintf(fp, "\"0.1\", ");
+            else
+              fprintf(fp, "\"%.2f\", ", BEST[algo][il]);
+          }
+        fprintf(fp, "),\n");
+        fprintf(fp, "\t\"%s.worst\" => array(", upname);
+        for (il = 0; il < NumPatt; il++)
+          if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+            if (TIME[algo][il] == 0)
+              fprintf(fp, "\"0.1\", ");
+            else
+              fprintf(fp, "\"%.2f\", ", WORST[algo][il]);
+          }
+        fprintf(fp, "),\n");
+      }
+      if (std) {
+        fprintf(fp, "\t\"%s.std\" => array(", upname);
+        for (il = 0; il < NumPatt; il++)
+          if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+            if (TIME[algo][il] == 0)
+              fprintf(fp, "\"VOID\", ");
+            else
+              fprintf(fp, "\"%.2f\", ", STD[algo][il]);
+          }
+        fprintf(fp, "),\n");
+      }
+    }
+    free(upname);
+  }
+  fprintf(fp, ");\n?>");
+  fclose(fp);
+
+  return 1;
 }
 
+int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
+              char *expcode, char *time_format) {
+  unsigned int i, il, algo;
+  FILE *fp;
+  char outname[100];
+  (void)alpha;
+  (void)time_format;
+  // printing results in txt format. dir already exists
+  snprintf(outname, sizeof(outname), "results/%s/%s.txt", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
+      int first = 1;
+      fprintf(fp, "%s", upname);
+      for (i = 0; i < 20 - strlen(ALGO_NAME[algo]); i++)
+        fprintf(fp, " ");
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (!first)
+            fprintf(fp, "\t");
+          first = 0;
+          if (TIME[algo][il] == 0)
+            fprintf(fp, "-");
+          else
+            fprintf(fp, "%.2f", TIME[algo][il]);
+        }
+      fprintf(fp, "\n");
+      free(upname);
+    }
+  }
+  fclose(fp);
 
-int outputTXT(double TIME[NumAlgo][NumPatt], int alpha, char *filename, char *expcode, char *time_format) {
-  	int  i, il, algo;
-   	FILE *fp;
-	char outname[100];
-   	//printing results in txt format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	//mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".txt");
-   	printf("\tSaving data on %s/%s.txt\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.txt\n",expcode,filename);
-		return 0;
-	}
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-			int first = 1;
-   			fprintf(fp,"%s",str2upper(ALGO_NAME[algo]));
-			for(i=0; i<20-strlen(ALGO_NAME[algo]); i++) fprintf(fp," ");
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-				if(!first) fprintf(fp,"\t");
-				first = 0;
-   				if(TIME[algo][il]==0)  fprintf(fp,"-");
-   	  	 		else
-   	 	  		fprintf(fp,"%.2f",TIME[algo][il]);
-   			}
-   			fprintf(fp,"\n");
-		}
-   	}
-   	fclose(fp);
-
-
-	return 1;
+  return 1;
 }
 
-int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename, char *expcode, char* time_format) {
-  	int  i, j,il, algo;
-   	FILE *fp;
-	char outname[100];
-   	//printing results in latex format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	//mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".tex");
-   	printf("\tSaving data on %s/%s.tex\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.txt\n",expcode,filename);
-		return 0;
-	}
-	int start=0;
-	while(PATT_SIZE[start]<MINLEN) start++;
-	int end=start;
-	while(PATT_SIZE[end]<=MAXLEN) end++;
-	fprintf(fp,"\\begin{tabular}{|l|");
-	for(j=start; j<end; j++) fprintf(fp,"l");
-	fprintf(fp,"|}\n\\hline\n");
-	fprintf(fp,"$m$");
-	for(j=start; j<end; j++) fprintf(fp," & $%d$",PATT_SIZE[j]);
-	fprintf(fp,"\\\\\n");
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-			int first = 1;
-   			fprintf(fp,"\\textsc{%s}",str2upper(ALGO_NAME[algo]));
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]==0)  fprintf(fp," & -");
-   	  	 		else
-   	 	  		fprintf(fp," & %.2f",TIME[algo][il]);
-   			}
-   			fprintf(fp,"\\\\\n");
-		}
-   	}
-	fprintf(fp,"\\hline\n\\end{tabular}");
-   	fclose(fp);
-	return 1;
+int outputLatex(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
+                char *expcode, char *time_format) {
+  unsigned int j, il, algo;
+  FILE *fp;
+  char outname[100];
+  (void)alpha;
+  (void)time_format;
+  // printing results in latex format
+  snprintf(outname, sizeof(outname), "results/%s/%s.tex", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  unsigned int start = 0;
+  while (PATT_SIZE[start] < MINLEN)
+    start++;
+  unsigned int end = start;
+  while (PATT_SIZE[end] <= MAXLEN)
+    end++;
+  fprintf(fp, "\\begin{tabular}{|l|");
+  for (j = start; j < end; j++)
+    fprintf(fp, "l");
+  fprintf(fp, "|}\n\\hline\n");
+  fprintf(fp, "$m$");
+  for (j = start; j < end; j++)
+    fprintf(fp, " & $%u$", PATT_SIZE[j]);
+  fprintf(fp, "\\\\\n");
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp, "\\textsc{%s}", upname);
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] == 0)
+            fprintf(fp, " & -");
+          else
+            fprintf(fp, " & %.2f", TIME[algo][il]);
+        }
+      fprintf(fp, "\\\\\n");
+      free(upname);
+    }
+  }
+  fprintf(fp, "\\hline\n\\end{tabular}");
+  fclose(fp);
+  return 1;
 }
 
-int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename, char *expcode) {
-  	int  i, il, algo;
-   	FILE *fp;
-	char outname[100];
-	//finds the best result for each pattern length
-	double BEST[NumPatt];
-	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-		double best = 999999.0;	
-		for(algo=0; algo<NumAlgo; algo++) if(EXECUTE[algo] && TIME[algo][il]<best && TIME[algo][il]>0.1) best=TIME[algo][il];
-		BEST[il] = best;
-	}
-   	//printing results in xml format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".xml");
-   	printf("\tSaving data on %s/%s.xml\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.xml\n",expcode,filename);
-		return 0;
-	}
-	fprintf(fp,"<RESULTS>\n\t<CODE>%s</CODE>\n\t<TEXT>%s</TEXT>\n",expcode,filename);
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-   			fprintf(fp,"\t<ALGO>\n\t\t<NAME>%s</NAME>\n",str2upper(ALGO_NAME[algo]));
-			//for(i=0; i<20-strlen(ALGO_NAME[algo]); i++) fprintf(fp," ");
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]==0)  fprintf(fp,"\t\t<DATA>-</DATA>\n");
-   	 	  		fprintf(fp,"\t\t<DATA>\n");
-   	 	  		fprintf(fp,"\t\t\t<SEARCH>%.2f</SEARCH>\n",TIME[algo][il]);
-   	 	  		fprintf(fp,"\t\t</DATA>\n");
-   			}
-   			fprintf(fp,"\t</ALGO>\n");
-		}
-   	}
-	fprintf(fp,"\t<BEST>\n");
-	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-  		fprintf(fp,"\t\t<DATA>%.2f</DATA>\n",BEST[il]);
-	}
-	fprintf(fp,"\t</BEST>\n");
-	fprintf(fp,"</RESULTS>");
-   	fclose(fp);
-	return 1;
+int outputXML(double TIME[NumAlgo][NumPatt], int alpha, char *filename,
+              char *expcode) {
+  unsigned int il, algo;
+  FILE *fp;
+  char outname[100];
+  // finds the best result for each pattern length
+  double BEST[NumPatt];
+  (void)alpha;
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      double best = 999999.0;
+      for (algo = 0; algo < NumAlgo; algo++)
+        if (EXECUTE[algo] && TIME[algo][il] < best && TIME[algo][il] > 0.1)
+          best = TIME[algo][il];
+      BEST[il] = best;
+    }
+  // printing results in xml format
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
+#ifndef _WIN32
+  mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
+  snprintf(outname, sizeof(outname), "results/%s/%s.xml", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  fprintf(fp, "<RESULTS>\n\t<CODE>%s</CODE>\n\t<TEXT>%s</TEXT>\n", expcode,
+          filename);
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp, "\t<ALGO>\n"
+                  "\t\t<NAME>%s</NAME>\n"
+                  "\t\t<DESCRIPTION>%s</DESCRIPTION>\n", upname, ALGOS[algo].desc);
+      // for(i=0; i<20-strlen(ALGO_NAME[algo]); i++) fprintf(fp," ");
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] == 0)
+            fprintf(fp, "\t\t<DATA>-</DATA>\n");
+          fprintf(fp, "\t\t<DATA>\n");
+          fprintf(fp, "\t\t\t<SEARCH>%.2f</SEARCH>\n", TIME[algo][il]);
+          fprintf(fp, "\t\t</DATA>\n");
+        }
+      fprintf(fp, "\t</ALGO>\n");
+      free(upname);
+    }
+  }
+  fprintf(fp, "\t<BEST>\n");
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      fprintf(fp, "\t\t<DATA>%.2f</DATA>\n", BEST[il]);
+    }
+  fprintf(fp, "\t</BEST>\n");
+  fprintf(fp, "</RESULTS>");
+  fclose(fp);
+  return 1;
 }
 
 void appendFilesContent(char *source, FILE *target) {
-	char c;
-	FILE *fp = fopen(source,"r");
-	while( (c=getc(fp))!=EOF ) putc(c,target);
-	fclose(fp);
+  char c;
+  FILE *fp = fopen(source, "r");
+  while ((c = getc(fp)) != EOF)
+    putc(c, target);
+  fclose(fp);
 }
 
-void printSTD(		double TIME[NumAlgo][NumPatt],
-					double BEST[NumAlgo][NumPatt],
-					double WORST[NumAlgo][NumPatt],
-					double STD[NumAlgo][NumPatt], 
-					int algo, char *expcode, FILE *fp) {
+void printSTD(double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
+              double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
+              unsigned int algo, char *expcode, FILE *fp) {
 
-	int i;
-	double dymax = 0.0;
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(WORST[algo][il]>dymax)  dymax = WORST[algo][il];
-   		if(TIME[algo][il]+STD[algo][il]>dymax)  dymax = TIME[algo][il]+STD[algo][il];
-  	}
-	int ymax = dymax+1.0;
-	
-	fprintf(fp,"<div class=\"chart_container_small\"><div class=\"chart_title\">%s algorithm</div>\n",str2upper(ALGO_NAME[algo]));
-	fprintf(fp,"<div><canvas class=\"exp_chart_small\" id=\"cvs%d\" width=\"460\" height=\"250\">[No canvas support]</canvas>",algo);
-	fprintf(fp,"<div class=\"caption_small\">Detailed plot of the running times relative to the <b>%s algorithm</b>. ",str2upper(ALGO_NAME[algo]));
-	fprintf(fp,"The plot reports the mean and the distribution of the running times.");
-	fprintf(fp,"</div>\n");
-	fprintf(fp,"</div>\n");
-	fprintf(fp,"</div>\n");
+  double dymax = 0.0;
+  char *upname = str2upper(ALGO_NAME[algo]);
+  (void)expcode;
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (WORST[algo][il] > dymax)
+        dymax = WORST[algo][il];
+      if (TIME[algo][il] + STD[algo][il] > dymax)
+        dymax = TIME[algo][il] + STD[algo][il];
+    }
+  int ymax = (int)(dymax + 1.0);
 
+  fprintf(fp,
+          "<div class=\"chart_container_small\"><div class=\"chart_title\">%s "
+          "- %s</div>\n",
+          upname, ALGOS[algo].desc);
+  fprintf(fp,
+          "<div><canvas class=\"exp_chart_small\" id=\"cvs%u\" width=\"460\" "
+          "height=\"250\">[No canvas support]</canvas>",
+          algo);
+  fprintf(fp,
+          "<div class=\"caption_small\">Detailed plot of the running times "
+          "relative to the <b>%s algorithm</b>. ",
+          upname);
+  fprintf(
+      fp,
+      "The plot reports the mean and the distribution of the running times.");
+  fprintf(fp, "</div>\n");
+  fprintf(fp, "</div>\n");
+  fprintf(fp, "</div>\n");
 
-	fprintf(fp,"<script>function loadChart%d() { ",algo);
+  fprintf(fp, "<script>function loadChart%u() { ", algo);
 
-	fprintf(fp,"var data = [");
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(TIME[algo][il]==0)  fprintf(fp,",");
-  		else fprintf(fp,"%.2f,",TIME[algo][il]);
-  	}
-    fprintf(fp,"];\n");
+  fprintf(fp, "var data = [");
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (TIME[algo][il] == 0)
+        fprintf(fp, ",");
+      else
+        fprintf(fp, "%.2f,", TIME[algo][il]);
+    }
+  fprintf(fp, "];\n");
 
-	fprintf(fp,"var std1 = [");
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(TIME[algo][il]==0)  fprintf(fp,",");
-  		else fprintf(fp,"%.2f,",TIME[algo][il]-STD[algo][il]);
-  	}
-    fprintf(fp,"];\n");
+  fprintf(fp, "var std1 = [");
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (TIME[algo][il] == 0)
+        fprintf(fp, ",");
+      else
+        fprintf(fp, "%.2f,", TIME[algo][il] - STD[algo][il]);
+    }
+  fprintf(fp, "];\n");
 
-	fprintf(fp,"var std2 = [");
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(TIME[algo][il]==0)  fprintf(fp,",");
-  		else fprintf(fp,"%.2f,",TIME[algo][il]+STD[algo][il]);
-  	}
-    fprintf(fp,"];\n");
+  fprintf(fp, "var std2 = [");
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (TIME[algo][il] == 0)
+        fprintf(fp, ",");
+      else
+        fprintf(fp, "%.2f,", TIME[algo][il] + STD[algo][il]);
+    }
+  fprintf(fp, "];\n");
 
-	fprintf(fp,"var bound1 = [");
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(TIME[algo][il]==0)  fprintf(fp,",");
-  		else fprintf(fp,"%.2f,",WORST[algo][il]);
-  	}
-    fprintf(fp,"];\n");
+  fprintf(fp, "var bound1 = [");
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (TIME[algo][il] == 0)
+        fprintf(fp, ",");
+      else
+        fprintf(fp, "%.2f,", WORST[algo][il]);
+    }
+  fprintf(fp, "];\n");
 
-	fprintf(fp,"var bound2 = [");
-	for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   		if(TIME[algo][il]==0)  fprintf(fp,",");
-  		else fprintf(fp,"%.2f,",BEST[algo][il]);
-  	}
-    fprintf(fp,"];\n");
+  fprintf(fp, "var bound2 = [");
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      if (TIME[algo][il] == 0)
+        fprintf(fp, ",");
+      else
+        fprintf(fp, "%.2f,", BEST[algo][il]);
+    }
+  fprintf(fp, "];\n");
 
-	fprintf(fp,"var line3 = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+  fprintf(fp, "var line3 = new RGraph.Line({\n\
+            id: 'cvs%u',\n\
             data: [bound1, bound2],\n\
             options: {\n\
                 noxaxis: true,\n\
@@ -326,10 +394,11 @@ void printSTD(		double TIME[NumAlgo][NumPatt],
                 gutterLeft: 40,\n\
                 tickmarks: null,\n\
             }\n\
-        }).draw();\n",algo,ymax);
-        
-	fprintf(fp,"var line2 = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+        }).draw();\n",
+          algo, ymax);
+
+  fprintf(fp, "var line2 = new RGraph.Line({\n\
+            id: 'cvs%u',\n\
             data: [std1, std2],\n\
             options: {\n\
                 noxaxis: true,\n\
@@ -347,11 +416,11 @@ void printSTD(		double TIME[NumAlgo][NumPatt],
                 gutterLeft: 40,\n\
                 tickmarks: null,\n\
             }\n\
-        }).draw();\n",algo,ymax);
+        }).draw();\n",
+          algo, ymax);
 
-
-    fprintf(fp,"var line = new RGraph.Line({\n\
-            id: 'cvs%d',\n\
+  fprintf(fp, "var line = new RGraph.Line({\n\
+            id: 'cvs%u',\n\
             data: data,\n\
             options: {\n\
             	textFont: 'Yantramanav',\n\
@@ -369,46 +438,59 @@ void printSTD(		double TIME[NumAlgo][NumPatt],
                 spline: true,\n\
                 gutterLeft: 40,\n\
                 tickmarks: null,\n\
-                labels: [",algo,ymax);
-    for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) fprintf(fp, "'%d',",PATT_SIZE[il]);
-	fprintf(fp,"],\n");
-	fprintf(fp, "colors: ['#000000'],\n");
-	fprintf(fp,"} }).draw();");
+                labels: [",
+          algo, ymax);
+  for (unsigned int il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
+  fprintf(fp, "],\n");
+  fprintf(fp, "colors: ['#000000'],\n");
+  fprintf(fp, "} }).draw();");
 
-
-	fprintf(fp,"}</script>");
+  fprintf(fp, "}</script>");
+  free(upname);
 }
 
-void printMulti(	double TIME[NumAlgo][NumPatt],
-					FILE *fp, int w, int h, char *title, int code) {
+void printMulti(double TIME[NumAlgo][NumPatt], FILE *fp, int w, int h,
+                char *title, int code) {
 
-	int i, algo, il;
-	double dymax = 0.0;
-   	for(algo=0; algo<NumAlgo; algo++) {
-		for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   			if(TIME[algo][il]>dymax)  dymax = TIME[algo][il];
-  		}
-  	}
-	int ymax = dymax+1.0;
-	
-	fprintf(fp,"<div class=\"chart_container_small\" style=\"height:300px\"><div class=\"chart_title\">%s</div>\n",title);
-	fprintf(fp,"<div><canvas class=\"exp_chart_small\" id=\"cvs%d\" width=\"%d\" height=\"%d\">[No canvas support]</canvas>",code,w,h);
-	fprintf(fp,"</div>\n");
-	fprintf(fp,"</div>\n");
+  unsigned int i, algo, il;
+  double dymax = 0.0;
+  for (algo = 0; algo < NumAlgo; algo++) {
+    for (unsigned int il = 0; il < NumPatt; il++)
+      if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+        if (TIME[algo][il] > dymax)
+          dymax = TIME[algo][il];
+      }
+  }
+  //int ymax = dymax + 1.0;
 
+  fprintf(fp,
+          "<div class=\"chart_container_small\" style=\"height:300px\"><div "
+          "class=\"chart_title\">%s</div>\n",
+          title);
+  fprintf(fp,
+          "<div><canvas class=\"exp_chart_small\" id=\"cvs%d\" width=\"%d\" "
+          "height=\"%d\">[No canvas support]</canvas>",
+          code, w, h);
+  fprintf(fp, "</div>\n");
+  fprintf(fp, "</div>\n");
 
-	fprintf(fp,"<script>function multiChart%d() { var data = [",code);
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-   			fprintf(fp,"[");
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]==0)  fprintf(fp,",");
-   	 	  		else fprintf(fp,"%.2f,",TIME[algo][il]);
-   			}
-   			fprintf(fp,"],\n");
-		}
-   	}
-    fprintf(fp,"]; \n\
+  fprintf(fp, "<script>function multiChart%d() { var data = [", code);
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      fprintf(fp, "[");
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] == 0)
+            fprintf(fp, ",");
+          else
+            fprintf(fp, "%.2f,", TIME[algo][il]);
+        }
+      fprintf(fp, "],\n");
+    }
+  }
+  fprintf(fp, "]; \n\
         var line = new RGraph.Line({\n\
             id: 'cvs%d',\n\
             data: data,\n\
@@ -427,170 +509,246 @@ void printMulti(	double TIME[NumAlgo][NumPatt],
                 tickmarks: 'circle',\n\
                 spline: true,\n\
                 gutterLeft: 40,\n\
-                labels: [",code);
-    for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) fprintf(fp, "'%d',",PATT_SIZE[il]);
-	fprintf(fp,"],\n");
-	fprintf(fp, "colors: [");
-	for(i=0; i<num_colors; i++) fprintf(fp, "'%s',", colors[i]);
-	fprintf(fp,"],\n");
-	fprintf(fp,"} }).draw();\n");
+                labels: [",
+          code);
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
+  fprintf(fp, "],\n");
+  fprintf(fp, "colors: [");
+  for (i = 0; i < num_colors; i++)
+    fprintf(fp, "'%s',", colors[i]);
+  fprintf(fp, "],\n");
+  fprintf(fp, "} }).draw();\n");
 
-
-	fprintf(fp,"}</script>");
+  fprintf(fp, "}</script>");
 }
 
+int outputHTML2(double PRE_TIME[NumAlgo][NumPatt],
+                double TIME[NumAlgo][NumPatt], double BEST[NumAlgo][NumPatt],
+                double WORST[NumAlgo][NumPatt], double STD[NumAlgo][NumPatt],
+                int pre, int dif, int alpha, int n, int volte, char *filename,
+                char *expcode, char *time_format) {
+  unsigned int i, il, algo;
+  FILE *fp;
+  char outname[100];
+  (void)alpha;
 
-int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt], 
-					double TIME[NumAlgo][NumPatt],
-					double BEST[NumAlgo][NumPatt],
-					double WORST[NumAlgo][NumPatt],
-					double STD[NumAlgo][NumPatt], 
-					int pre, int dif, int alpha, int n, int volte, char *filename, char *expcode, char *time_format) {
-  	int  i, il, algo;
-   	FILE *fp;
-	char outname[100];
-	
-	computeRandomColors(colors);
-	
-	double OPTIMAL[NumPatt];
-	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-		OPTIMAL[il] = 0.0;
-	    for(algo=0; algo<NumAlgo; algo++)
-			if(EXECUTE[algo]) {
-				if(OPTIMAL[il]==0.0 || (OPTIMAL[il]>TIME[algo][il] && TIME[algo][il] > 0.0))  OPTIMAL[il]=TIME[algo][il];
-			}
-	}
+  computeRandomColors(colors);
 
-   	//printing results in html format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".html");
-   	printf("\tSaving data on %s/%s.html\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.html\n",expcode,filename);
-		return 0;
-	}
-	fprintf(fp,"<!DOCTYPE html><html><head>");
-	fprintf(fp,"<script src=\"../js/RGraph.common.core.js\"></script>");
-	fprintf(fp,"<script src=\"../js/RGraph.common.effects.js\"></script>");
-	fprintf(fp,"<script src=\"../js/RGraph.line.js\"></script>");
-	fprintf(fp,"<script src=\"../js/RGraph.bar.js\"></script>");
-	fprintf(fp,"<script src=\"../RGraph.common.dynamic.js\"></script>");
-	fprintf(fp,"<script src=\"../RGraph.common.tooltips.js\"></script>");
-    fprintf(fp,"<script src=\"../js/Smart.TimeResultFormatting.js\"></script>");
-	fprintf(fp,"<link href='https://fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>");
-	fprintf(fp,"<link href='https://fonts.googleapis.com/css?family=Yantramanav:400,100,700' rel='stylesheet' type='text/css'>");
-	fprintf(fp,"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\">");
-    fprintf(fp,"<title>SMART Experimental Results %s: %s</title>",expcode,filename);
-    fprintf(fp,"</head><body>");
+  double OPTIMAL[NumPatt];
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      OPTIMAL[il] = 0.0;
+      for (algo = 0; algo < NumAlgo; algo++)
+        if (EXECUTE[algo]) {
+          if (OPTIMAL[il] == 0.0 ||
+              (OPTIMAL[il] > TIME[algo][il] && TIME[algo][il] > 0.0))
+            OPTIMAL[il] = TIME[algo][il];
+        }
+    }
 
-	fprintf(fp,"<div class=\"main_container\">");
-	fprintf(fp,"<h1>SMART<span class=\"subtitle\">String Matching Algorithms Research Tool<span></h1>");
-	fprintf(fp,"<h3>by Simone Faro - <span class=\"link\">www.dmi.unict.it/~faro/smart/</span> - <span class=\"link\">email: faro@dmi.unict.it</span></h3>");
-	fprintf(fp,"<div class=\"name\">");
-	fprintf(fp,"<h2><b>Report of Experimental Results</b></h2>");
-	fprintf(fp,"<h2>Test Code %s</h2>",expcode);
-	fprintf(fp,"<h2>Date %s</h2>",time_format);
-	fprintf(fp,"<h2>Text %s (alphabet : %d - size : %d bytes)</h2>",filename,alpha,n);
-	fprintf(fp,"</div>");
-	
-	fprintf(fp,"<table id=\"resultTable\" class=\"exp_table\">\n");
-	fprintf(fp,"<tr><td class=\"length\"></td>");
-	for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-		fprintf(fp,"<td class=\"length\">%d</td>",PATT_SIZE[il]);
-	}
-	fprintf(fp,"<tr>");
-    const char* preVisible = pre ? "block" : "none";
-    const char* difVisible = dif ? "block" : "none";
-    for(algo=0; algo<NumAlgo; algo++)
-		if(EXECUTE[algo]) {
-   			fprintf(fp,"<tr>\n");
-   			fprintf(fp,"<td class=\"algo\"><b>%s</b></td>\n",str2upper(ALGO_NAME[algo]));   			
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				int best = 0;
-   				if(TIME[algo][il]==OPTIMAL[il]) best=1;
-   				fprintf(fp,"<td><center>");
-                fprintf(fp,"<div class=\"pre_time\" style=\"display:%s\">%.2f</div>",preVisible, PRE_TIME[algo][il]);
-   				if(TIME[algo][il]==0)  fprintf(fp,"<div class=\"search_time\">-</div>");
-   	 	  		else {
-   	 	  			if(!best) fprintf(fp,"<div class=\"search_time\">%.2f</div>",TIME[algo][il]);
-   	 	  			else fprintf(fp,"<div class=\"search_time_best\"><b>%.2f</b></div>",TIME[algo][il]);
-   	 	  		}
-                fprintf(fp,"<div class=\"dif\" style=\"display:%s\">%.2f - %.2f</div>",difVisible, BEST[algo][il],WORST[algo][il]);
-   				fprintf(fp,"</center></td>");
-   			}
-   			fprintf(fp,"</tr>\n");
-		}
-	fprintf(fp,"</table>\n");
-	fprintf(fp,"<div class=\"caption\"><b>Table 1.</b> Running times of experimental tests n.%s. Each time value is the mean of %d runs. ",expcode,volte);
-	if(pre) fprintf(fp,"The table reports also the mean of the preprocessing time (above each time value). ");
-	if(dif) fprintf(fp,"In addition the worst and best running times are reported (below each time value). ");
-	fprintf(fp,"Running times are in milliseconds.\n");
-    fprintf(fp,"<br><div class=\"controlHorizontalFloat\">\n"
-               "<input type=\"radio\" id=\"best\" name=\"resultformat\" value=\"best\" checked onclick=\"setBestColors(document)\">\n"
-               "<label for=\"best\">Best mean times</label></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n"
-               "<input type=\"radio\" id=\"heatMap5\" name=\"resultformat\" value=\"hm5\" onclick=\"heatMapGray(document.getElementById('resultTable'), 95)\">\n"
-               "<label for=\"heatMap5\">Heatmap top 5%%</label></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n"
-               "<input type=\"radio\" id=\"heatMap10\" name=\"resultformat\" value=\"hm10\" onclick=\"heatMapGray(document.getElementById('resultTable'), 90)\">\n"
-               "<label for=\"heatMap25\">Heatmap top 10%%</label></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n"
-               "<input type=\"radio\" id=\"heatMap25\" name=\"resultformat\" value=\"hm25\" onclick=\"heatMapGray(document.getElementById('resultTable'), 75)\">\n"
-               "<label for=\"heatMap25\">Heatmap top 25%%</label></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n"
-               "<input type=\"radio\" id=\"heatMap50\" name=\"resultformat\" value=\"hm50\" onclick=\"heatMapGray(document.getElementById('resultTable'), 50)\">\n"
-               "<label for=\"heatMap50\">Heatmap top 50%%</label></div><div class=\"clearHorizontalFloat\"></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n");
-    fprintf(fp,"<input type=\"checkbox\" id=\"pretime\" name=\"pretime\" value=\"pretime\" %s onclick=\"showDivs(document, 'pre_time', this.checked)\">\n", (pre? "checked" : ""));
-    fprintf(fp,"<label for=\"pretime\">Show pre-processing times</label></div>\n"
-               "<div class=\"controlHorizontalFloat\">\n");
-    fprintf(fp,"<input type=\"checkbox\" id=\"bestworst\" name=\"bestworst\" value=\"bestworst\" %s onclick=\"showDivs(document, 'dif', this.checked)\">\n", (dif? "checked" : ""));
-    fprintf(fp,"<label for=\"bestworst\">Show best and worst running times</label></div><br></div><p>\n");
-	fprintf(fp,"<div class=\"chart_container\"><div class=\"chart_title\">Average Running Times</div>\n");
-	fprintf(fp,"<canvas class=\"exp_chart\" id=\"cvs\" width=\"780\" height=\"400\">[No canvas support]</canvas>");
-    fprintf(fp,"<div style=\"padding-top:40px\">");
-    int col=0;
-    for(algo=0; algo<NumAlgo; algo++)
-		if(EXECUTE[algo])
-   			fprintf(fp,"<div class=\"didascalia\"><div class=\"line\" style=\"background-color:%s\"></div class=\"label\"> %s</div>\n",colors[col++],str2upper(ALGO_NAME[algo]));
-    fprintf(fp,"</div><br/><br/>");
-	fprintf(fp,"<div class=\"caption\"><b>Chart 1.</b> Plot of the running times of experimental tests n.%s. ",expcode);
-	fprintf(fp,"The x axes reports the length of the pattern (in a log scale) while the y axes reports the running time in milliseconds. ");
-	fprintf(fp,"</div>\n");
-	fprintf(fp,"</div>\n");
+  // printing results in html2 format
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
+#ifndef _WIN32
+  mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
+  snprintf(outname, sizeof(outname), "results/%s/%s.html", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  fprintf(fp, "<!DOCTYPE html><html><head>");
+  fprintf(fp, "<script src=\"../js/RGraph.common.core.js\"></script>");
+  fprintf(fp, "<script src=\"../js/RGraph.common.effects.js\"></script>");
+  fprintf(fp, "<script src=\"../js/RGraph.line.js\"></script>");
+  fprintf(fp, "<script src=\"../js/RGraph.bar.js\"></script>");
+  fprintf(fp, "<script src=\"../RGraph.common.dynamic.js\"></script>");
+  fprintf(fp, "<script src=\"../RGraph.common.tooltips.js\"></script>");
+  fprintf(fp, "<script src=\"../js/Smart.TimeResultFormatting.js\"></script>");
+  fprintf(fp, "<link href='https://fonts.googleapis.com/css?family=Dosis:300' "
+              "rel='stylesheet' type='text/css'>");
+  fprintf(
+      fp,
+      "<link "
+      "href='https://fonts.googleapis.com/css?family=Yantramanav:400,100,700' "
+      "rel='stylesheet' type='text/css'>");
+  fprintf(fp,
+          "<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\">");
+  fprintf(fp, "<title>SMART Experimental Results %s: %s</title>", expcode,
+          filename);
+  fprintf(fp, "</head><body>");
 
-	printMulti(	WORST, fp, 480, 250, "Worst Running Times", 2);
-	printMulti(	BEST, fp, 480, 250, "Best Running Times", 3);
+  fprintf(fp, "<div class=\"main_container\">");
+  fprintf(fp, "<h1>SMART<span class=\"subtitle\">String Matching Algorithms "
+              "Research Tool<span></h1>");
+  fprintf(fp, "<h3>by Simone Faro - <span "
+              "class=\"link\">www.dmi.unict.it/~faro/smart/</span> - <span "
+              "class=\"link\">email: faro@dmi.unict.it</span></h3>");
+  fprintf(fp, "<div class=\"name\">");
+  fprintf(fp, "<h2><b>Report of Experimental Results</b></h2>");
+  fprintf(fp, "<h2>Test Code %s</h2>", expcode);
+  fprintf(fp, "<h2>Date %s</h2>", time_format);
+  fprintf(fp, "<h2>Text %s (alphabet : %d - size : %d bytes)</h2>", filename,
+          alpha, n);
+  fprintf(fp, "</div>");
 
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo])
-			printSTD(TIME, BEST, WORST, STD, algo, expcode, fp);
-	}
+  fprintf(fp, "<table id=\"resultTable\" class=\"exp_table\">\n");
+  fprintf(fp, "<tr><td class=\"length\"></td>");
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+      fprintf(fp, "<td class=\"length\">%u</td>", PATT_SIZE[il]);
+    }
+  fprintf(fp, "<tr>");
+  const char *preVisible = pre ? "block" : "none";
+  const char *difVisible = dif ? "block" : "none";
+  for (algo = 0; algo < NumAlgo; algo++)
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp, "<tr>\n");
+      fprintf(fp, "<td class=\"algo\"><b>%s</b></td>\n", upname);
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          int best = 0;
+          if (TIME[algo][il] == OPTIMAL[il])
+            best = 1;
+          fprintf(fp, "<td><center>");
+          fprintf(fp, "<div class=\"pre_time\" style=\"display:%s\">%.2f</div>",
+                  preVisible, PRE_TIME[algo][il]);
+          if (TIME[algo][il] == 0)
+            fprintf(fp, "<div class=\"search_time\">-</div>");
+          else {
+            if (!best)
+              fprintf(fp, "<div class=\"search_time\">%.2f</div>",
+                      TIME[algo][il]);
+            else
+              fprintf(fp, "<div class=\"search_time_best\"><b>%.2f</b></div>",
+                      TIME[algo][il]);
+          }
+          fprintf(fp,
+                  "<div class=\"dif\" style=\"display:%s\">%.2f - %.2f</div>",
+                  difVisible, BEST[algo][il], WORST[algo][il]);
+          fprintf(fp, "</center></td>");
+        }
+      fprintf(fp, "</tr>\n");
+      free(upname);
+    }
+  fprintf(fp, "</table>\n");
+  fprintf(fp,
+          "<div class=\"caption\"><b>Table 1.</b> Running times of "
+          "experimental tests n.%s. Each time value is the mean of %d runs. ",
+          expcode, volte);
+  if (pre)
+    fprintf(fp, "The table reports also the mean of the preprocessing time "
+                "(above each time value). ");
+  if (dif)
+    fprintf(fp, "In addition the worst and best running times are reported "
+                "(below each time value). ");
+  fprintf(fp, "Running times are in milliseconds.\n");
+  fprintf(
+      fp,
+      "<br><div class=\"controlHorizontalFloat\">\n"
+      "<input type=\"radio\" id=\"best\" name=\"resultformat\" value=\"best\" "
+      "checked onclick=\"setBestColors(document)\">\n"
+      "<label for=\"best\">Best mean times</label></div>\n"
+      "<div class=\"controlHorizontalFloat\">\n"
+      "<input type=\"radio\" id=\"heatMap5\" name=\"resultformat\" "
+      "value=\"hm5\" "
+      "onclick=\"heatMapGray(document.getElementById('resultTable'), 95)\">\n"
+      "<label for=\"heatMap5\">Heatmap top 5%%</label></div>\n"
+      "<div class=\"controlHorizontalFloat\">\n"
+      "<input type=\"radio\" id=\"heatMap10\" name=\"resultformat\" "
+      "value=\"hm10\" "
+      "onclick=\"heatMapGray(document.getElementById('resultTable'), 90)\">\n"
+      "<label for=\"heatMap25\">Heatmap top 10%%</label></div>\n"
+      "<div class=\"controlHorizontalFloat\">\n"
+      "<input type=\"radio\" id=\"heatMap25\" name=\"resultformat\" "
+      "value=\"hm25\" "
+      "onclick=\"heatMapGray(document.getElementById('resultTable'), 75)\">\n"
+      "<label for=\"heatMap25\">Heatmap top 25%%</label></div>\n"
+      "<div class=\"controlHorizontalFloat\">\n"
+      "<input type=\"radio\" id=\"heatMap50\" name=\"resultformat\" "
+      "value=\"hm50\" "
+      "onclick=\"heatMapGray(document.getElementById('resultTable'), 50)\">\n"
+      "<label for=\"heatMap50\">Heatmap top 50%%</label></div><div "
+      "class=\"clearHorizontalFloat\"></div>\n"
+      "<div class=\"controlHorizontalFloat\">\n");
+  fprintf(fp,
+          "<input type=\"checkbox\" id=\"pretime\" name=\"pretime\" "
+          "value=\"pretime\" %s onclick=\"showDivs(document, 'pre_time', "
+          "this.checked)\">\n",
+          (pre ? "checked" : ""));
+  fprintf(fp, "<label for=\"pretime\">Show pre-processing times</label></div>\n"
+              "<div class=\"controlHorizontalFloat\">\n");
+  fprintf(fp,
+          "<input type=\"checkbox\" id=\"bestworst\" name=\"bestworst\" "
+          "value=\"bestworst\" %s onclick=\"showDivs(document, 'dif', "
+          "this.checked)\">\n",
+          (dif ? "checked" : ""));
+  fprintf(fp, "<label for=\"bestworst\">Show best and worst running "
+              "times</label></div><br></div><p>\n");
+  fprintf(fp, "<div class=\"chart_container\"><div "
+              "class=\"chart_title\">Average Running Times</div>\n");
+  fprintf(fp, "<canvas class=\"exp_chart\" id=\"cvs\" width=\"780\" "
+              "height=\"400\">[No canvas support]</canvas>");
+  fprintf(fp, "<div style=\"padding-top:40px\">");
+  int col = 0;
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      char *upname = str2upper(ALGO_NAME[algo]);
+      fprintf(fp,
+              "<div class=\"didascalia\"><div class=\"line\" "
+              "style=\"background-color:%s\"></div class=\"label\"> %s</div>\n",
+              colors[col++], upname);
+      free(upname);
+    }
+  }
+  fprintf(fp, "</div><br/><br/>");
+  fprintf(fp,
+          "<div class=\"caption\"><b>Chart 1.</b> Plot of the running times of "
+          "experimental tests n.%s. ",
+          expcode);
+  fprintf(fp, "The x axes reports the length of the pattern (in a log scale) "
+              "while the y axes reports the running time in milliseconds. ");
+  fprintf(fp, "</div>\n");
+  fprintf(fp, "</div>\n");
 
-	double dymax = 0.0;
-    for(algo=0; algo<NumAlgo; algo++)
-		if(EXECUTE[algo])
-			for(int il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]>dymax)  dymax = TIME[algo][il];
-  			}
-	int ymax = dymax+1.0;
-    
-	fprintf(fp,"<script>window.onload = (function () { var data = [");
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo]) {
-   			fprintf(fp,"[");
-   			for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) {
-   				if(TIME[algo][il]==0)  fprintf(fp,",");
-   	 	  		else fprintf(fp,"%.2f,",TIME[algo][il]);
-   			}
-   			fprintf(fp,"],\n");
-		}
-   	}
-    fprintf(fp,"]; \n\
+  printMulti(WORST, fp, 480, 250, "Worst Running Times", 2);
+  printMulti(BEST, fp, 480, 250, "Best Running Times", 3);
+
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo])
+      printSTD(TIME, BEST, WORST, STD, algo, expcode, fp);
+  }
+
+  double dymax = 0.0;
+  for (algo = 0; algo < NumAlgo; algo++)
+    if (EXECUTE[algo])
+      for (unsigned int il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] > dymax)
+            dymax = TIME[algo][il];
+        }
+  int ymax = (int)(dymax + 1.0);
+
+  fprintf(fp, "<script>window.onload = (function () { var data = [");
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo]) {
+      fprintf(fp, "[");
+      for (il = 0; il < NumPatt; il++)
+        if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN) {
+          if (TIME[algo][il] == 0)
+            fprintf(fp, ",");
+          else
+            fprintf(fp, "%.2f,", TIME[algo][il]);
+        }
+      fprintf(fp, "],\n");
+    }
+  }
+  fprintf(fp, "]; \n\
         var line = new RGraph.Line({\n\
             id: 'cvs',\n\
             data: data,\n\
@@ -610,45 +768,56 @@ int outputHTML2(	double PRE_TIME[NumAlgo][NumPatt],
                 spline: true,\n\
                 ymax: %d,\n\
                 gutterLeft: 40,\n\
-                labels: [",ymax);
-    for(il=0; il<NumPatt; il++)	if(PATT_SIZE[il]>=MINLEN && PATT_SIZE[il]<=MAXLEN) fprintf(fp, "'%d',",PATT_SIZE[il]);
-	fprintf(fp,"],\n");
-	fprintf(fp, "colors: [");
-	for(i=0; i<num_colors; i++) fprintf(fp, "'%s',", colors[i]);
-	fprintf(fp,"],\n");
-	fprintf(fp,"} }).draw();\n");
+                labels: [",
+          ymax);
+  for (il = 0; il < NumPatt; il++)
+    if (PATT_SIZE[il] >= MINLEN && PATT_SIZE[il] <= MAXLEN)
+      fprintf(fp, "'%u',", PATT_SIZE[il]);
+  fprintf(fp, "],\n");
+  fprintf(fp, "colors: [");
+  for (i = 0; i < num_colors; i++)
+    fprintf(fp, "'%s',", colors[i]);
+  fprintf(fp, "],\n");
+  fprintf(fp, "} }).draw();\n");
 
-   	for(algo=0; algo<NumAlgo; algo++) {
-		if(EXECUTE[algo])
-			fprintf(fp,"loadChart%d();\n",algo);
-	}
-	fprintf(fp,"multiChart2(); multiChart3();\n");
-	fprintf(fp,"});</script>");
-    
-    
-	fprintf(fp,"</div>");
-    fprintf(fp,"</body></html>");
-   	fclose(fp);
-	return 1;
+  for (algo = 0; algo < NumAlgo; algo++) {
+    if (EXECUTE[algo])
+      fprintf(fp, "loadChart%u();\n", algo);
+  }
+  fprintf(fp, "multiChart2(); multiChart3();\n");
+  fprintf(fp, "});</script>");
+
+  fprintf(fp, "</div>");
+  fprintf(fp, "</body></html>");
+  fclose(fp);
+  return 1;
 }
 
-int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt], int pre, int alpha, char *filename, char *expcode, char *time_format) {
-  	int  i, il, algo;
-   	FILE *fp;
-	char outname[100];
-   	//printing results in html format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	mkdir(outname,S_IROTH);
-	strcat(outname, "/");
-	strcat(outname, filename);
-	strcat(outname, ".html");
-   	printf("\tSaving data on %s/%s.html\n",expcode,filename);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/%s.html\n",expcode,filename);
-		return 0;
-	}
-	fprintf(fp,"<html>\n\
+int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
+               int pre, int alpha, char *filename, char *expcode,
+               char *time_format) {
+  int i;
+  FILE *fp;
+  char outname[100];
+  (void)alpha;
+  (void)PRE_TIME;
+  (void)TIME;
+  (void)pre;
+
+  // printing results in html format
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
+#ifndef _WIN32
+  mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
+  snprintf(outname, sizeof(outname), "results/%s/%s.html", expcode, filename);
+  printf("\tSaving data on %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s\n", outname);
+    return 0;
+  }
+  fprintf(fp, "<html>\n\
 		<head>\n\
 		\t<title>SMART: experimental results %s on %s</title>\n\
 		\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n\
@@ -668,12 +837,14 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
 		\t\txmlhttp.send();\n\
 		\t\txmlDoc=xmlhttp.responseXML; \n\
 		\t\tdocument.write(\"<h2>SMART: experimental results %s on %s</h2><br>Results computed on %s<br/>\");\n\
-		\t\tdocument.write(\"<table align=\\\"center\\\">\");\n",expcode,filename,filename,expcode,filename, time_format);
-	fprintf(fp,"document.write(\"<tr><td></td>\");\n");
-	for(i=0; PATT_SIZE[i]>0; i++) if(PATT_SIZE[i]>=MINLEN && PATT_SIZE[i]<=MAXLEN)
-		fprintf(fp,"document.write(\"<td><b>%d</b></td>\");\n",PATT_SIZE[i]);
-	fprintf(fp,"document.write(\"</tr>\");\n");
-	fprintf(fp,"\
+		\t\tdocument.write(\"<table align=\\\"center\\\">\");\n",
+          expcode, filename, filename, expcode, filename, time_format);
+  fprintf(fp, "document.write(\"<tr><td></td>\");\n");
+  for (i = 0; PATT_SIZE[i] > 0; i++)
+    if (PATT_SIZE[i] >= MINLEN && PATT_SIZE[i] <= MAXLEN)
+      fprintf(fp, "document.write(\"<td><b>%u</b></td>\");\n", PATT_SIZE[i]);
+  fprintf(fp, "document.write(\"</tr>\");\n");
+  fprintf(fp, "\
 		\t\tvar best=xmlDoc.getElementsByTagName(\"BEST\");\n\
 		\t\tvar bestvalues = best[0].getElementsByTagName(\"DATA\");\n\
 		\t\tvar x=xmlDoc.getElementsByTagName(\"ALGO\");\n\
@@ -699,25 +870,29 @@ int outputHTML(double PRE_TIME[NumAlgo][NumPatt], double TIME[NumAlgo][NumPatt],
 		\t</script>\n\
 		</body>\n\
 		</html>");
-   	fclose(fp);
-	return 1;
+  fclose(fp);
+  return 1;
 }
 
-int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers, char *expcode) {
-  	int  i, sett,il, algo;
-   	FILE *fp;
-	char outname[100];
-   	//printing results in html format
-	strcpy(outname, "results/");
-	strcat(outname, expcode);
-	mkdir(outname,S_IROTH);
-	strcat(outname, "/index.html");
-   	printf("\tWriting %s/index.html\n",expcode);
-   	if ( !(fp = fopen(outname,"w") ) ) {
-		printf("\tError in writing file %s/index.html\n",expcode);
-		return 0;
-	}
-	fprintf(fp,"<html>\n\
+int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers,
+                char *expcode) {
+  unsigned int sett;
+  FILE *fp;
+  char outname[100];
+  // printing results in html format
+  snprintf(outname, sizeof(outname), "results/%s", expcode);
+#ifndef _WIN32
+  mkdir(outname, S_IROTH);
+#else
+  mkdir(outname);
+#endif
+  strncat(outname, "/index.html", SZNCAT(outname));
+  printf("\tWriting %s\n", outname);
+  if (!(fp = fopen(outname, "w"))) {
+    printf("\tError in writing file %s/index.html\n", expcode);
+    return 0;
+  }
+  fprintf(fp, "<html>\n\
 		\t<head>\n\
 		\t\t<title>SMART: experimental results %s</title>\n\
 		\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n\
@@ -725,21 +900,25 @@ int outputINDEX(char list_of_filenames[NumSetting][50], int num_buffers, char *e
 		\t</head>\n\
 		\t<body>\n\
 		\t\t<h2>SMART: experimental results %s</h2><br>\n\
-		\t\t<table align=\"center\">\n",expcode,expcode);
-	if( strcmp(list_of_filenames[0],"all") ) {
-		for(int k=0; k<num_buffers; k++)
-			fprintf(fp,"\t\t\t<tr><td><a href=\"%s.html\">Experimental results on %s</a></td></tr>\n",list_of_filenames[k],list_of_filenames[k]);
-	}
-	else
-		for(sett=0; sett<NumSetting; sett++) {
-			fprintf(fp,"\t\t\t<tr><td><a href=\"%s.html\">Experimental results on %s</a></td></tr>\n",SETTING_BUFFER[sett],SETTING_BUFFER[sett]);
-	}
-	fprintf(fp,"\t\t</table>\n\
+		\t\t<table align=\"center\">\n",
+          expcode, expcode);
+  if (strcmp(list_of_filenames[0], "all")) {
+    for (int k = 0; k < num_buffers; k++)
+      fprintf(fp,
+              "\t\t\t<tr><td><a href=\"%s.html\">Experimental results on "
+              "%s</a></td></tr>\n",
+              list_of_filenames[k], list_of_filenames[k]);
+  } else
+    for (sett = 0; sett < NumSetting; sett++) {
+      fprintf(fp,
+              "\t\t\t<tr><td><a href=\"%s.html\">Experimental results on "
+              "%s</a></td></tr>\n",
+              SETTING_BUFFER[sett], SETTING_BUFFER[sett]);
+    }
+  fprintf(fp, "\t\t</table>\n\
 		\t</body>\n\
 		</html>");
-   	printf("\n");
-   	fclose(fp);
-	return 1;
+  printf("\n");
+  fclose(fp);
+  return 1;
 }
-
-

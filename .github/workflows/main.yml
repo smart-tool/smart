@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+  pull_request:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+    - run:  ./build.sh dotest && make check
+  sanitizer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Fix kernel mmap rnd bits for -fsanitize=address
+      run: |
+        # https://github.com/actions/runner-images/issues/9491
+        sudo sysctl vm.mmap_rnd_bits=28
+    - name: make SANITIZE=1 && test-asan `grep -v '^#' asan.lst`
+      run: |
+        make CC=clang SANITIZE=1 &&
+        for t in `grep -v '^#' asan.lst`; do
+          ./test-asan "$t"
+        done
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        sudo apt-get -y install cppcheck clang-tidy bear
+    - run: make lint
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        sudo apt-get -y install cbmc
+    - run: make verify
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    env:
+      MSYS2_DIR: msys64
+      MSYS2_ARCH: x86_64
+      MSYSTEM: MINGW64
+      ARCH: win64
+      PLATFORM: x64
+    steps:
+      # see https://github.com/msys2/setup-msys2
+    - name: setup-msys2
+      uses: msys2/setup-msys2@v2
+      with:
+        path-type: minimal
+        update: true
+        install: >-
+          git
+          base-devel
+          mingw-w64-x86_64-toolchain
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    - shell: msys2 {0}
+      run: ./build.sh
+  macOS:
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        sudo sysctl -w kern.sysv.shmmax=16777216
+        sudo sysctl -w kern.sysv.shmmni=128
+        sudo sysctl -w kern.sysv.shmseg=32
+        sudo sysctl -w kern.sysv.shmall=4096
+    - name: ./build.sh dotest && make check
+      run: |
+        ./build.sh dotest
+        ./free_shm
+        make check
+        ./free_shm
+  aarch64:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: uraimo/run-on-arch-action@v2.7.1
+        name: check on aarch64
+        id: runcmd
+        with:
+          arch: aarch64
+          githubToken: ${{ github.token }}
+          distro: ubuntu_latest
+          install: |
+            apt-get update -q -y
+            apt-get install -y make gcc grep
+          run: ./build.sh dotest

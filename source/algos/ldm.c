@@ -12,72 +12,109 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Linear DAWG Matching algorithm
- * in L. He and B. Fang and J. Sui. The wide window string matching algorithm. 
- * Theor. Comput. Sci., vol.332, n.1-3, pp.391--404, Elsevier Science Publishers Ltd., Essex, UK, (2005).
+ * in L. He and B. Fang and J. Sui. The wide window string matching algorithm.
+ * Theor. Comput. Sci., vol.332, n.1-3, pp.391--404, Elsevier Science Publishers
+ * Ltd., Essex, UK, (2005).
+ *
+ * Broken for m=2, off-by-one
+ * Constraints: requires m>=2
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/AUTOMATON.h"
+#include "include/search_small.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int k, R, L, r, ell, end, count;
-   int *ttrans, *tlength, *tsuffix;
-   int *ttransSMA;
-   char *tterminal;
-   unsigned char *xR;
- 
-   BEGIN_PREPROCESSING
-   count = 0;
-   /* Preprocessing */
-   xR = reverse(x,m);
-   ttrans = (int *)malloc(3*m*SIGMA*sizeof(int));
-   memset(ttrans, -1, 3*m*SIGMA*sizeof(int));
-   tlength = (int *)calloc(3*m, sizeof(int));
-   tsuffix = (int *)calloc(3*m, sizeof(int));
-   tterminal = (char *)calloc(3*m, sizeof(char));
-   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
+  int k, R, L, r, ell, end, count;
+  int *ttrans, *tlength, *tsuffix;
+  int *ttransSMA;
+  unsigned char *tterminal;
+  unsigned char *xR;
+  unsigned char s_xR[(M_CUTOFF + 1)];
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  unsigned char s_tterminal[3 * M_CUTOFF];
+  int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
-   ttransSMA = (int *)malloc((m+1)*SIGMA*sizeof(int));
-   memset(ttransSMA, -1, (m+1)*SIGMA*sizeof(int));
-   preSMA(x, m, ttransSMA);
-   end = n/m;
-   if (n%m > 0) ++end;
-   END_PREPROCESSING
+  if (m < 2)
+    return search_small(x, m, y, n);
 
-   /* Searching */
-   BEGIN_SEARCHING
-   for (k = 1; k < end; ++k) {
-      R = L = r = ell = 0;
-      while (L != UNDEFINED && k*m-1-ell >= 0) {
-         L = getTarget(L, y[k*m-1-ell]);
-         ++ell;
-         if (L != UNDEFINED && isTerminal(L))
-            R = ell;
-      }
-      while (R > r-k*m) {
-         if (R == m) OUTPUT(k*m+r-m);
-         ++r;
-         if (r == m) break;
-         R = getSMA(R, y[k*m-1+r]);
-      }
-   }
-   for (k = (end-1)*m; k <= n - m; ++k) {
-      for (r = 0; r < m && x[r] == y[r + k]; ++r);
-      if (r >= m) count++;
-   }
-   free(ttrans);
-   free(tlength);
-   free(tsuffix);
-   free(ttransSMA);
-   free(tterminal);
-   END_SEARCHING
-   return count;
+  BEGIN_PREPROCESSING
+  count = 0;
+  if (m > M_CUTOFF) {
+    xR = ureverse(x, m);
+    ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+    tlength = (int *)calloc(3 * m, sizeof(int));
+    tsuffix = (int *)calloc(3 * m, sizeof(int));
+    tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
+    ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
+  } else {
+    xR = s_xR;
+    s_ureverse(xR, x, m);
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+    ttransSMA = s_ttransSMA;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+    memset(tlength, 0, 3 * m * sizeof(int));
+    memset(tsuffix, 0, 3 * m * sizeof(int));
+    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
+  }
+  memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
+  buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
+  memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  preSMA(x, m, ttransSMA);
+  end = n / m;
+  if (n % m > 0)
+    ++end;
+  END_PREPROCESSING
+
+  /* Searching */
+  BEGIN_SEARCHING
+  for (k = 1; k < end; ++k) {
+    R = L = r = ell = 0;
+    int iy = k * m - 1 - ell;
+    while (L != UNDEFINED && iy < n && iy >= 0) {
+      L = getTarget(L, y[iy]);
+      ++ell;
+      iy--;
+      if (L != UNDEFINED && isTerminal(L))
+        R = ell;
+    }
+    while (R > r - k * m) {
+      if (R == m)
+        OUTPUT(k * m + r - m);
+      ++r;
+      if (r == m)
+        break;
+      iy = k * m - 1 + r;
+      if (iy < n)
+        R = getSMA(R, y[iy]);
+    }
+  }
+  for (k = (end - 1) * m; k <= n - m; ++k) {
+    for (r = 0; r < m && x[r] == y[r + k]; ++r)
+      ;
+    if (r >= m)
+      count++;
+  }
+  if (m > M_CUTOFF) {
+    free(ttransSMA);
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
+    free(xR);
+  }
+  END_SEARCHING
+  return count;
 }
-
-

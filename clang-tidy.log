@@ -1,0 +1,69 @@
+source/algos/graspm.c:99:9: warning: Value stored to 'pos' is never read [clang-analyzer-deadcode.DeadStores]
+   99 |         pos = pos->next;
+      |         ^     ~~~~~~~~~
+source/algos/graspm.c:99:9: note: Value stored to 'pos' is never read
+   99 |         pos = pos->next;
+      |         ^     ~~~~~~~~~
+source/algos/sebom.c:58:17: warning: Array access results in an undefined pointer dereference [clang-analyzer-core.NullDereference]
+   58 |     trans[i][c] = iMinus1;
+      |     ~~~~~~~~~~~~^~~~~~~~~
+source/algos/sebom.c:34:7: note: Assuming 'm' is >= 2
+   34 |   if (m < 2)
+      |       ^~~~~
+source/algos/sebom.c:34:3: note: Taking false branch
+   34 |   if (m < 2)
+      |   ^
+source/algos/sebom.c:41:7: note: Assuming the condition is false
+   41 |   if (m + 2 > M_CUTOFF) {
+      |       ^~~~~~~~~~~~~~~~
+source/algos/sebom.c:41:3: note: Taking false branch
+   41 |   if (m + 2 > M_CUTOFF) {
+      |   ^
+source/algos/sebom.c:46:17: note: Assuming the condition is false
+   46 |     for (i = 0; i <= m + 1; i++)
+      |                 ^~~~~~~~~~
+source/algos/sebom.c:46:5: note: Loop condition is false. Execution continues on line 51
+   46 |     for (i = 0; i <= m + 1; i++)
+      |     ^
+source/algos/sebom.c:51:3: note: Loop condition is false. Execution continues on line 54
+   51 |   for (i = 0; i <= m + 1; i++)
+      |   ^
+source/algos/sebom.c:55:8: note: The value 2147483647 is assigned to 'i'
+   55 |   for (i = m; i > 0; --i) {
+      |        ^~~~~
+source/algos/sebom.c:55:3: note: Loop condition is true.  Entering loop body
+   55 |   for (i = m; i > 0; --i) {
+      |   ^
+source/algos/sebom.c:58:17: note: Array access results in an undefined pointer dereference
+   58 |     trans[i][c] = iMinus1;
+      |     ~~~~~~~~~~~~^~~~~~~~~
+source/algos/sfbom.c:54:17: warning: Array access results in an undefined pointer dereference [clang-analyzer-core.NullDereference]
+   54 |     trans[i][c] = iMinus1;
+      |     ~~~~~~~~~~~~^~~~~~~~~
+source/algos/sfbom.c:38:7: note: Assuming the condition is false
+   38 |   if (m + 2 > M_CUTOFF) {
+      |       ^~~~~~~~~~~~~~~~
+source/algos/sfbom.c:38:3: note: Taking false branch
+   38 |   if (m + 2 > M_CUTOFF) {
+      |   ^
+source/algos/sfbom.c:43:17: note: Assuming the condition is false
+   43 |     for (i = 0; i <= m + 1; i++)
+      |                 ^~~~~~~~~~
+source/algos/sfbom.c:43:5: note: Loop condition is false. Execution continues on line 47
+   43 |     for (i = 0; i <= m + 1; i++)
+      |     ^
+source/algos/sfbom.c:47:3: note: Loop condition is false. Execution continues on line 50
+   47 |   for (i = 0; i <= m + 1; i++)
+      |   ^
+source/algos/sfbom.c:51:8: note: Value assigned to 'i'
+   51 |   for (i = m; i > 0; --i) {
+      |        ^~~~~
+source/algos/sfbom.c:51:15: note: Assuming 'i' is > 0
+   51 |   for (i = m; i > 0; --i) {
+      |               ^~~~~
+source/algos/sfbom.c:51:3: note: Loop condition is true.  Entering loop body
+   51 |   for (i = m; i > 0; --i) {
+      |   ^
+source/algos/sfbom.c:54:17: note: Array access results in an undefined pointer dereference
+   54 |     trans[i][c] = iMinus1;
+      |     ~~~~~~~~~~~~^~~~~~~~~

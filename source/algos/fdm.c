@@ -12,12 +12,13 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the Forward DAWG Matching algorithm
- * in M. Crochemore and W. Rytter. Text algorithms. Oxford University Press, (1994).
+ * in M. Crochemore and W. Rytter. Text algorithms. Oxford University Press,
+ * (1994).
  */
 
 #include "include/define.h"
@@ -25,53 +26,66 @@
 #include "include/AUTOMATON.h"
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int j, init, ell, state, count;
-   int *ttrans, *tlength, *tsuffix;
-   unsigned char *tterminal;
- 
-   count = 0;
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   ttrans = (int *)malloc(3*m*SIGMA*sizeof(int));
-   memset(ttrans, -1, 3*m*SIGMA*sizeof(int));
-   tlength = (int *)calloc(3*m, sizeof(int));
-   tsuffix = (int *)calloc(3*m, sizeof(int));
-   tterminal = (char *)calloc(3*m, sizeof(char));
-   buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
-   init = 0;
-   END_PREPROCESSING
+  int j, init, ell, state, count;
+  int *ttrans, *tlength, *tsuffix;
+  unsigned char *tterminal;
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  unsigned char s_tterminal[3 * M_CUTOFF];
 
-   /* Searching */
-   BEGIN_SEARCHING
-   ell = 0;
-   state = init;
-   for (j = 0; j < n; ++j) {
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  if (m > M_CUTOFF) {
+    ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+    tlength = (int *)calloc(3 * m, sizeof(int));
+    tsuffix = (int *)calloc(3 * m, sizeof(int));
+    tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
+  } else {
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+    memset(tlength, 0, 3 * m * sizeof(int));
+    memset(tsuffix, 0, 3 * m * sizeof(int));
+    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
+  }
+  memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  buildSimpleSuffixAutomaton(x, m, ttrans, tlength, tsuffix, tterminal);
+  init = 0;
+  count = 0;
+  ell = 0;
+  END_PREPROCESSING
+
+  /* Searching */
+  BEGIN_SEARCHING
+  state = init;
+  for (j = 0; j < n; ++j) {
+    if (getTarget(state, y[j]) != UNDEFINED) {
+      ++ell;
+      state = getTarget(state, y[j]);
+    } else {
+      while (state != init && getTarget(state, y[j]) == UNDEFINED)
+        state = getSuffixLink(state);
       if (getTarget(state, y[j]) != UNDEFINED) {
-         ++ell;
-         state = getTarget(state, y[j]);
+        ell = getLength(state) + 1;
+        state = getTarget(state, y[j]);
+      } else {
+        ell = 0;
+        state = init;
       }
-      else {
-         while (state != init && getTarget(state, y[j]) == UNDEFINED)
-            state = getSuffixLink(state);
-         if (getTarget(state, y[j]) != UNDEFINED) {
-            ell = getLength(state) + 1;
-            state = getTarget(state, y[j]);
-         }
-         else {
-            ell = 0;
-            state = init;
-         }
-      }
-      if (ell == m)
-         OUTPUT(j - m + 1);
-   }
-   free(ttrans);
-   free(tlength);
-   free(tsuffix);
-   free(tterminal);
-   END_SEARCHING
-   return count;
+    }
+    if (ell == m)
+      OUTPUT(j - m + 1);
+  }
+  END_SEARCHING
+  if (m > M_CUTOFF) {
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
+  }
+  return count;
 }
-
-
-

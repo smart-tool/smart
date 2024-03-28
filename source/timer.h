@@ -25,13 +25,13 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <unistd.h>
-#include <time.h>
 #include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
 typedef struct {
-	double start;
-	double end;
+  double start;
+  double end;
 } TIMER;
 
 #ifdef __linux__
@@ -39,32 +39,22 @@ typedef struct {
 #define clock_gettime(id, ts) syscall(SYS_clock_gettime, (id), (ts))
 #endif
 
-static inline double get_time(void)
-{
+static inline double get_time(void) {
 #if defined(_POSIX_MONOTONIC_CLOCK) && _POSIX_MONOTONIC_CLOCK >= 0
-	struct timespec ts;
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return ts.tv_nsec * 1e-9 + ts.tv_sec;
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return ts.tv_nsec * 1e-9 + ts.tv_sec;
 #else
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_usec * 1e-6 + tv.tv_sec;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return tv.tv_usec * 1e-6 + tv.tv_sec;
 #endif
 }
 
-static inline void timer_start(TIMER *t)
-{
-	t->start = get_time();
-}
+static inline void timer_start(TIMER *t) { t->start = get_time(); }
 
-static inline void timer_stop(TIMER *t)
-{
-	t->end = get_time();
-}
+static inline void timer_stop(TIMER *t) { t->end = get_time(); }
 
-static inline double timer_elapsed(TIMER *t)
-{
-	return t->end - t->start;
-}
+static inline double timer_elapsed(TIMER *t) { return t->end - t->start; }
 
 #endif

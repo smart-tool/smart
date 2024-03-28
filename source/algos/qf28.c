@@ -12,74 +12,80 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
  * This is an implementation of the QF (Q-gram Filtering) algorithm
- * in Branislav Durian1, Hannu Peltola, Leena Salmela and Jorma Tarhio2 	
+ * in Branislav Durian1, Hannu Peltola, Leena Salmela and Jorma Tarhio2
  * Bit-Parallel Search Algorithms for Long Patterns
  * International Symposium on Experimental Algorithms (SEA 2010)
  * Q is the dimension of q-grams
+ *
+ * Constraints: requires m>2
  */
 
 #include "include/define.h"
 #include "include/main.h"
-#define	Q	2
-#define	S	8
+#include "include/search_small.h"
+#define Q 2
+#define S 8
 
-#define ASIZE (1<<(Q*S))
-#define AMASK (ASIZE-1)
-#define BSIZE 262144	/* = 2**18 */
+#define ASIZE (1U << (Q * S))
+#define AMASK (ASIZE - 1)
+#define BSIZE 262144 /* = 2**18 */
 
+#define CHAR_SET (CHAR_MAX - CHAR_MIN + 1)
 
-#define CHAR_SET (CHAR_MAX-CHAR_MIN+1)
+int search(unsigned char *x, int m, unsigned char *y, int n) {
+  int count = 0;
+  int i, j, k, mq1 = m - Q + 1, B[ASIZE];
+  unsigned int D, ch, mask = AMASK;
+  if (m <= Q)
+    return search_small(x, m, y, n);
+  if ((WORD * 8) < Q)
+    abort();
+  if (ASIZE > BSIZE)
+    return -1;
 
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  for (i = 0; i < (int)ASIZE; i++)
+    B[i] = 0;
+  ch = 0;
+  for (i = m - 1; i >= 0; i--) {
+    ch = ((ch << S) + x[i]) & mask;
+    if (i < mq1)
+      B[ch] |= (1U << ((m - i) % Q));
+  }
+  END_PREPROCESSING
 
-int search(unsigned char *x, int m, unsigned char *y, int n)
-{
-	int count = 0;
-	int i, j, k, mq1=m-Q+1, B[ASIZE];
-	unsigned int D, ch, mask=AMASK;
-	if(m <= Q) return -1;
-	if((WORD*8) < Q) abort();
-	if(ASIZE > BSIZE)	return -1;
-	
-	/* Preprocessing */
-   BEGIN_PREPROCESSING
-	for(i=0; i<ASIZE; i++) B[i]=0;		
-	ch = 0;
-	for(i = m-1; i >= 0; i--) {
-		ch = ((ch << S) + x[i]) & mask;
-		if(i < mq1)
-			B[ch] |= (1<<((m-i) % Q));
-	}
-   END_PREPROCESSING
-	
-	/* Searching */
-   BEGIN_SEARCHING
-	for(i=mq1-1; i<=n-Q; i+=mq1) {
-		D = B[((y[i+1] << S) + y[i]) & mask];
-		if( D ) {
-		   j = i-mq1+Q;
-	      more:
-		   i = i-Q;
-			if(i >= j) {
-		      D &= B[((y[i+1] << S) + y[i]) & mask];
-		      if(D == 0) continue;
-		      else goto more;
-			} 
-		   else {  /* verify potential matches */
-			   i = j;
-		      k = j-Q+1;
-		      if(j > n-m)  j = n-m;
-		      for(  ; k <= j; k++) {
-		         if(memcmp(y+k,x,m) == 0) 
-						count++;
-			   }  
-		   }
-	   }
-	}
-   END_SEARCHING
-	return count;
+  /* Searching */
+  BEGIN_SEARCHING
+  for (i = mq1 - 1; i <= n - Q; i += mq1) {
+    D = B[((y[i + 1] << S) + y[i]) & mask];
+    if (D) {
+      j = i - mq1 + Q;
+    more:
+      i = i - Q;
+      if (i >= j) {
+        D &= B[((y[i + 1] << S) + y[i]) & mask];
+        if (D == 0)
+          continue;
+        else
+          goto more;
+      } else { /* verify potential matches */
+        i = j;
+        k = j - Q + 1;
+        if (j > n - m)
+          j = n - m;
+        for (; k <= j; k++) {
+          if (memcmp(y + k, x, m) == 0)
+            OUTPUT(k);
+        }
+      }
+    }
+  }
+  END_SEARCHING
+  return count;
 }

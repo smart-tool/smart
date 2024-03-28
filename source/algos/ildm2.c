@@ -12,21 +12,22 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
  * download the tool at: http://www.dmi.unict.it/~faro/smart/
  *
- * This is an implementation of the Extended Backward Oracle Matching 2 algorithm
- * in C. Liu and Y. Wang and D. Liu and D. Li. 
- * Two Improved Single Pattern Matching Algorithms. ICAT Workshops, pp.419--422, IEEE Computer Society, Hangzhou, China, (2006).
+ * This is an implementation of the Extended Backward Oracle Matching 2
+ * algorithm in C. Liu and Y. Wang and D. Liu and D. Li. Two Improved Single
+ * Pattern Matching Algorithms. ICAT Workshops, pp.419--422, IEEE Computer
+ * Society, Hangzhou, China, (2006).
  */
 
 #include "include/define.h"
 #include "include/main.h"
 #include "include/AUTOMATON.h"
 
-#define setTarget(p, c, q) ttrans[(p)*SIGMA+(c)] = (q)
-#define getTarget(p, c) ttrans[(p)*SIGMA+(c)]
+#define setTarget(p, c, q) ttrans[(p)*SIGMA + (c)] = (q)
+#define getTarget(p, c) ttrans[(p)*SIGMA + (c)]
 #define setLength(p, q) tlength[(p)] = (q)
 #define getLength(p) tlength[(p)]
 #define setSuffixLink(p, q) tsuffix[(p)] = (q)
@@ -34,57 +35,84 @@
 #define setTerminal(p) tterminal[(p)] = 1
 #define isTerminal(p) tterminal[(p)]
 #define newState() counter++
-#define setSMA(p, c, q) ttransSMA[(p)*SIGMA+(c)] = (q)
-#define getSMA(p, c) ttransSMA[(p)*SIGMA+(c)]
+#define setSMA(p, c, q) ttransSMA[(p)*SIGMA + (c)] = (q)
+#define getSMA(p, c) ttransSMA[(p)*SIGMA + (c)]
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int k,i,j, R, L, r, ell, end, count, l, m2;
-   int *ttrans, *tlength, *tsuffix;
-   int *ttransSMA;
-   unsigned char *tterminal;
-   unsigned char *xR;
+  int k, i, R, L, count, l;
+  int *ttrans, *tlength, *tsuffix;
+  int *ttransSMA;
+  unsigned char *tterminal;
+  unsigned char *xR;
+  unsigned char s_xR[M_CUTOFF + 1];
+  int s_ttrans[3 * M_CUTOFF * SIGMA];
+  int s_tlength[3 * M_CUTOFF];
+  int s_tsuffix[3 * M_CUTOFF];
+  unsigned char s_tterminal[3 * M_CUTOFF];
+  int s_ttransSMA[(M_CUTOFF + 1) * SIGMA];
 
-   BEGIN_PREPROCESSING
-   xR = (char*) malloc (sizeof(char)*(m+1));
-   for(i=0; i<m; i++) xR[i] = x[m-i-1];
-   xR[m] = '\0';    
+  BEGIN_PREPROCESSING
+  if (m > M_CUTOFF) {
+    xR = (unsigned char *)malloc(sizeof(unsigned char) * (m + 1));
+    ttrans = (int *)malloc(3 * m * SIGMA * sizeof(int));
+    tlength = (int *)calloc(3 * m, sizeof(int));
+    tsuffix = (int *)calloc(3 * m, sizeof(int));
+    tterminal = (unsigned char *)calloc(3 * m, sizeof(unsigned char));
+    ttransSMA = (int *)malloc((m + 1) * SIGMA * sizeof(int));
+  } else {
+    xR = s_xR;
+    ttrans = s_ttrans;
+    tlength = s_tlength;
+    tsuffix = s_tsuffix;
+    tterminal = s_tterminal;
+    ttransSMA = s_ttransSMA;
+    //NOLINTBEGIN(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+    memset(tlength, 0, 3 * m * sizeof(int));
+    memset(tsuffix, 0, 3 * m * sizeof(int));
+    memset(tterminal, 0, 3 * m * sizeof(unsigned char));
+  }
+  for (i = 0; i < m; i++)
+    xR[i] = x[m - i - 1];
+  xR[m] = '\0';
+  memset(ttrans, -1, 3 * m * SIGMA * sizeof(int));
+  buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
+  memset(ttransSMA, -1, (m + 1) * SIGMA * sizeof(int));
+  //NOLINTEND(clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling)
+  preSMA(x, m, ttransSMA);
+  END_PREPROCESSING
 
-   /* Preprocessing */
-   ttrans = (int *)malloc(3*m*SIGMA*sizeof(int));
-   memset(ttrans, -1, 3*m*SIGMA*sizeof(int));
-   tlength = (int *)calloc(3*m, sizeof(int));
-   tsuffix = (int *)calloc(3*m, sizeof(int));
-   tterminal = (char *)calloc(3*m, sizeof(char));
-   buildSimpleSuffixAutomaton(xR, m, ttrans, tlength, tsuffix, tterminal);
-   ttransSMA = (int *)malloc((m+1)*SIGMA*sizeof(int));
-   memset(ttransSMA, -1, (m+1)*SIGMA*sizeof(int));
-   preSMA(x, m, ttransSMA);
-   END_PREPROCESSING
+  /* Searching */
+  BEGIN_SEARCHING
+  count = 0;
+  k = m - 1;
+  while (k < n) {
+    L = 0;
+    R = 0;
+    l = 0;
+    while (k - l >= 0 && (L = getTarget(L, y[k - l])) != UNDEFINED) {
+      l++;
+      if (isTerminal(L))
+        R = l;
+    }
+    while (R > m / 2) {
+      if (R == m)
+        OUTPUT(k - m + 1);
+      k++;
+      if (k >= n)
+        break;
+      R = getSMA(R, y[k]);
+    }
+    k = k + m - R;
+  }
 
-   /* Searching */
-   BEGIN_SEARCHING
-   count = 0;
-   k = m-1 ;
-   while ( k < n ) {
-      L = 0 ; R = 0; l = 0;
-      while ( k - l >= 0 && ( L = getTarget( L, y[k-l]) ) != UNDEFINED ) {
-         l++;
-         if ( isTerminal(L) ) R = l;
-      }
-      while ( R > m/2 ) {
-         if ( R==m ) OUTPUT( k - m + 1 );
-         k ++ ;
-         if ( k >= n ) break;
-         R = getSMA ( R, y[k] ) ;
-      }
-      k = k + m-R ;
-   }
-
-   free(ttransSMA);
-   free(ttrans);
-   free(tlength);
-   free(tsuffix);
-   free(tterminal);
-   END_SEARCHING
-   return count;
+  if (m > M_CUTOFF) {
+    free(ttransSMA);
+    free(tterminal);
+    free(tsuffix);
+    free(tlength);
+    free(ttrans);
+    free(xR);
+  }
+  END_SEARCHING
+  return count;
 }
