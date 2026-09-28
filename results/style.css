@@ -40,7 +40,7 @@ h3 {
 .name {
 	width: 400px;
 	float:left;
-    border-radius: 8px;
+	border-radius: 8px;
 	border: 1px #888888 solid;
 	padding:5px;
 	padding-left:10px;
@@ -71,7 +71,7 @@ h3 {
 .stats {
 	width: 400px;
 	float:left;
-    border-radius: 8px;
+	border-radius: 8px;
 	border: 1px #888888 solid;
 	padding:5px;
 	padding-left:10px;
@@ -109,15 +109,15 @@ td{
 	background-color: #444444;
 	font-size: 11px;
 	text-align:center;
-    color: #eeeeee;
+	color: #eeeeee;
 }
 
 .algo {
 	background-color: #444444;
 	font-size: 11px;
 	text-align:center;
-    color: #eeeeee;
-    vertical-align:middle;
+	color: #eeeeee;
+	vertical-align:middle;
 }
 
 .didascalia {
@@ -151,10 +151,10 @@ td{
 	height: 15px;
 	font-size: 11px;
 	text-align:center;
-    border-radius: 8px;
+	border-radius: 8px;
 	margin-top:3px;
 	margin-bottom:3px;
-    color: #000000;
+	color: #000000;
 	vertical-align:middle;
 }
 
@@ -166,26 +166,28 @@ td{
 	font-size: 11px;
 	font-weight: 400;
 	text-align:center;
-    border-radius: 8px;
+	border-radius: 8px;
 	margin-top:3px;
 	margin-bottom:3px;
-    color: #ffffff;
+	color: #ffffff;
 	vertical-align:middle;
 }
 
 .pre_time {
+	display: none;
 	padding: 2px;
 	background-color: #eeeeee;
 	width: 40px;
 	height: 10px;
 	font-size: 9px;
 	text-align:center;
-    border-radius: 4px;
-    color: #888888;
+	border-radius: 4px;
+	color: #888888;
 	vertical-align:middle;
 }
 
 .dif {
+	display: none;
 	padding: 2px;
 	background-color: #eeeeee;
 	width: 60px;
@@ -193,8 +195,8 @@ td{
 	font-size: 9px;
 	text-align:center;
 	vertical-align:middle;
-    border-radius: 4px;
-    color: #888888;
+	border-radius: 4px;
+	color: #888888;
 }
 
 .main_container {
@@ -206,7 +208,7 @@ td{
 	height:430px;
 	background-color: #fafafa;
 	border: #eeeeee 1px solid;
-    border-radius: 8px;
+	border-radius: 8px;
 }
 
 .chart_container_small {
@@ -215,8 +217,8 @@ td{
 	margin: 10px;
 	background-color: #fafafa;
 	border: #eeeeee 1px solid;
-    border-radius: 8px;
-    float:left;
+	border-radius: 8px;
+	float:left;
 }
 
 .exp_chart {

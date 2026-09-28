@@ -1,0 +1,20 @@
+# -*- Dockerfile -*-
+# podman/docker build -t smart-aarch64 . -f Dockerfile.cross-aarch64
+
+FROM docker.io/library/debian:11-slim as aarch64
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN true
+ENV TZ=UTC
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential git \
+      qemu-system-aarch64 binfmt-support qemu-user qemu-user-binfmt \
+      gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu libc6-dev-arm64-cross
+WORKDIR /app
+COPY . .
+RUN aarch64-linux-gnu-gcc --version
+RUN make CC=aarch64-linux-gnu-gcc
+RUN ln -s /usr/aarch64-linux-gnu/sys-root/usr/bin/ld.so /lib/ld-linux-aarch64.so.1
+ENV LD_LIBRARY_PATH=LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/sys-root/lib64
+RUN make CC=aarch64-linux-gnu-gcc check
+CMD [ "bash --login -i" ]

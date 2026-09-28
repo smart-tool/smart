@@ -1,0 +1,32 @@
+timeout 4m esbmc --verbosity 7 --k-induction -Isource/algos -DCBMC -DESBMC source/algos/rcolussi.c
+ESBMC version 7.7.0 64-bit x86_64 linux
+Target: 64-bit little-endian x86_64-unknown-linux with esbmclibc
+Parsing source/algos/rcolussi.c
+Converting
+Generating GOTO Program
+GOTO program creation time: 0.256s
+GOTO program processing time: 0.009s
+Checking base case, k = 1
+Starting Bounded Model Checking
+Not unwinding loop 36 iteration 1   file source/algos/include/cbmc.h line 80 column 3 function main
+Symex completed in: 0.002s (30 assignments)
+Slicing time: 0.000s (removed 24 assignments)
+Generated 6 VCC(s), 0 remaining after simplification (6 assignments)
+BMC program time: 0.002s
+No bug has been found in the base case
+Checking forward condition, k = 1
+Starting Bounded Model Checking
+Not unwinding loop 36 iteration 1   file source/algos/include/cbmc.h line 80 column 3 function main
+Symex completed in: 0.002s (30 assignments)
+Slicing time: 0.000s (removed 24 assignments)
+Generated 3 VCC(s), 1 remaining after simplification (6 assignments)
+No solver specified; defaulting to Boolector
+Encoding remaining VCC(s) using bit-vector/floating-point arithmetic
+Encoding to solver time: 0.002s
+Solving with solver Boolector 3.2.3
+Runtime decision procedure: 0.000s
+BMC program time: 0.003s
+
+VERIFICATION SUCCESSFUL
+
+Solution found by the forward condition; all states are reachable (k = 1)

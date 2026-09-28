@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+  pull_request:
+    paths-ignore:
+      - 'data/*'
+      - 'results/*'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: ./build.sh dotest && make check
+  sanitizer:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: sudo apt install -y --no-install-recommends libomp5 libomp-21-dev
+    - name: Fix kernel mmap rnd bits for -fsanitize=address
+      run: |
+        # https://github.com/actions/runner-images/issues/9491
+        sudo sysctl vm.mmap_rnd_bits=28
+    - name: make SANITIZE=1 && test-asan `./algocfg asan`
+      # all asan's that are also good
+      run: |
+        make CC=clang SANITIZE=1 &&
+        for t in `cat asan.lst`
+        do
+          ./test-asan "$t" -nv
+        done
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: |
+        sudo apt-get -y install cppcheck clang-tidy bear
+    - run: make algocfg lint
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: |
+        sudo apt-get -y install cbmc
+    - run: make algocfg check-verify
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    env:
+      MSYS2_DIR: msys64
+      MSYS2_ARCH: x86_64
+      MSYSTEM: MINGW64
+      ARCH: win64
+      PLATFORM: x64
+    steps:
+      # see https://github.com/msys2/setup-msys2
+    - name: setup-msys2
+      uses: msys2/setup-msys2@66cd2cce69caa17b53920067426061ca1de3a884 # v2.32.0
+      with:
+        path-type: minimal
+        update: true
+        install: >-
+          git
+          base-devel
+          mingw-w64-x86_64-toolchain
+    - name: checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        fetch-depth: 1
+    - shell: msys2 {0}
+      run: ./build.sh
+  macOS:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: |
+        sudo sysctl -w kern.sysv.shmmax=16777216
+        sudo sysctl -w kern.sysv.shmmni=128
+        sudo sysctl -w kern.sysv.shmseg=32
+        sudo sysctl -w kern.sysv.shmall=4096
+    - name: ./build.sh dotest && make check
+      run: |
+        ./build.sh dotest
+        ./free_shm
+        make check
+        ./free_shm

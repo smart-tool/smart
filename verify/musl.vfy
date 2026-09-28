@@ -1,0 +1,996 @@
+timeout 4m cbmc --verbosity 7 --unwinding-assertions --slice-formula -Isource/algos -DCBMC --bounds-check --pointer-check --memory-leak-check --div-by-zero-check --signed-overflow-check --unsigned-overflow-check --pointer-overflow-check --conversion-check --undefined-shift-check --float-overflow-check --nan-check --enum-range-check source/algos/musl.c
+CBMC version 6.4.0 (cbmc-6.4.0-24-g63675f5121) 64-bit x86_64 linux
+Type-checking musl
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Starting Bounded Model Checking
+
+** Results:
+function __CPROVER__start
+[__CPROVER__start.memory-leak.1] dynamically allocated memory never freed in __CPROVER_memory_leak == NULL: SUCCESS
+
+<builtin-library-memcmp> function memcmp
+[memcmp.precondition.1] line 19 memcmp region 1 readable: SUCCESS
+[memcmp.precondition.2] line 21 memcpy region 2 readable: SUCCESS
+[memcmp.overflow.2] line 25 arithmetic overflow on unsigned - in n - 1ul: SUCCESS
+[memcmp.overflow.1] line 27 arithmetic overflow on signed - in (signed int)*tmp_post_sc1 - (signed int)*tmp_post_sc2: SUCCESS
+[memcmp.pointer_arithmetic.1] line 27 pointer arithmetic: pointer NULL in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.2] line 27 pointer arithmetic: pointer invalid in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.3] line 27 pointer arithmetic: deallocated dynamic object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.4] line 27 pointer arithmetic: dead object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.5] line 27 pointer arithmetic: pointer outside object bounds in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.6] line 27 pointer arithmetic: invalid integer address in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.7] line 27 pointer arithmetic: pointer NULL in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.8] line 27 pointer arithmetic: pointer invalid in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.9] line 27 pointer arithmetic: deallocated dynamic object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.10] line 27 pointer arithmetic: dead object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.11] line 27 pointer arithmetic: pointer outside object bounds in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.12] line 27 pointer arithmetic: invalid integer address in sc2 + 1l: SUCCESS
+[memcmp.pointer_dereference.1] line 27 dereference failure: pointer NULL in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.2] line 27 dereference failure: pointer invalid in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.3] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.4] line 27 dereference failure: dead object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.5] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.6] line 27 dereference failure: invalid integer address in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.7] line 27 dereference failure: pointer NULL in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.8] line 27 dereference failure: pointer invalid in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.9] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.10] line 27 dereference failure: dead object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.11] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.12] line 27 dereference failure: invalid integer address in *tmp_post_sc2: SUCCESS
+
+<builtin-library-strchr> function strchr
+[strchr.overflow.4] line 19 arithmetic overflow on unsigned + in i + 1ul: SUCCESS
+[strchr.overflow.1] line 21 arithmetic overflow on unsigned to signed type conversion in (signed long int)i: SUCCESS
+[strchr.overflow.2] line 21 arithmetic overflow on signed type conversion in (char)c: SUCCESS
+[strchr.pointer_arithmetic.1] line 21 pointer arithmetic: pointer NULL in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.2] line 21 pointer arithmetic: pointer invalid in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.3] line 21 pointer arithmetic: deallocated dynamic object in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.4] line 21 pointer arithmetic: dead object in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.5] line 21 pointer arithmetic: pointer outside object bounds in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.6] line 21 pointer arithmetic: invalid integer address in src + (signed long int)i: SUCCESS
+[strchr.pointer_dereference.1] line 21 dereference failure: pointer NULL in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.2] line 21 dereference failure: pointer invalid in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.3] line 21 dereference failure: deallocated dynamic object in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.4] line 21 dereference failure: dead object in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.5] line 21 dereference failure: pointer outside object bounds in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.6] line 21 dereference failure: invalid integer address in src[(signed long int)i]: SUCCESS
+[strchr.pointer_arithmetic.7] line 22 pointer arithmetic: pointer NULL in (char *)src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.8] line 22 pointer arithmetic: pointer invalid in (char *)src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.9] line 22 pointer arithmetic: deallocated dynamic object in (char *)src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.10] line 22 pointer arithmetic: dead object in (char *)src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.11] line 22 pointer arithmetic: pointer outside object bounds in (char *)src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.12] line 22 pointer arithmetic: invalid integer address in (char *)src + (signed long int)i: SUCCESS
+[strchr.overflow.3] line 23 arithmetic overflow on unsigned to signed type conversion in (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.13] line 23 pointer arithmetic: pointer NULL in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.14] line 23 pointer arithmetic: pointer invalid in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.15] line 23 pointer arithmetic: deallocated dynamic object in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.16] line 23 pointer arithmetic: dead object in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.17] line 23 pointer arithmetic: pointer outside object bounds in src + (signed long int)i: SUCCESS
+[strchr.pointer_arithmetic.18] line 23 pointer arithmetic: invalid integer address in src + (signed long int)i: SUCCESS
+[strchr.pointer_dereference.7] line 23 dereference failure: pointer NULL in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.8] line 23 dereference failure: pointer invalid in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.9] line 23 dereference failure: deallocated dynamic object in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.10] line 23 dereference failure: dead object in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.11] line 23 dereference failure: pointer outside object bounds in src[(signed long int)i]: SUCCESS
+[strchr.pointer_dereference.12] line 23 dereference failure: invalid integer address in src[(signed long int)i]: SUCCESS
+
+<builtin-library-strcpy> function strcpy
+[strcpy.overflow.1] line 29 arithmetic overflow on unsigned to signed type conversion in (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.1] line 29 pointer arithmetic: pointer NULL in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.2] line 29 pointer arithmetic: pointer invalid in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.3] line 29 pointer arithmetic: deallocated dynamic object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.4] line 29 pointer arithmetic: dead object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.5] line 29 pointer arithmetic: pointer outside object bounds in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.6] line 29 pointer arithmetic: invalid integer address in src + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.1] line 29 dereference failure: pointer NULL in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.2] line 29 dereference failure: pointer invalid in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.3] line 29 dereference failure: deallocated dynamic object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.4] line 29 dereference failure: dead object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.5] line 29 dereference failure: pointer outside object bounds in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.6] line 29 dereference failure: invalid integer address in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_arithmetic.7] line 30 pointer arithmetic: pointer NULL in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.8] line 30 pointer arithmetic: pointer invalid in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.9] line 30 pointer arithmetic: deallocated dynamic object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.10] line 30 pointer arithmetic: dead object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.11] line 30 pointer arithmetic: pointer outside object bounds in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.12] line 30 pointer arithmetic: invalid integer address in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.7] line 30 dereference failure: pointer NULL in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.8] line 30 dereference failure: pointer invalid in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.9] line 30 dereference failure: deallocated dynamic object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.10] line 30 dereference failure: dead object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.11] line 30 dereference failure: pointer outside object bounds in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.12] line 30 dereference failure: invalid integer address in dst[(signed long int)i]: SUCCESS
+[strcpy.overflow.2] line 31 arithmetic overflow on unsigned + in i + 1ul: SUCCESS
+
+source/algos/include/cbmc.h function bf_search
+[bf_search.overflow.1] line 34 arithmetic overflow on signed - in n - m: SUCCESS
+[bf_search.overflow.4] line 34 arithmetic overflow on signed + in j + 1: SUCCESS
+[bf_search.overflow.2] line 37 arithmetic overflow on signed to unsigned type conversion in (size_t)m: SUCCESS
+[bf_search.pointer_arithmetic.1] line 37 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.2] line 37 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.3] line 37 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.4] line 37 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.5] line 37 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.6] line 37 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[bf_search.overflow.3] line 38 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/include/cbmc.h function main
+[main.overflow.1] line 79 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.1] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.2] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.3] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.4] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.5] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.6] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.overflow.2] line 82 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.7] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.8] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.9] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.10] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.11] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.12] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.assertion.1] line 110 assertion ref == occ: SUCCESS
+[main.assertion.2] line 113 assertion ref == occ: SUCCESS
+[main.assertion.3] line 116 assertion ref == occ: SUCCESS
+[main.assertion.4] line 117 assertion ref == occ: SUCCESS
+[main.assertion.5] line 118 assertion ref == occ: SUCCESS
+[main.assertion.6] line 119 assertion ref == occ: SUCCESS
+[main.assertion.7] line 120 assertion ref == occ: SUCCESS
+[main.assertion.8] line 121 assertion ref == occ: SUCCESS
+[main.assertion.9] line 122 assertion ref == occ: SUCCESS
+[main.assertion.10] line 123 assertion ref == occ: SUCCESS
+[main.assertion.11] line 124 assertion ref == occ: SUCCESS
+[main.assertion.12] line 125 assertion ref == occ: SUCCESS
+[main.assertion.13] line 128 assertion ref == occ: SUCCESS
+[main.assertion.14] line 131 assertion ref == occ: SUCCESS
+[main.assertion.15] line 134 assertion ref == occ: SUCCESS
+[main.assertion.16] line 135 assertion ref == occ: SUCCESS
+[main.assertion.17] line 138 assertion ref == occ: SUCCESS
+[main.assertion.18] line 139 assertion ref == occ: SUCCESS
+[main.assertion.19] line 140 assertion ref == occ: SUCCESS
+[main.assertion.20] line 143 assertion ref == occ: SUCCESS
+[main.assertion.21] line 146 assertion ref == occ: SUCCESS
+[main.assertion.22] line 147 assertion ref == occ: SUCCESS
+[main.assertion.23] line 150 assertion ref == occ: SUCCESS
+[main.assertion.24] line 151 assertion ref == occ: SUCCESS
+[main.precondition_instance.1] line 154 strcpy src/dst overlap: SUCCESS
+[main.assertion.25] line 156 assertion ref == occ: SUCCESS
+[main.assertion.26] line 157 assertion ref == occ: SUCCESS
+[main.assertion.27] line 160 assertion ref == occ: SUCCESS
+[main.assertion.28] line 163 assertion ref == occ: SUCCESS
+[main.assertion.29] line 164 assertion ref == occ: SUCCESS
+
+source/algos/musl.c function fourbyte_strstr
+[fourbyte_strstr.overflow.1] line 34 arithmetic overflow on signed shl in (signed int)n[(signed long int)1] << 16: SUCCESS
+[fourbyte_strstr.overflow.2] line 34 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)n[(signed long int)1] << 16): SUCCESS
+[fourbyte_strstr.overflow.3] line 34 arithmetic overflow on signed shl in (signed int)n[(signed long int)2] << 8: SUCCESS
+[fourbyte_strstr.overflow.4] line 34 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)n[(signed long int)2] << 8): SUCCESS
+[fourbyte_strstr.pointer_arithmetic.1] line 34 pointer arithmetic: pointer NULL in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.2] line 34 pointer arithmetic: pointer invalid in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.3] line 34 pointer arithmetic: deallocated dynamic object in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.4] line 34 pointer arithmetic: dead object in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.5] line 34 pointer arithmetic: pointer outside object bounds in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.6] line 34 pointer arithmetic: invalid integer address in n + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.7] line 34 pointer arithmetic: pointer NULL in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.8] line 34 pointer arithmetic: pointer invalid in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.9] line 34 pointer arithmetic: deallocated dynamic object in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.10] line 34 pointer arithmetic: dead object in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.11] line 34 pointer arithmetic: pointer outside object bounds in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.12] line 34 pointer arithmetic: invalid integer address in n + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.13] line 34 pointer arithmetic: pointer NULL in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.14] line 34 pointer arithmetic: pointer invalid in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.15] line 34 pointer arithmetic: deallocated dynamic object in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.16] line 34 pointer arithmetic: dead object in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.17] line 34 pointer arithmetic: pointer outside object bounds in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.18] line 34 pointer arithmetic: invalid integer address in n + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.19] line 34 pointer arithmetic: pointer NULL in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.20] line 34 pointer arithmetic: pointer invalid in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.21] line 34 pointer arithmetic: deallocated dynamic object in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.22] line 34 pointer arithmetic: dead object in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.23] line 34 pointer arithmetic: pointer outside object bounds in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.24] line 34 pointer arithmetic: invalid integer address in n + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_dereference.1] line 34 dereference failure: pointer NULL in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.2] line 34 dereference failure: pointer invalid in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.3] line 34 dereference failure: deallocated dynamic object in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.4] line 34 dereference failure: dead object in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.5] line 34 dereference failure: pointer outside object bounds in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.6] line 34 dereference failure: invalid integer address in n[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.7] line 34 dereference failure: pointer NULL in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.8] line 34 dereference failure: pointer invalid in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.9] line 34 dereference failure: deallocated dynamic object in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.10] line 34 dereference failure: dead object in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.11] line 34 dereference failure: pointer outside object bounds in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.12] line 34 dereference failure: invalid integer address in n[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.13] line 34 dereference failure: pointer NULL in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.14] line 34 dereference failure: pointer invalid in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.15] line 34 dereference failure: deallocated dynamic object in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.16] line 34 dereference failure: dead object in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.17] line 34 dereference failure: pointer outside object bounds in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.18] line 34 dereference failure: invalid integer address in n[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.19] line 34 dereference failure: pointer NULL in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.20] line 34 dereference failure: pointer invalid in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.21] line 34 dereference failure: deallocated dynamic object in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.22] line 34 dereference failure: dead object in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.23] line 34 dereference failure: pointer outside object bounds in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.24] line 34 dereference failure: invalid integer address in n[(signed long int)3]: SUCCESS
+[fourbyte_strstr.undefined-shift.1] line 34 shift operand is negative in (signed int)n[(signed long int)1] << 16: SUCCESS
+[fourbyte_strstr.undefined-shift.2] line 34 shift operand is negative in (signed int)n[(signed long int)2] << 8: SUCCESS
+[fourbyte_strstr.overflow.5] line 35 arithmetic overflow on signed shl in (signed int)h[(signed long int)1] << 16: SUCCESS
+[fourbyte_strstr.overflow.6] line 35 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)h[(signed long int)1] << 16): SUCCESS
+[fourbyte_strstr.overflow.7] line 35 arithmetic overflow on signed shl in (signed int)h[(signed long int)2] << 8: SUCCESS
+[fourbyte_strstr.overflow.8] line 35 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)h[(signed long int)2] << 8): SUCCESS
+[fourbyte_strstr.pointer_arithmetic.25] line 35 pointer arithmetic: pointer NULL in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.26] line 35 pointer arithmetic: pointer invalid in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.27] line 35 pointer arithmetic: deallocated dynamic object in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.28] line 35 pointer arithmetic: dead object in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.29] line 35 pointer arithmetic: pointer outside object bounds in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.30] line 35 pointer arithmetic: invalid integer address in h + (signed long int)0: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.31] line 35 pointer arithmetic: pointer NULL in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.32] line 35 pointer arithmetic: pointer invalid in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.33] line 35 pointer arithmetic: deallocated dynamic object in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.34] line 35 pointer arithmetic: dead object in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.35] line 35 pointer arithmetic: pointer outside object bounds in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.36] line 35 pointer arithmetic: invalid integer address in h + (signed long int)1: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.37] line 35 pointer arithmetic: pointer NULL in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.38] line 35 pointer arithmetic: pointer invalid in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.39] line 35 pointer arithmetic: deallocated dynamic object in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.40] line 35 pointer arithmetic: dead object in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.41] line 35 pointer arithmetic: pointer outside object bounds in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.42] line 35 pointer arithmetic: invalid integer address in h + (signed long int)2: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.43] line 35 pointer arithmetic: pointer NULL in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.44] line 35 pointer arithmetic: pointer invalid in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.45] line 35 pointer arithmetic: deallocated dynamic object in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.46] line 35 pointer arithmetic: dead object in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.47] line 35 pointer arithmetic: pointer outside object bounds in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.48] line 35 pointer arithmetic: invalid integer address in h + (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_dereference.25] line 35 dereference failure: pointer NULL in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.26] line 35 dereference failure: pointer invalid in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.27] line 35 dereference failure: deallocated dynamic object in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.28] line 35 dereference failure: dead object in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.29] line 35 dereference failure: pointer outside object bounds in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.30] line 35 dereference failure: invalid integer address in h[(signed long int)0]: SUCCESS
+[fourbyte_strstr.pointer_dereference.31] line 35 dereference failure: pointer NULL in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.32] line 35 dereference failure: pointer invalid in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.33] line 35 dereference failure: deallocated dynamic object in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.34] line 35 dereference failure: dead object in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.35] line 35 dereference failure: pointer outside object bounds in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.36] line 35 dereference failure: invalid integer address in h[(signed long int)1]: SUCCESS
+[fourbyte_strstr.pointer_dereference.37] line 35 dereference failure: pointer NULL in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.38] line 35 dereference failure: pointer invalid in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.39] line 35 dereference failure: deallocated dynamic object in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.40] line 35 dereference failure: dead object in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.41] line 35 dereference failure: pointer outside object bounds in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.42] line 35 dereference failure: invalid integer address in h[(signed long int)2]: SUCCESS
+[fourbyte_strstr.pointer_dereference.43] line 35 dereference failure: pointer NULL in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.44] line 35 dereference failure: pointer invalid in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.45] line 35 dereference failure: deallocated dynamic object in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.46] line 35 dereference failure: dead object in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.47] line 35 dereference failure: pointer outside object bounds in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.pointer_dereference.48] line 35 dereference failure: invalid integer address in h[(signed long int)3]: SUCCESS
+[fourbyte_strstr.undefined-shift.3] line 35 shift operand is negative in (signed int)h[(signed long int)1] << 16: SUCCESS
+[fourbyte_strstr.undefined-shift.4] line 35 shift operand is negative in (signed int)h[(signed long int)2] << 8: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.49] line 36 pointer arithmetic: pointer NULL in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.50] line 36 pointer arithmetic: pointer invalid in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.51] line 36 pointer arithmetic: deallocated dynamic object in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.52] line 36 pointer arithmetic: dead object in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.53] line 36 pointer arithmetic: pointer outside object bounds in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.54] line 36 pointer arithmetic: invalid integer address in h + 1l: SUCCESS
+[fourbyte_strstr.pointer_dereference.49] line 36 dereference failure: pointer NULL in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.50] line 36 dereference failure: pointer invalid in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.51] line 36 dereference failure: deallocated dynamic object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.52] line 36 dereference failure: dead object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.53] line 36 dereference failure: pointer outside object bounds in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.54] line 36 dereference failure: invalid integer address in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.55] line 36 dereference failure: pointer NULL in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.56] line 36 dereference failure: pointer invalid in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.57] line 36 dereference failure: deallocated dynamic object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.58] line 36 dereference failure: dead object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.59] line 36 dereference failure: pointer outside object bounds in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.60] line 36 dereference failure: invalid integer address in *h: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.55] line 38 pointer arithmetic: pointer NULL in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.56] line 38 pointer arithmetic: pointer invalid in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.57] line 38 pointer arithmetic: deallocated dynamic object in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.58] line 38 pointer arithmetic: dead object in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.59] line 38 pointer arithmetic: pointer outside object bounds in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_arithmetic.60] line 38 pointer arithmetic: invalid integer address in (char *)h - (signed long int)3: SUCCESS
+[fourbyte_strstr.pointer_dereference.61] line 38 dereference failure: pointer NULL in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.62] line 38 dereference failure: pointer invalid in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.63] line 38 dereference failure: deallocated dynamic object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.64] line 38 dereference failure: dead object in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.65] line 38 dereference failure: pointer outside object bounds in *h: SUCCESS
+[fourbyte_strstr.pointer_dereference.66] line 38 dereference failure: invalid integer address in *h: SUCCESS
+
+source/algos/musl.c function musl_strstr
+[musl_strstr.pointer_arithmetic.1] line 170 pointer arithmetic: pointer NULL in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_arithmetic.2] line 170 pointer arithmetic: pointer invalid in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_arithmetic.3] line 170 pointer arithmetic: deallocated dynamic object in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_arithmetic.4] line 170 pointer arithmetic: dead object in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_arithmetic.5] line 170 pointer arithmetic: pointer outside object bounds in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_arithmetic.6] line 170 pointer arithmetic: invalid integer address in n + (signed long int)0: SUCCESS
+[musl_strstr.pointer_dereference.1] line 170 dereference failure: pointer NULL in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.2] line 170 dereference failure: pointer invalid in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.3] line 170 dereference failure: deallocated dynamic object in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.4] line 170 dereference failure: dead object in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.5] line 170 dereference failure: pointer outside object bounds in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.6] line 170 dereference failure: invalid integer address in n[(signed long int)0]: SUCCESS
+[musl_strstr.pointer_dereference.7] line 174 dereference failure: pointer NULL in *n: SUCCESS
+[musl_strstr.pointer_dereference.8] line 174 dereference failure: pointer invalid in *n: SUCCESS
+[musl_strstr.pointer_dereference.9] line 174 dereference failure: deallocated dynamic object in *n: SUCCESS
+[musl_strstr.pointer_dereference.10] line 174 dereference failure: dead object in *n: SUCCESS
+[musl_strstr.pointer_dereference.11] line 174 dereference failure: pointer outside object bounds in *n: SUCCESS
+[musl_strstr.pointer_dereference.12] line 174 dereference failure: invalid integer address in *n: SUCCESS
+[musl_strstr.pointer_arithmetic.7] line 175 pointer arithmetic: pointer NULL in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.8] line 175 pointer arithmetic: pointer invalid in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.9] line 175 pointer arithmetic: deallocated dynamic object in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.10] line 175 pointer arithmetic: dead object in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.11] line 175 pointer arithmetic: pointer outside object bounds in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.12] line 175 pointer arithmetic: invalid integer address in n + (signed long int)1: SUCCESS
+[musl_strstr.pointer_dereference.13] line 175 dereference failure: pointer NULL in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.14] line 175 dereference failure: pointer invalid in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.15] line 175 dereference failure: deallocated dynamic object in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.16] line 175 dereference failure: dead object in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.17] line 175 dereference failure: pointer outside object bounds in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.18] line 175 dereference failure: invalid integer address in n[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_arithmetic.13] line 177 pointer arithmetic: pointer NULL in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.14] line 177 pointer arithmetic: pointer invalid in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.15] line 177 pointer arithmetic: deallocated dynamic object in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.16] line 177 pointer arithmetic: dead object in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.17] line 177 pointer arithmetic: pointer outside object bounds in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_arithmetic.18] line 177 pointer arithmetic: invalid integer address in h + (signed long int)1: SUCCESS
+[musl_strstr.pointer_dereference.19] line 177 dereference failure: pointer NULL in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.20] line 177 dereference failure: pointer invalid in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.21] line 177 dereference failure: deallocated dynamic object in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.22] line 177 dereference failure: dead object in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.23] line 177 dereference failure: pointer outside object bounds in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_dereference.24] line 177 dereference failure: invalid integer address in h[(signed long int)1]: SUCCESS
+[musl_strstr.pointer_arithmetic.19] line 179 pointer arithmetic: pointer NULL in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.20] line 179 pointer arithmetic: pointer invalid in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.21] line 179 pointer arithmetic: deallocated dynamic object in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.22] line 179 pointer arithmetic: dead object in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.23] line 179 pointer arithmetic: pointer outside object bounds in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.24] line 179 pointer arithmetic: invalid integer address in n + (signed long int)2: SUCCESS
+[musl_strstr.pointer_dereference.25] line 179 dereference failure: pointer NULL in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.26] line 179 dereference failure: pointer invalid in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.27] line 179 dereference failure: deallocated dynamic object in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.28] line 179 dereference failure: dead object in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.29] line 179 dereference failure: pointer outside object bounds in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.30] line 179 dereference failure: invalid integer address in n[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_arithmetic.25] line 181 pointer arithmetic: pointer NULL in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.26] line 181 pointer arithmetic: pointer invalid in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.27] line 181 pointer arithmetic: deallocated dynamic object in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.28] line 181 pointer arithmetic: dead object in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.29] line 181 pointer arithmetic: pointer outside object bounds in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_arithmetic.30] line 181 pointer arithmetic: invalid integer address in h + (signed long int)2: SUCCESS
+[musl_strstr.pointer_dereference.31] line 181 dereference failure: pointer NULL in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.32] line 181 dereference failure: pointer invalid in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.33] line 181 dereference failure: deallocated dynamic object in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.34] line 181 dereference failure: dead object in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.35] line 181 dereference failure: pointer outside object bounds in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_dereference.36] line 181 dereference failure: invalid integer address in h[(signed long int)2]: SUCCESS
+[musl_strstr.pointer_arithmetic.31] line 183 pointer arithmetic: pointer NULL in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.32] line 183 pointer arithmetic: pointer invalid in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.33] line 183 pointer arithmetic: deallocated dynamic object in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.34] line 183 pointer arithmetic: dead object in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.35] line 183 pointer arithmetic: pointer outside object bounds in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.36] line 183 pointer arithmetic: invalid integer address in n + (signed long int)3: SUCCESS
+[musl_strstr.pointer_dereference.37] line 183 dereference failure: pointer NULL in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.38] line 183 dereference failure: pointer invalid in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.39] line 183 dereference failure: deallocated dynamic object in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.40] line 183 dereference failure: dead object in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.41] line 183 dereference failure: pointer outside object bounds in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.42] line 183 dereference failure: invalid integer address in n[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_arithmetic.37] line 185 pointer arithmetic: pointer NULL in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.38] line 185 pointer arithmetic: pointer invalid in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.39] line 185 pointer arithmetic: deallocated dynamic object in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.40] line 185 pointer arithmetic: dead object in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.41] line 185 pointer arithmetic: pointer outside object bounds in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_arithmetic.42] line 185 pointer arithmetic: invalid integer address in h + (signed long int)3: SUCCESS
+[musl_strstr.pointer_dereference.43] line 185 dereference failure: pointer NULL in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.44] line 185 dereference failure: pointer invalid in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.45] line 185 dereference failure: deallocated dynamic object in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.46] line 185 dereference failure: dead object in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.47] line 185 dereference failure: pointer outside object bounds in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_dereference.48] line 185 dereference failure: invalid integer address in h[(signed long int)3]: SUCCESS
+[musl_strstr.pointer_arithmetic.43] line 187 pointer arithmetic: pointer NULL in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_arithmetic.44] line 187 pointer arithmetic: pointer invalid in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_arithmetic.45] line 187 pointer arithmetic: deallocated dynamic object in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_arithmetic.46] line 187 pointer arithmetic: dead object in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_arithmetic.47] line 187 pointer arithmetic: pointer outside object bounds in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_arithmetic.48] line 187 pointer arithmetic: invalid integer address in n + (signed long int)4: SUCCESS
+[musl_strstr.pointer_dereference.49] line 187 dereference failure: pointer NULL in n[(signed long int)4]: SUCCESS
+[musl_strstr.pointer_dereference.50] line 187 dereference failure: pointer invalid in n[(signed long int)4]: SUCCESS
+[musl_strstr.pointer_dereference.51] line 187 dereference failure: deallocated dynamic object in n[(signed long int)4]: SUCCESS
+[musl_strstr.pointer_dereference.52] line 187 dereference failure: dead object in n[(signed long int)4]: SUCCESS
+[musl_strstr.pointer_dereference.53] line 187 dereference failure: pointer outside object bounds in n[(signed long int)4]: SUCCESS
+[musl_strstr.pointer_dereference.54] line 187 dereference failure: invalid integer address in n[(signed long int)4]: SUCCESS
+
+source/algos/musl.c function search
+[search.overflow.1] line 207 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.pointer_arithmetic.1] line 208 pointer arithmetic: pointer NULL in p + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.2] line 208 pointer arithmetic: pointer invalid in p + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.3] line 208 pointer arithmetic: deallocated dynamic object in p + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.4] line 208 pointer arithmetic: dead object in p + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.5] line 208 pointer arithmetic: pointer outside object bounds in p + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.6] line 208 pointer arithmetic: invalid integer address in p + (signed long int)1: SUCCESS
+
+source/algos/musl.c function threebyte_strstr
+[threebyte_strstr.overflow.1] line 26 arithmetic overflow on signed shl in (signed int)n[(signed long int)1] << 16: SUCCESS
+[threebyte_strstr.overflow.2] line 26 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)n[(signed long int)1] << 16): SUCCESS
+[threebyte_strstr.overflow.3] line 26 arithmetic overflow on signed shl in (signed int)n[(signed long int)2] << 8: SUCCESS
+[threebyte_strstr.overflow.4] line 26 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)n[(signed long int)2] << 8): SUCCESS
+[threebyte_strstr.pointer_arithmetic.1] line 26 pointer arithmetic: pointer NULL in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.2] line 26 pointer arithmetic: pointer invalid in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.3] line 26 pointer arithmetic: deallocated dynamic object in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.4] line 26 pointer arithmetic: dead object in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.5] line 26 pointer arithmetic: pointer outside object bounds in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.6] line 26 pointer arithmetic: invalid integer address in n + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.7] line 26 pointer arithmetic: pointer NULL in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.8] line 26 pointer arithmetic: pointer invalid in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.9] line 26 pointer arithmetic: deallocated dynamic object in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.10] line 26 pointer arithmetic: dead object in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.11] line 26 pointer arithmetic: pointer outside object bounds in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.12] line 26 pointer arithmetic: invalid integer address in n + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.13] line 26 pointer arithmetic: pointer NULL in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.14] line 26 pointer arithmetic: pointer invalid in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.15] line 26 pointer arithmetic: deallocated dynamic object in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.16] line 26 pointer arithmetic: dead object in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.17] line 26 pointer arithmetic: pointer outside object bounds in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.18] line 26 pointer arithmetic: invalid integer address in n + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_dereference.1] line 26 dereference failure: pointer NULL in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.2] line 26 dereference failure: pointer invalid in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.3] line 26 dereference failure: deallocated dynamic object in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.4] line 26 dereference failure: dead object in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.5] line 26 dereference failure: pointer outside object bounds in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.6] line 26 dereference failure: invalid integer address in n[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.7] line 26 dereference failure: pointer NULL in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.8] line 26 dereference failure: pointer invalid in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.9] line 26 dereference failure: deallocated dynamic object in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.10] line 26 dereference failure: dead object in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.11] line 26 dereference failure: pointer outside object bounds in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.12] line 26 dereference failure: invalid integer address in n[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.13] line 26 dereference failure: pointer NULL in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.14] line 26 dereference failure: pointer invalid in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.15] line 26 dereference failure: deallocated dynamic object in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.16] line 26 dereference failure: dead object in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.17] line 26 dereference failure: pointer outside object bounds in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.18] line 26 dereference failure: invalid integer address in n[(signed long int)2]: SUCCESS
+[threebyte_strstr.undefined-shift.1] line 26 shift operand is negative in (signed int)n[(signed long int)1] << 16: SUCCESS
+[threebyte_strstr.undefined-shift.2] line 26 shift operand is negative in (signed int)n[(signed long int)2] << 8: SUCCESS
+[threebyte_strstr.overflow.5] line 27 arithmetic overflow on signed shl in (signed int)h[(signed long int)1] << 16: SUCCESS
+[threebyte_strstr.overflow.6] line 27 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)h[(signed long int)1] << 16): SUCCESS
+[threebyte_strstr.overflow.7] line 27 arithmetic overflow on signed shl in (signed int)h[(signed long int)2] << 8: SUCCESS
+[threebyte_strstr.overflow.8] line 27 arithmetic overflow on signed to unsigned type conversion in (unsigned int)((signed int)h[(signed long int)2] << 8): SUCCESS
+[threebyte_strstr.pointer_arithmetic.19] line 27 pointer arithmetic: pointer NULL in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.20] line 27 pointer arithmetic: pointer invalid in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.21] line 27 pointer arithmetic: deallocated dynamic object in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.22] line 27 pointer arithmetic: dead object in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.23] line 27 pointer arithmetic: pointer outside object bounds in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.24] line 27 pointer arithmetic: invalid integer address in h + (signed long int)0: SUCCESS
+[threebyte_strstr.pointer_arithmetic.25] line 27 pointer arithmetic: pointer NULL in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.26] line 27 pointer arithmetic: pointer invalid in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.27] line 27 pointer arithmetic: deallocated dynamic object in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.28] line 27 pointer arithmetic: dead object in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.29] line 27 pointer arithmetic: pointer outside object bounds in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.30] line 27 pointer arithmetic: invalid integer address in h + (signed long int)1: SUCCESS
+[threebyte_strstr.pointer_arithmetic.31] line 27 pointer arithmetic: pointer NULL in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.32] line 27 pointer arithmetic: pointer invalid in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.33] line 27 pointer arithmetic: deallocated dynamic object in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.34] line 27 pointer arithmetic: dead object in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.35] line 27 pointer arithmetic: pointer outside object bounds in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.36] line 27 pointer arithmetic: invalid integer address in h + (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_dereference.19] line 27 dereference failure: pointer NULL in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.20] line 27 dereference failure: pointer invalid in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.21] line 27 dereference failure: deallocated dynamic object in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.22] line 27 dereference failure: dead object in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.23] line 27 dereference failure: pointer outside object bounds in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.24] line 27 dereference failure: invalid integer address in h[(signed long int)0]: SUCCESS
+[threebyte_strstr.pointer_dereference.25] line 27 dereference failure: pointer NULL in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.26] line 27 dereference failure: pointer invalid in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.27] line 27 dereference failure: deallocated dynamic object in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.28] line 27 dereference failure: dead object in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.29] line 27 dereference failure: pointer outside object bounds in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.30] line 27 dereference failure: invalid integer address in h[(signed long int)1]: SUCCESS
+[threebyte_strstr.pointer_dereference.31] line 27 dereference failure: pointer NULL in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.32] line 27 dereference failure: pointer invalid in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.33] line 27 dereference failure: deallocated dynamic object in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.34] line 27 dereference failure: dead object in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.35] line 27 dereference failure: pointer outside object bounds in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.pointer_dereference.36] line 27 dereference failure: invalid integer address in h[(signed long int)2]: SUCCESS
+[threebyte_strstr.undefined-shift.3] line 27 shift operand is negative in (signed int)h[(signed long int)1] << 16: SUCCESS
+[threebyte_strstr.undefined-shift.4] line 27 shift operand is negative in (signed int)h[(signed long int)2] << 8: SUCCESS
+[threebyte_strstr.pointer_arithmetic.37] line 28 pointer arithmetic: pointer NULL in h + 1l: SUCCESS
+[threebyte_strstr.pointer_arithmetic.38] line 28 pointer arithmetic: pointer invalid in h + 1l: SUCCESS
+[threebyte_strstr.pointer_arithmetic.39] line 28 pointer arithmetic: deallocated dynamic object in h + 1l: SUCCESS
+[threebyte_strstr.pointer_arithmetic.40] line 28 pointer arithmetic: dead object in h + 1l: SUCCESS
+[threebyte_strstr.pointer_arithmetic.41] line 28 pointer arithmetic: pointer outside object bounds in h + 1l: SUCCESS
+[threebyte_strstr.pointer_arithmetic.42] line 28 pointer arithmetic: invalid integer address in h + 1l: SUCCESS
+[threebyte_strstr.pointer_dereference.37] line 28 dereference failure: pointer NULL in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.38] line 28 dereference failure: pointer invalid in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.39] line 28 dereference failure: deallocated dynamic object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.40] line 28 dereference failure: dead object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.41] line 28 dereference failure: pointer outside object bounds in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.42] line 28 dereference failure: invalid integer address in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.43] line 28 dereference failure: pointer NULL in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.44] line 28 dereference failure: pointer invalid in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.45] line 28 dereference failure: deallocated dynamic object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.46] line 28 dereference failure: dead object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.47] line 28 dereference failure: pointer outside object bounds in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.48] line 28 dereference failure: invalid integer address in *h: SUCCESS
+[threebyte_strstr.pointer_arithmetic.43] line 30 pointer arithmetic: pointer NULL in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.44] line 30 pointer arithmetic: pointer invalid in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.45] line 30 pointer arithmetic: deallocated dynamic object in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.46] line 30 pointer arithmetic: dead object in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.47] line 30 pointer arithmetic: pointer outside object bounds in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_arithmetic.48] line 30 pointer arithmetic: invalid integer address in (char *)h - (signed long int)2: SUCCESS
+[threebyte_strstr.pointer_dereference.49] line 30 dereference failure: pointer NULL in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.50] line 30 dereference failure: pointer invalid in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.51] line 30 dereference failure: deallocated dynamic object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.52] line 30 dereference failure: dead object in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.53] line 30 dereference failure: pointer outside object bounds in *h: SUCCESS
+[threebyte_strstr.pointer_dereference.54] line 30 dereference failure: invalid integer address in *h: SUCCESS
+
+source/algos/musl.c function twobyte_strstr
+[twobyte_strstr.overflow.1] line 19 arithmetic overflow on signed shl in (signed int)n[(signed long int)0] << 8: SUCCESS
+[twobyte_strstr.overflow.2] line 19 arithmetic overflow on signed to unsigned type conversion in (uint16_t)((signed int)n[(signed long int)0] << 8 | (signed int)n[(signed long int)1]): SUCCESS
+[twobyte_strstr.overflow.3] line 19 arithmetic overflow on signed shl in (signed int)h[(signed long int)0] << 8: SUCCESS
+[twobyte_strstr.overflow.4] line 19 arithmetic overflow on signed to unsigned type conversion in (uint16_t)((signed int)h[(signed long int)0] << 8 | (signed int)h[(signed long int)1]): SUCCESS
+[twobyte_strstr.pointer_arithmetic.1] line 19 pointer arithmetic: pointer NULL in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.2] line 19 pointer arithmetic: pointer invalid in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.3] line 19 pointer arithmetic: deallocated dynamic object in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.4] line 19 pointer arithmetic: dead object in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.5] line 19 pointer arithmetic: pointer outside object bounds in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.6] line 19 pointer arithmetic: invalid integer address in n + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.7] line 19 pointer arithmetic: pointer NULL in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.8] line 19 pointer arithmetic: pointer invalid in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.9] line 19 pointer arithmetic: deallocated dynamic object in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.10] line 19 pointer arithmetic: dead object in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.11] line 19 pointer arithmetic: pointer outside object bounds in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.12] line 19 pointer arithmetic: invalid integer address in n + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.13] line 19 pointer arithmetic: pointer NULL in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.14] line 19 pointer arithmetic: pointer invalid in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.15] line 19 pointer arithmetic: deallocated dynamic object in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.16] line 19 pointer arithmetic: dead object in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.17] line 19 pointer arithmetic: pointer outside object bounds in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.18] line 19 pointer arithmetic: invalid integer address in h + (signed long int)0: SUCCESS
+[twobyte_strstr.pointer_arithmetic.19] line 19 pointer arithmetic: pointer NULL in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.20] line 19 pointer arithmetic: pointer invalid in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.21] line 19 pointer arithmetic: deallocated dynamic object in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.22] line 19 pointer arithmetic: dead object in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.23] line 19 pointer arithmetic: pointer outside object bounds in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.24] line 19 pointer arithmetic: invalid integer address in h + (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_dereference.1] line 19 dereference failure: pointer NULL in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.2] line 19 dereference failure: pointer invalid in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.3] line 19 dereference failure: deallocated dynamic object in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.4] line 19 dereference failure: dead object in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.5] line 19 dereference failure: pointer outside object bounds in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.6] line 19 dereference failure: invalid integer address in n[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.7] line 19 dereference failure: pointer NULL in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.8] line 19 dereference failure: pointer invalid in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.9] line 19 dereference failure: deallocated dynamic object in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.10] line 19 dereference failure: dead object in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.11] line 19 dereference failure: pointer outside object bounds in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.12] line 19 dereference failure: invalid integer address in n[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.13] line 19 dereference failure: pointer NULL in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.14] line 19 dereference failure: pointer invalid in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.15] line 19 dereference failure: deallocated dynamic object in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.16] line 19 dereference failure: dead object in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.17] line 19 dereference failure: pointer outside object bounds in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.18] line 19 dereference failure: invalid integer address in h[(signed long int)0]: SUCCESS
+[twobyte_strstr.pointer_dereference.19] line 19 dereference failure: pointer NULL in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.20] line 19 dereference failure: pointer invalid in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.21] line 19 dereference failure: deallocated dynamic object in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.22] line 19 dereference failure: dead object in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.23] line 19 dereference failure: pointer outside object bounds in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.pointer_dereference.24] line 19 dereference failure: invalid integer address in h[(signed long int)1]: SUCCESS
+[twobyte_strstr.undefined-shift.1] line 19 shift operand is negative in (signed int)n[(signed long int)0] << 8: SUCCESS
+[twobyte_strstr.undefined-shift.2] line 19 shift operand is negative in (signed int)h[(signed long int)0] << 8: SUCCESS
+[twobyte_strstr.overflow.5] line 20 arithmetic overflow on signed shl in (signed int)hw << 8: SUCCESS
+[twobyte_strstr.overflow.6] line 20 arithmetic overflow on signed to unsigned type conversion in (uint16_t)((signed int)hw << 8 | (signed int)*h): SUCCESS
+[twobyte_strstr.pointer_arithmetic.25] line 20 pointer arithmetic: pointer NULL in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.26] line 20 pointer arithmetic: pointer invalid in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.27] line 20 pointer arithmetic: deallocated dynamic object in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.28] line 20 pointer arithmetic: dead object in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.29] line 20 pointer arithmetic: pointer outside object bounds in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.30] line 20 pointer arithmetic: invalid integer address in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.31] line 20 pointer arithmetic: pointer NULL in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.32] line 20 pointer arithmetic: pointer invalid in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.33] line 20 pointer arithmetic: deallocated dynamic object in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.34] line 20 pointer arithmetic: dead object in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.35] line 20 pointer arithmetic: pointer outside object bounds in h + 1l: SUCCESS
+[twobyte_strstr.pointer_arithmetic.36] line 20 pointer arithmetic: invalid integer address in h + 1l: SUCCESS
+[twobyte_strstr.pointer_dereference.25] line 20 dereference failure: pointer NULL in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.26] line 20 dereference failure: pointer invalid in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.27] line 20 dereference failure: deallocated dynamic object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.28] line 20 dereference failure: dead object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.29] line 20 dereference failure: pointer outside object bounds in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.30] line 20 dereference failure: invalid integer address in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.31] line 20 dereference failure: pointer NULL in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.32] line 20 dereference failure: pointer invalid in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.33] line 20 dereference failure: deallocated dynamic object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.34] line 20 dereference failure: dead object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.35] line 20 dereference failure: pointer outside object bounds in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.36] line 20 dereference failure: invalid integer address in *h: SUCCESS
+[twobyte_strstr.undefined-shift.3] line 20 shift operand is negative in (signed int)hw << 8: SUCCESS
+[twobyte_strstr.pointer_arithmetic.37] line 22 pointer arithmetic: pointer NULL in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.38] line 22 pointer arithmetic: pointer invalid in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.39] line 22 pointer arithmetic: deallocated dynamic object in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.40] line 22 pointer arithmetic: dead object in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.41] line 22 pointer arithmetic: pointer outside object bounds in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_arithmetic.42] line 22 pointer arithmetic: invalid integer address in (char *)h - (signed long int)1: SUCCESS
+[twobyte_strstr.pointer_dereference.37] line 22 dereference failure: pointer NULL in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.38] line 22 dereference failure: pointer invalid in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.39] line 22 dereference failure: deallocated dynamic object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.40] line 22 dereference failure: dead object in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.41] line 22 dereference failure: pointer outside object bounds in *h: SUCCESS
+[twobyte_strstr.pointer_dereference.42] line 22 dereference failure: invalid integer address in *h: SUCCESS
+
+source/algos/musl.c function twoway_strstr
+[twoway_strstr.overflow.1] line 55 arithmetic overflow on unsigned to signed type conversion in (signed long int)l: SUCCESS
+[twoway_strstr.overflow.2] line 55 arithmetic overflow on unsigned to signed type conversion in (signed long int)l: SUCCESS
+[twoway_strstr.overflow.6] line 55 arithmetic overflow on unsigned + in l + 1ul: SUCCESS
+[twoway_strstr.pointer_arithmetic.1] line 55 pointer arithmetic: pointer NULL in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.2] line 55 pointer arithmetic: pointer invalid in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.3] line 55 pointer arithmetic: deallocated dynamic object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.4] line 55 pointer arithmetic: dead object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.5] line 55 pointer arithmetic: pointer outside object bounds in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.6] line 55 pointer arithmetic: invalid integer address in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.7] line 55 pointer arithmetic: pointer NULL in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.8] line 55 pointer arithmetic: pointer invalid in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.9] line 55 pointer arithmetic: deallocated dynamic object in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.10] line 55 pointer arithmetic: dead object in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.11] line 55 pointer arithmetic: pointer outside object bounds in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.12] line 55 pointer arithmetic: invalid integer address in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_dereference.1] line 55 dereference failure: pointer NULL in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.2] line 55 dereference failure: pointer invalid in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.3] line 55 dereference failure: deallocated dynamic object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.4] line 55 dereference failure: dead object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.5] line 55 dereference failure: pointer outside object bounds in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.6] line 55 dereference failure: invalid integer address in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.7] line 55 dereference failure: pointer NULL in h[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.8] line 55 dereference failure: pointer invalid in h[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.9] line 55 dereference failure: deallocated dynamic object in h[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.10] line 55 dereference failure: dead object in h[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.11] line 55 dereference failure: pointer outside object bounds in h[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.12] line 55 dereference failure: invalid integer address in h[(signed long int)l]: SUCCESS
+[twoway_strstr.array_bounds.1] line 56 array 'byteset' upper bound in byteset[(signed long int)((size_t)n[(signed long int)l] / ((unsigned long int)8 * sizeof(size_t) /*8ul*/ ))]: SUCCESS
+[twoway_strstr.array_bounds.2] line 56 array 'shift' upper bound in shift[(signed long int)n[(signed long int)l]]: SUCCESS
+[twoway_strstr.overflow.3] line 56 arithmetic overflow on unsigned to signed type conversion in (signed long int)l: SUCCESS
+[twoway_strstr.overflow.4] line 56 arithmetic overflow on unsigned to signed type conversion in (signed long int)((size_t)n[(signed long int)l] / ((unsigned long int)8 * sizeof(size_t) /*8ul*/ )): SUCCESS
+[twoway_strstr.overflow.5] line 56 arithmetic overflow on unsigned + in l + (unsigned long int)1: SUCCESS
+[twoway_strstr.pointer_arithmetic.13] line 56 pointer arithmetic: pointer NULL in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.14] line 56 pointer arithmetic: pointer invalid in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.15] line 56 pointer arithmetic: deallocated dynamic object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.16] line 56 pointer arithmetic: dead object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.17] line 56 pointer arithmetic: pointer outside object bounds in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.18] line 56 pointer arithmetic: invalid integer address in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_dereference.13] line 56 dereference failure: pointer NULL in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.14] line 56 dereference failure: pointer invalid in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.15] line 56 dereference failure: deallocated dynamic object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.16] line 56 dereference failure: dead object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.17] line 56 dereference failure: pointer outside object bounds in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.18] line 56 dereference failure: invalid integer address in n[(signed long int)l]: SUCCESS
+[twoway_strstr.undefined-shift.1] line 56 shift distance too large in (size_t)1 << (size_t)n[(signed long int)l] % ((unsigned long int)8 * sizeof(size_t) /*8ul*/ ): SUCCESS
+[twoway_strstr.overflow.7] line 57 arithmetic overflow on unsigned to signed type conversion in (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.19] line 57 pointer arithmetic: pointer NULL in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.20] line 57 pointer arithmetic: pointer invalid in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.21] line 57 pointer arithmetic: deallocated dynamic object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.22] line 57 pointer arithmetic: dead object in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.23] line 57 pointer arithmetic: pointer outside object bounds in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.24] line 57 pointer arithmetic: invalid integer address in n + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_dereference.19] line 57 dereference failure: pointer NULL in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.20] line 57 dereference failure: pointer invalid in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.21] line 57 dereference failure: deallocated dynamic object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.22] line 57 dereference failure: dead object in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.23] line 57 dereference failure: pointer outside object bounds in n[(signed long int)l]: SUCCESS
+[twoway_strstr.pointer_dereference.24] line 57 dereference failure: invalid integer address in n[(signed long int)l]: SUCCESS
+[twoway_strstr.overflow.8] line 61 arithmetic overflow on signed to unsigned type conversion in (size_t)-1: SUCCESS
+[twoway_strstr.overflow.9] line 64 arithmetic overflow on unsigned + in jp + k: SUCCESS
+[twoway_strstr.overflow.10] line 65 arithmetic overflow on unsigned + in ip + k: SUCCESS
+[twoway_strstr.overflow.11] line 65 arithmetic overflow on unsigned to signed type conversion in (signed long int)(ip + k): SUCCESS
+[twoway_strstr.overflow.12] line 65 arithmetic overflow on unsigned to signed type conversion in (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.25] line 65 pointer arithmetic: pointer NULL in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.26] line 65 pointer arithmetic: pointer invalid in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.27] line 65 pointer arithmetic: deallocated dynamic object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.28] line 65 pointer arithmetic: dead object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.29] line 65 pointer arithmetic: pointer outside object bounds in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.30] line 65 pointer arithmetic: invalid integer address in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.31] line 65 pointer arithmetic: pointer NULL in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.32] line 65 pointer arithmetic: pointer invalid in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.33] line 65 pointer arithmetic: deallocated dynamic object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.34] line 65 pointer arithmetic: dead object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.35] line 65 pointer arithmetic: pointer outside object bounds in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.36] line 65 pointer arithmetic: invalid integer address in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_dereference.25] line 65 dereference failure: pointer NULL in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.26] line 65 dereference failure: pointer invalid in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.27] line 65 dereference failure: deallocated dynamic object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.28] line 65 dereference failure: dead object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.29] line 65 dereference failure: pointer outside object bounds in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.30] line 65 dereference failure: invalid integer address in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.31] line 65 dereference failure: pointer NULL in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.32] line 65 dereference failure: pointer invalid in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.33] line 65 dereference failure: deallocated dynamic object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.34] line 65 dereference failure: dead object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.35] line 65 dereference failure: pointer outside object bounds in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.36] line 65 dereference failure: invalid integer address in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.overflow.13] line 67 arithmetic overflow on unsigned + in jp + p: SUCCESS
+[twoway_strstr.overflow.14] line 70 arithmetic overflow on unsigned + in k + 1ul: SUCCESS
+[twoway_strstr.overflow.15] line 71 arithmetic overflow on unsigned + in ip + k: SUCCESS
+[twoway_strstr.overflow.16] line 71 arithmetic overflow on unsigned to signed type conversion in (signed long int)(ip + k): SUCCESS
+[twoway_strstr.overflow.17] line 71 arithmetic overflow on unsigned + in jp + k: SUCCESS
+[twoway_strstr.overflow.18] line 71 arithmetic overflow on unsigned to signed type conversion in (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.37] line 71 pointer arithmetic: pointer NULL in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.38] line 71 pointer arithmetic: pointer invalid in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.39] line 71 pointer arithmetic: deallocated dynamic object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.40] line 71 pointer arithmetic: dead object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.41] line 71 pointer arithmetic: pointer outside object bounds in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.42] line 71 pointer arithmetic: invalid integer address in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.43] line 71 pointer arithmetic: pointer NULL in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.44] line 71 pointer arithmetic: pointer invalid in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.45] line 71 pointer arithmetic: deallocated dynamic object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.46] line 71 pointer arithmetic: dead object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.47] line 71 pointer arithmetic: pointer outside object bounds in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.48] line 71 pointer arithmetic: invalid integer address in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_dereference.37] line 71 dereference failure: pointer NULL in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.38] line 71 dereference failure: pointer invalid in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.39] line 71 dereference failure: deallocated dynamic object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.40] line 71 dereference failure: dead object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.41] line 71 dereference failure: pointer outside object bounds in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.42] line 71 dereference failure: invalid integer address in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.43] line 71 dereference failure: pointer NULL in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.44] line 71 dereference failure: pointer invalid in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.45] line 71 dereference failure: deallocated dynamic object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.46] line 71 dereference failure: dead object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.47] line 71 dereference failure: pointer outside object bounds in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.48] line 71 dereference failure: invalid integer address in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.overflow.19] line 74 arithmetic overflow on unsigned - in jp - ip: SUCCESS
+[twoway_strstr.overflow.20] line 76 arithmetic overflow on unsigned + in jp + 1ul: SUCCESS
+[twoway_strstr.overflow.21] line 84 arithmetic overflow on signed to unsigned type conversion in (size_t)-1: SUCCESS
+[twoway_strstr.overflow.22] line 87 arithmetic overflow on unsigned + in jp + k: SUCCESS
+[twoway_strstr.overflow.23] line 88 arithmetic overflow on unsigned + in ip + k: SUCCESS
+[twoway_strstr.overflow.24] line 88 arithmetic overflow on unsigned to signed type conversion in (signed long int)(ip + k): SUCCESS
+[twoway_strstr.overflow.25] line 88 arithmetic overflow on unsigned to signed type conversion in (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.49] line 88 pointer arithmetic: pointer NULL in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.50] line 88 pointer arithmetic: pointer invalid in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.51] line 88 pointer arithmetic: deallocated dynamic object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.52] line 88 pointer arithmetic: dead object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.53] line 88 pointer arithmetic: pointer outside object bounds in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.54] line 88 pointer arithmetic: invalid integer address in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.55] line 88 pointer arithmetic: pointer NULL in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.56] line 88 pointer arithmetic: pointer invalid in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.57] line 88 pointer arithmetic: deallocated dynamic object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.58] line 88 pointer arithmetic: dead object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.59] line 88 pointer arithmetic: pointer outside object bounds in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.60] line 88 pointer arithmetic: invalid integer address in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_dereference.49] line 88 dereference failure: pointer NULL in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.50] line 88 dereference failure: pointer invalid in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.51] line 88 dereference failure: deallocated dynamic object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.52] line 88 dereference failure: dead object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.53] line 88 dereference failure: pointer outside object bounds in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.54] line 88 dereference failure: invalid integer address in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.55] line 88 dereference failure: pointer NULL in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.56] line 88 dereference failure: pointer invalid in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.57] line 88 dereference failure: deallocated dynamic object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.58] line 88 dereference failure: dead object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.59] line 88 dereference failure: pointer outside object bounds in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.60] line 88 dereference failure: invalid integer address in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.overflow.26] line 90 arithmetic overflow on unsigned + in jp + p: SUCCESS
+[twoway_strstr.overflow.27] line 93 arithmetic overflow on unsigned + in k + 1ul: SUCCESS
+[twoway_strstr.overflow.28] line 94 arithmetic overflow on unsigned + in ip + k: SUCCESS
+[twoway_strstr.overflow.29] line 94 arithmetic overflow on unsigned to signed type conversion in (signed long int)(ip + k): SUCCESS
+[twoway_strstr.overflow.30] line 94 arithmetic overflow on unsigned + in jp + k: SUCCESS
+[twoway_strstr.overflow.31] line 94 arithmetic overflow on unsigned to signed type conversion in (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.61] line 94 pointer arithmetic: pointer NULL in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.62] line 94 pointer arithmetic: pointer invalid in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.63] line 94 pointer arithmetic: deallocated dynamic object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.64] line 94 pointer arithmetic: dead object in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.65] line 94 pointer arithmetic: pointer outside object bounds in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.66] line 94 pointer arithmetic: invalid integer address in n + (signed long int)(ip + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.67] line 94 pointer arithmetic: pointer NULL in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.68] line 94 pointer arithmetic: pointer invalid in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.69] line 94 pointer arithmetic: deallocated dynamic object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.70] line 94 pointer arithmetic: dead object in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.71] line 94 pointer arithmetic: pointer outside object bounds in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_arithmetic.72] line 94 pointer arithmetic: invalid integer address in n + (signed long int)(jp + k): SUCCESS
+[twoway_strstr.pointer_dereference.61] line 94 dereference failure: pointer NULL in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.62] line 94 dereference failure: pointer invalid in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.63] line 94 dereference failure: deallocated dynamic object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.64] line 94 dereference failure: dead object in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.65] line 94 dereference failure: pointer outside object bounds in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.66] line 94 dereference failure: invalid integer address in n[(signed long int)(ip + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.67] line 94 dereference failure: pointer NULL in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.68] line 94 dereference failure: pointer invalid in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.69] line 94 dereference failure: deallocated dynamic object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.70] line 94 dereference failure: dead object in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.71] line 94 dereference failure: pointer outside object bounds in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.pointer_dereference.72] line 94 dereference failure: invalid integer address in n[(signed long int)(jp + k)]: SUCCESS
+[twoway_strstr.overflow.32] line 97 arithmetic overflow on unsigned - in jp - ip: SUCCESS
+[twoway_strstr.overflow.33] line 99 arithmetic overflow on unsigned + in jp + 1ul: SUCCESS
+[twoway_strstr.overflow.34] line 103 arithmetic overflow on unsigned + in ip + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.35] line 103 arithmetic overflow on unsigned + in ms + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.36] line 109 arithmetic overflow on unsigned to signed type conversion in (signed long int)p: SUCCESS
+[twoway_strstr.overflow.37] line 109 arithmetic overflow on unsigned + in ms + (unsigned long int)1: SUCCESS
+[twoway_strstr.pointer_arithmetic.73] line 109 pointer arithmetic: pointer NULL in n + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.74] line 109 pointer arithmetic: pointer invalid in n + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.75] line 109 pointer arithmetic: deallocated dynamic object in n + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.76] line 109 pointer arithmetic: dead object in n + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.77] line 109 pointer arithmetic: pointer outside object bounds in n + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.78] line 109 pointer arithmetic: invalid integer address in n + (signed long int)p: SUCCESS
+[twoway_strstr.overflow.38] line 111 arithmetic overflow on unsigned - in l - ms: SUCCESS
+[twoway_strstr.overflow.39] line 111 arithmetic overflow on unsigned - in (l - ms) - (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.40] line 111 arithmetic overflow on unsigned - in l - ms: SUCCESS
+[twoway_strstr.overflow.41] line 111 arithmetic overflow on unsigned - in (l - ms) - (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.42] line 111 arithmetic overflow on unsigned + in (ms > (l - ms) - (unsigned long int)1 ? ms : (l - ms) - (unsigned long int)1) + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.43] line 113 arithmetic overflow on unsigned - in l - p: SUCCESS
+[twoway_strstr.overflow.44] line 122 arithmetic overflow on signed - in z - h: SUCCESS
+[twoway_strstr.overflow.45] line 122 arithmetic overflow on unsigned to signed type conversion in (ptrdiff_t)l: SUCCESS
+[twoway_strstr.pointer.1] line 122 same object violation in z - h: SUCCESS
+[twoway_strstr.pointer_arithmetic.79] line 122 pointer relation: pointer NULL in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.80] line 122 pointer relation: pointer invalid in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.81] line 122 pointer relation: deallocated dynamic object in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.82] line 122 pointer relation: dead object in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.83] line 122 pointer relation: pointer outside object bounds in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.84] line 122 pointer relation: invalid integer address in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.85] line 122 pointer relation: pointer NULL in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.86] line 122 pointer relation: pointer invalid in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.87] line 122 pointer relation: deallocated dynamic object in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.88] line 122 pointer relation: dead object in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.89] line 122 pointer relation: pointer outside object bounds in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.90] line 122 pointer relation: invalid integer address in h: SUCCESS
+[twoway_strstr.overflow.46] line 128 arithmetic overflow on signed - in z - h: SUCCESS
+[twoway_strstr.overflow.47] line 128 arithmetic overflow on unsigned to signed type conversion in (ptrdiff_t)l: SUCCESS
+[twoway_strstr.pointer.2] line 128 same object violation in z - h: SUCCESS
+[twoway_strstr.pointer_arithmetic.91] line 128 pointer relation: pointer NULL in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.92] line 128 pointer relation: pointer invalid in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.93] line 128 pointer relation: deallocated dynamic object in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.94] line 128 pointer relation: dead object in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.95] line 128 pointer relation: pointer outside object bounds in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.96] line 128 pointer relation: invalid integer address in z: SUCCESS
+[twoway_strstr.pointer_arithmetic.97] line 128 pointer relation: pointer NULL in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.98] line 128 pointer relation: pointer invalid in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.99] line 128 pointer relation: deallocated dynamic object in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.100] line 128 pointer relation: dead object in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.101] line 128 pointer relation: pointer outside object bounds in h: SUCCESS
+[twoway_strstr.pointer_arithmetic.102] line 128 pointer relation: invalid integer address in h: SUCCESS
+[twoway_strstr.overflow.48] line 131 arithmetic overflow on unsigned to signed type conversion in (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.103] line 131 pointer arithmetic: pointer NULL in z + (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.104] line 131 pointer arithmetic: pointer invalid in z + (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.105] line 131 pointer arithmetic: deallocated dynamic object in z + (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.106] line 131 pointer arithmetic: dead object in z + (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.107] line 131 pointer arithmetic: pointer outside object bounds in z + (signed long int)grow: SUCCESS
+[twoway_strstr.pointer_arithmetic.108] line 131 pointer arithmetic: invalid integer address in z + (signed long int)grow: SUCCESS
+[twoway_strstr.array_bounds.3] line 135 array 'byteset' upper bound in byteset[(signed long int)((size_t)h[(signed long int)(l - (unsigned long int)1)] / ((unsigned long int)8 * sizeof(size_t) /*8ul*/ ))]: SUCCESS
+[twoway_strstr.overflow.49] line 135 arithmetic overflow on unsigned - in l - (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.50] line 135 arithmetic overflow on unsigned to signed type conversion in (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.overflow.51] line 135 arithmetic overflow on unsigned to signed type conversion in (signed long int)((size_t)h[(signed long int)(l - (unsigned long int)1)] / ((unsigned long int)8 * sizeof(size_t) /*8ul*/ )): SUCCESS
+[twoway_strstr.pointer_arithmetic.109] line 135 pointer arithmetic: pointer NULL in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.110] line 135 pointer arithmetic: pointer invalid in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.111] line 135 pointer arithmetic: deallocated dynamic object in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.112] line 135 pointer arithmetic: dead object in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.113] line 135 pointer arithmetic: pointer outside object bounds in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.114] line 135 pointer arithmetic: invalid integer address in h + (signed long int)(l - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_dereference.73] line 135 dereference failure: pointer NULL in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.74] line 135 dereference failure: pointer invalid in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.75] line 135 dereference failure: deallocated dynamic object in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.76] line 135 dereference failure: dead object in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.77] line 135 dereference failure: pointer outside object bounds in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.78] line 135 dereference failure: invalid integer address in h[(signed long int)(l - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.undefined-shift.2] line 135 shift distance too large in (size_t)1 << (size_t)h[(signed long int)(l - (unsigned long int)1)] % ((unsigned long int)8 * sizeof(size_t) /*8ul*/ ): SUCCESS
+[twoway_strstr.array_bounds.4] line 136 array 'shift' upper bound in shift[(signed long int)h[(signed long int)(l - (unsigned long int)1)]]: SUCCESS
+[twoway_strstr.overflow.52] line 136 arithmetic overflow on unsigned - in l - shift[(signed long int)h[(signed long int)(l - (unsigned long int)1)]]: SUCCESS
+[twoway_strstr.overflow.53] line 140 arithmetic overflow on unsigned to signed type conversion in (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.115] line 140 pointer arithmetic: pointer NULL in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.116] line 140 pointer arithmetic: pointer invalid in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.117] line 140 pointer arithmetic: deallocated dynamic object in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.118] line 140 pointer arithmetic: dead object in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.119] line 140 pointer arithmetic: pointer outside object bounds in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.120] line 140 pointer arithmetic: invalid integer address in h + (signed long int)k: SUCCESS
+[twoway_strstr.overflow.54] line 145 arithmetic overflow on unsigned to signed type conversion in (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.121] line 145 pointer arithmetic: pointer NULL in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.122] line 145 pointer arithmetic: pointer invalid in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.123] line 145 pointer arithmetic: deallocated dynamic object in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.124] line 145 pointer arithmetic: dead object in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.125] line 145 pointer arithmetic: pointer outside object bounds in h + (signed long int)l: SUCCESS
+[twoway_strstr.pointer_arithmetic.126] line 145 pointer arithmetic: invalid integer address in h + (signed long int)l: SUCCESS
+[twoway_strstr.overflow.55] line 151 arithmetic overflow on unsigned + in ms + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.56] line 151 arithmetic overflow on unsigned + in ms + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.57] line 151 arithmetic overflow on unsigned to signed type conversion in (signed long int)k: SUCCESS
+[twoway_strstr.overflow.58] line 151 arithmetic overflow on unsigned to signed type conversion in (signed long int)k: SUCCESS
+[twoway_strstr.overflow.59] line 151 arithmetic overflow on unsigned + in k + 1ul: SUCCESS
+[twoway_strstr.pointer_arithmetic.127] line 151 pointer arithmetic: pointer NULL in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.128] line 151 pointer arithmetic: pointer invalid in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.129] line 151 pointer arithmetic: deallocated dynamic object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.130] line 151 pointer arithmetic: dead object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.131] line 151 pointer arithmetic: pointer outside object bounds in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.132] line 151 pointer arithmetic: invalid integer address in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.133] line 151 pointer arithmetic: pointer NULL in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.134] line 151 pointer arithmetic: pointer invalid in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.135] line 151 pointer arithmetic: deallocated dynamic object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.136] line 151 pointer arithmetic: dead object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.137] line 151 pointer arithmetic: pointer outside object bounds in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.138] line 151 pointer arithmetic: invalid integer address in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.139] line 151 pointer arithmetic: pointer NULL in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.140] line 151 pointer arithmetic: pointer invalid in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.141] line 151 pointer arithmetic: deallocated dynamic object in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.142] line 151 pointer arithmetic: dead object in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.143] line 151 pointer arithmetic: pointer outside object bounds in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.144] line 151 pointer arithmetic: invalid integer address in h + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_dereference.79] line 151 dereference failure: pointer NULL in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.80] line 151 dereference failure: pointer invalid in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.81] line 151 dereference failure: deallocated dynamic object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.82] line 151 dereference failure: dead object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.83] line 151 dereference failure: pointer outside object bounds in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.84] line 151 dereference failure: invalid integer address in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.85] line 151 dereference failure: pointer NULL in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.86] line 151 dereference failure: pointer invalid in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.87] line 151 dereference failure: deallocated dynamic object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.88] line 151 dereference failure: dead object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.89] line 151 dereference failure: pointer outside object bounds in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.90] line 151 dereference failure: invalid integer address in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.91] line 151 dereference failure: pointer NULL in h[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.92] line 151 dereference failure: pointer invalid in h[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.93] line 151 dereference failure: deallocated dynamic object in h[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.94] line 151 dereference failure: dead object in h[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.95] line 151 dereference failure: pointer outside object bounds in h[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.96] line 151 dereference failure: invalid integer address in h[(signed long int)k]: SUCCESS
+[twoway_strstr.overflow.60] line 153 arithmetic overflow on unsigned to signed type conversion in (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.145] line 153 pointer arithmetic: pointer NULL in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.146] line 153 pointer arithmetic: pointer invalid in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.147] line 153 pointer arithmetic: deallocated dynamic object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.148] line 153 pointer arithmetic: dead object in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.149] line 153 pointer arithmetic: pointer outside object bounds in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_arithmetic.150] line 153 pointer arithmetic: invalid integer address in n + (signed long int)k: SUCCESS
+[twoway_strstr.pointer_dereference.97] line 153 dereference failure: pointer NULL in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.98] line 153 dereference failure: pointer invalid in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.99] line 153 dereference failure: deallocated dynamic object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.100] line 153 dereference failure: dead object in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.101] line 153 dereference failure: pointer outside object bounds in n[(signed long int)k]: SUCCESS
+[twoway_strstr.pointer_dereference.102] line 153 dereference failure: invalid integer address in n[(signed long int)k]: SUCCESS
+[twoway_strstr.overflow.61] line 154 arithmetic overflow on unsigned - in k - ms: SUCCESS
+[twoway_strstr.overflow.62] line 154 arithmetic overflow on unsigned to signed type conversion in (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.151] line 154 pointer arithmetic: pointer NULL in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.152] line 154 pointer arithmetic: pointer invalid in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.153] line 154 pointer arithmetic: deallocated dynamic object in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.154] line 154 pointer arithmetic: dead object in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.155] line 154 pointer arithmetic: pointer outside object bounds in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.pointer_arithmetic.156] line 154 pointer arithmetic: invalid integer address in h + (signed long int)(k - ms): SUCCESS
+[twoway_strstr.overflow.63] line 159 arithmetic overflow on unsigned + in ms + (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.64] line 159 arithmetic overflow on unsigned - in k - (unsigned long int)1: SUCCESS
+[twoway_strstr.overflow.65] line 159 arithmetic overflow on unsigned to signed type conversion in (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.overflow.66] line 159 arithmetic overflow on unsigned - in k - 1ul: SUCCESS
+[twoway_strstr.pointer_arithmetic.157] line 159 pointer arithmetic: pointer NULL in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.158] line 159 pointer arithmetic: pointer invalid in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.159] line 159 pointer arithmetic: deallocated dynamic object in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.160] line 159 pointer arithmetic: dead object in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.161] line 159 pointer arithmetic: pointer outside object bounds in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.162] line 159 pointer arithmetic: invalid integer address in n + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.163] line 159 pointer arithmetic: pointer NULL in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.164] line 159 pointer arithmetic: pointer invalid in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.165] line 159 pointer arithmetic: deallocated dynamic object in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.166] line 159 pointer arithmetic: dead object in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.167] line 159 pointer arithmetic: pointer outside object bounds in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_arithmetic.168] line 159 pointer arithmetic: invalid integer address in h + (signed long int)(k - (unsigned long int)1): SUCCESS
+[twoway_strstr.pointer_dereference.103] line 159 dereference failure: pointer NULL in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.104] line 159 dereference failure: pointer invalid in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.105] line 159 dereference failure: deallocated dynamic object in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.106] line 159 dereference failure: dead object in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.107] line 159 dereference failure: pointer outside object bounds in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.108] line 159 dereference failure: invalid integer address in n[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.109] line 159 dereference failure: pointer NULL in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.110] line 159 dereference failure: pointer invalid in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.111] line 159 dereference failure: deallocated dynamic object in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.112] line 159 dereference failure: dead object in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.113] line 159 dereference failure: pointer outside object bounds in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.pointer_dereference.114] line 159 dereference failure: invalid integer address in h[(signed long int)(k - (unsigned long int)1)]: SUCCESS
+[twoway_strstr.overflow.67] line 163 arithmetic overflow on unsigned to signed type conversion in (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.169] line 163 pointer arithmetic: pointer NULL in h + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.170] line 163 pointer arithmetic: pointer invalid in h + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.171] line 163 pointer arithmetic: deallocated dynamic object in h + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.172] line 163 pointer arithmetic: dead object in h + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.173] line 163 pointer arithmetic: pointer outside object bounds in h + (signed long int)p: SUCCESS
+[twoway_strstr.pointer_arithmetic.174] line 163 pointer arithmetic: invalid integer address in h + (signed long int)p: SUCCESS
+
+** 0 of 960 failed (1 iterations)
+VERIFICATION SUCCESSFUL

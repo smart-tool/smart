@@ -1,7 +1,0 @@
-<!DOCTYPE html >
-<html>
-<head>
-	<script src="js/RGraph.common.core.js"></script>
-	<script src="js/RGraph.common.effects.js"></script>
-	<script src="js/RGraph.line.js"></script>
-	<script src="js/RGraph.bar.js"></script>    

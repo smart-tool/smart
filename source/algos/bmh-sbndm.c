@@ -12,128 +12,174 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  * contact the authors at: faro@dmi.unict.it, thierry.lecroq@univ-rouen.fr
- * download the tool at: http://www.dmi.unict.it/~faro/smart/
+ * download the tool at:  https://github.com/rurban/smart/
  *
  * This is an implementation of the Horspool algorithm with BNDM test
- * in J. Holub and B. Durian. 
- * Talk: Fast variants of bit parallel approach to suffix automata. 
- * The Second Haifa Annual International Stringology Research Workshop of the Israeli Science Foundation, (2005).
+ * in J. Holub and B. Durian.
+ * Talk: Fast variants of bit parallel approach to suffix automata.
+ * The Second Haifa Annual International Stringology Research Workshop of the
+ * Israeli Science Foundation, (2005).
+ *
+ * Fixed two bugs in the preprocessing that computes the post-match
+ * "shift" (the safe distance to advance after a confirmed occurrence,
+ * analogous to a border/period of the pattern derived by re-feeding the
+ * pattern into its own BNDM automaton):
+ * 1. The "found a full self-match" signal was tested as
+ *    "D & (1U << (m - 1))" instead of "D & (1U << (WORD - 1))". The
+ *    automaton only ever sets bits in [WORD-m, WORD-1] (WORD=32), so for
+ *    m <= WORD/2 bit (m-1) falls entirely outside that range and the
+ *    check silently never fired -- shift stayed at its safe default of 1
+ *    (correct but slow). For m > WORD/2, bit (m-1) lands on an arbitrary
+ *    bit inside the valid range instead of the actual "full match" bit,
+ *    so the wrong condition fired.
+ * 2. The loop kept overwriting "shift" with every qualifying (self-
+ *    overlapping) candidate instead of stopping at the first, smallest
+ *    one. For a periodic pattern (e.g. "aaaa...a") every candidate
+ *    qualifies, so shift ended up being the *largest* offset checked
+ *    (up to m-2) instead of the pattern's actual minimal period (1),
+ *    which meant the post-match jump ("i += shift") sailed straight
+ *    over nearly all of the overlapping occurrences: m=32 "a"s in 64
+ *    "a"s reported 3 occurrences instead of 33. Break out as soon as
+ *    the first (smallest) qualifying shift is found.
  */
 
+#define MIN_M 2
+#define MAX_M 32
 #include "include/define.h"
 #include "include/main.h"
+#include "include/search_small.h"
+
 int search_large(unsigned char *x, int m, unsigned char *y, int n);
 
 int search(unsigned char *x, int m, unsigned char *y, int n) {
-   int i, j,k,s, count, hbc[SIGMA], shift;
-   unsigned int B[SIGMA], D;
+  int i, j, k, s, count, hbc[SIGMA], shift;
+  unsigned int B[SIGMA], D;
 
-   if (m>32) return search_large(x,m,y,n);
-    if (m<2) return -1;
+  if (m > 32)
+    return search_large(x, m, y, n);
+  if (m < 2)
+    return search_small(x, m, y, n);
 
-   /* Preprocessing */
-   BEGIN_PREPROCESSING
-   for(i=0;i<SIGMA;i++) 
-      hbc[i]=m;
-   for(i=0;i<m;i++) 
-      hbc[x[i]]=m-i-1;
-   for (i=0; i<SIGMA; i++)  
-      B[i] = 0;
-   for (i=0; i<m; i++) 
-      B[x[m-i-1]] |= (unsigned int)1 << (i+WORD-m);
-   for(i=0; i<m; i++) 
-      y[n+i]=x[i];
-   D = B[x[m-1]]; j=1; shift=1;
-   for(i=m-2; i>0; i--, j++) {
-      if(D & (1<<(m-1))) shift = j;
-      D = (D<<1) & B[x[i]];
-   }
-   for(i=0;i<m; i++) y[n+i] = x[i];
-   END_PREPROCESSING
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  for (i = 0; i < SIGMA; i++)
+    hbc[i] = m;
+  for (i = 0; i < m; i++)
+    hbc[x[i]] = m - i - 1;
+  for (i = 0; i < SIGMA; i++)
+    B[i] = 0;
+  for (i = 0; i < m; i++)
+    B[x[m - i - 1]] |= 1U << (i + WORD - m);
+  for (i = 0; i < m; i++)
+    y[n + i] = x[i];
+  D = B[x[m - 1]];
+  j = 1;
+  shift = 1;
+  for (i = m - 2; i > 0; i--, j++) {
+    if (D & (1U << (WORD - 1))) {
+      shift = j;
+      break;
+    }
+    D = (D << 1) & B[x[i]];
+  }
+  for (i = 0; i < m; i++)
+    y[n + i] = x[i];
+  END_PREPROCESSING
 
-   /* Searching */      
-   BEGIN_SEARCHING
-   count = 0;
-   if( !memcmp(x,y,m) ) OUTPUT(0);
-   i = m;
-   while(i < n) {
-      while( (k=hbc[y[i]])!=0 ) i+=k;
-      j=i; s=i-m+1;
-      D = B[y[j]];
-      while(D!=0) { 
-         j--;
-         D = (D<<1) & B[y[j]];
-      }
-      if(j<s) {
-         if(s<n && i<n) OUTPUT(s);
-         i += shift;
-      }
-      else i = j+m;
-   }
-   END_SEARCHING   
-   return count;
+  /* Searching */
+  BEGIN_SEARCHING
+  count = 0;
+  if (!memcmp(x, y, m))
+    OUTPUT(0);
+  i = m;
+  while (i < n) {
+    while ((k = hbc[y[i]]) != 0)
+      i += k;
+    j = i;
+    s = i - m + 1;
+    D = B[y[j]];
+    while (D != 0) {
+      j--;
+      D = (D << 1) & B[y[j]];
+    }
+    if (j < s) {
+      if (s < n && i < n)
+        OUTPUT(s);
+      i += shift;
+    } else
+      i = j + m;
+  }
+  END_SEARCHING
+  return count;
 }
 
 /*
  * Horspool algorithm with BNDM test designed for large patterns
  * The present implementation searches for prefixes of the pattern of length 32.
- * When an occurrence is found the algorithm tests for the whole occurrence of the pattern
+ * When an occurrence is found the algorithm tests for the whole occurrence of
+ * the pattern
  */
 
 int search_large(unsigned char *x, int m, unsigned char *y, int n) {
-   int i, j,k,s, count, hbc[SIGMA], shift, p_len;
-   unsigned int B[SIGMA], D;
-   p_len = m;
-   m = 31;
-   int diff = p_len-m;
+  int i, j, k, s, count, hbc[SIGMA], p_len;
+  unsigned int B[SIGMA], D;
+  p_len = m;
+  m = 31;
+  //int diff = p_len - m;
 
-    /* Preprocessing */
-    BEGIN_PREPROCESSING
-    for(i=0;i<SIGMA;i++)
-        hbc[i]=m;
-    for(i=0;i<m-1;i++)
-        hbc[x[i]]=m-i-1;
-    int sh = hbc[x[m-1]];
-    hbc[x[m-1]]=0;
-    for (i=0; i<SIGMA; i++)
-        B[i] = 0;
-    for (i=0; i<m; i++)
-        B[x[m-i-1]] |= (unsigned int)1 << (i+WORD-m);
-    for(i=0; i<m; i++)
-        y[n+i]=x[i];
-    D = B[x[m-1]]; j=1; shift=1;
-    for(i=m-2; i>0; i--, j++) {
-        if(D & (1<<(m-1))) shift = j;
-        D = (D<<1) & B[x[i]];
+  /* Preprocessing */
+  BEGIN_PREPROCESSING
+  for (i = 0; i < SIGMA; i++)
+    hbc[i] = m;
+  for (i = 0; i < m - 1; i++)
+    hbc[x[i]] = m - i - 1;
+  int sh = hbc[x[m - 1]];
+  hbc[x[m - 1]] = 0;
+  for (i = 0; i < SIGMA; i++)
+    B[i] = 0;
+  for (i = 0; i < m; i++)
+    B[x[m - i - 1]] |= 1U << (i + WORD - m);
+  for (i = 0; i < m; i++)
+    y[n + i] = x[i];
+  D = B[x[m - 1]];
+  j = 1;
+  // shift = 1;
+  for (i = m - 2; i > 0; i--, j++) {
+    // if (D & (1U << (WORD - 1)))
+    //  shift = j;
+    D = (D << 1) & B[x[i]];
+  }
+  for (i = 0; i < m; i++)
+    y[n + i] = x[i];
+  END_PREPROCESSING
+
+  /* Searching */
+  BEGIN_SEARCHING
+  count = 0;
+  if (!memcmp(x, y, p_len))
+    OUTPUT(0);
+  i = m;
+  while (i < n) {
+    while ((k = hbc[y[i]]) != 0)
+      i += k;
+    j = i;
+    s = i - m + 1;
+    D = B[y[j]];
+    while (D != 0) {
+      j--;
+      D = (D << 1) & B[y[j]];
     }
-    for(i=0; i<m; i++) y[n+i] = x[i];
-    END_PREPROCESSING
-    
-    /* Searching */
-    BEGIN_SEARCHING
-    count = 0;
-    if( !memcmp(x,y,p_len) ) OUTPUT(0);
-    i = m;
-    while(i < n) {
-        while((k=hbc[y[i]])!=0 ) i+=k;
-        j=i; s=i-m+1;
-        D = B[y[j]];
-        while(D!=0) {
-            j--;
-            D = (D<<1) & B[y[j]];
-        }
-        if(j<s) {
-            if(s<=n-p_len && !memcmp(x,y+s,p_len)) {
-                OUTPUT(s);
-            }
-            i += sh;//shift;
-        }
-        else i = j+m;
-    }
-    END_SEARCHING
-    y[n] = '\0';
-    return count;
+    if (j < s) {
+      if (s <= n - p_len && !memcmp(x, y + s, p_len)) {
+        OUTPUT(s);
+      }
+      i += sh; // shift;
+    } else
+      i = j + m;
+  }
+  END_SEARCHING
+  y[n] = '\0';
+  return count;
 }
-

@@ -1,0 +1,1234 @@
+timeout 4m cbmc --verbosity 7 --unwinding-assertions --slice-formula -Isource/algos -DCBMC --bounds-check --pointer-check --memory-leak-check --div-by-zero-check --signed-overflow-check --unsigned-overflow-check --pointer-overflow-check --conversion-check --undefined-shift-check --float-overflow-check --nan-check --enum-range-check source/algos/epsm.c
+CBMC version 6.4.0 (cbmc-6.4.0-24-g63675f5121) 64-bit x86_64 linux
+Type-checking epsm
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Starting Bounded Model Checking
+
+** Results:
+function __CPROVER__start
+[__CPROVER__start.memory-leak.1] dynamically allocated memory never freed in __CPROVER_memory_leak == NULL: SUCCESS
+
+<builtin-library-malloc> function malloc
+[malloc.assertion.1] line 31 max allocation size exceeded: SUCCESS
+[malloc.assertion.2] line 36 max allocation may fail: SUCCESS
+
+<builtin-library-memcmp> function memcmp
+[memcmp.precondition.1] line 19 memcmp region 1 readable: SUCCESS
+[memcmp.precondition.2] line 21 memcpy region 2 readable: SUCCESS
+[memcmp.overflow.2] line 25 arithmetic overflow on unsigned - in n - 1ul: SUCCESS
+[memcmp.overflow.1] line 27 arithmetic overflow on signed - in (signed int)*tmp_post_sc1 - (signed int)*tmp_post_sc2: SUCCESS
+[memcmp.pointer_arithmetic.1] line 27 pointer arithmetic: pointer NULL in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.2] line 27 pointer arithmetic: pointer invalid in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.3] line 27 pointer arithmetic: deallocated dynamic object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.4] line 27 pointer arithmetic: dead object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.5] line 27 pointer arithmetic: pointer outside object bounds in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.6] line 27 pointer arithmetic: invalid integer address in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.7] line 27 pointer arithmetic: pointer NULL in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.8] line 27 pointer arithmetic: pointer invalid in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.9] line 27 pointer arithmetic: deallocated dynamic object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.10] line 27 pointer arithmetic: dead object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.11] line 27 pointer arithmetic: pointer outside object bounds in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.12] line 27 pointer arithmetic: invalid integer address in sc2 + 1l: SUCCESS
+[memcmp.pointer_dereference.1] line 27 dereference failure: pointer NULL in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.2] line 27 dereference failure: pointer invalid in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.3] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.4] line 27 dereference failure: dead object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.5] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.6] line 27 dereference failure: invalid integer address in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.7] line 27 dereference failure: pointer NULL in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.8] line 27 dereference failure: pointer invalid in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.9] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.10] line 27 dereference failure: dead object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.11] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.12] line 27 dereference failure: invalid integer address in *tmp_post_sc2: SUCCESS
+
+<builtin-library-memset> function memset
+[memset.overflow.1] line 36 arithmetic overflow on unsigned to signed type conversion in (signed long int)n: SUCCESS
+[memset.overflow.2] line 36 arithmetic overflow on signed to unsigned type conversion in (unsigned long int)(signed long int)n: SUCCESS
+
+<builtin-library-strcpy> function strcpy
+[strcpy.overflow.1] line 29 arithmetic overflow on unsigned to signed type conversion in (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.1] line 29 pointer arithmetic: pointer NULL in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.2] line 29 pointer arithmetic: pointer invalid in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.3] line 29 pointer arithmetic: deallocated dynamic object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.4] line 29 pointer arithmetic: dead object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.5] line 29 pointer arithmetic: pointer outside object bounds in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.6] line 29 pointer arithmetic: invalid integer address in src + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.1] line 29 dereference failure: pointer NULL in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.2] line 29 dereference failure: pointer invalid in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.3] line 29 dereference failure: deallocated dynamic object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.4] line 29 dereference failure: dead object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.5] line 29 dereference failure: pointer outside object bounds in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.6] line 29 dereference failure: invalid integer address in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_arithmetic.7] line 30 pointer arithmetic: pointer NULL in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.8] line 30 pointer arithmetic: pointer invalid in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.9] line 30 pointer arithmetic: deallocated dynamic object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.10] line 30 pointer arithmetic: dead object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.11] line 30 pointer arithmetic: pointer outside object bounds in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.12] line 30 pointer arithmetic: invalid integer address in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.7] line 30 dereference failure: pointer NULL in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.8] line 30 dereference failure: pointer invalid in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.9] line 30 dereference failure: deallocated dynamic object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.10] line 30 dereference failure: dead object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.11] line 30 dereference failure: pointer outside object bounds in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.12] line 30 dereference failure: invalid integer address in dst[(signed long int)i]: SUCCESS
+[strcpy.overflow.2] line 31 arithmetic overflow on unsigned + in i + 1ul: SUCCESS
+
+source/algos/epsm.c function search
+[search.overflow.1] line 378 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search.pointer_arithmetic.1] line 378 pointer arithmetic: pointer NULL in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.2] line 378 pointer arithmetic: pointer invalid in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.3] line 378 pointer arithmetic: deallocated dynamic object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.4] line 378 pointer arithmetic: dead object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.5] line 378 pointer arithmetic: pointer outside object bounds in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.6] line 378 pointer arithmetic: invalid integer address in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search.pointer_arithmetic.7] line 379 pointer arithmetic: pointer NULL in tend - 1l: SUCCESS
+[search.pointer_arithmetic.8] line 379 pointer arithmetic: pointer invalid in tend - 1l: SUCCESS
+[search.pointer_arithmetic.9] line 379 pointer arithmetic: deallocated dynamic object in tend - 1l: SUCCESS
+[search.pointer_arithmetic.10] line 379 pointer arithmetic: dead object in tend - 1l: SUCCESS
+[search.pointer_arithmetic.11] line 379 pointer arithmetic: pointer outside object bounds in tend - 1l: SUCCESS
+[search.pointer_arithmetic.12] line 379 pointer arithmetic: invalid integer address in tend - 1l: SUCCESS
+[search.overflow.2] line 384 arithmetic overflow on signed - in patlen - 5: SUCCESS
+[search.pointer_arithmetic.13] line 384 pointer arithmetic: pointer NULL in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_arithmetic.14] line 384 pointer arithmetic: pointer invalid in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_arithmetic.15] line 384 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_arithmetic.16] line 384 pointer arithmetic: dead object in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_arithmetic.17] line 384 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_arithmetic.18] line 384 pointer arithmetic: invalid integer address in pattern + (signed long int)(patlen - 5): SUCCESS
+[search.pointer_dereference.1] line 384 dereference failure: pointer NULL in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.pointer_dereference.2] line 384 dereference failure: pointer invalid in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.pointer_dereference.3] line 384 dereference failure: deallocated dynamic object in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.pointer_dereference.4] line 384 dereference failure: dead object in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.pointer_dereference.5] line 384 dereference failure: pointer outside object bounds in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.pointer_dereference.6] line 384 dereference failure: invalid integer address in pattern[(signed long int)(patlen - 5)]: SUCCESS
+[search.overflow.3] line 385 arithmetic overflow on signed - in patlen - 4: SUCCESS
+[search.pointer_arithmetic.19] line 385 pointer arithmetic: pointer NULL in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_arithmetic.20] line 385 pointer arithmetic: pointer invalid in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_arithmetic.21] line 385 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_arithmetic.22] line 385 pointer arithmetic: dead object in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_arithmetic.23] line 385 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_arithmetic.24] line 385 pointer arithmetic: invalid integer address in pattern + (signed long int)(patlen - 4): SUCCESS
+[search.pointer_dereference.7] line 385 dereference failure: pointer NULL in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.pointer_dereference.8] line 385 dereference failure: pointer invalid in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.pointer_dereference.9] line 385 dereference failure: deallocated dynamic object in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.pointer_dereference.10] line 385 dereference failure: dead object in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.pointer_dereference.11] line 385 dereference failure: pointer outside object bounds in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.pointer_dereference.12] line 385 dereference failure: invalid integer address in pattern[(signed long int)(patlen - 4)]: SUCCESS
+[search.overflow.4] line 386 arithmetic overflow on signed - in patlen - 3: SUCCESS
+[search.pointer_arithmetic.25] line 386 pointer arithmetic: pointer NULL in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_arithmetic.26] line 386 pointer arithmetic: pointer invalid in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_arithmetic.27] line 386 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_arithmetic.28] line 386 pointer arithmetic: dead object in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_arithmetic.29] line 386 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_arithmetic.30] line 386 pointer arithmetic: invalid integer address in pattern + (signed long int)(patlen - 3): SUCCESS
+[search.pointer_dereference.13] line 386 dereference failure: pointer NULL in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.pointer_dereference.14] line 386 dereference failure: pointer invalid in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.pointer_dereference.15] line 386 dereference failure: deallocated dynamic object in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.pointer_dereference.16] line 386 dereference failure: dead object in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.pointer_dereference.17] line 386 dereference failure: pointer outside object bounds in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.pointer_dereference.18] line 386 dereference failure: invalid integer address in pattern[(signed long int)(patlen - 3)]: SUCCESS
+[search.overflow.5] line 387 arithmetic overflow on signed - in patlen - 2: SUCCESS
+[search.pointer_arithmetic.31] line 387 pointer arithmetic: pointer NULL in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_arithmetic.32] line 387 pointer arithmetic: pointer invalid in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_arithmetic.33] line 387 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_arithmetic.34] line 387 pointer arithmetic: dead object in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_arithmetic.35] line 387 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_arithmetic.36] line 387 pointer arithmetic: invalid integer address in pattern + (signed long int)(patlen - 2): SUCCESS
+[search.pointer_dereference.19] line 387 dereference failure: pointer NULL in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.pointer_dereference.20] line 387 dereference failure: pointer invalid in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.pointer_dereference.21] line 387 dereference failure: deallocated dynamic object in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.pointer_dereference.22] line 387 dereference failure: dead object in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.pointer_dereference.23] line 387 dereference failure: pointer outside object bounds in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.pointer_dereference.24] line 387 dereference failure: invalid integer address in pattern[(signed long int)(patlen - 2)]: SUCCESS
+[search.overflow.6] line 390 arithmetic overflow on signed - in patlen - 1: SUCCESS
+[search.overflow.7] line 391 arithmetic overflow on signed + in i + 1: SUCCESS
+[search.overflow.8] line 392 arithmetic overflow on signed * in (signed long int)i * (signed long int)16ul: SUCCESS
+[search.pointer_arithmetic.37] line 392 pointer arithmetic: pointer NULL in text + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.38] line 392 pointer arithmetic: pointer invalid in text + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.39] line 392 pointer arithmetic: deallocated dynamic object in text + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.40] line 392 pointer arithmetic: dead object in text + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.41] line 392 pointer arithmetic: pointer outside object bounds in text + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.42] line 392 pointer arithmetic: invalid integer address in text + (signed long int)i: SUCCESS
+[search.overflow.9] line 393 arithmetic overflow on signed * in i * 16: SUCCESS
+[search.overflow.10] line 393 arithmetic overflow on signed + in i * 16 + 8: SUCCESS
+[search.overflow.11] line 393 arithmetic overflow on signed - in (i * 16 + 8) - patlen: SUCCESS
+[search.overflow.12] line 393 arithmetic overflow on signed + in ((i * 16 + 8) - patlen) + 1: SUCCESS
+[search.overflow.15] line 393 arithmetic overflow on signed + in k + 1: SUCCESS
+[search.overflow.13] line 394 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.43] line 394 pointer arithmetic: pointer NULL in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.44] line 394 pointer arithmetic: pointer invalid in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.45] line 394 pointer arithmetic: deallocated dynamic object in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.46] line 394 pointer arithmetic: dead object in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.47] line 394 pointer arithmetic: pointer outside object bounds in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.48] line 394 pointer arithmetic: invalid integer address in x + (signed long int)k: SUCCESS
+[search.overflow.14] line 395 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.pointer.1] line 401 same object violation in text < tend: SUCCESS
+[search.pointer_arithmetic.49] line 401 pointer relation: pointer NULL in text: SUCCESS
+[search.pointer_arithmetic.50] line 401 pointer relation: pointer invalid in text: SUCCESS
+[search.pointer_arithmetic.51] line 401 pointer relation: deallocated dynamic object in text: SUCCESS
+[search.pointer_arithmetic.52] line 401 pointer relation: dead object in text: SUCCESS
+[search.pointer_arithmetic.53] line 401 pointer relation: pointer outside object bounds in text: SUCCESS
+[search.pointer_arithmetic.54] line 401 pointer relation: invalid integer address in text: SUCCESS
+[search.pointer_arithmetic.55] line 401 pointer relation: pointer NULL in tend: SUCCESS
+[search.pointer_arithmetic.56] line 401 pointer relation: pointer invalid in tend: SUCCESS
+[search.pointer_arithmetic.57] line 401 pointer relation: deallocated dynamic object in tend: SUCCESS
+[search.pointer_arithmetic.58] line 401 pointer relation: dead object in tend: SUCCESS
+[search.pointer_arithmetic.59] line 401 pointer relation: pointer outside object bounds in tend: SUCCESS
+[search.pointer_arithmetic.60] line 401 pointer relation: invalid integer address in tend: SUCCESS
+[search.array_bounds.1] line 405 array dynamic object upper bound in (*text)[0l]: SUCCESS
+[search.array_bounds.2] line 405 array dynamic object upper bound in (*text)[1l]: SUCCESS
+[search.pointer_dereference.25] line 405 dereference failure: pointer NULL in *text: SUCCESS
+[search.pointer_dereference.26] line 405 dereference failure: pointer invalid in *text: SUCCESS
+[search.pointer_dereference.27] line 405 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search.pointer_dereference.28] line 405 dereference failure: dead object in *text: SUCCESS
+[search.pointer_dereference.29] line 405 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search.pointer_dereference.30] line 405 dereference failure: invalid integer address in *text: SUCCESS
+[search.pointer_arithmetic.61] line 409 pointer arithmetic: pointer NULL in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.62] line 409 pointer arithmetic: pointer invalid in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.63] line 409 pointer arithmetic: deallocated dynamic object in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.64] line 409 pointer arithmetic: dead object in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.65] line 409 pointer arithmetic: pointer outside object bounds in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.66] line 409 pointer arithmetic: invalid integer address in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.67] line 409 pointer arithmetic: pointer NULL in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.68] line 409 pointer arithmetic: pointer invalid in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.69] line 409 pointer arithmetic: deallocated dynamic object in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.70] line 409 pointer arithmetic: dead object in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.71] line 409 pointer arithmetic: pointer outside object bounds in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.72] line 409 pointer arithmetic: invalid integer address in ((unsigned char *)text + (signed long int)9) - (signed long int)patlen: SUCCESS
+[search.overflow.16] line 410 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.overflow.17] line 411 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.18] line 412 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.73] line 412 pointer arithmetic: pointer NULL in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.74] line 412 pointer arithmetic: pointer invalid in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.75] line 412 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.76] line 412 pointer arithmetic: dead object in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.77] line 412 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.78] line 412 pointer arithmetic: invalid integer address in y0 + (signed long int)1: SUCCESS
+[search.overflow.19] line 413 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.20] line 414 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.79] line 414 pointer arithmetic: pointer NULL in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.80] line 414 pointer arithmetic: pointer invalid in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.81] line 414 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.82] line 414 pointer arithmetic: dead object in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.83] line 414 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.84] line 414 pointer arithmetic: invalid integer address in y0 + (signed long int)2: SUCCESS
+[search.overflow.21] line 415 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.22] line 416 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.85] line 416 pointer arithmetic: pointer NULL in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.86] line 416 pointer arithmetic: pointer invalid in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.87] line 416 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.88] line 416 pointer arithmetic: dead object in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.89] line 416 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.90] line 416 pointer arithmetic: invalid integer address in y0 + (signed long int)3: SUCCESS
+[search.overflow.23] line 417 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.24] line 418 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.91] line 418 pointer arithmetic: pointer NULL in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.92] line 418 pointer arithmetic: pointer invalid in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.93] line 418 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.94] line 418 pointer arithmetic: dead object in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.95] line 418 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.96] line 418 pointer arithmetic: invalid integer address in y0 + (signed long int)4: SUCCESS
+[search.overflow.25] line 419 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.26] line 420 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.97] line 420 pointer arithmetic: pointer NULL in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.98] line 420 pointer arithmetic: pointer invalid in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.99] line 420 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.100] line 420 pointer arithmetic: dead object in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.101] line 420 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.102] line 420 pointer arithmetic: invalid integer address in y0 + (signed long int)5: SUCCESS
+[search.overflow.27] line 421 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.28] line 422 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.103] line 422 pointer arithmetic: pointer NULL in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.104] line 422 pointer arithmetic: pointer invalid in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.105] line 422 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.106] line 422 pointer arithmetic: dead object in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.107] line 422 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.108] line 422 pointer arithmetic: invalid integer address in y0 + (signed long int)6: SUCCESS
+[search.overflow.29] line 423 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.30] line 424 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.109] line 424 pointer arithmetic: pointer NULL in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.110] line 424 pointer arithmetic: pointer invalid in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.111] line 424 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.112] line 424 pointer arithmetic: dead object in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.113] line 424 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.114] line 424 pointer arithmetic: invalid integer address in y0 + (signed long int)7: SUCCESS
+[search.overflow.31] line 425 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.array_bounds.3] line 428 array dynamic object upper bound in (*text)[0l]: SUCCESS
+[search.array_bounds.4] line 428 array dynamic object upper bound in (*text)[1l]: SUCCESS
+[search.array_bounds.5] line 428 array dynamic object upper bound in text[(signed long int)1][0l]: SUCCESS
+[search.array_bounds.6] line 428 array dynamic object upper bound in text[(signed long int)1][1l]: SUCCESS
+[search.pointer_arithmetic.115] line 428 pointer arithmetic: pointer NULL in text + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.116] line 428 pointer arithmetic: pointer invalid in text + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.117] line 428 pointer arithmetic: deallocated dynamic object in text + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.118] line 428 pointer arithmetic: dead object in text + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.119] line 428 pointer arithmetic: pointer outside object bounds in text + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.120] line 428 pointer arithmetic: invalid integer address in text + (signed long int)1: SUCCESS
+[search.pointer_dereference.31] line 428 dereference failure: pointer NULL in *text: SUCCESS
+[search.pointer_dereference.32] line 428 dereference failure: pointer invalid in *text: SUCCESS
+[search.pointer_dereference.33] line 428 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search.pointer_dereference.34] line 428 dereference failure: dead object in *text: SUCCESS
+[search.pointer_dereference.35] line 428 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search.pointer_dereference.36] line 428 dereference failure: invalid integer address in *text: SUCCESS
+[search.pointer_dereference.37] line 428 dereference failure: pointer NULL in text[(signed long int)1]: SUCCESS
+[search.pointer_dereference.38] line 428 dereference failure: pointer invalid in text[(signed long int)1]: SUCCESS
+[search.pointer_dereference.39] line 428 dereference failure: deallocated dynamic object in text[(signed long int)1]: SUCCESS
+[search.pointer_dereference.40] line 428 dereference failure: dead object in text[(signed long int)1]: SUCCESS
+[search.pointer_dereference.41] line 428 dereference failure: pointer outside object bounds in text[(signed long int)1]: SUCCESS
+[search.pointer_dereference.42] line 428 dereference failure: invalid integer address in text[(signed long int)1]: SUCCESS
+[search.pointer_arithmetic.121] line 437 pointer arithmetic: pointer NULL in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.122] line 437 pointer arithmetic: pointer invalid in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.123] line 437 pointer arithmetic: deallocated dynamic object in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.124] line 437 pointer arithmetic: dead object in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.125] line 437 pointer arithmetic: pointer outside object bounds in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.126] line 437 pointer arithmetic: invalid integer address in (unsigned char *)text + (signed long int)9: SUCCESS
+[search.pointer_arithmetic.127] line 437 pointer arithmetic: pointer NULL in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.128] line 437 pointer arithmetic: pointer invalid in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.129] line 437 pointer arithmetic: deallocated dynamic object in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.130] line 437 pointer arithmetic: dead object in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.131] line 437 pointer arithmetic: pointer outside object bounds in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.132] line 437 pointer arithmetic: invalid integer address in (unsigned char *)text + (signed long int)9 + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.133] line 437 pointer arithmetic: pointer NULL in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.134] line 437 pointer arithmetic: pointer invalid in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.135] line 437 pointer arithmetic: deallocated dynamic object in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.136] line 437 pointer arithmetic: dead object in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.137] line 437 pointer arithmetic: pointer outside object bounds in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.pointer_arithmetic.138] line 437 pointer arithmetic: invalid integer address in ((unsigned char *)text + (signed long int)9 + (signed long int)8) - (signed long int)patlen: SUCCESS
+[search.overflow.32] line 438 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.overflow.33] line 439 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.34] line 440 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.139] line 440 pointer arithmetic: pointer NULL in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.140] line 440 pointer arithmetic: pointer invalid in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.141] line 440 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.142] line 440 pointer arithmetic: dead object in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.143] line 440 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)1: SUCCESS
+[search.pointer_arithmetic.144] line 440 pointer arithmetic: invalid integer address in y0 + (signed long int)1: SUCCESS
+[search.overflow.35] line 441 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.36] line 442 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.145] line 442 pointer arithmetic: pointer NULL in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.146] line 442 pointer arithmetic: pointer invalid in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.147] line 442 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.148] line 442 pointer arithmetic: dead object in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.149] line 442 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)2: SUCCESS
+[search.pointer_arithmetic.150] line 442 pointer arithmetic: invalid integer address in y0 + (signed long int)2: SUCCESS
+[search.overflow.37] line 443 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.38] line 444 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.151] line 444 pointer arithmetic: pointer NULL in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.152] line 444 pointer arithmetic: pointer invalid in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.153] line 444 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.154] line 444 pointer arithmetic: dead object in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.155] line 444 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)3: SUCCESS
+[search.pointer_arithmetic.156] line 444 pointer arithmetic: invalid integer address in y0 + (signed long int)3: SUCCESS
+[search.overflow.39] line 445 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.40] line 446 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.157] line 446 pointer arithmetic: pointer NULL in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.158] line 446 pointer arithmetic: pointer invalid in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.159] line 446 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.160] line 446 pointer arithmetic: dead object in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.161] line 446 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)4: SUCCESS
+[search.pointer_arithmetic.162] line 446 pointer arithmetic: invalid integer address in y0 + (signed long int)4: SUCCESS
+[search.overflow.41] line 447 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.42] line 448 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.163] line 448 pointer arithmetic: pointer NULL in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.164] line 448 pointer arithmetic: pointer invalid in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.165] line 448 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.166] line 448 pointer arithmetic: dead object in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.167] line 448 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)5: SUCCESS
+[search.pointer_arithmetic.168] line 448 pointer arithmetic: invalid integer address in y0 + (signed long int)5: SUCCESS
+[search.overflow.43] line 449 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.44] line 450 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.169] line 450 pointer arithmetic: pointer NULL in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.170] line 450 pointer arithmetic: pointer invalid in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.171] line 450 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.172] line 450 pointer arithmetic: dead object in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.173] line 450 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)6: SUCCESS
+[search.pointer_arithmetic.174] line 450 pointer arithmetic: invalid integer address in y0 + (signed long int)6: SUCCESS
+[search.overflow.45] line 451 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.46] line 452 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.175] line 452 pointer arithmetic: pointer NULL in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.176] line 452 pointer arithmetic: pointer invalid in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.177] line 452 pointer arithmetic: deallocated dynamic object in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.178] line 452 pointer arithmetic: dead object in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.179] line 452 pointer arithmetic: pointer outside object bounds in y0 + (signed long int)7: SUCCESS
+[search.pointer_arithmetic.180] line 452 pointer arithmetic: invalid integer address in y0 + (signed long int)7: SUCCESS
+[search.overflow.47] line 453 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.pointer_arithmetic.181] line 455 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search.pointer_arithmetic.182] line 455 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search.pointer_arithmetic.183] line 455 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search.pointer_arithmetic.184] line 455 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search.pointer_arithmetic.185] line 455 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search.pointer_arithmetic.186] line 455 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search.overflow.48] line 458 arithmetic overflow on signed - in ((unsigned char *)text + (signed long int)8) - x: SUCCESS
+[search.overflow.49] line 458 arithmetic overflow on signed type conversion in (signed int)(((unsigned char *)text + (signed long int)8) - x): SUCCESS
+[search.overflow.54] line 458 arithmetic overflow on signed + in k + 1: SUCCESS
+[search.pointer.2] line 458 same object violation in ((unsigned char *)text + (signed long int)8) - x: SUCCESS
+[search.pointer_arithmetic.187] line 458 pointer arithmetic: pointer NULL in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.188] line 458 pointer arithmetic: pointer invalid in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.189] line 458 pointer arithmetic: deallocated dynamic object in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.190] line 458 pointer arithmetic: dead object in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.191] line 458 pointer arithmetic: pointer outside object bounds in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.192] line 458 pointer arithmetic: invalid integer address in (unsigned char *)text + (signed long int)8: SUCCESS
+[search.pointer_arithmetic.193] line 458 pointer relation: pointer NULL in x: SUCCESS
+[search.pointer_arithmetic.194] line 458 pointer relation: pointer invalid in x: SUCCESS
+[search.pointer_arithmetic.195] line 458 pointer relation: deallocated dynamic object in x: SUCCESS
+[search.pointer_arithmetic.196] line 458 pointer relation: dead object in x: SUCCESS
+[search.pointer_arithmetic.197] line 458 pointer relation: pointer outside object bounds in x: SUCCESS
+[search.pointer_arithmetic.198] line 458 pointer relation: invalid integer address in x: SUCCESS
+[search.overflow.50] line 459 arithmetic overflow on signed - in k - patlen: SUCCESS
+[search.overflow.51] line 459 arithmetic overflow on signed + in (k - patlen) + 1: SUCCESS
+[search.overflow.52] line 459 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search.pointer_arithmetic.199] line 459 pointer arithmetic: pointer NULL in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.pointer_arithmetic.200] line 459 pointer arithmetic: pointer invalid in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.pointer_arithmetic.201] line 459 pointer arithmetic: deallocated dynamic object in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.pointer_arithmetic.202] line 459 pointer arithmetic: dead object in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.pointer_arithmetic.203] line 459 pointer arithmetic: pointer outside object bounds in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.pointer_arithmetic.204] line 459 pointer arithmetic: invalid integer address in x + (signed long int)((k - patlen) + 1): SUCCESS
+[search.overflow.53] line 460 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/epsm.c function search1
+[search1.overflow.1] line 61 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search1.pointer_arithmetic.1] line 61 pointer arithmetic: pointer NULL in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.pointer_arithmetic.2] line 61 pointer arithmetic: pointer invalid in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.pointer_arithmetic.3] line 61 pointer arithmetic: deallocated dynamic object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.pointer_arithmetic.4] line 61 pointer arithmetic: dead object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.pointer_arithmetic.5] line 61 pointer arithmetic: pointer outside object bounds in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.pointer_arithmetic.6] line 61 pointer arithmetic: invalid integer address in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search1.overflow.2] line 69 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search1.array_bounds.1] line 70 array upper bound in byte_extract_little_endian(template0, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search1.pointer_arithmetic.7] line 70 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.8] line 70 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.9] line 70 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.10] line 70 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.11] line 70 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.12] line 70 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search1.pointer_dereference.1] line 70 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.2] line 70 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.3] line 70 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.4] line 70 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.5] line 70 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.6] line 70 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+[search1.pointer.1] line 76 same object violation in text < tend: SUCCESS
+[search1.pointer_arithmetic.13] line 76 pointer relation: pointer NULL in text: SUCCESS
+[search1.pointer_arithmetic.14] line 76 pointer relation: pointer invalid in text: SUCCESS
+[search1.pointer_arithmetic.15] line 76 pointer relation: deallocated dynamic object in text: SUCCESS
+[search1.pointer_arithmetic.16] line 76 pointer relation: dead object in text: SUCCESS
+[search1.pointer_arithmetic.17] line 76 pointer relation: pointer outside object bounds in text: SUCCESS
+[search1.pointer_arithmetic.18] line 76 pointer relation: invalid integer address in text: SUCCESS
+[search1.pointer_arithmetic.19] line 76 pointer relation: pointer NULL in tend: SUCCESS
+[search1.pointer_arithmetic.20] line 76 pointer relation: pointer invalid in tend: SUCCESS
+[search1.pointer_arithmetic.21] line 76 pointer relation: deallocated dynamic object in tend: SUCCESS
+[search1.pointer_arithmetic.22] line 76 pointer relation: dead object in tend: SUCCESS
+[search1.pointer_arithmetic.23] line 76 pointer relation: pointer outside object bounds in tend: SUCCESS
+[search1.pointer_arithmetic.24] line 76 pointer relation: invalid integer address in tend: SUCCESS
+[search1.pointer_dereference.7] line 77 dereference failure: pointer NULL in *text: SUCCESS
+[search1.pointer_dereference.8] line 77 dereference failure: pointer invalid in *text: SUCCESS
+[search1.pointer_dereference.9] line 77 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search1.pointer_dereference.10] line 77 dereference failure: dead object in *text: SUCCESS
+[search1.pointer_dereference.11] line 77 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search1.pointer_dereference.12] line 77 dereference failure: invalid integer address in *text: SUCCESS
+[search1.overflow.3] line 78 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8: SUCCESS
+[search1.overflow.4] line 79 arithmetic overflow on signed + in cnt + return_value__mm_popcnt_u32: SUCCESS
+[search1.pointer_arithmetic.25] line 80 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search1.pointer_arithmetic.26] line 80 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search1.pointer_arithmetic.27] line 80 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search1.pointer_arithmetic.28] line 80 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search1.pointer_arithmetic.29] line 80 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search1.pointer_arithmetic.30] line 80 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search1.overflow.5] line 83 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search1.overflow.6] line 83 arithmetic overflow on signed to unsigned type conversion in (unsigned int)(16 * (textlen / 16)): SUCCESS
+[search1.overflow.7] line 83 arithmetic overflow on signed to unsigned type conversion in (unsigned int)textlen: SUCCESS
+[search1.overflow.9] line 83 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search1.overflow.8] line 84 arithmetic overflow on signed + in cnt + (signed int)(x[(signed long int)j] == pattern[(signed long int)0]): SUCCESS
+[search1.pointer_arithmetic.31] line 84 pointer arithmetic: pointer NULL in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.32] line 84 pointer arithmetic: pointer invalid in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.33] line 84 pointer arithmetic: deallocated dynamic object in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.34] line 84 pointer arithmetic: dead object in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.35] line 84 pointer arithmetic: pointer outside object bounds in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.36] line 84 pointer arithmetic: invalid integer address in x + (signed long int)j: SUCCESS
+[search1.pointer_arithmetic.37] line 84 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.38] line 84 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.39] line 84 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.40] line 84 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.41] line 84 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search1.pointer_arithmetic.42] line 84 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search1.pointer_dereference.13] line 84 dereference failure: pointer NULL in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.14] line 84 dereference failure: pointer invalid in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.15] line 84 dereference failure: deallocated dynamic object in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.16] line 84 dereference failure: dead object in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.17] line 84 dereference failure: pointer outside object bounds in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.18] line 84 dereference failure: invalid integer address in x[(signed long int)j]: SUCCESS
+[search1.pointer_dereference.19] line 84 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.20] line 84 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.21] line 84 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.22] line 84 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.23] line 84 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search1.pointer_dereference.24] line 84 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+
+source/algos/epsm.c function search16
+[search16.overflow.1] line 248 arithmetic overflow on signed - in patlen / 8 - 1: SUCCESS
+[search16.overflow.2] line 248 arithmetic overflow on signed to unsigned type conversion in (unsigned int)(patlen / 8 - 1): SUCCESS
+[search16.overflow.3] line 253 arithmetic overflow on signed * in (patlen / 8) * 8: SUCCESS
+[search16.precondition_instance.1] line 258 memset destination region writeable: SUCCESS
+[search16.overflow.4] line 261 arithmetic overflow on unsigned to signed type conversion in (signed int)i: SUCCESS
+[search16.overflow.5] line 261 arithmetic overflow on signed - in tmppatlen - 7: SUCCESS
+[search16.overflow.9] line 261 arithmetic overflow on unsigned + in i + 1u: SUCCESS
+[search16.pointer_arithmetic.1] line 263 pointer arithmetic: pointer NULL in pattern + (signed long int)i: SUCCESS
+[search16.pointer_arithmetic.2] line 263 pointer arithmetic: pointer invalid in pattern + (signed long int)i: SUCCESS
+[search16.pointer_arithmetic.3] line 263 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)i: SUCCESS
+[search16.pointer_arithmetic.4] line 263 pointer arithmetic: dead object in pattern + (signed long int)i: SUCCESS
+[search16.pointer_arithmetic.5] line 263 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)i: SUCCESS
+[search16.pointer_arithmetic.6] line 263 pointer arithmetic: invalid integer address in pattern + (signed long int)i: SUCCESS
+[search16.pointer_dereference.1] line 264 dereference failure: pointer NULL in *ptr64: SUCCESS
+[search16.pointer_dereference.2] line 264 dereference failure: pointer invalid in *ptr64: SUCCESS
+[search16.pointer_dereference.3] line 264 dereference failure: deallocated dynamic object in *ptr64: SUCCESS
+[search16.pointer_dereference.4] line 264 dereference failure: dead object in *ptr64: SUCCESS
+[search16.pointer_dereference.5] line 264 dereference failure: pointer outside object bounds in *ptr64: SUCCESS
+[search16.pointer_dereference.6] line 264 dereference failure: invalid integer address in *ptr64: SUCCESS
+[search16.overflow.6] line 265 arithmetic overflow on unsigned to unsigned type conversion in (unsigned int)(crc & mask): SUCCESS
+[search16.array_bounds.1] line 267 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.array_bounds.2] line 268 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.pointer_dereference.7] line 270 dereference failure: pointer NULL in flist[(signed long int)filter]->next: SUCCESS
+[search16.pointer_dereference.8] line 270 dereference failure: pointer invalid in flist[(signed long int)filter]->next: SUCCESS
+[search16.pointer_dereference.9] line 270 dereference failure: deallocated dynamic object in flist[(signed long int)filter]->next: SUCCESS
+[search16.pointer_dereference.10] line 270 dereference failure: dead object in flist[(signed long int)filter]->next: SUCCESS
+[search16.pointer_dereference.11] line 270 dereference failure: pointer outside object bounds in flist[(signed long int)filter]->next: SUCCESS
+[search16.pointer_dereference.12] line 270 dereference failure: invalid integer address in flist[(signed long int)filter]->next: SUCCESS
+[search16.array_bounds.3] line 271 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.overflow.7] line 271 arithmetic overflow on unsigned to signed type conversion in (signed int)i: SUCCESS
+[search16.pointer_dereference.13] line 271 dereference failure: pointer NULL in flist[(signed long int)filter]->pos: SUCCESS
+[search16.pointer_dereference.14] line 271 dereference failure: pointer invalid in flist[(signed long int)filter]->pos: SUCCESS
+[search16.pointer_dereference.15] line 271 dereference failure: deallocated dynamic object in flist[(signed long int)filter]->pos: SUCCESS
+[search16.pointer_dereference.16] line 271 dereference failure: dead object in flist[(signed long int)filter]->pos: SUCCESS
+[search16.pointer_dereference.17] line 271 dereference failure: pointer outside object bounds in flist[(signed long int)filter]->pos: SUCCESS
+[search16.pointer_dereference.18] line 271 dereference failure: invalid integer address in flist[(signed long int)filter]->pos: SUCCESS
+[search16.array_bounds.4] line 274 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.pointer_dereference.19] line 275 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.20] line 275 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.21] line 275 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.22] line 275 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.23] line 275 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.24] line 275 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.pointer_dereference.25] line 277 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.26] line 277 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.27] line 277 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.28] line 277 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.29] line 277 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.30] line 277 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.pointer_dereference.31] line 278 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.32] line 278 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.33] line 278 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.34] line 278 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.35] line 278 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.36] line 278 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.pointer_dereference.37] line 280 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.38] line 280 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.39] line 280 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.40] line 280 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.41] line 280 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.42] line 280 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.overflow.8] line 281 arithmetic overflow on unsigned to signed type conversion in (signed int)i: SUCCESS
+[search16.pointer_dereference.43] line 281 dereference failure: pointer NULL in t->pos: SUCCESS
+[search16.pointer_dereference.44] line 281 dereference failure: pointer invalid in t->pos: SUCCESS
+[search16.pointer_dereference.45] line 281 dereference failure: deallocated dynamic object in t->pos: SUCCESS
+[search16.pointer_dereference.46] line 281 dereference failure: dead object in t->pos: SUCCESS
+[search16.pointer_dereference.47] line 281 dereference failure: pointer outside object bounds in t->pos: SUCCESS
+[search16.pointer_dereference.48] line 281 dereference failure: invalid integer address in t->pos: SUCCESS
+[search16.overflow.10] line 288 arithmetic overflow on signed - in textlen - tmppatlen: SUCCESS
+[search16.overflow.11] line 288 arithmetic overflow on signed * in ((textlen - tmppatlen) / 8) * 8: SUCCESS
+[search16.overflow.12] line 288 arithmetic overflow on signed + in ((textlen - tmppatlen) / 8) * 8 + 1: SUCCESS
+[search16.pointer_arithmetic.7] line 288 pointer arithmetic: pointer NULL in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.pointer_arithmetic.8] line 288 pointer arithmetic: pointer invalid in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.pointer_arithmetic.9] line 288 pointer arithmetic: deallocated dynamic object in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.pointer_arithmetic.10] line 288 pointer arithmetic: dead object in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.pointer_arithmetic.11] line 288 pointer arithmetic: pointer outside object bounds in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.pointer_arithmetic.12] line 288 pointer arithmetic: invalid integer address in x + (signed long int)(((textlen - tmppatlen) / 8) * 8 + 1): SUCCESS
+[search16.overflow.13] line 289 arithmetic overflow on unsigned - in shift - (unsigned int)1: SUCCESS
+[search16.overflow.14] line 289 arithmetic overflow on unsigned * in (shift - (unsigned int)1) * (unsigned int)8: SUCCESS
+[search16.pointer_arithmetic.13] line 289 pointer arithmetic: pointer NULL in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_arithmetic.14] line 289 pointer arithmetic: pointer invalid in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_arithmetic.15] line 289 pointer arithmetic: deallocated dynamic object in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_arithmetic.16] line 289 pointer arithmetic: dead object in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_arithmetic.17] line 289 pointer arithmetic: pointer outside object bounds in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_arithmetic.18] line 289 pointer arithmetic: invalid integer address in x + (signed long int)((shift - (unsigned int)1) * (unsigned int)8): SUCCESS
+[search16.pointer_dereference.49] line 291 dereference failure: pointer NULL in *ptr64: SUCCESS
+[search16.pointer_dereference.50] line 291 dereference failure: pointer invalid in *ptr64: SUCCESS
+[search16.pointer_dereference.51] line 291 dereference failure: deallocated dynamic object in *ptr64: SUCCESS
+[search16.pointer_dereference.52] line 291 dereference failure: dead object in *ptr64: SUCCESS
+[search16.pointer_dereference.53] line 291 dereference failure: pointer outside object bounds in *ptr64: SUCCESS
+[search16.pointer_dereference.54] line 291 dereference failure: invalid integer address in *ptr64: SUCCESS
+[search16.overflow.15] line 292 arithmetic overflow on unsigned to unsigned type conversion in (unsigned int)(crc & mask): SUCCESS
+[search16.array_bounds.5] line 293 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.overflow.16] line 297 arithmetic overflow on signed to unsigned type conversion in (unsigned int)t->pos: SUCCESS
+[search16.overflow.17] line 297 arithmetic overflow on unsigned - in shift - (unsigned int)1: SUCCESS
+[search16.overflow.18] line 297 arithmetic overflow on unsigned * in (unsigned int)8 * (shift - (unsigned int)1): SUCCESS
+[search16.pointer_dereference.55] line 297 dereference failure: pointer NULL in t->pos: SUCCESS
+[search16.pointer_dereference.56] line 297 dereference failure: pointer invalid in t->pos: SUCCESS
+[search16.pointer_dereference.57] line 297 dereference failure: deallocated dynamic object in t->pos: SUCCESS
+[search16.pointer_dereference.58] line 297 dereference failure: dead object in t->pos: SUCCESS
+[search16.pointer_dereference.59] line 297 dereference failure: pointer outside object bounds in t->pos: SUCCESS
+[search16.pointer_dereference.60] line 297 dereference failure: invalid integer address in t->pos: SUCCESS
+[search16.overflow.19] line 298 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search16.pointer_arithmetic.19] line 298 pointer arithmetic: pointer NULL in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.20] line 298 pointer arithmetic: pointer invalid in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.21] line 298 pointer arithmetic: deallocated dynamic object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.22] line 298 pointer arithmetic: dead object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.23] line 298 pointer arithmetic: pointer outside object bounds in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.24] line 298 pointer arithmetic: invalid integer address in charPtr - (signed long int)t->pos: SUCCESS
+[search16.overflow.20] line 299 arithmetic overflow on signed + in count + 1: SUCCESS
+[search16.pointer_dereference.61] line 301 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.62] line 301 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.63] line 301 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.64] line 301 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.65] line 301 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.66] line 301 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.overflow.21] line 304 arithmetic overflow on signed * in (signed long int)shift * (signed long int)8ul: SUCCESS
+[search16.pointer_arithmetic.25] line 304 pointer arithmetic: pointer NULL in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.26] line 304 pointer arithmetic: pointer invalid in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.27] line 304 pointer arithmetic: deallocated dynamic object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.28] line 304 pointer arithmetic: dead object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.29] line 304 pointer arithmetic: pointer outside object bounds in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.30] line 304 pointer arithmetic: invalid integer address in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_dereference.67] line 306 dereference failure: pointer NULL in *ptr64: SUCCESS
+[search16.pointer_dereference.68] line 306 dereference failure: pointer invalid in *ptr64: SUCCESS
+[search16.pointer_dereference.69] line 306 dereference failure: deallocated dynamic object in *ptr64: SUCCESS
+[search16.pointer_dereference.70] line 306 dereference failure: dead object in *ptr64: SUCCESS
+[search16.pointer_dereference.71] line 306 dereference failure: pointer outside object bounds in *ptr64: SUCCESS
+[search16.pointer_dereference.72] line 306 dereference failure: invalid integer address in *ptr64: SUCCESS
+[search16.overflow.22] line 307 arithmetic overflow on unsigned to unsigned type conversion in (unsigned int)(crc & mask): SUCCESS
+[search16.array_bounds.6] line 308 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.overflow.23] line 312 arithmetic overflow on signed to unsigned type conversion in (unsigned int)t->pos: SUCCESS
+[search16.overflow.24] line 312 arithmetic overflow on unsigned * in (unsigned int)2 * shift: SUCCESS
+[search16.overflow.25] line 312 arithmetic overflow on unsigned - in (unsigned int)2 * shift - (unsigned int)1: SUCCESS
+[search16.overflow.26] line 312 arithmetic overflow on unsigned * in (unsigned int)8 * ((unsigned int)2 * shift - (unsigned int)1): SUCCESS
+[search16.pointer_dereference.73] line 312 dereference failure: pointer NULL in t->pos: SUCCESS
+[search16.pointer_dereference.74] line 312 dereference failure: pointer invalid in t->pos: SUCCESS
+[search16.pointer_dereference.75] line 312 dereference failure: deallocated dynamic object in t->pos: SUCCESS
+[search16.pointer_dereference.76] line 312 dereference failure: dead object in t->pos: SUCCESS
+[search16.pointer_dereference.77] line 312 dereference failure: pointer outside object bounds in t->pos: SUCCESS
+[search16.pointer_dereference.78] line 312 dereference failure: invalid integer address in t->pos: SUCCESS
+[search16.overflow.27] line 313 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search16.pointer_arithmetic.31] line 313 pointer arithmetic: pointer NULL in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.32] line 313 pointer arithmetic: pointer invalid in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.33] line 313 pointer arithmetic: deallocated dynamic object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.34] line 313 pointer arithmetic: dead object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.35] line 313 pointer arithmetic: pointer outside object bounds in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.36] line 313 pointer arithmetic: invalid integer address in charPtr - (signed long int)t->pos: SUCCESS
+[search16.overflow.28] line 314 arithmetic overflow on signed + in count + 1: SUCCESS
+[search16.pointer_dereference.79] line 316 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.80] line 316 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.81] line 316 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.82] line 316 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.83] line 316 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.84] line 316 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.overflow.29] line 319 arithmetic overflow on signed * in (signed long int)shift * (signed long int)8ul: SUCCESS
+[search16.pointer_arithmetic.37] line 319 pointer arithmetic: pointer NULL in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.38] line 319 pointer arithmetic: pointer invalid in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.39] line 319 pointer arithmetic: deallocated dynamic object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.40] line 319 pointer arithmetic: dead object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.41] line 319 pointer arithmetic: pointer outside object bounds in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.42] line 319 pointer arithmetic: invalid integer address in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer.1] line 321 same object violation in ptr64 < lastchunk: SUCCESS
+[search16.pointer_arithmetic.43] line 321 pointer relation: pointer NULL in ptr64: SUCCESS
+[search16.pointer_arithmetic.44] line 321 pointer relation: pointer invalid in ptr64: SUCCESS
+[search16.pointer_arithmetic.45] line 321 pointer relation: deallocated dynamic object in ptr64: SUCCESS
+[search16.pointer_arithmetic.46] line 321 pointer relation: dead object in ptr64: SUCCESS
+[search16.pointer_arithmetic.47] line 321 pointer relation: pointer outside object bounds in ptr64: SUCCESS
+[search16.pointer_arithmetic.48] line 321 pointer relation: invalid integer address in ptr64: SUCCESS
+[search16.pointer_arithmetic.49] line 321 pointer relation: pointer NULL in lastchunk: SUCCESS
+[search16.pointer_arithmetic.50] line 321 pointer relation: pointer invalid in lastchunk: SUCCESS
+[search16.pointer_arithmetic.51] line 321 pointer relation: deallocated dynamic object in lastchunk: SUCCESS
+[search16.pointer_arithmetic.52] line 321 pointer relation: dead object in lastchunk: SUCCESS
+[search16.pointer_arithmetic.53] line 321 pointer relation: pointer outside object bounds in lastchunk: SUCCESS
+[search16.pointer_arithmetic.54] line 321 pointer relation: invalid integer address in lastchunk: SUCCESS
+[search16.pointer_dereference.85] line 322 dereference failure: pointer NULL in *ptr64: SUCCESS
+[search16.pointer_dereference.86] line 322 dereference failure: pointer invalid in *ptr64: SUCCESS
+[search16.pointer_dereference.87] line 322 dereference failure: deallocated dynamic object in *ptr64: SUCCESS
+[search16.pointer_dereference.88] line 322 dereference failure: dead object in *ptr64: SUCCESS
+[search16.pointer_dereference.89] line 322 dereference failure: pointer outside object bounds in *ptr64: SUCCESS
+[search16.pointer_dereference.90] line 322 dereference failure: invalid integer address in *ptr64: SUCCESS
+[search16.overflow.30] line 323 arithmetic overflow on unsigned to unsigned type conversion in (unsigned int)(crc & mask): SUCCESS
+[search16.array_bounds.7] line 325 array 'flist' upper bound in flist[(signed long int)filter]: SUCCESS
+[search16.overflow.31] line 329 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search16.pointer_arithmetic.55] line 329 pointer arithmetic: pointer NULL in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.56] line 329 pointer arithmetic: pointer invalid in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.57] line 329 pointer arithmetic: deallocated dynamic object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.58] line 329 pointer arithmetic: dead object in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.59] line 329 pointer arithmetic: pointer outside object bounds in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_arithmetic.60] line 329 pointer arithmetic: invalid integer address in charPtr - (signed long int)t->pos: SUCCESS
+[search16.pointer_dereference.91] line 329 dereference failure: pointer NULL in t->pos: SUCCESS
+[search16.pointer_dereference.92] line 329 dereference failure: pointer invalid in t->pos: SUCCESS
+[search16.pointer_dereference.93] line 329 dereference failure: deallocated dynamic object in t->pos: SUCCESS
+[search16.pointer_dereference.94] line 329 dereference failure: dead object in t->pos: SUCCESS
+[search16.pointer_dereference.95] line 329 dereference failure: pointer outside object bounds in t->pos: SUCCESS
+[search16.pointer_dereference.96] line 329 dereference failure: invalid integer address in t->pos: SUCCESS
+[search16.overflow.32] line 330 arithmetic overflow on signed + in count + 1: SUCCESS
+[search16.pointer_dereference.97] line 331 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.98] line 331 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.99] line 331 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.100] line 331 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.101] line 331 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.102] line 331 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.overflow.33] line 334 arithmetic overflow on signed * in (signed long int)shift * (signed long int)8ul: SUCCESS
+[search16.pointer_arithmetic.61] line 334 pointer arithmetic: pointer NULL in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.62] line 334 pointer arithmetic: pointer invalid in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.63] line 334 pointer arithmetic: deallocated dynamic object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.64] line 334 pointer arithmetic: dead object in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.65] line 334 pointer arithmetic: pointer outside object bounds in ptr64 + (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.66] line 334 pointer arithmetic: invalid integer address in ptr64 + (signed long int)shift: SUCCESS
+[search16.overflow.34] line 337 arithmetic overflow on signed * in (signed long int)shift * (signed long int)8ul: SUCCESS
+[search16.pointer_arithmetic.67] line 337 pointer arithmetic: pointer NULL in ptr64 - (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.68] line 337 pointer arithmetic: pointer invalid in ptr64 - (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.69] line 337 pointer arithmetic: deallocated dynamic object in ptr64 - (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.70] line 337 pointer arithmetic: dead object in ptr64 - (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.71] line 337 pointer arithmetic: pointer outside object bounds in ptr64 - (signed long int)shift: SUCCESS
+[search16.pointer_arithmetic.72] line 337 pointer arithmetic: invalid integer address in ptr64 - (signed long int)shift: SUCCESS
+[search16.overflow.35] line 339 arithmetic overflow on signed - in tmppatlen - 1: SUCCESS
+[search16.pointer_arithmetic.73] line 339 pointer arithmetic: pointer NULL in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.pointer_arithmetic.74] line 339 pointer arithmetic: pointer invalid in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.pointer_arithmetic.75] line 339 pointer arithmetic: deallocated dynamic object in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.pointer_arithmetic.76] line 339 pointer arithmetic: dead object in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.pointer_arithmetic.77] line 339 pointer arithmetic: pointer outside object bounds in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.pointer_arithmetic.78] line 339 pointer arithmetic: invalid integer address in charPtr + (signed long int)(tmppatlen - 1): SUCCESS
+[search16.overflow.36] line 341 arithmetic overflow on signed - in textlen - 1: SUCCESS
+[search16.pointer.2] line 341 same object violation in charPtr < &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.79] line 341 pointer arithmetic: pointer NULL in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.80] line 341 pointer arithmetic: pointer invalid in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.81] line 341 pointer arithmetic: deallocated dynamic object in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.82] line 341 pointer arithmetic: dead object in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.83] line 341 pointer arithmetic: pointer outside object bounds in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.84] line 341 pointer arithmetic: invalid integer address in x + (signed long int)(textlen - 1): SUCCESS
+[search16.pointer_arithmetic.85] line 341 pointer relation: pointer NULL in charPtr: SUCCESS
+[search16.pointer_arithmetic.86] line 341 pointer relation: pointer invalid in charPtr: SUCCESS
+[search16.pointer_arithmetic.87] line 341 pointer relation: deallocated dynamic object in charPtr: SUCCESS
+[search16.pointer_arithmetic.88] line 341 pointer relation: dead object in charPtr: SUCCESS
+[search16.pointer_arithmetic.89] line 341 pointer relation: pointer outside object bounds in charPtr: SUCCESS
+[search16.pointer_arithmetic.90] line 341 pointer relation: invalid integer address in charPtr: SUCCESS
+[search16.pointer_arithmetic.91] line 341 pointer relation: pointer NULL in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.92] line 341 pointer relation: pointer invalid in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.93] line 341 pointer relation: deallocated dynamic object in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.94] line 341 pointer relation: dead object in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.95] line 341 pointer relation: pointer outside object bounds in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.pointer_arithmetic.96] line 341 pointer relation: invalid integer address in &x[(signed long int)(textlen - 1)]: SUCCESS
+[search16.overflow.37] line 342 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search16.pointer_arithmetic.97] line 342 pointer arithmetic: pointer NULL in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.98] line 342 pointer arithmetic: pointer invalid in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.99] line 342 pointer arithmetic: deallocated dynamic object in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.100] line 342 pointer arithmetic: dead object in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.101] line 342 pointer arithmetic: pointer outside object bounds in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.102] line 342 pointer arithmetic: invalid integer address in charPtr - (signed long int)tmppatlen: SUCCESS
+[search16.pointer_arithmetic.103] line 342 pointer arithmetic: pointer NULL in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.pointer_arithmetic.104] line 342 pointer arithmetic: pointer invalid in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.pointer_arithmetic.105] line 342 pointer arithmetic: deallocated dynamic object in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.pointer_arithmetic.106] line 342 pointer arithmetic: dead object in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.pointer_arithmetic.107] line 342 pointer arithmetic: pointer outside object bounds in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.pointer_arithmetic.108] line 342 pointer arithmetic: invalid integer address in (charPtr - (signed long int)tmppatlen) + (signed long int)1: SUCCESS
+[search16.overflow.38] line 343 arithmetic overflow on signed + in count + 1: SUCCESS
+[search16.pointer_arithmetic.109] line 344 pointer arithmetic: pointer NULL in charPtr + 1l: SUCCESS
+[search16.pointer_arithmetic.110] line 344 pointer arithmetic: pointer invalid in charPtr + 1l: SUCCESS
+[search16.pointer_arithmetic.111] line 344 pointer arithmetic: deallocated dynamic object in charPtr + 1l: SUCCESS
+[search16.pointer_arithmetic.112] line 344 pointer arithmetic: dead object in charPtr + 1l: SUCCESS
+[search16.pointer_arithmetic.113] line 344 pointer arithmetic: pointer outside object bounds in charPtr + 1l: SUCCESS
+[search16.pointer_arithmetic.114] line 344 pointer arithmetic: invalid integer address in charPtr + 1l: SUCCESS
+[search16.overflow.39] line 347 arithmetic overflow on unsigned + in i + 1u: SUCCESS
+[search16.array_bounds.8] line 348 array 'flist' upper bound in flist[(signed long int)i]: SUCCESS
+[search16.pointer_dereference.103] line 350 dereference failure: pointer NULL in t->next: SUCCESS
+[search16.pointer_dereference.104] line 350 dereference failure: pointer invalid in t->next: SUCCESS
+[search16.pointer_dereference.105] line 350 dereference failure: deallocated dynamic object in t->next: SUCCESS
+[search16.pointer_dereference.106] line 350 dereference failure: dead object in t->next: SUCCESS
+[search16.pointer_dereference.107] line 350 dereference failure: pointer outside object bounds in t->next: SUCCESS
+[search16.pointer_dereference.108] line 350 dereference failure: invalid integer address in t->next: SUCCESS
+[search16.precondition_instance.2] line 351 free argument must be NULL or valid pointer: SUCCESS
+[search16.precondition_instance.3] line 351 free argument must be dynamic object: SUCCESS
+[search16.precondition_instance.4] line 351 free argument has offset zero: SUCCESS
+[search16.precondition_instance.5] line 351 double free: SUCCESS
+[search16.precondition_instance.6] line 351 free called for new[] object: SUCCESS
+[search16.precondition_instance.7] line 351 free called for stack-allocated object: SUCCESS
+[search16.array_bounds.9] line 352 array 'flist' upper bound in flist[(signed long int)i]: SUCCESS
+
+source/algos/epsm.c function search2
+[search2.overflow.1] line 93 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search2.pointer_arithmetic.1] line 93 pointer arithmetic: pointer NULL in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.2] line 93 pointer arithmetic: pointer invalid in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.3] line 93 pointer arithmetic: deallocated dynamic object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.4] line 93 pointer arithmetic: dead object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.5] line 93 pointer arithmetic: pointer outside object bounds in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.6] line 93 pointer arithmetic: invalid integer address in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search2.pointer_arithmetic.7] line 98 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.8] line 98 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.9] line 98 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.10] line 98 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.11] line 98 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.12] line 98 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search2.pointer_arithmetic.13] line 98 pointer arithmetic: pointer NULL in pattern + (signed long int)1: SUCCESS
+[search2.pointer_arithmetic.14] line 98 pointer arithmetic: pointer invalid in pattern + (signed long int)1: SUCCESS
+[search2.pointer_arithmetic.15] line 98 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)1: SUCCESS
+[search2.pointer_arithmetic.16] line 98 pointer arithmetic: dead object in pattern + (signed long int)1: SUCCESS
+[search2.pointer_arithmetic.17] line 98 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)1: SUCCESS
+[search2.pointer_arithmetic.18] line 98 pointer arithmetic: invalid integer address in pattern + (signed long int)1: SUCCESS
+[search2.pointer_dereference.1] line 98 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.2] line 98 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.3] line 98 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.4] line 98 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.5] line 98 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.6] line 98 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+[search2.pointer_dereference.7] line 98 dereference failure: pointer NULL in pattern[(signed long int)1]: SUCCESS
+[search2.pointer_dereference.8] line 98 dereference failure: pointer invalid in pattern[(signed long int)1]: SUCCESS
+[search2.pointer_dereference.9] line 98 dereference failure: deallocated dynamic object in pattern[(signed long int)1]: SUCCESS
+[search2.pointer_dereference.10] line 98 dereference failure: dead object in pattern[(signed long int)1]: SUCCESS
+[search2.pointer_dereference.11] line 98 dereference failure: pointer outside object bounds in pattern[(signed long int)1]: SUCCESS
+[search2.pointer_dereference.12] line 98 dereference failure: invalid integer address in pattern[(signed long int)1]: SUCCESS
+[search2.overflow.2] line 102 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search2.array_bounds.1] line 103 array upper bound in byte_extract_little_endian(template0, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search2.array_bounds.2] line 104 array upper bound in byte_extract_little_endian(template1, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search2.pointer.1] line 111 same object violation in text < tend: SUCCESS
+[search2.pointer_arithmetic.19] line 111 pointer relation: pointer NULL in text: SUCCESS
+[search2.pointer_arithmetic.20] line 111 pointer relation: pointer invalid in text: SUCCESS
+[search2.pointer_arithmetic.21] line 111 pointer relation: deallocated dynamic object in text: SUCCESS
+[search2.pointer_arithmetic.22] line 111 pointer relation: dead object in text: SUCCESS
+[search2.pointer_arithmetic.23] line 111 pointer relation: pointer outside object bounds in text: SUCCESS
+[search2.pointer_arithmetic.24] line 111 pointer relation: invalid integer address in text: SUCCESS
+[search2.pointer_arithmetic.25] line 111 pointer relation: pointer NULL in tend: SUCCESS
+[search2.pointer_arithmetic.26] line 111 pointer relation: pointer invalid in tend: SUCCESS
+[search2.pointer_arithmetic.27] line 111 pointer relation: deallocated dynamic object in tend: SUCCESS
+[search2.pointer_arithmetic.28] line 111 pointer relation: dead object in tend: SUCCESS
+[search2.pointer_arithmetic.29] line 111 pointer relation: pointer outside object bounds in tend: SUCCESS
+[search2.pointer_arithmetic.30] line 111 pointer relation: invalid integer address in tend: SUCCESS
+[search2.pointer_dereference.13] line 112 dereference failure: pointer NULL in *text: SUCCESS
+[search2.pointer_dereference.14] line 112 dereference failure: pointer invalid in *text: SUCCESS
+[search2.pointer_dereference.15] line 112 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search2.pointer_dereference.16] line 112 dereference failure: dead object in *text: SUCCESS
+[search2.pointer_dereference.17] line 112 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search2.pointer_dereference.18] line 112 dereference failure: invalid integer address in *text: SUCCESS
+[search2.overflow.3] line 113 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8: SUCCESS
+[search2.pointer_dereference.19] line 114 dereference failure: pointer NULL in *text: SUCCESS
+[search2.pointer_dereference.20] line 114 dereference failure: pointer invalid in *text: SUCCESS
+[search2.pointer_dereference.21] line 114 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search2.pointer_dereference.22] line 114 dereference failure: dead object in *text: SUCCESS
+[search2.pointer_dereference.23] line 114 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search2.pointer_dereference.24] line 114 dereference failure: invalid integer address in *text: SUCCESS
+[search2.overflow.4] line 115 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8$0: SUCCESS
+[search2.overflow.5] line 116 arithmetic overflow on signed + in cnt + return_value__mm_popcnt_u32: SUCCESS
+[search2.pointer_arithmetic.31] line 118 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search2.pointer_arithmetic.32] line 118 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search2.pointer_arithmetic.33] line 118 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search2.pointer_arithmetic.34] line 118 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search2.pointer_arithmetic.35] line 118 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search2.pointer_arithmetic.36] line 118 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search2.overflow.6] line 121 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search2.overflow.7] line 121 arithmetic overflow on signed to unsigned type conversion in (unsigned int)(16 * (textlen / 16)): SUCCESS
+[search2.overflow.8] line 121 arithmetic overflow on signed to unsigned type conversion in (unsigned int)textlen: SUCCESS
+[search2.overflow.11] line 121 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search2.overflow.9] line 122 arithmetic overflow on unsigned - in j - (unsigned int)1: SUCCESS
+[search2.overflow.10] line 122 arithmetic overflow on signed + in cnt + (signed int)(x[(signed long int)(j - (unsigned int)1)] == firstch && x[(signed long int)j] == lastch): SUCCESS
+[search2.pointer_arithmetic.37] line 122 pointer arithmetic: pointer NULL in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.38] line 122 pointer arithmetic: pointer invalid in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.39] line 122 pointer arithmetic: deallocated dynamic object in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.40] line 122 pointer arithmetic: dead object in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.41] line 122 pointer arithmetic: pointer outside object bounds in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.42] line 122 pointer arithmetic: invalid integer address in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search2.pointer_arithmetic.43] line 122 pointer arithmetic: pointer NULL in x + (signed long int)j: SUCCESS
+[search2.pointer_arithmetic.44] line 122 pointer arithmetic: pointer invalid in x + (signed long int)j: SUCCESS
+[search2.pointer_arithmetic.45] line 122 pointer arithmetic: deallocated dynamic object in x + (signed long int)j: SUCCESS
+[search2.pointer_arithmetic.46] line 122 pointer arithmetic: dead object in x + (signed long int)j: SUCCESS
+[search2.pointer_arithmetic.47] line 122 pointer arithmetic: pointer outside object bounds in x + (signed long int)j: SUCCESS
+[search2.pointer_arithmetic.48] line 122 pointer arithmetic: invalid integer address in x + (signed long int)j: SUCCESS
+[search2.pointer_dereference.25] line 122 dereference failure: pointer NULL in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.26] line 122 dereference failure: pointer invalid in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.27] line 122 dereference failure: deallocated dynamic object in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.28] line 122 dereference failure: dead object in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.29] line 122 dereference failure: pointer outside object bounds in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.30] line 122 dereference failure: invalid integer address in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search2.pointer_dereference.31] line 122 dereference failure: pointer NULL in x[(signed long int)j]: SUCCESS
+[search2.pointer_dereference.32] line 122 dereference failure: pointer invalid in x[(signed long int)j]: SUCCESS
+[search2.pointer_dereference.33] line 122 dereference failure: deallocated dynamic object in x[(signed long int)j]: SUCCESS
+[search2.pointer_dereference.34] line 122 dereference failure: dead object in x[(signed long int)j]: SUCCESS
+[search2.pointer_dereference.35] line 122 dereference failure: pointer outside object bounds in x[(signed long int)j]: SUCCESS
+[search2.pointer_dereference.36] line 122 dereference failure: invalid integer address in x[(signed long int)j]: SUCCESS
+
+source/algos/epsm.c function search3
+[search3.overflow.1] line 131 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search3.pointer_arithmetic.1] line 131 pointer arithmetic: pointer NULL in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.pointer_arithmetic.2] line 131 pointer arithmetic: pointer invalid in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.pointer_arithmetic.3] line 131 pointer arithmetic: deallocated dynamic object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.pointer_arithmetic.4] line 131 pointer arithmetic: dead object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.pointer_arithmetic.5] line 131 pointer arithmetic: pointer outside object bounds in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.pointer_arithmetic.6] line 131 pointer arithmetic: invalid integer address in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search3.overflow.2] line 139 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search3.array_bounds.1] line 140 array upper bound in byte_extract_little_endian(template0, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search3.pointer_arithmetic.7] line 140 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.8] line 140 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.9] line 140 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.10] line 140 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.11] line 140 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.12] line 140 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search3.pointer_dereference.1] line 140 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.2] line 140 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.3] line 140 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.4] line 140 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.5] line 140 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.6] line 140 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+[search3.array_bounds.2] line 141 array upper bound in byte_extract_little_endian(template1, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search3.pointer_arithmetic.13] line 141 pointer arithmetic: pointer NULL in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.14] line 141 pointer arithmetic: pointer invalid in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.15] line 141 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.16] line 141 pointer arithmetic: dead object in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.17] line 141 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.18] line 141 pointer arithmetic: invalid integer address in pattern + (signed long int)1: SUCCESS
+[search3.pointer_dereference.7] line 141 dereference failure: pointer NULL in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.8] line 141 dereference failure: pointer invalid in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.9] line 141 dereference failure: deallocated dynamic object in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.10] line 141 dereference failure: dead object in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.11] line 141 dereference failure: pointer outside object bounds in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.12] line 141 dereference failure: invalid integer address in pattern[(signed long int)1]: SUCCESS
+[search3.array_bounds.3] line 142 array upper bound in byte_extract_little_endian(template2, 0l, unsigned char [16l])[(signed long int)j]: SUCCESS
+[search3.pointer_arithmetic.19] line 142 pointer arithmetic: pointer NULL in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.20] line 142 pointer arithmetic: pointer invalid in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.21] line 142 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.22] line 142 pointer arithmetic: dead object in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.23] line 142 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.24] line 142 pointer arithmetic: invalid integer address in pattern + (signed long int)2: SUCCESS
+[search3.pointer_dereference.13] line 142 dereference failure: pointer NULL in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.14] line 142 dereference failure: pointer invalid in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.15] line 142 dereference failure: deallocated dynamic object in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.16] line 142 dereference failure: dead object in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.17] line 142 dereference failure: pointer outside object bounds in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.18] line 142 dereference failure: invalid integer address in pattern[(signed long int)2]: SUCCESS
+[search3.pointer.1] line 150 same object violation in text < tend: SUCCESS
+[search3.pointer_arithmetic.25] line 150 pointer relation: pointer NULL in text: SUCCESS
+[search3.pointer_arithmetic.26] line 150 pointer relation: pointer invalid in text: SUCCESS
+[search3.pointer_arithmetic.27] line 150 pointer relation: deallocated dynamic object in text: SUCCESS
+[search3.pointer_arithmetic.28] line 150 pointer relation: dead object in text: SUCCESS
+[search3.pointer_arithmetic.29] line 150 pointer relation: pointer outside object bounds in text: SUCCESS
+[search3.pointer_arithmetic.30] line 150 pointer relation: invalid integer address in text: SUCCESS
+[search3.pointer_arithmetic.31] line 150 pointer relation: pointer NULL in tend: SUCCESS
+[search3.pointer_arithmetic.32] line 150 pointer relation: pointer invalid in tend: SUCCESS
+[search3.pointer_arithmetic.33] line 150 pointer relation: deallocated dynamic object in tend: SUCCESS
+[search3.pointer_arithmetic.34] line 150 pointer relation: dead object in tend: SUCCESS
+[search3.pointer_arithmetic.35] line 150 pointer relation: pointer outside object bounds in tend: SUCCESS
+[search3.pointer_arithmetic.36] line 150 pointer relation: invalid integer address in tend: SUCCESS
+[search3.pointer_dereference.19] line 151 dereference failure: pointer NULL in *text: SUCCESS
+[search3.pointer_dereference.20] line 151 dereference failure: pointer invalid in *text: SUCCESS
+[search3.pointer_dereference.21] line 151 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search3.pointer_dereference.22] line 151 dereference failure: dead object in *text: SUCCESS
+[search3.pointer_dereference.23] line 151 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search3.pointer_dereference.24] line 151 dereference failure: invalid integer address in *text: SUCCESS
+[search3.overflow.3] line 152 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8: SUCCESS
+[search3.pointer_dereference.25] line 154 dereference failure: pointer NULL in *text: SUCCESS
+[search3.pointer_dereference.26] line 154 dereference failure: pointer invalid in *text: SUCCESS
+[search3.pointer_dereference.27] line 154 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search3.pointer_dereference.28] line 154 dereference failure: dead object in *text: SUCCESS
+[search3.pointer_dereference.29] line 154 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search3.pointer_dereference.30] line 154 dereference failure: invalid integer address in *text: SUCCESS
+[search3.overflow.4] line 155 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8$0: SUCCESS
+[search3.pointer_dereference.31] line 157 dereference failure: pointer NULL in *text: SUCCESS
+[search3.pointer_dereference.32] line 157 dereference failure: pointer invalid in *text: SUCCESS
+[search3.pointer_dereference.33] line 157 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search3.pointer_dereference.34] line 157 dereference failure: dead object in *text: SUCCESS
+[search3.pointer_dereference.35] line 157 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search3.pointer_dereference.36] line 157 dereference failure: invalid integer address in *text: SUCCESS
+[search3.overflow.5] line 158 arithmetic overflow on signed to unsigned type conversion in (unsigned int)return_value__mm_movemask_epi8$1: SUCCESS
+[search3.overflow.6] line 160 arithmetic overflow on signed + in cnt + return_value__mm_popcnt_u32: SUCCESS
+[search3.pointer_arithmetic.37] line 164 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search3.pointer_arithmetic.38] line 164 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search3.pointer_arithmetic.39] line 164 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search3.pointer_arithmetic.40] line 164 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search3.pointer_arithmetic.41] line 164 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search3.pointer_arithmetic.42] line 164 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search3.overflow.7] line 167 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search3.overflow.8] line 167 arithmetic overflow on signed to unsigned type conversion in (unsigned int)(16 * (textlen / 16)): SUCCESS
+[search3.overflow.9] line 167 arithmetic overflow on signed to unsigned type conversion in (unsigned int)textlen: SUCCESS
+[search3.overflow.13] line 167 arithmetic overflow on unsigned + in j + 1u: SUCCESS
+[search3.overflow.10] line 168 arithmetic overflow on unsigned - in j - (unsigned int)2: SUCCESS
+[search3.overflow.11] line 168 arithmetic overflow on unsigned - in j - (unsigned int)1: SUCCESS
+[search3.overflow.12] line 168 arithmetic overflow on signed + in cnt + (signed int)(x[(signed long int)(j - (unsigned int)2)] == pattern[(signed long int)0] && x[(signed long int)(j - (unsigned int)1)] == pattern[(signed long int)1] && x[(signed long int)j] == pattern[(signed long int)2]): SUCCESS
+[search3.pointer_arithmetic.43] line 168 pointer arithmetic: pointer NULL in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.44] line 168 pointer arithmetic: pointer invalid in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.45] line 168 pointer arithmetic: deallocated dynamic object in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.46] line 168 pointer arithmetic: dead object in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.47] line 168 pointer arithmetic: pointer outside object bounds in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.48] line 168 pointer arithmetic: invalid integer address in x + (signed long int)(j - (unsigned int)2): SUCCESS
+[search3.pointer_arithmetic.49] line 168 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.50] line 168 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.51] line 168 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.52] line 168 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.53] line 168 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.54] line 168 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search3.pointer_arithmetic.55] line 168 pointer arithmetic: pointer NULL in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.56] line 168 pointer arithmetic: pointer invalid in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.57] line 168 pointer arithmetic: deallocated dynamic object in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.58] line 168 pointer arithmetic: dead object in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.59] line 168 pointer arithmetic: pointer outside object bounds in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.60] line 168 pointer arithmetic: invalid integer address in x + (signed long int)(j - (unsigned int)1): SUCCESS
+[search3.pointer_arithmetic.61] line 168 pointer arithmetic: pointer NULL in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.62] line 168 pointer arithmetic: pointer invalid in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.63] line 168 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.64] line 168 pointer arithmetic: dead object in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.65] line 168 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)1: SUCCESS
+[search3.pointer_arithmetic.66] line 168 pointer arithmetic: invalid integer address in pattern + (signed long int)1: SUCCESS
+[search3.pointer_dereference.37] line 168 dereference failure: pointer NULL in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.38] line 168 dereference failure: pointer invalid in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.39] line 168 dereference failure: deallocated dynamic object in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.40] line 168 dereference failure: dead object in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.41] line 168 dereference failure: pointer outside object bounds in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.42] line 168 dereference failure: invalid integer address in x[(signed long int)(j - (unsigned int)2)]: SUCCESS
+[search3.pointer_dereference.43] line 168 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.44] line 168 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.45] line 168 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.46] line 168 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.47] line 168 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.48] line 168 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+[search3.pointer_dereference.49] line 168 dereference failure: pointer NULL in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.50] line 168 dereference failure: pointer invalid in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.51] line 168 dereference failure: deallocated dynamic object in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.52] line 168 dereference failure: dead object in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.53] line 168 dereference failure: pointer outside object bounds in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.54] line 168 dereference failure: invalid integer address in x[(signed long int)(j - (unsigned int)1)]: SUCCESS
+[search3.pointer_dereference.55] line 168 dereference failure: pointer NULL in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.56] line 168 dereference failure: pointer invalid in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.57] line 168 dereference failure: deallocated dynamic object in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.58] line 168 dereference failure: dead object in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.59] line 168 dereference failure: pointer outside object bounds in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_dereference.60] line 168 dereference failure: invalid integer address in pattern[(signed long int)1]: SUCCESS
+[search3.pointer_arithmetic.67] line 169 pointer arithmetic: pointer NULL in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.68] line 169 pointer arithmetic: pointer invalid in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.69] line 169 pointer arithmetic: deallocated dynamic object in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.70] line 169 pointer arithmetic: dead object in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.71] line 169 pointer arithmetic: pointer outside object bounds in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.72] line 169 pointer arithmetic: invalid integer address in x + (signed long int)j: SUCCESS
+[search3.pointer_arithmetic.73] line 169 pointer arithmetic: pointer NULL in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.74] line 169 pointer arithmetic: pointer invalid in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.75] line 169 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.76] line 169 pointer arithmetic: dead object in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.77] line 169 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)2: SUCCESS
+[search3.pointer_arithmetic.78] line 169 pointer arithmetic: invalid integer address in pattern + (signed long int)2: SUCCESS
+[search3.pointer_dereference.61] line 169 dereference failure: pointer NULL in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.62] line 169 dereference failure: pointer invalid in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.63] line 169 dereference failure: deallocated dynamic object in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.64] line 169 dereference failure: dead object in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.65] line 169 dereference failure: pointer outside object bounds in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.66] line 169 dereference failure: invalid integer address in x[(signed long int)j]: SUCCESS
+[search3.pointer_dereference.67] line 169 dereference failure: pointer NULL in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.68] line 169 dereference failure: pointer invalid in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.69] line 169 dereference failure: deallocated dynamic object in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.70] line 169 dereference failure: dead object in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.71] line 169 dereference failure: pointer outside object bounds in pattern[(signed long int)2]: SUCCESS
+[search3.pointer_dereference.72] line 169 dereference failure: invalid integer address in pattern[(signed long int)2]: SUCCESS
+
+source/algos/epsm.c function search4
+[search4.overflow.1] line 177 arithmetic overflow on signed * in 16 * (textlen / 16): SUCCESS
+[search4.pointer_arithmetic.1] line 177 pointer arithmetic: pointer NULL in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.2] line 177 pointer arithmetic: pointer invalid in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.3] line 177 pointer arithmetic: deallocated dynamic object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.4] line 177 pointer arithmetic: dead object in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.5] line 177 pointer arithmetic: pointer outside object bounds in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.6] line 177 pointer arithmetic: invalid integer address in x + (signed long int)(16 * (textlen / 16)): SUCCESS
+[search4.pointer_arithmetic.7] line 180 pointer arithmetic: pointer NULL in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.8] line 180 pointer arithmetic: pointer invalid in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.9] line 180 pointer arithmetic: deallocated dynamic object in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.10] line 180 pointer arithmetic: dead object in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.11] line 180 pointer arithmetic: pointer outside object bounds in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.12] line 180 pointer arithmetic: invalid integer address in tend - 1l: SUCCESS
+[search4.pointer_arithmetic.13] line 189 pointer arithmetic: pointer NULL in pattern + (signed long int)0: SUCCESS
+[search4.pointer_arithmetic.14] line 189 pointer arithmetic: pointer invalid in pattern + (signed long int)0: SUCCESS
+[search4.pointer_arithmetic.15] line 189 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)0: SUCCESS
+[search4.pointer_arithmetic.16] line 189 pointer arithmetic: dead object in pattern + (signed long int)0: SUCCESS
+[search4.pointer_arithmetic.17] line 189 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)0: SUCCESS
+[search4.pointer_arithmetic.18] line 189 pointer arithmetic: invalid integer address in pattern + (signed long int)0: SUCCESS
+[search4.pointer_dereference.1] line 189 dereference failure: pointer NULL in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_dereference.2] line 189 dereference failure: pointer invalid in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_dereference.3] line 189 dereference failure: deallocated dynamic object in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_dereference.4] line 189 dereference failure: dead object in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_dereference.5] line 189 dereference failure: pointer outside object bounds in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_dereference.6] line 189 dereference failure: invalid integer address in pattern[(signed long int)0]: SUCCESS
+[search4.pointer_arithmetic.19] line 190 pointer arithmetic: pointer NULL in pattern + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.20] line 190 pointer arithmetic: pointer invalid in pattern + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.21] line 190 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.22] line 190 pointer arithmetic: dead object in pattern + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.23] line 190 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.24] line 190 pointer arithmetic: invalid integer address in pattern + (signed long int)1: SUCCESS
+[search4.pointer_dereference.7] line 190 dereference failure: pointer NULL in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.8] line 190 dereference failure: pointer invalid in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.9] line 190 dereference failure: deallocated dynamic object in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.10] line 190 dereference failure: dead object in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.11] line 190 dereference failure: pointer outside object bounds in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.12] line 190 dereference failure: invalid integer address in pattern[(signed long int)1]: SUCCESS
+[search4.pointer_arithmetic.25] line 191 pointer arithmetic: pointer NULL in pattern + (signed long int)2: SUCCESS
+[search4.pointer_arithmetic.26] line 191 pointer arithmetic: pointer invalid in pattern + (signed long int)2: SUCCESS
+[search4.pointer_arithmetic.27] line 191 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)2: SUCCESS
+[search4.pointer_arithmetic.28] line 191 pointer arithmetic: dead object in pattern + (signed long int)2: SUCCESS
+[search4.pointer_arithmetic.29] line 191 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)2: SUCCESS
+[search4.pointer_arithmetic.30] line 191 pointer arithmetic: invalid integer address in pattern + (signed long int)2: SUCCESS
+[search4.pointer_dereference.13] line 191 dereference failure: pointer NULL in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_dereference.14] line 191 dereference failure: pointer invalid in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_dereference.15] line 191 dereference failure: deallocated dynamic object in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_dereference.16] line 191 dereference failure: dead object in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_dereference.17] line 191 dereference failure: pointer outside object bounds in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_dereference.18] line 191 dereference failure: invalid integer address in pattern[(signed long int)2]: SUCCESS
+[search4.pointer_arithmetic.31] line 192 pointer arithmetic: pointer NULL in pattern + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.32] line 192 pointer arithmetic: pointer invalid in pattern + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.33] line 192 pointer arithmetic: deallocated dynamic object in pattern + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.34] line 192 pointer arithmetic: dead object in pattern + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.35] line 192 pointer arithmetic: pointer outside object bounds in pattern + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.36] line 192 pointer arithmetic: invalid integer address in pattern + (signed long int)3: SUCCESS
+[search4.pointer_dereference.19] line 192 dereference failure: pointer NULL in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_dereference.20] line 192 dereference failure: pointer invalid in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_dereference.21] line 192 dereference failure: deallocated dynamic object in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_dereference.22] line 192 dereference failure: dead object in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_dereference.23] line 192 dereference failure: pointer outside object bounds in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_dereference.24] line 192 dereference failure: invalid integer address in pattern[(signed long int)3]: SUCCESS
+[search4.pointer_arithmetic.37] line 196 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search4.pointer_arithmetic.38] line 196 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search4.pointer_arithmetic.39] line 196 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search4.pointer_arithmetic.40] line 196 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search4.pointer_arithmetic.41] line 196 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search4.pointer_arithmetic.42] line 196 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search4.pointer.1] line 199 same object violation in text < tend: SUCCESS
+[search4.pointer_arithmetic.43] line 199 pointer relation: pointer NULL in text: SUCCESS
+[search4.pointer_arithmetic.44] line 199 pointer relation: pointer invalid in text: SUCCESS
+[search4.pointer_arithmetic.45] line 199 pointer relation: deallocated dynamic object in text: SUCCESS
+[search4.pointer_arithmetic.46] line 199 pointer relation: dead object in text: SUCCESS
+[search4.pointer_arithmetic.47] line 199 pointer relation: pointer outside object bounds in text: SUCCESS
+[search4.pointer_arithmetic.48] line 199 pointer relation: invalid integer address in text: SUCCESS
+[search4.pointer_arithmetic.49] line 199 pointer relation: pointer NULL in tend: SUCCESS
+[search4.pointer_arithmetic.50] line 199 pointer relation: pointer invalid in tend: SUCCESS
+[search4.pointer_arithmetic.51] line 199 pointer relation: deallocated dynamic object in tend: SUCCESS
+[search4.pointer_arithmetic.52] line 199 pointer relation: dead object in tend: SUCCESS
+[search4.pointer_arithmetic.53] line 199 pointer relation: pointer outside object bounds in tend: SUCCESS
+[search4.pointer_arithmetic.54] line 199 pointer relation: invalid integer address in tend: SUCCESS
+[search4.array_bounds.1] line 202 array dynamic object upper bound in (*text)[0l]: SUCCESS
+[search4.array_bounds.2] line 202 array dynamic object upper bound in (*text)[1l]: SUCCESS
+[search4.pointer_dereference.25] line 202 dereference failure: pointer NULL in *text: SUCCESS
+[search4.pointer_dereference.26] line 202 dereference failure: pointer invalid in *text: SUCCESS
+[search4.pointer_dereference.27] line 202 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search4.pointer_dereference.28] line 202 dereference failure: dead object in *text: SUCCESS
+[search4.pointer_dereference.29] line 202 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search4.pointer_dereference.30] line 202 dereference failure: invalid integer address in *text: SUCCESS
+[search4.overflow.2] line 205 arithmetic overflow on signed to unsigned type conversion in (unsigned int)i: SUCCESS
+[search4.overflow.3] line 205 arithmetic overflow on signed + in count + return_value__mm_popcnt_u32: SUCCESS
+[search4.array_bounds.3] line 207 array dynamic object upper bound in (*text)[0l]: SUCCESS
+[search4.array_bounds.4] line 207 array dynamic object upper bound in (*text)[1l]: SUCCESS
+[search4.array_bounds.5] line 207 array dynamic object upper bound in text[(signed long int)1][0l]: SUCCESS
+[search4.array_bounds.6] line 207 array dynamic object upper bound in text[(signed long int)1][1l]: SUCCESS
+[search4.pointer_arithmetic.55] line 207 pointer arithmetic: pointer NULL in text + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.56] line 207 pointer arithmetic: pointer invalid in text + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.57] line 207 pointer arithmetic: deallocated dynamic object in text + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.58] line 207 pointer arithmetic: dead object in text + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.59] line 207 pointer arithmetic: pointer outside object bounds in text + (signed long int)1: SUCCESS
+[search4.pointer_arithmetic.60] line 207 pointer arithmetic: invalid integer address in text + (signed long int)1: SUCCESS
+[search4.pointer_dereference.31] line 207 dereference failure: pointer NULL in *text: SUCCESS
+[search4.pointer_dereference.32] line 207 dereference failure: pointer invalid in *text: SUCCESS
+[search4.pointer_dereference.33] line 207 dereference failure: deallocated dynamic object in *text: SUCCESS
+[search4.pointer_dereference.34] line 207 dereference failure: dead object in *text: SUCCESS
+[search4.pointer_dereference.35] line 207 dereference failure: pointer outside object bounds in *text: SUCCESS
+[search4.pointer_dereference.36] line 207 dereference failure: invalid integer address in *text: SUCCESS
+[search4.pointer_dereference.37] line 207 dereference failure: pointer NULL in text[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.38] line 207 dereference failure: pointer invalid in text[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.39] line 207 dereference failure: deallocated dynamic object in text[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.40] line 207 dereference failure: dead object in text[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.41] line 207 dereference failure: pointer outside object bounds in text[(signed long int)1]: SUCCESS
+[search4.pointer_dereference.42] line 207 dereference failure: invalid integer address in text[(signed long int)1]: SUCCESS
+[search4.overflow.4] line 215 arithmetic overflow on signed to unsigned type conversion in (unsigned int)i: SUCCESS
+[search4.overflow.5] line 215 arithmetic overflow on signed + in count + return_value__mm_popcnt_u32$0: SUCCESS
+[search4.pointer_arithmetic.61] line 216 pointer arithmetic: pointer NULL in text + 1l: SUCCESS
+[search4.pointer_arithmetic.62] line 216 pointer arithmetic: pointer invalid in text + 1l: SUCCESS
+[search4.pointer_arithmetic.63] line 216 pointer arithmetic: deallocated dynamic object in text + 1l: SUCCESS
+[search4.pointer_arithmetic.64] line 216 pointer arithmetic: dead object in text + 1l: SUCCESS
+[search4.pointer_arithmetic.65] line 216 pointer arithmetic: pointer outside object bounds in text + 1l: SUCCESS
+[search4.pointer_arithmetic.66] line 216 pointer arithmetic: invalid integer address in text + 1l: SUCCESS
+[search4.overflow.9] line 224 arithmetic overflow on signed + in i + 1: SUCCESS
+[search4.overflow.6] line 225 arithmetic overflow on signed - in i - 3: SUCCESS
+[search4.overflow.7] line 225 arithmetic overflow on signed to unsigned type conversion in (size_t)patlen: SUCCESS
+[search4.pointer_arithmetic.67] line 225 pointer arithmetic: pointer NULL in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.68] line 225 pointer arithmetic: pointer invalid in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.69] line 225 pointer arithmetic: deallocated dynamic object in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.70] line 225 pointer arithmetic: dead object in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.71] line 225 pointer arithmetic: pointer outside object bounds in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.72] line 225 pointer arithmetic: invalid integer address in x + (signed long int)(i - 3): SUCCESS
+[search4.overflow.8] line 226 arithmetic overflow on signed + in count + 1: SUCCESS
+[search4.overflow.10] line 233 arithmetic overflow on signed - in ((unsigned char *)text + (signed long int)3) - x: SUCCESS
+[search4.overflow.11] line 233 arithmetic overflow on signed type conversion in (signed int)(((unsigned char *)text + (signed long int)3) - x): SUCCESS
+[search4.overflow.14] line 233 arithmetic overflow on signed + in i + 1: SUCCESS
+[search4.pointer.2] line 233 same object violation in ((unsigned char *)text + (signed long int)3) - x: SUCCESS
+[search4.pointer_arithmetic.73] line 233 pointer arithmetic: pointer NULL in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.74] line 233 pointer arithmetic: pointer invalid in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.75] line 233 pointer arithmetic: deallocated dynamic object in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.76] line 233 pointer arithmetic: dead object in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.77] line 233 pointer arithmetic: pointer outside object bounds in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.78] line 233 pointer arithmetic: invalid integer address in (unsigned char *)text + (signed long int)3: SUCCESS
+[search4.pointer_arithmetic.79] line 233 pointer relation: pointer NULL in x: SUCCESS
+[search4.pointer_arithmetic.80] line 233 pointer relation: pointer invalid in x: SUCCESS
+[search4.pointer_arithmetic.81] line 233 pointer relation: deallocated dynamic object in x: SUCCESS
+[search4.pointer_arithmetic.82] line 233 pointer relation: dead object in x: SUCCESS
+[search4.pointer_arithmetic.83] line 233 pointer relation: pointer outside object bounds in x: SUCCESS
+[search4.pointer_arithmetic.84] line 233 pointer relation: invalid integer address in x: SUCCESS
+[search4.overflow.12] line 234 arithmetic overflow on signed - in i - 3: SUCCESS
+[search4.pointer_arithmetic.85] line 234 pointer arithmetic: pointer NULL in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.86] line 234 pointer arithmetic: pointer invalid in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.87] line 234 pointer arithmetic: deallocated dynamic object in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.88] line 234 pointer arithmetic: dead object in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.89] line 234 pointer arithmetic: pointer outside object bounds in x + (signed long int)(i - 3): SUCCESS
+[search4.pointer_arithmetic.90] line 234 pointer arithmetic: invalid integer address in x + (signed long int)(i - 3): SUCCESS
+[search4.overflow.13] line 235 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/include/cbmc.h function bf_search
+[bf_search.overflow.1] line 34 arithmetic overflow on signed - in n - m: SUCCESS
+[bf_search.overflow.4] line 34 arithmetic overflow on signed + in j + 1: SUCCESS
+[bf_search.overflow.2] line 37 arithmetic overflow on signed to unsigned type conversion in (size_t)m: SUCCESS
+[bf_search.pointer_arithmetic.1] line 37 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.2] line 37 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.3] line 37 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.4] line 37 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.5] line 37 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.6] line 37 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[bf_search.overflow.3] line 38 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/include/cbmc.h function main
+[main.overflow.1] line 79 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.1] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.2] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.3] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.4] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.5] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.6] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.overflow.2] line 82 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.7] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.8] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.9] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.10] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.11] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.12] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.assertion.1] line 110 assertion ref == occ: SUCCESS
+[main.assertion.2] line 113 assertion ref == occ: SUCCESS
+[main.assertion.3] line 116 assertion ref == occ: SUCCESS
+[main.assertion.4] line 117 assertion ref == occ: SUCCESS
+[main.assertion.5] line 118 assertion ref == occ: SUCCESS
+[main.assertion.6] line 119 assertion ref == occ: SUCCESS
+[main.assertion.7] line 120 assertion ref == occ: SUCCESS
+[main.assertion.8] line 121 assertion ref == occ: SUCCESS
+[main.assertion.9] line 122 assertion ref == occ: SUCCESS
+[main.assertion.10] line 123 assertion ref == occ: SUCCESS
+[main.assertion.11] line 124 assertion ref == occ: SUCCESS
+[main.assertion.12] line 125 assertion ref == occ: SUCCESS
+[main.assertion.13] line 128 assertion ref == occ: SUCCESS
+[main.assertion.14] line 131 assertion ref == occ: SUCCESS
+[main.assertion.15] line 134 assertion ref == occ: SUCCESS
+[main.assertion.16] line 135 assertion ref == occ: SUCCESS
+[main.assertion.17] line 138 assertion ref == occ: SUCCESS
+[main.assertion.18] line 139 assertion ref == occ: SUCCESS
+[main.assertion.19] line 140 assertion ref == occ: SUCCESS
+[main.assertion.20] line 143 assertion ref == occ: SUCCESS
+[main.assertion.21] line 146 assertion ref == occ: SUCCESS
+[main.assertion.22] line 147 assertion ref == occ: SUCCESS
+[main.assertion.23] line 150 assertion ref == occ: SUCCESS
+[main.assertion.24] line 151 assertion ref == occ: SUCCESS
+[main.precondition_instance.1] line 154 strcpy src/dst overlap: SUCCESS
+[main.assertion.25] line 156 assertion ref == occ: SUCCESS
+[main.assertion.26] line 157 assertion ref == occ: SUCCESS
+[main.assertion.27] line 160 assertion ref == occ: SUCCESS
+[main.assertion.28] line 163 assertion ref == occ: SUCCESS
+[main.assertion.29] line 164 assertion ref == occ: SUCCESS
+
+** 0 of 1196 failed (1 iterations)
+VERIFICATION SUCCESSFUL

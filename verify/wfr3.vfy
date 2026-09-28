@@ -1,0 +1,1285 @@
+timeout 4m cbmc --verbosity 7 --unwinding-assertions --slice-formula -Isource/algos -DCBMC --bounds-check --pointer-check --memory-leak-check --div-by-zero-check --signed-overflow-check --unsigned-overflow-check --pointer-overflow-check --conversion-check --undefined-shift-check --float-overflow-check --nan-check --enum-range-check source/algos/wfr3.c
+CBMC version 6.4.0 (cbmc-6.4.0-24-g63675f5121) 64-bit x86_64 linux
+Type-checking wfr3
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Starting Bounded Model Checking
+
+** Results:
+function __CPROVER__start
+[__CPROVER__start.memory-leak.1] dynamically allocated memory never freed in __CPROVER_memory_leak == NULL: SUCCESS
+
+<builtin-library-memcmp> function memcmp
+[memcmp.precondition.1] line 19 memcmp region 1 readable: SUCCESS
+[memcmp.precondition.2] line 21 memcpy region 2 readable: SUCCESS
+[memcmp.overflow.2] line 25 arithmetic overflow on unsigned - in n - 1ul: SUCCESS
+[memcmp.overflow.1] line 27 arithmetic overflow on signed - in (signed int)*tmp_post_sc1 - (signed int)*tmp_post_sc2: SUCCESS
+[memcmp.pointer_arithmetic.1] line 27 pointer arithmetic: pointer NULL in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.2] line 27 pointer arithmetic: pointer invalid in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.3] line 27 pointer arithmetic: deallocated dynamic object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.4] line 27 pointer arithmetic: dead object in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.5] line 27 pointer arithmetic: pointer outside object bounds in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.6] line 27 pointer arithmetic: invalid integer address in sc1 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.7] line 27 pointer arithmetic: pointer NULL in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.8] line 27 pointer arithmetic: pointer invalid in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.9] line 27 pointer arithmetic: deallocated dynamic object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.10] line 27 pointer arithmetic: dead object in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.11] line 27 pointer arithmetic: pointer outside object bounds in sc2 + 1l: SUCCESS
+[memcmp.pointer_arithmetic.12] line 27 pointer arithmetic: invalid integer address in sc2 + 1l: SUCCESS
+[memcmp.pointer_dereference.1] line 27 dereference failure: pointer NULL in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.2] line 27 dereference failure: pointer invalid in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.3] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.4] line 27 dereference failure: dead object in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.5] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.6] line 27 dereference failure: invalid integer address in *tmp_post_sc1: SUCCESS
+[memcmp.pointer_dereference.7] line 27 dereference failure: pointer NULL in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.8] line 27 dereference failure: pointer invalid in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.9] line 27 dereference failure: deallocated dynamic object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.10] line 27 dereference failure: dead object in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.11] line 27 dereference failure: pointer outside object bounds in *tmp_post_sc2: SUCCESS
+[memcmp.pointer_dereference.12] line 27 dereference failure: invalid integer address in *tmp_post_sc2: SUCCESS
+
+<builtin-library-strcpy> function strcpy
+[strcpy.overflow.1] line 29 arithmetic overflow on unsigned to signed type conversion in (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.1] line 29 pointer arithmetic: pointer NULL in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.2] line 29 pointer arithmetic: pointer invalid in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.3] line 29 pointer arithmetic: deallocated dynamic object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.4] line 29 pointer arithmetic: dead object in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.5] line 29 pointer arithmetic: pointer outside object bounds in src + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.6] line 29 pointer arithmetic: invalid integer address in src + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.1] line 29 dereference failure: pointer NULL in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.2] line 29 dereference failure: pointer invalid in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.3] line 29 dereference failure: deallocated dynamic object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.4] line 29 dereference failure: dead object in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.5] line 29 dereference failure: pointer outside object bounds in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.6] line 29 dereference failure: invalid integer address in src[(signed long int)i]: SUCCESS
+[strcpy.pointer_arithmetic.7] line 30 pointer arithmetic: pointer NULL in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.8] line 30 pointer arithmetic: pointer invalid in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.9] line 30 pointer arithmetic: deallocated dynamic object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.10] line 30 pointer arithmetic: dead object in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.11] line 30 pointer arithmetic: pointer outside object bounds in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_arithmetic.12] line 30 pointer arithmetic: invalid integer address in dst + (signed long int)i: SUCCESS
+[strcpy.pointer_dereference.7] line 30 dereference failure: pointer NULL in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.8] line 30 dereference failure: pointer invalid in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.9] line 30 dereference failure: deallocated dynamic object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.10] line 30 dereference failure: dead object in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.11] line 30 dereference failure: pointer outside object bounds in dst[(signed long int)i]: SUCCESS
+[strcpy.pointer_dereference.12] line 30 dereference failure: invalid integer address in dst[(signed long int)i]: SUCCESS
+[strcpy.overflow.2] line 31 arithmetic overflow on unsigned + in i + 1ul: SUCCESS
+
+source/algos/include/GRAPH.h function TableGraph
+[TableGraph.overflow.4] line 280 arithmetic overflow on signed + in i + 1: SUCCESS
+[TableGraph.pointer_dereference.1] line 280 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[TableGraph.pointer_dereference.2] line 280 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[TableGraph.pointer_dereference.3] line 280 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[TableGraph.pointer_dereference.4] line 280 dereference failure: dead object in g->vertexNumber: SUCCESS
+[TableGraph.pointer_dereference.5] line 280 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[TableGraph.pointer_dereference.6] line 280 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[TableGraph.overflow.3] line 281 arithmetic overflow on unsigned + in c + 1: SUCCESS
+[TableGraph.pointer_dereference.7] line 281 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[TableGraph.pointer_dereference.8] line 281 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[TableGraph.pointer_dereference.9] line 281 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[TableGraph.pointer_dereference.10] line 281 dereference failure: dead object in g->edgeNumber: SUCCESS
+[TableGraph.pointer_dereference.11] line 281 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[TableGraph.pointer_dereference.12] line 281 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[TableGraph.overflow.1] line 282 arithmetic overflow on signed * in (signed long int)i * (signed long int)8ul: SUCCESS
+[TableGraph.overflow.2] line 282 arithmetic overflow on signed * in (signed long int)c * (signed long int)4ul: SUCCESS
+[TableGraph.pointer_arithmetic.1] line 282 pointer arithmetic: pointer NULL in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.2] line 282 pointer arithmetic: pointer invalid in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.3] line 282 pointer arithmetic: deallocated dynamic object in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.4] line 282 pointer arithmetic: dead object in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.5] line 282 pointer arithmetic: pointer outside object bounds in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.6] line 282 pointer arithmetic: invalid integer address in trans + (signed long int)i: SUCCESS
+[TableGraph.pointer_arithmetic.7] line 282 pointer arithmetic: pointer NULL in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_arithmetic.8] line 282 pointer arithmetic: pointer invalid in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_arithmetic.9] line 282 pointer arithmetic: deallocated dynamic object in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_arithmetic.10] line 282 pointer arithmetic: dead object in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_arithmetic.11] line 282 pointer arithmetic: pointer outside object bounds in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_arithmetic.12] line 282 pointer arithmetic: invalid integer address in trans[(signed long int)i] + (signed long int)c: SUCCESS
+[TableGraph.pointer_dereference.13] line 282 dereference failure: pointer NULL in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.14] line 282 dereference failure: pointer invalid in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.15] line 282 dereference failure: deallocated dynamic object in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.16] line 282 dereference failure: dead object in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.17] line 282 dereference failure: pointer outside object bounds in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.18] line 282 dereference failure: invalid integer address in trans[(signed long int)i]: SUCCESS
+[TableGraph.pointer_dereference.19] line 282 dereference failure: pointer NULL in trans[(signed long int)i][(signed long int)c]: SUCCESS
+[TableGraph.pointer_dereference.20] line 282 dereference failure: pointer invalid in trans[(signed long int)i][(signed long int)c]: SUCCESS
+[TableGraph.pointer_dereference.21] line 282 dereference failure: deallocated dynamic object in trans[(signed long int)i][(signed long int)c]: SUCCESS
+[TableGraph.pointer_dereference.22] line 282 dereference failure: dead object in trans[(signed long int)i][(signed long int)c]: SUCCESS
+[TableGraph.pointer_dereference.23] line 282 dereference failure: pointer outside object bounds in trans[(signed long int)i][(signed long int)c]: SUCCESS
+[TableGraph.pointer_dereference.24] line 282 dereference failure: invalid integer address in trans[(signed long int)i][(signed long int)c]: SUCCESS
+
+source/algos/include/GRAPH.h function copyVertex
+[copyVertex.pointer_dereference.1] line 254 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.2] line 254 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.3] line 254 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.4] line 254 dereference failure: dead object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.5] line 254 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.6] line 254 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.7] line 254 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.8] line 254 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.9] line 254 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.10] line 254 dereference failure: dead object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.11] line 254 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.12] line 254 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.13] line 255 dereference failure: pointer NULL in g->target: SUCCESS
+[copyVertex.pointer_dereference.14] line 255 dereference failure: pointer invalid in g->target: SUCCESS
+[copyVertex.pointer_dereference.15] line 255 dereference failure: deallocated dynamic object in g->target: SUCCESS
+[copyVertex.pointer_dereference.16] line 255 dereference failure: dead object in g->target: SUCCESS
+[copyVertex.pointer_dereference.17] line 255 dereference failure: pointer outside object bounds in g->target: SUCCESS
+[copyVertex.pointer_dereference.18] line 255 dereference failure: invalid integer address in g->target: SUCCESS
+[copyVertex.division-by-zero.1] line 256 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[copyVertex.overflow.1] line 256 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[copyVertex.overflow.2] line 256 arithmetic overflow on signed * in target * (g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.3] line 256 arithmetic overflow on signed * in (signed long int)(target * (g->edgeNumber / g->vertexNumber)) * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.1] line 256 pointer arithmetic: pointer NULL in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.2] line 256 pointer arithmetic: pointer invalid in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.3] line 256 pointer arithmetic: deallocated dynamic object in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.4] line 256 pointer arithmetic: dead object in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.5] line 256 pointer arithmetic: pointer outside object bounds in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.6] line 256 pointer arithmetic: invalid integer address in g->target + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_dereference.19] line 256 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.20] line 256 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.21] line 256 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.22] line 256 dereference failure: dead object in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.23] line 256 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.24] line 256 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.25] line 256 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.26] line 256 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.27] line 256 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.28] line 256 dereference failure: dead object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.29] line 256 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.30] line 256 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[copyVertex.overflow.4] line 257 arithmetic overflow on signed * in source * (g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.5] line 257 arithmetic overflow on signed * in (signed long int)(source * (g->edgeNumber / g->vertexNumber)) * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.7] line 257 pointer arithmetic: pointer NULL in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.8] line 257 pointer arithmetic: pointer invalid in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.9] line 257 pointer arithmetic: deallocated dynamic object in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.10] line 257 pointer arithmetic: dead object in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.11] line 257 pointer arithmetic: pointer outside object bounds in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.12] line 257 pointer arithmetic: invalid integer address in g->target + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.overflow.6] line 258 arithmetic overflow on signed to unsigned type conversion in (unsigned long int)(g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.7] line 258 arithmetic overflow on unsigned * in (unsigned long int)(g->edgeNumber / g->vertexNumber) * sizeof(signed int) /*4ul*/ : SUCCESS
+[copyVertex.pointer_dereference.31] line 259 dereference failure: pointer NULL in g->shift: SUCCESS
+[copyVertex.pointer_dereference.32] line 259 dereference failure: pointer invalid in g->shift: SUCCESS
+[copyVertex.pointer_dereference.33] line 259 dereference failure: deallocated dynamic object in g->shift: SUCCESS
+[copyVertex.pointer_dereference.34] line 259 dereference failure: dead object in g->shift: SUCCESS
+[copyVertex.pointer_dereference.35] line 259 dereference failure: pointer outside object bounds in g->shift: SUCCESS
+[copyVertex.pointer_dereference.36] line 259 dereference failure: invalid integer address in g->shift: SUCCESS
+[copyVertex.division-by-zero.2] line 260 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[copyVertex.overflow.8] line 260 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[copyVertex.overflow.9] line 260 arithmetic overflow on signed * in target * (g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.10] line 260 arithmetic overflow on signed * in (signed long int)(target * (g->edgeNumber / g->vertexNumber)) * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.13] line 260 pointer arithmetic: pointer NULL in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.14] line 260 pointer arithmetic: pointer invalid in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.15] line 260 pointer arithmetic: deallocated dynamic object in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.16] line 260 pointer arithmetic: dead object in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.17] line 260 pointer arithmetic: pointer outside object bounds in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.18] line 260 pointer arithmetic: invalid integer address in g->shift + (signed long int)(target * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_dereference.37] line 260 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.38] line 260 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.39] line 260 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.40] line 260 dereference failure: dead object in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.41] line 260 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.42] line 260 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[copyVertex.pointer_dereference.43] line 260 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.44] line 260 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.45] line 260 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.46] line 260 dereference failure: dead object in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.47] line 260 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[copyVertex.pointer_dereference.48] line 260 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[copyVertex.overflow.11] line 261 arithmetic overflow on signed * in source * (g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.12] line 261 arithmetic overflow on signed * in (signed long int)(source * (g->edgeNumber / g->vertexNumber)) * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.19] line 261 pointer arithmetic: pointer NULL in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.20] line 261 pointer arithmetic: pointer invalid in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.21] line 261 pointer arithmetic: deallocated dynamic object in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.22] line 261 pointer arithmetic: dead object in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.23] line 261 pointer arithmetic: pointer outside object bounds in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.pointer_arithmetic.24] line 261 pointer arithmetic: invalid integer address in g->shift + (signed long int)(source * (g->edgeNumber / g->vertexNumber)): SUCCESS
+[copyVertex.overflow.13] line 262 arithmetic overflow on signed to unsigned type conversion in (unsigned long int)(g->edgeNumber / g->vertexNumber): SUCCESS
+[copyVertex.overflow.14] line 262 arithmetic overflow on unsigned * in (unsigned long int)(g->edgeNumber / g->vertexNumber) * sizeof(signed int) /*4ul*/ : SUCCESS
+[copyVertex.pointer_dereference.49] line 263 dereference failure: pointer NULL in g->terminal: SUCCESS
+[copyVertex.pointer_dereference.50] line 263 dereference failure: pointer invalid in g->terminal: SUCCESS
+[copyVertex.pointer_dereference.51] line 263 dereference failure: deallocated dynamic object in g->terminal: SUCCESS
+[copyVertex.pointer_dereference.52] line 263 dereference failure: dead object in g->terminal: SUCCESS
+[copyVertex.pointer_dereference.53] line 263 dereference failure: pointer outside object bounds in g->terminal: SUCCESS
+[copyVertex.pointer_dereference.54] line 263 dereference failure: invalid integer address in g->terminal: SUCCESS
+[copyVertex.overflow.15] line 264 arithmetic overflow on signed * in (signed long int)target * (signed long int)4ul: SUCCESS
+[copyVertex.overflow.16] line 264 arithmetic overflow on signed * in (signed long int)source * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.25] line 264 pointer arithmetic: pointer NULL in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.26] line 264 pointer arithmetic: pointer invalid in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.27] line 264 pointer arithmetic: deallocated dynamic object in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.28] line 264 pointer arithmetic: dead object in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.29] line 264 pointer arithmetic: pointer outside object bounds in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.30] line 264 pointer arithmetic: invalid integer address in g->terminal + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.31] line 264 pointer arithmetic: pointer NULL in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.32] line 264 pointer arithmetic: pointer invalid in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.33] line 264 pointer arithmetic: deallocated dynamic object in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.34] line 264 pointer arithmetic: dead object in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.35] line 264 pointer arithmetic: pointer outside object bounds in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.36] line 264 pointer arithmetic: invalid integer address in g->terminal + (signed long int)source: SUCCESS
+[copyVertex.pointer_dereference.55] line 264 dereference failure: pointer NULL in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.56] line 264 dereference failure: pointer invalid in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.57] line 264 dereference failure: deallocated dynamic object in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.58] line 264 dereference failure: dead object in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.59] line 264 dereference failure: pointer outside object bounds in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.60] line 264 dereference failure: invalid integer address in g->terminal[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.61] line 264 dereference failure: pointer NULL in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.62] line 264 dereference failure: pointer invalid in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.63] line 264 dereference failure: deallocated dynamic object in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.64] line 264 dereference failure: dead object in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.65] line 264 dereference failure: pointer outside object bounds in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.66] line 264 dereference failure: invalid integer address in g->terminal[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.67] line 265 dereference failure: pointer NULL in g->suffixLink: SUCCESS
+[copyVertex.pointer_dereference.68] line 265 dereference failure: pointer invalid in g->suffixLink: SUCCESS
+[copyVertex.pointer_dereference.69] line 265 dereference failure: deallocated dynamic object in g->suffixLink: SUCCESS
+[copyVertex.pointer_dereference.70] line 265 dereference failure: dead object in g->suffixLink: SUCCESS
+[copyVertex.pointer_dereference.71] line 265 dereference failure: pointer outside object bounds in g->suffixLink: SUCCESS
+[copyVertex.pointer_dereference.72] line 265 dereference failure: invalid integer address in g->suffixLink: SUCCESS
+[copyVertex.overflow.17] line 266 arithmetic overflow on signed * in (signed long int)target * (signed long int)4ul: SUCCESS
+[copyVertex.overflow.18] line 266 arithmetic overflow on signed * in (signed long int)source * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.37] line 266 pointer arithmetic: pointer NULL in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.38] line 266 pointer arithmetic: pointer invalid in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.39] line 266 pointer arithmetic: deallocated dynamic object in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.40] line 266 pointer arithmetic: dead object in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.41] line 266 pointer arithmetic: pointer outside object bounds in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.42] line 266 pointer arithmetic: invalid integer address in g->suffixLink + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.43] line 266 pointer arithmetic: pointer NULL in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.44] line 266 pointer arithmetic: pointer invalid in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.45] line 266 pointer arithmetic: deallocated dynamic object in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.46] line 266 pointer arithmetic: dead object in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.47] line 266 pointer arithmetic: pointer outside object bounds in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.48] line 266 pointer arithmetic: invalid integer address in g->suffixLink + (signed long int)source: SUCCESS
+[copyVertex.pointer_dereference.73] line 266 dereference failure: pointer NULL in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.74] line 266 dereference failure: pointer invalid in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.75] line 266 dereference failure: deallocated dynamic object in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.76] line 266 dereference failure: dead object in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.77] line 266 dereference failure: pointer outside object bounds in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.78] line 266 dereference failure: invalid integer address in g->suffixLink[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.79] line 266 dereference failure: pointer NULL in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.80] line 266 dereference failure: pointer invalid in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.81] line 266 dereference failure: deallocated dynamic object in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.82] line 266 dereference failure: dead object in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.83] line 266 dereference failure: pointer outside object bounds in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.84] line 266 dereference failure: invalid integer address in g->suffixLink[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.85] line 267 dereference failure: pointer NULL in g->length: SUCCESS
+[copyVertex.pointer_dereference.86] line 267 dereference failure: pointer invalid in g->length: SUCCESS
+[copyVertex.pointer_dereference.87] line 267 dereference failure: deallocated dynamic object in g->length: SUCCESS
+[copyVertex.pointer_dereference.88] line 267 dereference failure: dead object in g->length: SUCCESS
+[copyVertex.pointer_dereference.89] line 267 dereference failure: pointer outside object bounds in g->length: SUCCESS
+[copyVertex.pointer_dereference.90] line 267 dereference failure: invalid integer address in g->length: SUCCESS
+[copyVertex.overflow.19] line 268 arithmetic overflow on signed * in (signed long int)target * (signed long int)4ul: SUCCESS
+[copyVertex.overflow.20] line 268 arithmetic overflow on signed * in (signed long int)source * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.49] line 268 pointer arithmetic: pointer NULL in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.50] line 268 pointer arithmetic: pointer invalid in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.51] line 268 pointer arithmetic: deallocated dynamic object in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.52] line 268 pointer arithmetic: dead object in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.53] line 268 pointer arithmetic: pointer outside object bounds in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.54] line 268 pointer arithmetic: invalid integer address in g->length + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.55] line 268 pointer arithmetic: pointer NULL in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.56] line 268 pointer arithmetic: pointer invalid in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.57] line 268 pointer arithmetic: deallocated dynamic object in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.58] line 268 pointer arithmetic: dead object in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.59] line 268 pointer arithmetic: pointer outside object bounds in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.60] line 268 pointer arithmetic: invalid integer address in g->length + (signed long int)source: SUCCESS
+[copyVertex.pointer_dereference.91] line 268 dereference failure: pointer NULL in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.92] line 268 dereference failure: pointer invalid in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.93] line 268 dereference failure: deallocated dynamic object in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.94] line 268 dereference failure: dead object in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.95] line 268 dereference failure: pointer outside object bounds in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.96] line 268 dereference failure: invalid integer address in g->length[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.97] line 268 dereference failure: pointer NULL in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.98] line 268 dereference failure: pointer invalid in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.99] line 268 dereference failure: deallocated dynamic object in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.100] line 268 dereference failure: dead object in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.101] line 268 dereference failure: pointer outside object bounds in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.102] line 268 dereference failure: invalid integer address in g->length[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.103] line 269 dereference failure: pointer NULL in g->position: SUCCESS
+[copyVertex.pointer_dereference.104] line 269 dereference failure: pointer invalid in g->position: SUCCESS
+[copyVertex.pointer_dereference.105] line 269 dereference failure: deallocated dynamic object in g->position: SUCCESS
+[copyVertex.pointer_dereference.106] line 269 dereference failure: dead object in g->position: SUCCESS
+[copyVertex.pointer_dereference.107] line 269 dereference failure: pointer outside object bounds in g->position: SUCCESS
+[copyVertex.pointer_dereference.108] line 269 dereference failure: invalid integer address in g->position: SUCCESS
+[copyVertex.overflow.21] line 270 arithmetic overflow on signed * in (signed long int)target * (signed long int)4ul: SUCCESS
+[copyVertex.overflow.22] line 270 arithmetic overflow on signed * in (signed long int)source * (signed long int)4ul: SUCCESS
+[copyVertex.pointer_arithmetic.61] line 270 pointer arithmetic: pointer NULL in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.62] line 270 pointer arithmetic: pointer invalid in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.63] line 270 pointer arithmetic: deallocated dynamic object in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.64] line 270 pointer arithmetic: dead object in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.65] line 270 pointer arithmetic: pointer outside object bounds in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.66] line 270 pointer arithmetic: invalid integer address in g->position + (signed long int)target: SUCCESS
+[copyVertex.pointer_arithmetic.67] line 270 pointer arithmetic: pointer NULL in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.68] line 270 pointer arithmetic: pointer invalid in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.69] line 270 pointer arithmetic: deallocated dynamic object in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.70] line 270 pointer arithmetic: dead object in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.71] line 270 pointer arithmetic: pointer outside object bounds in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_arithmetic.72] line 270 pointer arithmetic: invalid integer address in g->position + (signed long int)source: SUCCESS
+[copyVertex.pointer_dereference.109] line 270 dereference failure: pointer NULL in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.110] line 270 dereference failure: pointer invalid in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.111] line 270 dereference failure: deallocated dynamic object in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.112] line 270 dereference failure: dead object in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.113] line 270 dereference failure: pointer outside object bounds in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.114] line 270 dereference failure: invalid integer address in g->position[(signed long int)target]: SUCCESS
+[copyVertex.pointer_dereference.115] line 270 dereference failure: pointer NULL in g->position[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.116] line 270 dereference failure: pointer invalid in g->position[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.117] line 270 dereference failure: deallocated dynamic object in g->position[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.118] line 270 dereference failure: dead object in g->position[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.119] line 270 dereference failure: pointer outside object bounds in g->position[(signed long int)source]: SUCCESS
+[copyVertex.pointer_dereference.120] line 270 dereference failure: invalid integer address in g->position[(signed long int)source]: SUCCESS
+
+source/algos/include/GRAPH.h function getInitial
+[getInitial.pointer_dereference.1] line 147 dereference failure: pointer NULL in g->initial: SUCCESS
+[getInitial.pointer_dereference.2] line 147 dereference failure: pointer invalid in g->initial: SUCCESS
+[getInitial.pointer_dereference.3] line 147 dereference failure: deallocated dynamic object in g->initial: SUCCESS
+[getInitial.pointer_dereference.4] line 147 dereference failure: dead object in g->initial: SUCCESS
+[getInitial.pointer_dereference.5] line 147 dereference failure: pointer outside object bounds in g->initial: SUCCESS
+[getInitial.pointer_dereference.6] line 147 dereference failure: invalid integer address in g->initial: SUCCESS
+
+source/algos/include/GRAPH.h function getLength
+[getLength.overflow.1] line 205 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[getLength.pointer_arithmetic.1] line 205 pointer arithmetic: pointer NULL in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_arithmetic.2] line 205 pointer arithmetic: pointer invalid in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_arithmetic.3] line 205 pointer arithmetic: deallocated dynamic object in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_arithmetic.4] line 205 pointer arithmetic: dead object in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_arithmetic.5] line 205 pointer arithmetic: pointer outside object bounds in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_arithmetic.6] line 205 pointer arithmetic: invalid integer address in g->length + (signed long int)v: SUCCESS
+[getLength.pointer_dereference.1] line 205 dereference failure: pointer NULL in g->length: SUCCESS
+[getLength.pointer_dereference.2] line 205 dereference failure: pointer invalid in g->length: SUCCESS
+[getLength.pointer_dereference.3] line 205 dereference failure: deallocated dynamic object in g->length: SUCCESS
+[getLength.pointer_dereference.4] line 205 dereference failure: dead object in g->length: SUCCESS
+[getLength.pointer_dereference.5] line 205 dereference failure: pointer outside object bounds in g->length: SUCCESS
+[getLength.pointer_dereference.6] line 205 dereference failure: invalid integer address in g->length: SUCCESS
+[getLength.pointer_dereference.7] line 205 dereference failure: pointer NULL in g->length[(signed long int)v]: SUCCESS
+[getLength.pointer_dereference.8] line 205 dereference failure: pointer invalid in g->length[(signed long int)v]: SUCCESS
+[getLength.pointer_dereference.9] line 205 dereference failure: deallocated dynamic object in g->length[(signed long int)v]: SUCCESS
+[getLength.pointer_dereference.10] line 205 dereference failure: dead object in g->length[(signed long int)v]: SUCCESS
+[getLength.pointer_dereference.11] line 205 dereference failure: pointer outside object bounds in g->length[(signed long int)v]: SUCCESS
+[getLength.pointer_dereference.12] line 205 dereference failure: invalid integer address in g->length[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function getPosition
+[getPosition.pointer_dereference.1] line 219 dereference failure: pointer NULL in g->position: SUCCESS
+[getPosition.pointer_dereference.2] line 219 dereference failure: pointer invalid in g->position: SUCCESS
+[getPosition.pointer_dereference.3] line 219 dereference failure: deallocated dynamic object in g->position: SUCCESS
+[getPosition.pointer_dereference.4] line 219 dereference failure: dead object in g->position: SUCCESS
+[getPosition.pointer_dereference.5] line 219 dereference failure: pointer outside object bounds in g->position: SUCCESS
+[getPosition.pointer_dereference.6] line 219 dereference failure: invalid integer address in g->position: SUCCESS
+[getPosition.pointer_dereference.7] line 219 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[getPosition.pointer_dereference.8] line 219 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[getPosition.pointer_dereference.9] line 219 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[getPosition.pointer_dereference.10] line 219 dereference failure: dead object in g->vertexNumber: SUCCESS
+[getPosition.pointer_dereference.11] line 219 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[getPosition.pointer_dereference.12] line 219 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[getPosition.overflow.1] line 220 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[getPosition.pointer_arithmetic.1] line 220 pointer arithmetic: pointer NULL in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_arithmetic.2] line 220 pointer arithmetic: pointer invalid in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_arithmetic.3] line 220 pointer arithmetic: deallocated dynamic object in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_arithmetic.4] line 220 pointer arithmetic: dead object in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_arithmetic.5] line 220 pointer arithmetic: pointer outside object bounds in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_arithmetic.6] line 220 pointer arithmetic: invalid integer address in g->position + (signed long int)v: SUCCESS
+[getPosition.pointer_dereference.13] line 220 dereference failure: pointer NULL in g->position: SUCCESS
+[getPosition.pointer_dereference.14] line 220 dereference failure: pointer invalid in g->position: SUCCESS
+[getPosition.pointer_dereference.15] line 220 dereference failure: deallocated dynamic object in g->position: SUCCESS
+[getPosition.pointer_dereference.16] line 220 dereference failure: dead object in g->position: SUCCESS
+[getPosition.pointer_dereference.17] line 220 dereference failure: pointer outside object bounds in g->position: SUCCESS
+[getPosition.pointer_dereference.18] line 220 dereference failure: invalid integer address in g->position: SUCCESS
+[getPosition.pointer_dereference.19] line 220 dereference failure: pointer NULL in g->position[(signed long int)v]: SUCCESS
+[getPosition.pointer_dereference.20] line 220 dereference failure: pointer invalid in g->position[(signed long int)v]: SUCCESS
+[getPosition.pointer_dereference.21] line 220 dereference failure: deallocated dynamic object in g->position[(signed long int)v]: SUCCESS
+[getPosition.pointer_dereference.22] line 220 dereference failure: dead object in g->position[(signed long int)v]: SUCCESS
+[getPosition.pointer_dereference.23] line 220 dereference failure: pointer outside object bounds in g->position[(signed long int)v]: SUCCESS
+[getPosition.pointer_dereference.24] line 220 dereference failure: invalid integer address in g->position[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function getShift
+[getShift.division-by-zero.1] line 237 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[getShift.overflow.1] line 237 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[getShift.overflow.2] line 237 arithmetic overflow on signed * in v * (g->edgeNumber / g->vertexNumber): SUCCESS
+[getShift.overflow.3] line 237 arithmetic overflow on signed + in v * (g->edgeNumber / g->vertexNumber) + (signed int)c: SUCCESS
+[getShift.overflow.4] line 237 arithmetic overflow on signed * in (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c) * (signed long int)4ul: SUCCESS
+[getShift.pointer_arithmetic.1] line 237 pointer arithmetic: pointer NULL in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_arithmetic.2] line 237 pointer arithmetic: pointer invalid in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_arithmetic.3] line 237 pointer arithmetic: deallocated dynamic object in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_arithmetic.4] line 237 pointer arithmetic: dead object in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_arithmetic.5] line 237 pointer arithmetic: pointer outside object bounds in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_arithmetic.6] line 237 pointer arithmetic: invalid integer address in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getShift.pointer_dereference.1] line 237 dereference failure: pointer NULL in g->shift: SUCCESS
+[getShift.pointer_dereference.2] line 237 dereference failure: pointer invalid in g->shift: SUCCESS
+[getShift.pointer_dereference.3] line 237 dereference failure: deallocated dynamic object in g->shift: SUCCESS
+[getShift.pointer_dereference.4] line 237 dereference failure: dead object in g->shift: SUCCESS
+[getShift.pointer_dereference.5] line 237 dereference failure: pointer outside object bounds in g->shift: SUCCESS
+[getShift.pointer_dereference.6] line 237 dereference failure: invalid integer address in g->shift: SUCCESS
+[getShift.pointer_dereference.7] line 237 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.8] line 237 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.9] line 237 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.10] line 237 dereference failure: dead object in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.11] line 237 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.12] line 237 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[getShift.pointer_dereference.13] line 237 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.14] line 237 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.15] line 237 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.16] line 237 dereference failure: dead object in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.17] line 237 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.18] line 237 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[getShift.pointer_dereference.19] line 237 dereference failure: pointer NULL in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getShift.pointer_dereference.20] line 237 dereference failure: pointer invalid in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getShift.pointer_dereference.21] line 237 dereference failure: deallocated dynamic object in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getShift.pointer_dereference.22] line 237 dereference failure: dead object in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getShift.pointer_dereference.23] line 237 dereference failure: pointer outside object bounds in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getShift.pointer_dereference.24] line 237 dereference failure: invalid integer address in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+
+source/algos/include/GRAPH.h function getSuffixLink
+[getSuffixLink.overflow.1] line 188 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[getSuffixLink.pointer_arithmetic.1] line 188 pointer arithmetic: pointer NULL in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_arithmetic.2] line 188 pointer arithmetic: pointer invalid in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_arithmetic.3] line 188 pointer arithmetic: deallocated dynamic object in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_arithmetic.4] line 188 pointer arithmetic: dead object in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_arithmetic.5] line 188 pointer arithmetic: pointer outside object bounds in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_arithmetic.6] line 188 pointer arithmetic: invalid integer address in g->suffixLink + (signed long int)v: SUCCESS
+[getSuffixLink.pointer_dereference.1] line 188 dereference failure: pointer NULL in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.2] line 188 dereference failure: pointer invalid in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.3] line 188 dereference failure: deallocated dynamic object in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.4] line 188 dereference failure: dead object in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.5] line 188 dereference failure: pointer outside object bounds in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.6] line 188 dereference failure: invalid integer address in g->suffixLink: SUCCESS
+[getSuffixLink.pointer_dereference.7] line 188 dereference failure: pointer NULL in g->suffixLink[(signed long int)v]: SUCCESS
+[getSuffixLink.pointer_dereference.8] line 188 dereference failure: pointer invalid in g->suffixLink[(signed long int)v]: SUCCESS
+[getSuffixLink.pointer_dereference.9] line 188 dereference failure: deallocated dynamic object in g->suffixLink[(signed long int)v]: SUCCESS
+[getSuffixLink.pointer_dereference.10] line 188 dereference failure: dead object in g->suffixLink[(signed long int)v]: SUCCESS
+[getSuffixLink.pointer_dereference.11] line 188 dereference failure: pointer outside object bounds in g->suffixLink[(signed long int)v]: SUCCESS
+[getSuffixLink.pointer_dereference.12] line 188 dereference failure: invalid integer address in g->suffixLink[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function getTarget
+[getTarget.division-by-zero.1] line 171 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[getTarget.overflow.1] line 171 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[getTarget.overflow.2] line 171 arithmetic overflow on signed * in v * (g->edgeNumber / g->vertexNumber): SUCCESS
+[getTarget.overflow.3] line 171 arithmetic overflow on signed + in v * (g->edgeNumber / g->vertexNumber) + (signed int)c: SUCCESS
+[getTarget.overflow.4] line 171 arithmetic overflow on signed * in (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c) * (signed long int)4ul: SUCCESS
+[getTarget.pointer_arithmetic.1] line 171 pointer arithmetic: pointer NULL in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_arithmetic.2] line 171 pointer arithmetic: pointer invalid in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_arithmetic.3] line 171 pointer arithmetic: deallocated dynamic object in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_arithmetic.4] line 171 pointer arithmetic: dead object in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_arithmetic.5] line 171 pointer arithmetic: pointer outside object bounds in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_arithmetic.6] line 171 pointer arithmetic: invalid integer address in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[getTarget.pointer_dereference.1] line 171 dereference failure: pointer NULL in g->target: SUCCESS
+[getTarget.pointer_dereference.2] line 171 dereference failure: pointer invalid in g->target: SUCCESS
+[getTarget.pointer_dereference.3] line 171 dereference failure: deallocated dynamic object in g->target: SUCCESS
+[getTarget.pointer_dereference.4] line 171 dereference failure: dead object in g->target: SUCCESS
+[getTarget.pointer_dereference.5] line 171 dereference failure: pointer outside object bounds in g->target: SUCCESS
+[getTarget.pointer_dereference.6] line 171 dereference failure: invalid integer address in g->target: SUCCESS
+[getTarget.pointer_dereference.7] line 171 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.8] line 171 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.9] line 171 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.10] line 171 dereference failure: dead object in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.11] line 171 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.12] line 171 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[getTarget.pointer_dereference.13] line 171 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.14] line 171 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.15] line 171 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.16] line 171 dereference failure: dead object in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.17] line 171 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.18] line 171 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[getTarget.pointer_dereference.19] line 171 dereference failure: pointer NULL in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getTarget.pointer_dereference.20] line 171 dereference failure: pointer invalid in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getTarget.pointer_dereference.21] line 171 dereference failure: deallocated dynamic object in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getTarget.pointer_dereference.22] line 171 dereference failure: dead object in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getTarget.pointer_dereference.23] line 171 dereference failure: pointer outside object bounds in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[getTarget.pointer_dereference.24] line 171 dereference failure: invalid integer address in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+
+source/algos/include/GRAPH.h function isTerminal
+[isTerminal.overflow.1] line 154 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[isTerminal.pointer_arithmetic.1] line 154 pointer arithmetic: pointer NULL in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_arithmetic.2] line 154 pointer arithmetic: pointer invalid in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_arithmetic.3] line 154 pointer arithmetic: deallocated dynamic object in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_arithmetic.4] line 154 pointer arithmetic: dead object in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_arithmetic.5] line 154 pointer arithmetic: pointer outside object bounds in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_arithmetic.6] line 154 pointer arithmetic: invalid integer address in g->terminal + (signed long int)v: SUCCESS
+[isTerminal.pointer_dereference.1] line 154 dereference failure: pointer NULL in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.2] line 154 dereference failure: pointer invalid in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.3] line 154 dereference failure: deallocated dynamic object in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.4] line 154 dereference failure: dead object in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.5] line 154 dereference failure: pointer outside object bounds in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.6] line 154 dereference failure: invalid integer address in g->terminal: SUCCESS
+[isTerminal.pointer_dereference.7] line 154 dereference failure: pointer NULL in g->terminal[(signed long int)v]: SUCCESS
+[isTerminal.pointer_dereference.8] line 154 dereference failure: pointer invalid in g->terminal[(signed long int)v]: SUCCESS
+[isTerminal.pointer_dereference.9] line 154 dereference failure: deallocated dynamic object in g->terminal[(signed long int)v]: SUCCESS
+[isTerminal.pointer_dereference.10] line 154 dereference failure: dead object in g->terminal[(signed long int)v]: SUCCESS
+[isTerminal.pointer_dereference.11] line 154 dereference failure: pointer outside object bounds in g->terminal[(signed long int)v]: SUCCESS
+[isTerminal.pointer_dereference.12] line 154 dereference failure: invalid integer address in g->terminal[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function newAutomaton
+[newAutomaton.overflow.1] line 84 arithmetic overflow on signed to unsigned type conversion in (size_t)e: SUCCESS
+[newAutomaton.pointer_dereference.1] line 84 dereference failure: pointer NULL in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.2] line 84 dereference failure: pointer invalid in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.3] line 84 dereference failure: deallocated dynamic object in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.4] line 84 dereference failure: dead object in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.5] line 84 dereference failure: pointer outside object bounds in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.6] line 84 dereference failure: invalid integer address in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.7] line 85 dereference failure: pointer NULL in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.8] line 85 dereference failure: pointer invalid in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.9] line 85 dereference failure: deallocated dynamic object in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.10] line 85 dereference failure: dead object in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.11] line 85 dereference failure: pointer outside object bounds in aut->target: SUCCESS
+[newAutomaton.pointer_dereference.12] line 85 dereference failure: invalid integer address in aut->target: SUCCESS
+[newAutomaton.overflow.2] line 87 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newAutomaton.pointer_dereference.13] line 87 dereference failure: pointer NULL in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.14] line 87 dereference failure: pointer invalid in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.15] line 87 dereference failure: deallocated dynamic object in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.16] line 87 dereference failure: dead object in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.17] line 87 dereference failure: pointer outside object bounds in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.18] line 87 dereference failure: invalid integer address in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.19] line 88 dereference failure: pointer NULL in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.20] line 88 dereference failure: pointer invalid in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.21] line 88 dereference failure: deallocated dynamic object in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.22] line 88 dereference failure: dead object in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.23] line 88 dereference failure: pointer outside object bounds in aut->terminal: SUCCESS
+[newAutomaton.pointer_dereference.24] line 88 dereference failure: invalid integer address in aut->terminal: SUCCESS
+
+source/algos/include/GRAPH.h function newGraph
+[newGraph.pointer_dereference.1] line 71 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.2] line 71 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.3] line 71 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.4] line 71 dereference failure: dead object in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.5] line 71 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.6] line 71 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[newGraph.pointer_dereference.7] line 72 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.8] line 72 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.9] line 72 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.10] line 72 dereference failure: dead object in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.11] line 72 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.12] line 72 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[newGraph.pointer_dereference.13] line 73 dereference failure: pointer NULL in g->initial: SUCCESS
+[newGraph.pointer_dereference.14] line 73 dereference failure: pointer invalid in g->initial: SUCCESS
+[newGraph.pointer_dereference.15] line 73 dereference failure: deallocated dynamic object in g->initial: SUCCESS
+[newGraph.pointer_dereference.16] line 73 dereference failure: dead object in g->initial: SUCCESS
+[newGraph.pointer_dereference.17] line 73 dereference failure: pointer outside object bounds in g->initial: SUCCESS
+[newGraph.pointer_dereference.18] line 73 dereference failure: invalid integer address in g->initial: SUCCESS
+[newGraph.pointer_dereference.19] line 74 dereference failure: pointer NULL in g->vertexCounter: SUCCESS
+[newGraph.pointer_dereference.20] line 74 dereference failure: pointer invalid in g->vertexCounter: SUCCESS
+[newGraph.pointer_dereference.21] line 74 dereference failure: deallocated dynamic object in g->vertexCounter: SUCCESS
+[newGraph.pointer_dereference.22] line 74 dereference failure: dead object in g->vertexCounter: SUCCESS
+[newGraph.pointer_dereference.23] line 74 dereference failure: pointer outside object bounds in g->vertexCounter: SUCCESS
+[newGraph.pointer_dereference.24] line 74 dereference failure: invalid integer address in g->vertexCounter: SUCCESS
+
+source/algos/include/GRAPH.h function newSuffixAutomaton
+[newSuffixAutomaton.overflow.1] line 99 arithmetic overflow on signed to unsigned type conversion in (unsigned long int)e: SUCCESS
+[newSuffixAutomaton.overflow.2] line 99 arithmetic overflow on unsigned * in (unsigned long int)e * sizeof(signed int) /*4ul*/ : SUCCESS
+[newSuffixAutomaton.pointer_dereference.1] line 99 dereference failure: pointer NULL in aut->target: SUCCESS
+[newSuffixAutomaton.pointer_dereference.2] line 99 dereference failure: pointer invalid in aut->target: SUCCESS
+[newSuffixAutomaton.pointer_dereference.3] line 99 dereference failure: deallocated dynamic object in aut->target: SUCCESS
+[newSuffixAutomaton.pointer_dereference.4] line 99 dereference failure: dead object in aut->target: SUCCESS
+[newSuffixAutomaton.pointer_dereference.5] line 99 dereference failure: pointer outside object bounds in aut->target: SUCCESS
+[newSuffixAutomaton.pointer_dereference.6] line 99 dereference failure: invalid integer address in aut->target: SUCCESS
+[newSuffixAutomaton.overflow.3] line 100 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newSuffixAutomaton.pointer_dereference.7] line 100 dereference failure: pointer NULL in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.8] line 100 dereference failure: pointer invalid in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.9] line 100 dereference failure: deallocated dynamic object in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.10] line 100 dereference failure: dead object in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.11] line 100 dereference failure: pointer outside object bounds in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.12] line 100 dereference failure: invalid integer address in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.13] line 101 dereference failure: pointer NULL in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.14] line 101 dereference failure: pointer invalid in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.15] line 101 dereference failure: deallocated dynamic object in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.16] line 101 dereference failure: dead object in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.17] line 101 dereference failure: pointer outside object bounds in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.pointer_dereference.18] line 101 dereference failure: invalid integer address in aut->suffixLink: SUCCESS
+[newSuffixAutomaton.overflow.4] line 103 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newSuffixAutomaton.pointer_dereference.19] line 103 dereference failure: pointer NULL in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.20] line 103 dereference failure: pointer invalid in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.21] line 103 dereference failure: deallocated dynamic object in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.22] line 103 dereference failure: dead object in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.23] line 103 dereference failure: pointer outside object bounds in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.24] line 103 dereference failure: invalid integer address in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.25] line 104 dereference failure: pointer NULL in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.26] line 104 dereference failure: pointer invalid in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.27] line 104 dereference failure: deallocated dynamic object in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.28] line 104 dereference failure: dead object in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.29] line 104 dereference failure: pointer outside object bounds in aut->length: SUCCESS
+[newSuffixAutomaton.pointer_dereference.30] line 104 dereference failure: invalid integer address in aut->length: SUCCESS
+[newSuffixAutomaton.overflow.5] line 106 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newSuffixAutomaton.pointer_dereference.31] line 106 dereference failure: pointer NULL in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.32] line 106 dereference failure: pointer invalid in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.33] line 106 dereference failure: deallocated dynamic object in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.34] line 106 dereference failure: dead object in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.35] line 106 dereference failure: pointer outside object bounds in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.36] line 106 dereference failure: invalid integer address in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.37] line 107 dereference failure: pointer NULL in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.38] line 107 dereference failure: pointer invalid in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.39] line 107 dereference failure: deallocated dynamic object in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.40] line 107 dereference failure: dead object in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.41] line 107 dereference failure: pointer outside object bounds in aut->position: SUCCESS
+[newSuffixAutomaton.pointer_dereference.42] line 107 dereference failure: invalid integer address in aut->position: SUCCESS
+[newSuffixAutomaton.overflow.6] line 109 arithmetic overflow on signed to unsigned type conversion in (size_t)e: SUCCESS
+[newSuffixAutomaton.pointer_dereference.43] line 109 dereference failure: pointer NULL in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.44] line 109 dereference failure: pointer invalid in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.45] line 109 dereference failure: deallocated dynamic object in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.46] line 109 dereference failure: dead object in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.47] line 109 dereference failure: pointer outside object bounds in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.48] line 109 dereference failure: invalid integer address in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.49] line 110 dereference failure: pointer NULL in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.50] line 110 dereference failure: pointer invalid in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.51] line 110 dereference failure: deallocated dynamic object in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.52] line 110 dereference failure: dead object in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.53] line 110 dereference failure: pointer outside object bounds in aut->shift: SUCCESS
+[newSuffixAutomaton.pointer_dereference.54] line 110 dereference failure: invalid integer address in aut->shift: SUCCESS
+
+source/algos/include/GRAPH.h function newTrie
+[newTrie.overflow.1] line 121 arithmetic overflow on signed to unsigned type conversion in (unsigned long int)e: SUCCESS
+[newTrie.overflow.2] line 121 arithmetic overflow on unsigned * in (unsigned long int)e * sizeof(signed int) /*4ul*/ : SUCCESS
+[newTrie.pointer_dereference.1] line 121 dereference failure: pointer NULL in aut->target: SUCCESS
+[newTrie.pointer_dereference.2] line 121 dereference failure: pointer invalid in aut->target: SUCCESS
+[newTrie.pointer_dereference.3] line 121 dereference failure: deallocated dynamic object in aut->target: SUCCESS
+[newTrie.pointer_dereference.4] line 121 dereference failure: dead object in aut->target: SUCCESS
+[newTrie.pointer_dereference.5] line 121 dereference failure: pointer outside object bounds in aut->target: SUCCESS
+[newTrie.pointer_dereference.6] line 121 dereference failure: invalid integer address in aut->target: SUCCESS
+[newTrie.overflow.3] line 122 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newTrie.pointer_dereference.7] line 122 dereference failure: pointer NULL in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.8] line 122 dereference failure: pointer invalid in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.9] line 122 dereference failure: deallocated dynamic object in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.10] line 122 dereference failure: dead object in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.11] line 122 dereference failure: pointer outside object bounds in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.12] line 122 dereference failure: invalid integer address in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.13] line 123 dereference failure: pointer NULL in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.14] line 123 dereference failure: pointer invalid in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.15] line 123 dereference failure: deallocated dynamic object in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.16] line 123 dereference failure: dead object in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.17] line 123 dereference failure: pointer outside object bounds in aut->suffixLink: SUCCESS
+[newTrie.pointer_dereference.18] line 123 dereference failure: invalid integer address in aut->suffixLink: SUCCESS
+[newTrie.overflow.4] line 125 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newTrie.pointer_dereference.19] line 125 dereference failure: pointer NULL in aut->length: SUCCESS
+[newTrie.pointer_dereference.20] line 125 dereference failure: pointer invalid in aut->length: SUCCESS
+[newTrie.pointer_dereference.21] line 125 dereference failure: deallocated dynamic object in aut->length: SUCCESS
+[newTrie.pointer_dereference.22] line 125 dereference failure: dead object in aut->length: SUCCESS
+[newTrie.pointer_dereference.23] line 125 dereference failure: pointer outside object bounds in aut->length: SUCCESS
+[newTrie.pointer_dereference.24] line 125 dereference failure: invalid integer address in aut->length: SUCCESS
+[newTrie.pointer_dereference.25] line 126 dereference failure: pointer NULL in aut->length: SUCCESS
+[newTrie.pointer_dereference.26] line 126 dereference failure: pointer invalid in aut->length: SUCCESS
+[newTrie.pointer_dereference.27] line 126 dereference failure: deallocated dynamic object in aut->length: SUCCESS
+[newTrie.pointer_dereference.28] line 126 dereference failure: dead object in aut->length: SUCCESS
+[newTrie.pointer_dereference.29] line 126 dereference failure: pointer outside object bounds in aut->length: SUCCESS
+[newTrie.pointer_dereference.30] line 126 dereference failure: invalid integer address in aut->length: SUCCESS
+[newTrie.overflow.5] line 128 arithmetic overflow on signed to unsigned type conversion in (size_t)v: SUCCESS
+[newTrie.pointer_dereference.31] line 128 dereference failure: pointer NULL in aut->position: SUCCESS
+[newTrie.pointer_dereference.32] line 128 dereference failure: pointer invalid in aut->position: SUCCESS
+[newTrie.pointer_dereference.33] line 128 dereference failure: deallocated dynamic object in aut->position: SUCCESS
+[newTrie.pointer_dereference.34] line 128 dereference failure: dead object in aut->position: SUCCESS
+[newTrie.pointer_dereference.35] line 128 dereference failure: pointer outside object bounds in aut->position: SUCCESS
+[newTrie.pointer_dereference.36] line 128 dereference failure: invalid integer address in aut->position: SUCCESS
+[newTrie.pointer_dereference.37] line 129 dereference failure: pointer NULL in aut->position: SUCCESS
+[newTrie.pointer_dereference.38] line 129 dereference failure: pointer invalid in aut->position: SUCCESS
+[newTrie.pointer_dereference.39] line 129 dereference failure: deallocated dynamic object in aut->position: SUCCESS
+[newTrie.pointer_dereference.40] line 129 dereference failure: dead object in aut->position: SUCCESS
+[newTrie.pointer_dereference.41] line 129 dereference failure: pointer outside object bounds in aut->position: SUCCESS
+[newTrie.pointer_dereference.42] line 129 dereference failure: invalid integer address in aut->position: SUCCESS
+[newTrie.overflow.6] line 131 arithmetic overflow on signed to unsigned type conversion in (size_t)e: SUCCESS
+[newTrie.pointer_dereference.43] line 131 dereference failure: pointer NULL in aut->shift: SUCCESS
+[newTrie.pointer_dereference.44] line 131 dereference failure: pointer invalid in aut->shift: SUCCESS
+[newTrie.pointer_dereference.45] line 131 dereference failure: deallocated dynamic object in aut->shift: SUCCESS
+[newTrie.pointer_dereference.46] line 131 dereference failure: dead object in aut->shift: SUCCESS
+[newTrie.pointer_dereference.47] line 131 dereference failure: pointer outside object bounds in aut->shift: SUCCESS
+[newTrie.pointer_dereference.48] line 131 dereference failure: invalid integer address in aut->shift: SUCCESS
+[newTrie.pointer_dereference.49] line 132 dereference failure: pointer NULL in aut->shift: SUCCESS
+[newTrie.pointer_dereference.50] line 132 dereference failure: pointer invalid in aut->shift: SUCCESS
+[newTrie.pointer_dereference.51] line 132 dereference failure: deallocated dynamic object in aut->shift: SUCCESS
+[newTrie.pointer_dereference.52] line 132 dereference failure: dead object in aut->shift: SUCCESS
+[newTrie.pointer_dereference.53] line 132 dereference failure: pointer outside object bounds in aut->shift: SUCCESS
+[newTrie.pointer_dereference.54] line 132 dereference failure: invalid integer address in aut->shift: SUCCESS
+
+source/algos/include/GRAPH.h function newVertex
+[newVertex.pointer_dereference.1] line 139 dereference failure: pointer NULL in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.2] line 139 dereference failure: pointer invalid in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.3] line 139 dereference failure: deallocated dynamic object in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.4] line 139 dereference failure: dead object in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.5] line 139 dereference failure: pointer outside object bounds in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.6] line 139 dereference failure: invalid integer address in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.7] line 139 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[newVertex.pointer_dereference.8] line 139 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[newVertex.pointer_dereference.9] line 139 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[newVertex.pointer_dereference.10] line 139 dereference failure: dead object in g->vertexNumber: SUCCESS
+[newVertex.pointer_dereference.11] line 139 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[newVertex.pointer_dereference.12] line 139 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[newVertex.overflow.1] line 140 arithmetic overflow on signed + in g->vertexCounter + 1: SUCCESS
+[newVertex.pointer_dereference.13] line 140 dereference failure: pointer NULL in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.14] line 140 dereference failure: pointer invalid in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.15] line 140 dereference failure: deallocated dynamic object in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.16] line 140 dereference failure: dead object in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.17] line 140 dereference failure: pointer outside object bounds in g->vertexCounter: SUCCESS
+[newVertex.pointer_dereference.18] line 140 dereference failure: invalid integer address in g->vertexCounter: SUCCESS
+
+source/algos/include/GRAPH.h function setLength
+[setLength.pointer_dereference.1] line 211 dereference failure: pointer NULL in g->length: SUCCESS
+[setLength.pointer_dereference.2] line 211 dereference failure: pointer invalid in g->length: SUCCESS
+[setLength.pointer_dereference.3] line 211 dereference failure: deallocated dynamic object in g->length: SUCCESS
+[setLength.pointer_dereference.4] line 211 dereference failure: dead object in g->length: SUCCESS
+[setLength.pointer_dereference.5] line 211 dereference failure: pointer outside object bounds in g->length: SUCCESS
+[setLength.pointer_dereference.6] line 211 dereference failure: invalid integer address in g->length: SUCCESS
+[setLength.pointer_dereference.7] line 211 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setLength.pointer_dereference.8] line 211 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setLength.pointer_dereference.9] line 211 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setLength.pointer_dereference.10] line 211 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setLength.pointer_dereference.11] line 211 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setLength.pointer_dereference.12] line 211 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setLength.overflow.1] line 212 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[setLength.pointer_arithmetic.1] line 212 pointer arithmetic: pointer NULL in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_arithmetic.2] line 212 pointer arithmetic: pointer invalid in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_arithmetic.3] line 212 pointer arithmetic: deallocated dynamic object in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_arithmetic.4] line 212 pointer arithmetic: dead object in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_arithmetic.5] line 212 pointer arithmetic: pointer outside object bounds in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_arithmetic.6] line 212 pointer arithmetic: invalid integer address in g->length + (signed long int)v: SUCCESS
+[setLength.pointer_dereference.13] line 212 dereference failure: pointer NULL in g->length: SUCCESS
+[setLength.pointer_dereference.14] line 212 dereference failure: pointer invalid in g->length: SUCCESS
+[setLength.pointer_dereference.15] line 212 dereference failure: deallocated dynamic object in g->length: SUCCESS
+[setLength.pointer_dereference.16] line 212 dereference failure: dead object in g->length: SUCCESS
+[setLength.pointer_dereference.17] line 212 dereference failure: pointer outside object bounds in g->length: SUCCESS
+[setLength.pointer_dereference.18] line 212 dereference failure: invalid integer address in g->length: SUCCESS
+[setLength.pointer_dereference.19] line 212 dereference failure: pointer NULL in g->length[(signed long int)v]: SUCCESS
+[setLength.pointer_dereference.20] line 212 dereference failure: pointer invalid in g->length[(signed long int)v]: SUCCESS
+[setLength.pointer_dereference.21] line 212 dereference failure: deallocated dynamic object in g->length[(signed long int)v]: SUCCESS
+[setLength.pointer_dereference.22] line 212 dereference failure: dead object in g->length[(signed long int)v]: SUCCESS
+[setLength.pointer_dereference.23] line 212 dereference failure: pointer outside object bounds in g->length[(signed long int)v]: SUCCESS
+[setLength.pointer_dereference.24] line 212 dereference failure: invalid integer address in g->length[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function setPosition
+[setPosition.pointer_dereference.1] line 226 dereference failure: pointer NULL in g->position: SUCCESS
+[setPosition.pointer_dereference.2] line 226 dereference failure: pointer invalid in g->position: SUCCESS
+[setPosition.pointer_dereference.3] line 226 dereference failure: deallocated dynamic object in g->position: SUCCESS
+[setPosition.pointer_dereference.4] line 226 dereference failure: dead object in g->position: SUCCESS
+[setPosition.pointer_dereference.5] line 226 dereference failure: pointer outside object bounds in g->position: SUCCESS
+[setPosition.pointer_dereference.6] line 226 dereference failure: invalid integer address in g->position: SUCCESS
+[setPosition.pointer_dereference.7] line 226 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setPosition.pointer_dereference.8] line 226 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setPosition.pointer_dereference.9] line 226 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setPosition.pointer_dereference.10] line 226 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setPosition.pointer_dereference.11] line 226 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setPosition.pointer_dereference.12] line 226 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setPosition.overflow.1] line 227 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[setPosition.pointer_arithmetic.1] line 227 pointer arithmetic: pointer NULL in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_arithmetic.2] line 227 pointer arithmetic: pointer invalid in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_arithmetic.3] line 227 pointer arithmetic: deallocated dynamic object in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_arithmetic.4] line 227 pointer arithmetic: dead object in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_arithmetic.5] line 227 pointer arithmetic: pointer outside object bounds in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_arithmetic.6] line 227 pointer arithmetic: invalid integer address in g->position + (signed long int)v: SUCCESS
+[setPosition.pointer_dereference.13] line 227 dereference failure: pointer NULL in g->position: SUCCESS
+[setPosition.pointer_dereference.14] line 227 dereference failure: pointer invalid in g->position: SUCCESS
+[setPosition.pointer_dereference.15] line 227 dereference failure: deallocated dynamic object in g->position: SUCCESS
+[setPosition.pointer_dereference.16] line 227 dereference failure: dead object in g->position: SUCCESS
+[setPosition.pointer_dereference.17] line 227 dereference failure: pointer outside object bounds in g->position: SUCCESS
+[setPosition.pointer_dereference.18] line 227 dereference failure: invalid integer address in g->position: SUCCESS
+[setPosition.pointer_dereference.19] line 227 dereference failure: pointer NULL in g->position[(signed long int)v]: SUCCESS
+[setPosition.pointer_dereference.20] line 227 dereference failure: pointer invalid in g->position[(signed long int)v]: SUCCESS
+[setPosition.pointer_dereference.21] line 227 dereference failure: deallocated dynamic object in g->position[(signed long int)v]: SUCCESS
+[setPosition.pointer_dereference.22] line 227 dereference failure: dead object in g->position[(signed long int)v]: SUCCESS
+[setPosition.pointer_dereference.23] line 227 dereference failure: pointer outside object bounds in g->position[(signed long int)v]: SUCCESS
+[setPosition.pointer_dereference.24] line 227 dereference failure: invalid integer address in g->position[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function setShift
+[setShift.pointer_dereference.1] line 244 dereference failure: pointer NULL in g->shift: SUCCESS
+[setShift.pointer_dereference.2] line 244 dereference failure: pointer invalid in g->shift: SUCCESS
+[setShift.pointer_dereference.3] line 244 dereference failure: deallocated dynamic object in g->shift: SUCCESS
+[setShift.pointer_dereference.4] line 244 dereference failure: dead object in g->shift: SUCCESS
+[setShift.pointer_dereference.5] line 244 dereference failure: pointer outside object bounds in g->shift: SUCCESS
+[setShift.pointer_dereference.6] line 244 dereference failure: invalid integer address in g->shift: SUCCESS
+[setShift.pointer_dereference.7] line 244 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.8] line 244 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.9] line 244 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.10] line 244 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.11] line 244 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.12] line 244 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setShift.overflow.1] line 245 arithmetic overflow on signed * in v * (signed int)c: SUCCESS
+[setShift.pointer_dereference.13] line 245 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.14] line 245 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.15] line 245 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.16] line 245 dereference failure: dead object in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.17] line 245 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.18] line 245 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[setShift.division-by-zero.1] line 246 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[setShift.overflow.2] line 246 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[setShift.overflow.3] line 246 arithmetic overflow on signed * in v * (g->edgeNumber / g->vertexNumber): SUCCESS
+[setShift.overflow.4] line 246 arithmetic overflow on signed + in v * (g->edgeNumber / g->vertexNumber) + (signed int)c: SUCCESS
+[setShift.overflow.5] line 246 arithmetic overflow on signed * in (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c) * (signed long int)4ul: SUCCESS
+[setShift.pointer_arithmetic.1] line 246 pointer arithmetic: pointer NULL in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_arithmetic.2] line 246 pointer arithmetic: pointer invalid in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_arithmetic.3] line 246 pointer arithmetic: deallocated dynamic object in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_arithmetic.4] line 246 pointer arithmetic: dead object in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_arithmetic.5] line 246 pointer arithmetic: pointer outside object bounds in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_arithmetic.6] line 246 pointer arithmetic: invalid integer address in g->shift + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setShift.pointer_dereference.19] line 246 dereference failure: pointer NULL in g->shift: SUCCESS
+[setShift.pointer_dereference.20] line 246 dereference failure: pointer invalid in g->shift: SUCCESS
+[setShift.pointer_dereference.21] line 246 dereference failure: deallocated dynamic object in g->shift: SUCCESS
+[setShift.pointer_dereference.22] line 246 dereference failure: dead object in g->shift: SUCCESS
+[setShift.pointer_dereference.23] line 246 dereference failure: pointer outside object bounds in g->shift: SUCCESS
+[setShift.pointer_dereference.24] line 246 dereference failure: invalid integer address in g->shift: SUCCESS
+[setShift.pointer_dereference.25] line 246 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.26] line 246 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.27] line 246 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.28] line 246 dereference failure: dead object in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.29] line 246 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.30] line 246 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[setShift.pointer_dereference.31] line 246 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.32] line 246 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.33] line 246 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.34] line 246 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.35] line 246 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.36] line 246 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setShift.pointer_dereference.37] line 246 dereference failure: pointer NULL in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setShift.pointer_dereference.38] line 246 dereference failure: pointer invalid in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setShift.pointer_dereference.39] line 246 dereference failure: deallocated dynamic object in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setShift.pointer_dereference.40] line 246 dereference failure: dead object in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setShift.pointer_dereference.41] line 246 dereference failure: pointer outside object bounds in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setShift.pointer_dereference.42] line 246 dereference failure: invalid integer address in g->shift[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+
+source/algos/include/GRAPH.h function setSuffixLink
+[setSuffixLink.pointer_dereference.1] line 195 dereference failure: pointer NULL in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.2] line 195 dereference failure: pointer invalid in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.3] line 195 dereference failure: deallocated dynamic object in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.4] line 195 dereference failure: dead object in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.5] line 195 dereference failure: pointer outside object bounds in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.6] line 195 dereference failure: invalid integer address in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.7] line 195 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.8] line 195 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.9] line 195 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.10] line 195 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.11] line 195 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.12] line 195 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.13] line 196 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.14] line 196 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.15] line 196 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.16] line 196 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.17] line 196 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setSuffixLink.pointer_dereference.18] line 196 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setSuffixLink.overflow.1] line 197 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[setSuffixLink.pointer_arithmetic.1] line 197 pointer arithmetic: pointer NULL in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_arithmetic.2] line 197 pointer arithmetic: pointer invalid in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_arithmetic.3] line 197 pointer arithmetic: deallocated dynamic object in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_arithmetic.4] line 197 pointer arithmetic: dead object in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_arithmetic.5] line 197 pointer arithmetic: pointer outside object bounds in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_arithmetic.6] line 197 pointer arithmetic: invalid integer address in g->suffixLink + (signed long int)v: SUCCESS
+[setSuffixLink.pointer_dereference.19] line 197 dereference failure: pointer NULL in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.20] line 197 dereference failure: pointer invalid in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.21] line 197 dereference failure: deallocated dynamic object in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.22] line 197 dereference failure: dead object in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.23] line 197 dereference failure: pointer outside object bounds in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.24] line 197 dereference failure: invalid integer address in g->suffixLink: SUCCESS
+[setSuffixLink.pointer_dereference.25] line 197 dereference failure: pointer NULL in g->suffixLink[(signed long int)v]: SUCCESS
+[setSuffixLink.pointer_dereference.26] line 197 dereference failure: pointer invalid in g->suffixLink[(signed long int)v]: SUCCESS
+[setSuffixLink.pointer_dereference.27] line 197 dereference failure: deallocated dynamic object in g->suffixLink[(signed long int)v]: SUCCESS
+[setSuffixLink.pointer_dereference.28] line 197 dereference failure: dead object in g->suffixLink[(signed long int)v]: SUCCESS
+[setSuffixLink.pointer_dereference.29] line 197 dereference failure: pointer outside object bounds in g->suffixLink[(signed long int)v]: SUCCESS
+[setSuffixLink.pointer_dereference.30] line 197 dereference failure: invalid integer address in g->suffixLink[(signed long int)v]: SUCCESS
+
+source/algos/include/GRAPH.h function setTarget
+[setTarget.pointer_dereference.1] line 178 dereference failure: pointer NULL in g->target: SUCCESS
+[setTarget.pointer_dereference.2] line 178 dereference failure: pointer invalid in g->target: SUCCESS
+[setTarget.pointer_dereference.3] line 178 dereference failure: deallocated dynamic object in g->target: SUCCESS
+[setTarget.pointer_dereference.4] line 178 dereference failure: dead object in g->target: SUCCESS
+[setTarget.pointer_dereference.5] line 178 dereference failure: pointer outside object bounds in g->target: SUCCESS
+[setTarget.pointer_dereference.6] line 178 dereference failure: invalid integer address in g->target: SUCCESS
+[setTarget.pointer_dereference.7] line 178 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.8] line 178 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.9] line 178 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.10] line 178 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.11] line 178 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.12] line 178 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setTarget.overflow.1] line 179 arithmetic overflow on signed * in v * (signed int)c: SUCCESS
+[setTarget.pointer_dereference.13] line 179 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.14] line 179 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.15] line 179 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.16] line 179 dereference failure: dead object in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.17] line 179 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.18] line 179 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.19] line 179 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.20] line 179 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.21] line 179 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.22] line 179 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.23] line 179 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.24] line 179 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setTarget.division-by-zero.1] line 180 division by zero in g->edgeNumber / g->vertexNumber: SUCCESS
+[setTarget.overflow.2] line 180 arithmetic overflow on signed division in g->edgeNumber / g->vertexNumber: SUCCESS
+[setTarget.overflow.3] line 180 arithmetic overflow on signed * in v * (g->edgeNumber / g->vertexNumber): SUCCESS
+[setTarget.overflow.4] line 180 arithmetic overflow on signed + in v * (g->edgeNumber / g->vertexNumber) + (signed int)c: SUCCESS
+[setTarget.overflow.5] line 180 arithmetic overflow on signed * in (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c) * (signed long int)4ul: SUCCESS
+[setTarget.pointer_arithmetic.1] line 180 pointer arithmetic: pointer NULL in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_arithmetic.2] line 180 pointer arithmetic: pointer invalid in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_arithmetic.3] line 180 pointer arithmetic: deallocated dynamic object in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_arithmetic.4] line 180 pointer arithmetic: dead object in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_arithmetic.5] line 180 pointer arithmetic: pointer outside object bounds in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_arithmetic.6] line 180 pointer arithmetic: invalid integer address in g->target + (signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c): SUCCESS
+[setTarget.pointer_dereference.25] line 180 dereference failure: pointer NULL in g->target: SUCCESS
+[setTarget.pointer_dereference.26] line 180 dereference failure: pointer invalid in g->target: SUCCESS
+[setTarget.pointer_dereference.27] line 180 dereference failure: deallocated dynamic object in g->target: SUCCESS
+[setTarget.pointer_dereference.28] line 180 dereference failure: dead object in g->target: SUCCESS
+[setTarget.pointer_dereference.29] line 180 dereference failure: pointer outside object bounds in g->target: SUCCESS
+[setTarget.pointer_dereference.30] line 180 dereference failure: invalid integer address in g->target: SUCCESS
+[setTarget.pointer_dereference.31] line 180 dereference failure: pointer NULL in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.32] line 180 dereference failure: pointer invalid in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.33] line 180 dereference failure: deallocated dynamic object in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.34] line 180 dereference failure: dead object in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.35] line 180 dereference failure: pointer outside object bounds in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.36] line 180 dereference failure: invalid integer address in g->edgeNumber: SUCCESS
+[setTarget.pointer_dereference.37] line 180 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.38] line 180 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.39] line 180 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.40] line 180 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.41] line 180 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.42] line 180 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setTarget.pointer_dereference.43] line 180 dereference failure: pointer NULL in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setTarget.pointer_dereference.44] line 180 dereference failure: pointer invalid in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setTarget.pointer_dereference.45] line 180 dereference failure: deallocated dynamic object in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setTarget.pointer_dereference.46] line 180 dereference failure: dead object in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setTarget.pointer_dereference.47] line 180 dereference failure: pointer outside object bounds in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+[setTarget.pointer_dereference.48] line 180 dereference failure: invalid integer address in g->target[(signed long int)(v * (g->edgeNumber / g->vertexNumber) + (signed int)c)]: SUCCESS
+
+source/algos/include/GRAPH.h function setTerminal
+[setTerminal.pointer_dereference.1] line 160 dereference failure: pointer NULL in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.2] line 160 dereference failure: pointer invalid in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.3] line 160 dereference failure: deallocated dynamic object in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.4] line 160 dereference failure: dead object in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.5] line 160 dereference failure: pointer outside object bounds in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.6] line 160 dereference failure: invalid integer address in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.7] line 160 dereference failure: pointer NULL in g->vertexNumber: SUCCESS
+[setTerminal.pointer_dereference.8] line 160 dereference failure: pointer invalid in g->vertexNumber: SUCCESS
+[setTerminal.pointer_dereference.9] line 160 dereference failure: deallocated dynamic object in g->vertexNumber: SUCCESS
+[setTerminal.pointer_dereference.10] line 160 dereference failure: dead object in g->vertexNumber: SUCCESS
+[setTerminal.pointer_dereference.11] line 160 dereference failure: pointer outside object bounds in g->vertexNumber: SUCCESS
+[setTerminal.pointer_dereference.12] line 160 dereference failure: invalid integer address in g->vertexNumber: SUCCESS
+[setTerminal.overflow.1] line 161 arithmetic overflow on signed * in (signed long int)v * (signed long int)4ul: SUCCESS
+[setTerminal.pointer_arithmetic.1] line 161 pointer arithmetic: pointer NULL in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_arithmetic.2] line 161 pointer arithmetic: pointer invalid in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_arithmetic.3] line 161 pointer arithmetic: deallocated dynamic object in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_arithmetic.4] line 161 pointer arithmetic: dead object in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_arithmetic.5] line 161 pointer arithmetic: pointer outside object bounds in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_arithmetic.6] line 161 pointer arithmetic: invalid integer address in g->terminal + (signed long int)v: SUCCESS
+[setTerminal.pointer_dereference.13] line 161 dereference failure: pointer NULL in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.14] line 161 dereference failure: pointer invalid in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.15] line 161 dereference failure: deallocated dynamic object in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.16] line 161 dereference failure: dead object in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.17] line 161 dereference failure: pointer outside object bounds in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.18] line 161 dereference failure: invalid integer address in g->terminal: SUCCESS
+[setTerminal.pointer_dereference.19] line 161 dereference failure: pointer NULL in g->terminal[(signed long int)v]: SUCCESS
+[setTerminal.pointer_dereference.20] line 161 dereference failure: pointer invalid in g->terminal[(signed long int)v]: SUCCESS
+[setTerminal.pointer_dereference.21] line 161 dereference failure: deallocated dynamic object in g->terminal[(signed long int)v]: SUCCESS
+[setTerminal.pointer_dereference.22] line 161 dereference failure: dead object in g->terminal[(signed long int)v]: SUCCESS
+[setTerminal.pointer_dereference.23] line 161 dereference failure: pointer outside object bounds in g->terminal[(signed long int)v]: SUCCESS
+[setTerminal.pointer_dereference.24] line 161 dereference failure: invalid integer address in g->terminal[(signed long int)v]: SUCCESS
+
+source/algos/include/cbmc.h function bf_search
+[bf_search.overflow.1] line 34 arithmetic overflow on signed - in n - m: SUCCESS
+[bf_search.overflow.4] line 34 arithmetic overflow on signed + in j + 1: SUCCESS
+[bf_search.overflow.2] line 37 arithmetic overflow on signed to unsigned type conversion in (size_t)m: SUCCESS
+[bf_search.pointer_arithmetic.1] line 37 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.2] line 37 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.3] line 37 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.4] line 37 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.5] line 37 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[bf_search.pointer_arithmetic.6] line 37 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[bf_search.overflow.3] line 38 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/include/cbmc.h function main
+[main.overflow.1] line 79 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.1] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.2] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.3] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.4] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.5] line 81 array 'P' lower bound in P[(signed long int)i]: SUCCESS
+[main.array_bounds.6] line 81 array 'P' upper bound in P[(signed long int)i]: SUCCESS
+[main.overflow.2] line 82 arithmetic overflow on signed + in i + 1: SUCCESS
+[main.array_bounds.7] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.8] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.9] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.10] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.11] line 84 array 'T' lower bound in T[(signed long int)i]: SUCCESS
+[main.array_bounds.12] line 84 array 'T' upper bound in T[(signed long int)i]: SUCCESS
+[main.assertion.1] line 113 assertion ref == occ: SUCCESS
+[main.assertion.2] line 116 assertion ref == occ: SUCCESS
+[main.assertion.3] line 117 assertion ref == occ: SUCCESS
+[main.assertion.4] line 118 assertion ref == occ: SUCCESS
+[main.assertion.5] line 119 assertion ref == occ: SUCCESS
+[main.assertion.6] line 120 assertion ref == occ: SUCCESS
+[main.assertion.7] line 121 assertion ref == occ: SUCCESS
+[main.assertion.8] line 122 assertion ref == occ: SUCCESS
+[main.assertion.9] line 123 assertion ref == occ: SUCCESS
+[main.assertion.10] line 124 assertion ref == occ: SUCCESS
+[main.assertion.11] line 125 assertion ref == occ: SUCCESS
+[main.assertion.12] line 128 assertion ref == occ: SUCCESS
+[main.assertion.13] line 146 assertion ref == occ: SUCCESS
+[main.assertion.14] line 147 assertion ref == occ: SUCCESS
+[main.precondition_instance.1] line 154 strcpy src/dst overlap: SUCCESS
+[main.assertion.15] line 156 assertion ref == occ: SUCCESS
+[main.assertion.16] line 157 assertion ref == occ: SUCCESS
+
+source/algos/include/search_small.h function preSA
+[preSA.overflow.2] line 6 arithmetic overflow on signed + in i + 1: SUCCESS
+[preSA.overflow.1] line 7 arithmetic overflow on signed * in (signed long int)i * (signed long int)4ul: SUCCESS
+[preSA.pointer_arithmetic.1] line 7 pointer arithmetic: pointer NULL in S + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.2] line 7 pointer arithmetic: pointer invalid in S + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.3] line 7 pointer arithmetic: deallocated dynamic object in S + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.4] line 7 pointer arithmetic: dead object in S + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.5] line 7 pointer arithmetic: pointer outside object bounds in S + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.6] line 7 pointer arithmetic: invalid integer address in S + (signed long int)i: SUCCESS
+[preSA.pointer_dereference.1] line 7 dereference failure: pointer NULL in S[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.2] line 7 dereference failure: pointer invalid in S[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.3] line 7 dereference failure: deallocated dynamic object in S[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.4] line 7 dereference failure: dead object in S[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.5] line 7 dereference failure: pointer outside object bounds in S[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.6] line 7 dereference failure: invalid integer address in S[(signed long int)i]: SUCCESS
+[preSA.overflow.4] line 8 arithmetic overflow on signed + in i + 1: SUCCESS
+[preSA.overflow.3] line 9 arithmetic overflow on signed * in (signed long int)x[(signed long int)i] * (signed long int)4ul: SUCCESS
+[preSA.pointer_arithmetic.7] line 9 pointer arithmetic: pointer NULL in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.8] line 9 pointer arithmetic: pointer invalid in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.9] line 9 pointer arithmetic: deallocated dynamic object in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.10] line 9 pointer arithmetic: dead object in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.11] line 9 pointer arithmetic: pointer outside object bounds in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.12] line 9 pointer arithmetic: invalid integer address in x + (signed long int)i: SUCCESS
+[preSA.pointer_arithmetic.13] line 9 pointer arithmetic: pointer NULL in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_arithmetic.14] line 9 pointer arithmetic: pointer invalid in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_arithmetic.15] line 9 pointer arithmetic: deallocated dynamic object in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_arithmetic.16] line 9 pointer arithmetic: dead object in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_arithmetic.17] line 9 pointer arithmetic: pointer outside object bounds in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_arithmetic.18] line 9 pointer arithmetic: invalid integer address in S + (signed long int)x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.7] line 9 dereference failure: pointer NULL in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.8] line 9 dereference failure: pointer invalid in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.9] line 9 dereference failure: deallocated dynamic object in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.10] line 9 dereference failure: dead object in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.11] line 9 dereference failure: pointer outside object bounds in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.12] line 9 dereference failure: invalid integer address in x[(signed long int)i]: SUCCESS
+[preSA.pointer_dereference.13] line 9 dereference failure: pointer NULL in S[(signed long int)x[(signed long int)i]]: SUCCESS
+[preSA.pointer_dereference.14] line 9 dereference failure: pointer invalid in S[(signed long int)x[(signed long int)i]]: SUCCESS
+[preSA.pointer_dereference.15] line 9 dereference failure: deallocated dynamic object in S[(signed long int)x[(signed long int)i]]: SUCCESS
+[preSA.pointer_dereference.16] line 9 dereference failure: dead object in S[(signed long int)x[(signed long int)i]]: SUCCESS
+[preSA.pointer_dereference.17] line 9 dereference failure: pointer outside object bounds in S[(signed long int)x[(signed long int)i]]: SUCCESS
+[preSA.pointer_dereference.18] line 9 dereference failure: invalid integer address in S[(signed long int)x[(signed long int)i]]: SUCCESS
+
+source/algos/include/search_small.h function search_small
+[search_small.overflow.1] line 24 arithmetic overflow on signed - in m - 1: SUCCESS
+[search_small.overflow.2] line 24 arithmetic overflow on signed to unsigned type conversion in (unsigned int)(m - 1): SUCCESS
+[search_small.undefined-shift.1] line 24 shift distance too large in 1u << (unsigned int)(m - 1): SUCCESS
+[search_small.overflow.4] line 30 arithmetic overflow on signed + in j + 1: SUCCESS
+[search_small.array_bounds.1] line 31 array 'S' upper bound in S[(signed long int)y[(signed long int)j]]: SUCCESS
+[search_small.pointer_arithmetic.1] line 31 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[search_small.pointer_arithmetic.2] line 31 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[search_small.pointer_arithmetic.3] line 31 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[search_small.pointer_arithmetic.4] line 31 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[search_small.pointer_arithmetic.5] line 31 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[search_small.pointer_arithmetic.6] line 31 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[search_small.pointer_dereference.1] line 31 dereference failure: pointer NULL in y[(signed long int)j]: SUCCESS
+[search_small.pointer_dereference.2] line 31 dereference failure: pointer invalid in y[(signed long int)j]: SUCCESS
+[search_small.pointer_dereference.3] line 31 dereference failure: deallocated dynamic object in y[(signed long int)j]: SUCCESS
+[search_small.pointer_dereference.4] line 31 dereference failure: dead object in y[(signed long int)j]: SUCCESS
+[search_small.pointer_dereference.5] line 31 dereference failure: pointer outside object bounds in y[(signed long int)j]: SUCCESS
+[search_small.pointer_dereference.6] line 31 dereference failure: invalid integer address in y[(signed long int)j]: SUCCESS
+[search_small.overflow.3] line 33 arithmetic overflow on signed + in count + 1: SUCCESS
+
+source/algos/wfr3.c function preprocessing
+[preprocessing.overflow.1] line 56 arithmetic overflow on signed + in i + 1: SUCCESS
+[preprocessing.pointer_arithmetic.1] line 57 pointer arithmetic: pointer NULL in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_arithmetic.2] line 57 pointer arithmetic: pointer invalid in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_arithmetic.3] line 57 pointer arithmetic: deallocated dynamic object in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_arithmetic.4] line 57 pointer arithmetic: dead object in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_arithmetic.5] line 57 pointer arithmetic: pointer outside object bounds in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_arithmetic.6] line 57 pointer arithmetic: invalid integer address in F + (signed long int)i: SUCCESS
+[preprocessing.pointer_dereference.1] line 57 dereference failure: pointer NULL in F[(signed long int)i]: SUCCESS
+[preprocessing.pointer_dereference.2] line 57 dereference failure: pointer invalid in F[(signed long int)i]: SUCCESS
+[preprocessing.pointer_dereference.3] line 57 dereference failure: deallocated dynamic object in F[(signed long int)i]: SUCCESS
+[preprocessing.pointer_dereference.4] line 57 dereference failure: dead object in F[(signed long int)i]: SUCCESS
+[preprocessing.pointer_dereference.5] line 57 dereference failure: pointer outside object bounds in F[(signed long int)i]: SUCCESS
+[preprocessing.pointer_dereference.6] line 57 dereference failure: invalid integer address in F[(signed long int)i]: SUCCESS
+[preprocessing.overflow.11] line 58 arithmetic overflow on signed + in i + 1: SUCCESS
+[preprocessing.overflow.2] line 59 arithmetic overflow on signed - in i - fact: SUCCESS
+[preprocessing.overflow.3] line 59 arithmetic overflow on signed + in (i - fact) + 1: SUCCESS
+[preprocessing.overflow.4] line 59 arithmetic overflow on signed - in i - fact: SUCCESS
+[preprocessing.overflow.5] line 59 arithmetic overflow on signed + in (i - fact) + 1: SUCCESS
+[preprocessing.overflow.10] line 61 arithmetic overflow on signed - in j - 1: SUCCESS
+[preprocessing.overflow.6] line 62 arithmetic overflow on signed shl in (signed int)h << 2: SUCCESS
+[preprocessing.overflow.7] line 62 arithmetic overflow on signed to unsigned type conversion in (unsigned short int)((signed int)h << 2): SUCCESS
+[preprocessing.undefined-shift.1] line 62 shift operand is negative in (signed int)h << 2: SUCCESS
+[preprocessing.overflow.8] line 63 arithmetic overflow on signed + in (signed int)h + (signed int)x[(signed long int)j]: SUCCESS
+[preprocessing.overflow.9] line 63 arithmetic overflow on signed to unsigned type conversion in (unsigned short int)((signed int)h + (signed int)x[(signed long int)j]): SUCCESS
+[preprocessing.pointer_arithmetic.7] line 63 pointer arithmetic: pointer NULL in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_arithmetic.8] line 63 pointer arithmetic: pointer invalid in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_arithmetic.9] line 63 pointer arithmetic: deallocated dynamic object in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_arithmetic.10] line 63 pointer arithmetic: dead object in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_arithmetic.11] line 63 pointer arithmetic: pointer outside object bounds in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_arithmetic.12] line 63 pointer arithmetic: invalid integer address in x + (signed long int)j: SUCCESS
+[preprocessing.pointer_dereference.7] line 63 dereference failure: pointer NULL in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_dereference.8] line 63 dereference failure: pointer invalid in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_dereference.9] line 63 dereference failure: deallocated dynamic object in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_dereference.10] line 63 dereference failure: dead object in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_dereference.11] line 63 dereference failure: pointer outside object bounds in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_dereference.12] line 63 dereference failure: invalid integer address in x[(signed long int)j]: SUCCESS
+[preprocessing.pointer_arithmetic.13] line 64 pointer arithmetic: pointer NULL in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_arithmetic.14] line 64 pointer arithmetic: pointer invalid in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_arithmetic.15] line 64 pointer arithmetic: deallocated dynamic object in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_arithmetic.16] line 64 pointer arithmetic: dead object in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_arithmetic.17] line 64 pointer arithmetic: pointer outside object bounds in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_arithmetic.18] line 64 pointer arithmetic: invalid integer address in F + (signed long int)h: SUCCESS
+[preprocessing.pointer_dereference.13] line 64 dereference failure: pointer NULL in F[(signed long int)h]: SUCCESS
+[preprocessing.pointer_dereference.14] line 64 dereference failure: pointer invalid in F[(signed long int)h]: SUCCESS
+[preprocessing.pointer_dereference.15] line 64 dereference failure: deallocated dynamic object in F[(signed long int)h]: SUCCESS
+[preprocessing.pointer_dereference.16] line 64 dereference failure: dead object in F[(signed long int)h]: SUCCESS
+[preprocessing.pointer_dereference.17] line 64 dereference failure: pointer outside object bounds in F[(signed long int)h]: SUCCESS
+[preprocessing.pointer_dereference.18] line 64 dereference failure: invalid integer address in F[(signed long int)h]: SUCCESS
+
+source/algos/wfr3.c function search
+[search.overflow.1] line 80 arithmetic overflow on signed - in m - m % 3: SUCCESS
+[search.overflow.3] line 83 arithmetic overflow on signed + in i + 1: SUCCESS
+[search.overflow.2] line 84 arithmetic overflow on signed + in n + i: SUCCESS
+[search.pointer_arithmetic.1] line 84 pointer arithmetic: pointer NULL in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.2] line 84 pointer arithmetic: pointer invalid in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.3] line 84 pointer arithmetic: deallocated dynamic object in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.4] line 84 pointer arithmetic: dead object in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.5] line 84 pointer arithmetic: pointer outside object bounds in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.6] line 84 pointer arithmetic: invalid integer address in y + (signed long int)(n + i): SUCCESS
+[search.pointer_arithmetic.7] line 84 pointer arithmetic: pointer NULL in x + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.8] line 84 pointer arithmetic: pointer invalid in x + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.9] line 84 pointer arithmetic: deallocated dynamic object in x + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.10] line 84 pointer arithmetic: dead object in x + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.11] line 84 pointer arithmetic: pointer outside object bounds in x + (signed long int)i: SUCCESS
+[search.pointer_arithmetic.12] line 84 pointer arithmetic: invalid integer address in x + (signed long int)i: SUCCESS
+[search.pointer_dereference.1] line 84 dereference failure: pointer NULL in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.2] line 84 dereference failure: pointer invalid in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.3] line 84 dereference failure: deallocated dynamic object in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.4] line 84 dereference failure: dead object in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.5] line 84 dereference failure: pointer outside object bounds in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.6] line 84 dereference failure: invalid integer address in y[(signed long int)(n + i)]: SUCCESS
+[search.pointer_dereference.7] line 84 dereference failure: pointer NULL in x[(signed long int)i]: SUCCESS
+[search.pointer_dereference.8] line 84 dereference failure: pointer invalid in x[(signed long int)i]: SUCCESS
+[search.pointer_dereference.9] line 84 dereference failure: deallocated dynamic object in x[(signed long int)i]: SUCCESS
+[search.pointer_dereference.10] line 84 dereference failure: dead object in x[(signed long int)i]: SUCCESS
+[search.pointer_dereference.11] line 84 dereference failure: pointer outside object bounds in x[(signed long int)i]: SUCCESS
+[search.pointer_dereference.12] line 84 dereference failure: invalid integer address in x[(signed long int)i]: SUCCESS
+[search.overflow.4] line 90 arithmetic overflow on signed to unsigned type conversion in (size_t)plen: SUCCESS
+[search.overflow.5] line 91 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.6] line 94 arithmetic overflow on signed shl in (signed int)y[(signed long int)j] << 4: SUCCESS
+[search.overflow.7] line 94 arithmetic overflow on signed - in j - 1: SUCCESS
+[search.overflow.8] line 94 arithmetic overflow on signed shl in (signed int)y[(signed long int)(j - 1)] << 2: SUCCESS
+[search.overflow.9] line 94 arithmetic overflow on signed + in ((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2): SUCCESS
+[search.overflow.10] line 94 arithmetic overflow on signed - in j - 2: SUCCESS
+[search.overflow.11] line 94 arithmetic overflow on signed + in ((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2) + (signed int)y[(signed long int)(j - 2)]: SUCCESS
+[search.overflow.12] line 94 arithmetic overflow on signed to unsigned type conversion in (unsigned short int)(((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2) + (signed int)y[(signed long int)(j - 2)]): SUCCESS
+[search.pointer_arithmetic.13] line 94 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.14] line 94 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.15] line 94 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.16] line 94 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.17] line 94 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.18] line 94 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.19] line 94 pointer arithmetic: pointer NULL in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.20] line 94 pointer arithmetic: pointer invalid in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.21] line 94 pointer arithmetic: deallocated dynamic object in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.22] line 94 pointer arithmetic: dead object in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.23] line 94 pointer arithmetic: pointer outside object bounds in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.24] line 94 pointer arithmetic: invalid integer address in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.25] line 94 pointer arithmetic: pointer NULL in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.26] line 94 pointer arithmetic: pointer invalid in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.27] line 94 pointer arithmetic: deallocated dynamic object in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.28] line 94 pointer arithmetic: dead object in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.29] line 94 pointer arithmetic: pointer outside object bounds in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.30] line 94 pointer arithmetic: invalid integer address in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_dereference.13] line 94 dereference failure: pointer NULL in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.14] line 94 dereference failure: pointer invalid in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.15] line 94 dereference failure: deallocated dynamic object in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.16] line 94 dereference failure: dead object in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.17] line 94 dereference failure: pointer outside object bounds in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.18] line 94 dereference failure: invalid integer address in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.19] line 94 dereference failure: pointer NULL in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.20] line 94 dereference failure: pointer invalid in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.21] line 94 dereference failure: deallocated dynamic object in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.22] line 94 dereference failure: dead object in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.23] line 94 dereference failure: pointer outside object bounds in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.24] line 94 dereference failure: invalid integer address in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.25] line 94 dereference failure: pointer NULL in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.26] line 94 dereference failure: pointer invalid in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.27] line 94 dereference failure: deallocated dynamic object in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.28] line 94 dereference failure: dead object in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.29] line 94 dereference failure: pointer outside object bounds in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.30] line 94 dereference failure: invalid integer address in y[(signed long int)(j - 2)]: SUCCESS
+[search.undefined-shift.1] line 94 shift operand is negative in (signed int)y[(signed long int)j] << 4: SUCCESS
+[search.undefined-shift.2] line 94 shift operand is negative in (signed int)y[(signed long int)(j - 1)] << 2: SUCCESS
+[search.overflow.13] line 95 arithmetic overflow on signed - in j - m: SUCCESS
+[search.overflow.14] line 95 arithmetic overflow on signed + in (j - m) + 3: SUCCESS
+[search.array_bounds.1] line 96 array 'F' upper bound in F[(signed long int)h]: SUCCESS
+[search.overflow.15] line 96 arithmetic overflow on signed + in i + 3: SUCCESS
+[search.overflow.16] line 96 arithmetic overflow on signed - in (i + 3) - 1: SUCCESS
+[search.overflow.17] line 97 arithmetic overflow on signed - in j - 3: SUCCESS
+[search.overflow.18] line 98 arithmetic overflow on signed shl in (signed int)h << 6: SUCCESS
+[search.overflow.19] line 98 arithmetic overflow on signed shl in (signed int)y[(signed long int)j] << 4: SUCCESS
+[search.overflow.20] line 98 arithmetic overflow on signed + in ((signed int)h << 6) + ((signed int)y[(signed long int)j] << 4): SUCCESS
+[search.overflow.21] line 98 arithmetic overflow on signed - in j - 1: SUCCESS
+[search.overflow.22] line 98 arithmetic overflow on signed shl in (signed int)y[(signed long int)(j - 1)] << 2: SUCCESS
+[search.overflow.23] line 98 arithmetic overflow on signed + in ((signed int)h << 6) + ((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2): SUCCESS
+[search.overflow.24] line 98 arithmetic overflow on signed - in j - 2: SUCCESS
+[search.overflow.25] line 98 arithmetic overflow on signed + in ((signed int)h << 6) + ((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2) + (signed int)y[(signed long int)(j - 2)]: SUCCESS
+[search.overflow.26] line 98 arithmetic overflow on signed to unsigned type conversion in (unsigned short int)(((signed int)h << 6) + ((signed int)y[(signed long int)j] << 4) + ((signed int)y[(signed long int)(j - 1)] << 2) + (signed int)y[(signed long int)(j - 2)]): SUCCESS
+[search.pointer_arithmetic.31] line 98 pointer arithmetic: pointer NULL in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.32] line 98 pointer arithmetic: pointer invalid in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.33] line 98 pointer arithmetic: deallocated dynamic object in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.34] line 98 pointer arithmetic: dead object in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.35] line 98 pointer arithmetic: pointer outside object bounds in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.36] line 98 pointer arithmetic: invalid integer address in y + (signed long int)j: SUCCESS
+[search.pointer_arithmetic.37] line 98 pointer arithmetic: pointer NULL in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.38] line 98 pointer arithmetic: pointer invalid in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.39] line 98 pointer arithmetic: deallocated dynamic object in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.40] line 98 pointer arithmetic: dead object in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.41] line 98 pointer arithmetic: pointer outside object bounds in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.42] line 98 pointer arithmetic: invalid integer address in y + (signed long int)(j - 1): SUCCESS
+[search.pointer_arithmetic.43] line 98 pointer arithmetic: pointer NULL in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.44] line 98 pointer arithmetic: pointer invalid in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.45] line 98 pointer arithmetic: deallocated dynamic object in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.46] line 98 pointer arithmetic: dead object in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.47] line 98 pointer arithmetic: pointer outside object bounds in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_arithmetic.48] line 98 pointer arithmetic: invalid integer address in y + (signed long int)(j - 2): SUCCESS
+[search.pointer_dereference.31] line 98 dereference failure: pointer NULL in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.32] line 98 dereference failure: pointer invalid in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.33] line 98 dereference failure: deallocated dynamic object in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.34] line 98 dereference failure: dead object in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.35] line 98 dereference failure: pointer outside object bounds in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.36] line 98 dereference failure: invalid integer address in y[(signed long int)j]: SUCCESS
+[search.pointer_dereference.37] line 98 dereference failure: pointer NULL in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.38] line 98 dereference failure: pointer invalid in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.39] line 98 dereference failure: deallocated dynamic object in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.40] line 98 dereference failure: dead object in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.41] line 98 dereference failure: pointer outside object bounds in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.42] line 98 dereference failure: invalid integer address in y[(signed long int)(j - 1)]: SUCCESS
+[search.pointer_dereference.43] line 98 dereference failure: pointer NULL in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.44] line 98 dereference failure: pointer invalid in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.45] line 98 dereference failure: deallocated dynamic object in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.46] line 98 dereference failure: dead object in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.47] line 98 dereference failure: pointer outside object bounds in y[(signed long int)(j - 2)]: SUCCESS
+[search.pointer_dereference.48] line 98 dereference failure: invalid integer address in y[(signed long int)(j - 2)]: SUCCESS
+[search.undefined-shift.3] line 98 shift operand is negative in (signed int)h << 6: SUCCESS
+[search.undefined-shift.4] line 98 shift operand is negative in (signed int)y[(signed long int)j] << 4: SUCCESS
+[search.undefined-shift.5] line 98 shift operand is negative in (signed int)y[(signed long int)(j - 1)] << 2: SUCCESS
+[search.overflow.27] line 102 arithmetic overflow on signed - in i - (3 - 1): SUCCESS
+[search.overflow.28] line 103 arithmetic overflow on signed + in i + k: SUCCESS
+[search.pointer_arithmetic.49] line 103 pointer arithmetic: pointer NULL in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.50] line 103 pointer arithmetic: pointer invalid in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.51] line 103 pointer arithmetic: deallocated dynamic object in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.52] line 103 pointer arithmetic: dead object in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.53] line 103 pointer arithmetic: pointer outside object bounds in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.54] line 103 pointer arithmetic: invalid integer address in x + (signed long int)k: SUCCESS
+[search.pointer_arithmetic.55] line 103 pointer arithmetic: pointer NULL in y + (signed long int)(i + k): SUCCESS
+[search.pointer_arithmetic.56] line 103 pointer arithmetic: pointer invalid in y + (signed long int)(i + k): SUCCESS
+[search.pointer_arithmetic.57] line 103 pointer arithmetic: deallocated dynamic object in y + (signed long int)(i + k): SUCCESS
+[search.pointer_arithmetic.58] line 103 pointer arithmetic: dead object in y + (signed long int)(i + k): SUCCESS
+[search.pointer_arithmetic.59] line 103 pointer arithmetic: pointer outside object bounds in y + (signed long int)(i + k): SUCCESS
+[search.pointer_arithmetic.60] line 103 pointer arithmetic: invalid integer address in y + (signed long int)(i + k): SUCCESS
+[search.pointer_dereference.49] line 103 dereference failure: pointer NULL in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.50] line 103 dereference failure: pointer invalid in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.51] line 103 dereference failure: deallocated dynamic object in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.52] line 103 dereference failure: dead object in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.53] line 103 dereference failure: pointer outside object bounds in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.54] line 103 dereference failure: invalid integer address in x[(signed long int)k]: SUCCESS
+[search.pointer_dereference.55] line 103 dereference failure: pointer NULL in y[(signed long int)(i + k)]: SUCCESS
+[search.pointer_dereference.56] line 103 dereference failure: pointer invalid in y[(signed long int)(i + k)]: SUCCESS
+[search.pointer_dereference.57] line 103 dereference failure: deallocated dynamic object in y[(signed long int)(i + k)]: SUCCESS
+[search.pointer_dereference.58] line 103 dereference failure: dead object in y[(signed long int)(i + k)]: SUCCESS
+[search.pointer_dereference.59] line 103 dereference failure: pointer outside object bounds in y[(signed long int)(i + k)]: SUCCESS
+[search.pointer_dereference.60] line 103 dereference failure: invalid integer address in y[(signed long int)(i + k)]: SUCCESS
+[search.overflow.29] line 104 arithmetic overflow on signed + in k + 1: SUCCESS
+[search.overflow.30] line 105 arithmetic overflow on signed - in n - plen: SUCCESS
+[search.overflow.31] line 106 arithmetic overflow on signed + in count + 1: SUCCESS
+[search.overflow.32] line 108 arithmetic overflow on signed - in m - 3: SUCCESS
+[search.overflow.33] line 108 arithmetic overflow on signed + in (m - 3) + 1: SUCCESS
+[search.overflow.34] line 108 arithmetic overflow on signed + in j + (m - 3) + 1: SUCCESS
+
+** 0 of 1215 failed (1 iterations)
+VERIFICATION SUCCESSFUL

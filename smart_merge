@@ -1,0 +1,316 @@
+#!/usr/bin/env python3
+"""Merge selected algorithm results into a SMART EXP result directory."""
+
+import copy
+import re
+import sys
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+
+def fail(message):
+    raise SystemExit(f"smart_merge: {message}")
+
+
+def data_shape(element):
+    return tuple(tuple(child.tag for child in data) for data in element.findall("DATA"))
+
+
+def read_xml(path):
+    try:
+        root = ET.parse(path).getroot()
+    except ET.ParseError as error:
+        fail(f"invalid XML in {path}: {error}")
+    if root.tag != "RESULTS":
+        fail(f"{path} is not a SMART results file")
+    text = root.findtext("TEXT")
+    algos = {algo.findtext("NAME"): algo for algo in root.findall("ALGO")}
+    if not text or None in algos:
+        fail(f"{path} has an incomplete algorithm entry")
+    shapes = {
+        tuple(child.tag for child in data)
+        for algo in algos.values()
+        for data in algo.findall("DATA")
+    }
+    return root, text, algos, frozenset(shapes)
+
+
+def xml_signature(directory):
+    files = sorted(directory.glob("*.xml"))
+    if not files:
+        fail(f"{directory} has no XML result files")
+    result = {}
+    for path in files:
+        root, text, algos, shape = read_xml(path)
+        result[path.name] = (root, text, algos, shape)
+    return result
+
+
+def set_best(root):
+    algos = root.findall("ALGO")
+    width = len(algos[0].findall("DATA"))
+    best = []
+    for index in range(width):
+        values = []
+        for algo in algos:
+            search = algo.findall("DATA")[index].findtext("SEARCH")
+            if search is not None and float(search) > 0.1:
+                values.append(float(search))
+        best.append(min(values) if values else 999999.0)
+    best_node = root.find("BEST")
+    if best_node is None:
+        fail("SMART XML is missing BEST")
+    best_node[:] = []
+    for value in best:
+        data = ET.SubElement(best_node, "DATA")
+        data.text = f"{value:.2f}"
+
+
+def indent(node, level=0):
+    whitespace = "\n" + "\t" * level
+    if len(node):
+        if not node.text or not node.text.strip():
+            node.text = whitespace + "\t"
+        for child in node:
+            indent(child, level + 1)
+        if not node[-1].tail or not node[-1].tail.strip():
+            node[-1].tail = whitespace
+    if level and (not node.tail or not node.tail.strip()):
+        node.tail = whitespace
+
+
+def merge_xml(target, source):
+    target_root, _, target_algos, _ = target
+    _, _, source_algos, _ = source
+    for name, source_algo in source_algos.items():
+        if name in target_algos:
+            target_algo = target_algos[name]
+            position = list(target_root).index(target_algo)
+            target_root.remove(target_algo)
+            target_root.insert(position, copy.deepcopy(source_algo))
+        else:
+            target_root.insert(list(target_root).index(target_root.find("BEST")), copy.deepcopy(source_algo))
+    set_best(target_root)
+    indent(target_root)
+    return ET.tostring(target_root, encoding="unicode")
+
+
+def table_rows(html):
+    pattern = re.compile(
+        r"<tr>\s*<td class=\"algo\"><b>(?P<name>[^<]+)</b></td>.*?</tr>",
+        re.DOTALL,
+    )
+    rows = {match.group("name"): match for match in pattern.finditer(html)}
+    if not rows:
+        fail("HTML report has no SMART result table")
+    return rows
+
+
+def normalize_row(row):
+    return re.sub(
+        r'<div class="search_time_best"><b>(.*?)</b></div>',
+        r'<div class="search_time">\1</div>',
+        row,
+        flags=re.DOTALL,
+    )
+
+
+def chart_blocks(html):
+    pattern = re.compile(
+        r'(?P<block><div class="chart_container_small"><div class="chart_title">'
+        r'(?P<name>[^<]+?) - .*?</div>.*?'
+        r'<script>function loadChart(?P<id>\d+)\(\) \{.*?</script>)',
+        re.DOTALL,
+    )
+    return {match.group("name"): match for match in pattern.finditer(html)}
+
+
+def array_rows(value):
+    value = value.strip()
+    if not value.startswith("[") or not value.endswith("]"):
+        fail("invalid chart data array")
+    rows, start, depth = [], 1, 0
+    for index, char in enumerate(value[1:-1], 1):
+        if char == "[":
+            depth += 1
+        elif char == "]":
+            depth -= 1
+        elif char == "," and depth == 0:
+            row = value[start:index].strip()
+            if row:
+                rows.append(row)
+            start = index + 1
+    row = value[start:-1].strip()
+    if row:
+        rows.append(row)
+    return rows
+
+
+def chart_data(html, function):
+    if function == "onload":
+        prefix = r"<script>window\.onload = \(function \(\) \{"
+    else:
+        prefix = rf"<script>function {function}\(\) \{{"
+    match = re.search(
+        prefix + r" var data = (?P<data>\[.*?\]);\s*var line = new RGraph\.Line",
+        html,
+        re.DOTALL,
+    )
+    if not match:
+        fail(f"HTML report is missing {function} chart data")
+    return match, array_rows(match.group("data"))
+
+
+def chart_ids(html):
+    match = re.search(r"window\.onload = \(function \(\).*?\}\);</script>", html, re.DOTALL)
+    if not match:
+        fail("HTML report is missing the chart loader")
+    return re.findall(r"loadChart(\d+)\(\);", match.group())
+
+
+def replace_chart_data(html, source_html, names, source_blocks, existing_blocks):
+    target_ids, source_ids = chart_ids(html), chart_ids(source_html)
+    source_by_name = {name: source_blocks[name].group("id") for name in names}
+    target_by_name = {
+        name: existing_blocks[name].group("id")
+        for name in names
+        if name in existing_blocks
+    }
+    for function in ("onload", "multiChart2", "multiChart3"):
+        target_match, target_rows = chart_data(html, function)
+        _, source_rows = chart_data(source_html, function)
+        if len(source_rows) != len(source_ids):
+            fail(f"{function} source chart rows do not match algorithm rows")
+        source_rows_by_id = dict(zip(source_ids, source_rows))
+        new_ids = [source_blocks[name].group("id") for name in names if name not in existing_blocks]
+        if len(target_rows) != len(target_ids) - len(new_ids):
+            fail(f"{function} target chart rows do not match algorithm rows")
+        target_rows.extend(source_rows_by_id[chart_id] for chart_id in new_ids)
+        target_positions = {chart_id: index for index, chart_id in enumerate(target_ids)}
+        for name in names:
+            target_rows[target_positions[target_by_name.get(name, source_by_name[name])]] = source_rows_by_id[source_by_name[name]]
+        replacement = "[" + ",\n".join(target_rows) + "]"
+        html = html[:target_match.start("data")] + replacement + html[target_match.end("data"):]
+    return html
+
+
+def merge_html(target_html, source_html, names):
+    target_rows, source_rows = table_rows(target_html), table_rows(source_html)
+    target_blocks, source_blocks = chart_blocks(target_html), chart_blocks(source_html)
+    for name in names:
+        if name not in source_rows:
+            fail(f"source HTML report is missing table row {name}")
+        if name not in source_blocks:
+            fail(f"source HTML report is missing chart {name}")
+
+    replacements = []
+    for name in names:
+        if name in target_rows:
+            replacements.append((target_rows[name].span(), normalize_row(source_rows[name].group())))
+    for span, replacement in sorted(replacements, reverse=True):
+        target_html = target_html[:span[0]] + replacement + target_html[span[1]:]
+
+    new_names = [name for name in names if name not in target_rows]
+    if new_names:
+        table_start = target_html.find('<table id="resultTable"')
+        table_end = target_html.find("</table>", table_start)
+        if table_start < 0 or table_end < 0:
+            fail("HTML report has no SMART result table")
+        rows = "\n".join(normalize_row(source_rows[name].group()) for name in new_names)
+        target_html = target_html[:table_end] + rows + "\n" + target_html[table_end:]
+
+    target_blocks = chart_blocks(target_html)
+    replacements = []
+    for name in names:
+        if name in target_blocks:
+            replacements.append((target_blocks[name].span("block"), source_blocks[name].group("block")))
+    for span, replacement in sorted(replacements, reverse=True):
+        target_html = target_html[:span[0]] + replacement + target_html[span[1]:]
+
+    if new_names:
+        target_ids = set(chart_ids(target_html))
+        next_id = max(map(int, target_ids), default=0) + 1
+        for name in new_names:
+            chart_id = source_blocks[name].group("id")
+            if chart_id in target_ids:
+                replacement = str(next_id)
+                source_html = re.sub(rf"(loadChart|cvs){chart_id}\\b", rf"\\g<1>{replacement}", source_html)
+                next_id += 1
+                source_blocks = chart_blocks(source_html)
+                chart_id = replacement
+            target_ids.add(chart_id)
+        chart_end = target_html.find("<script>window.onload")
+        if chart_end < 0:
+            fail("HTML report is missing the chart loader")
+        charts = "\n".join(source_blocks[name].group("block") for name in new_names)
+        target_html = target_html[:chart_end] + charts + "\n" + target_html[chart_end:]
+        loaders = "".join(f"loadChart{source_blocks[name].group('id')}();\n" for name in new_names)
+        target_html = target_html.replace("multiChart2(); multiChart3();", loaders + "multiChart2(); multiChart3();", 1)
+    return replace_chart_data(target_html, source_html, names, source_blocks, target_blocks)
+
+
+def merge_text(target_text, source_text, names):
+    source_rows = {line.split()[0]: line for line in source_text.splitlines() if line.split()}
+    output = []
+    found = set()
+    for line in target_text.splitlines():
+        fields = line.split()
+        if fields and fields[0] in names:
+            output.append(source_rows[fields[0]])
+            found.add(fields[0])
+        else:
+            output.append(line)
+    for name in names:
+        if name not in found:
+            output.append(source_rows[name])
+    return "\n".join(output) + "\n"
+
+
+def main(argv):
+    if len(argv) < 3:
+        fail("usage: smart_merge RESULT_DIR SOURCE_DIR [SOURCE_DIR ...]")
+    target_dir = Path(argv[1])
+    source_dirs = [Path(value) for value in argv[2:]]
+    if not target_dir.is_dir() or not target_dir.name.startswith("EXP"):
+        fail("RESULT_DIR must be an existing EXPxxxxxx directory")
+    target_xml = xml_signature(target_dir)
+
+    for source_dir in source_dirs:
+        if not source_dir.is_dir() or not source_dir.name.startswith("EXP"):
+            fail(f"{source_dir} must be an existing EXPxxxxxx directory")
+        source_xml = xml_signature(source_dir)
+        if set(source_xml) != set(target_xml):
+            fail(f"{source_dir} has a different set of result files")
+
+        updates = {}
+        for filename, target in target_xml.items():
+            source = source_xml[filename]
+            _, target_text, target_algos, _ = target
+            _, source_text, source_algos, _ = source
+            if target_text != source_text:
+                fail(f"{source_dir}/{filename} is for a different text")
+            names = tuple(source_algos)
+            txt_name = Path(filename).with_suffix(".txt").name
+            html_name = Path(filename).with_suffix(".html").name
+            for name in (txt_name, html_name):
+                if not (target_dir / name).is_file() or not (source_dir / name).is_file():
+                    fail(f"missing companion report {name}")
+            updates[target_dir / filename] = merge_xml(target, source)
+            updates[target_dir / txt_name] = merge_text(
+                (target_dir / txt_name).read_text(encoding="latin-1"),
+                (source_dir / txt_name).read_text(encoding="latin-1"),
+                names,
+            )
+            updates[target_dir / html_name] = merge_html(
+                (target_dir / html_name).read_text(encoding="latin-1"),
+                (source_dir / html_name).read_text(encoding="latin-1"),
+                names,
+            )
+
+        for path, content in updates.items():
+            path.write_text(content, encoding="latin-1")
+        target_xml = xml_signature(target_dir)
+
+
+if __name__ == "__main__":
+    main(sys.argv)

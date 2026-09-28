@@ -750,9 +750,9 @@
             //
             // 19th Dec 2010 - removed for Opera since it can be reported incorrectly whn there
             // are multiple graphs on the page
-            if (prop['chart.xaxispos'] == 'bottom' && this.hasnegativevalues && !RG.ISOPERA) {
-                alert('[LINE] You have negative values and the X axis is at the bottom. This is not good...');
-            }
+            //if (prop['chart.xaxispos'] == 'bottom' && this.hasnegativevalues && !RG.ISOPERA) {
+            //    alert('[LINE] You have negative values and the X axis is at the bottom. This is not good...');
+            //}
     
             if (prop['chart.variant'] == '3d') {
                 RG.Draw3DAxes(this);
